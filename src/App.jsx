@@ -1,11 +1,14 @@
 import './App.css';
 import React from 'react';
-import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import database from './components/Firebase/Firebase';
+import { database, auth } from './components/Firebase/Firebase';
+import LoginScreen from './components/LoginScreen/LoginScreen';
+import Start from './components/Start/Start';
 
 function App() {
-  return <div className="App" />;
+  const [user] = useAuthState(auth);
+
+  return <div className="App">{user ? <Start /> : <LoginScreen />}</div>;
 }
 
 export default App;
