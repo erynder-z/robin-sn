@@ -8,7 +8,7 @@ import Home from '../Home/Home';
 import Sidebar from '../Sidebar/Sidebar';
 import ContextBar from '../ContextBar/ContextBar';
 
-function Start({ user }) {
+function Main({ user }) {
   const [isUserSetup, setIsUserSetup] = useState(false);
   const { uid } = user;
 
@@ -52,9 +52,9 @@ function Start({ user }) {
   );
 }
 
-export default Start;
+export default Main;
 
-Start.propTypes = {
+Main.propTypes = {
   user: PropTypes.shape({
     uid: PropTypes.string.isRequired
   }).isRequired
