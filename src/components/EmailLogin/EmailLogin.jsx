@@ -22,7 +22,7 @@ function EmailLogin() {
 
   const loginEmailPassword = async (email, password) => {
     try {
-      const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+      /* const userCredentials = */ await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.log(error);
       showLoginError(error);
@@ -31,7 +31,7 @@ function EmailLogin() {
 
   const createAccount = async (email, password) => {
     try {
-      const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+      /* const userCredentials =  */ await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.log(error);
       showLoginError(error);
@@ -39,11 +39,15 @@ function EmailLogin() {
   };
 
   const handleSubmitLogin = () => {
-    loginEmailPassword(emailFormValue, passwordFormValue);
+    if (emailFormValue !== '' && passwordFormValue !== '') {
+      loginEmailPassword(emailFormValue, passwordFormValue);
+    }
   };
 
   const handleSubmitCreateAccount = () => {
-    createAccount(emailFormValue, passwordFormValue);
+    if (emailFormValue !== '' && passwordFormValue.length !== '') {
+      createAccount(emailFormValue, passwordFormValue);
+    }
   };
 
   return (
@@ -51,7 +55,7 @@ function EmailLogin() {
       <form>
         <div className="input-container">
           <label htmlFor="uname">
-            Username
+            Email
             <input
               type="text"
               placeholder="enter email"
