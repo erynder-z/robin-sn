@@ -1,0 +1,67 @@
+.create-user-account {
+  width: 33vw;
+  height: 66vh;
+  background-color: cornflowerblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.create-user-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: darkorange;
+}
+
+.create-user-container img {
+  width: 35%;
+  height: auto;
+}
+
+.create-user-container form {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.custom-file-upload-label {
+  background-color: tomato;
+  color: whitesmoke;
+  width: 35%;
+  height: 2.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+}
+
+input[type='file'] {
+  display: none;
+}
+
+.description-input {
+  height: 10rem;
+}
+
+.createBtn {
+  height: 5vh;
+  width: 100%;
+  background-color: rgb(43, 226, 52);
+  color: black;
+  border: none;
+}
+
+.createBtn:hover {
+  background-color: rgb(111, 242, 118);
+}
