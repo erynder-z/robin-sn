@@ -57,7 +57,7 @@ function CreateUserAccount({ user }) {
   useEffect(() => {
     if (isFinished) {
       uploadUser();
-      navigate('/home');
+      navigate('/main');
     }
   }, [isFinished]);
 
