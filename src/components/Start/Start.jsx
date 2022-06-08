@@ -1,38 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import { query, collection, getDocs } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
 import './Start.css';
 import CreateUserAccount from '../CreateUserAccount/CreateUserAccount';
 import Home from '../Home/Home';
 
-function Start({ auth }) {
+function Start({ user }) {
   const [isUserSetup, setIsUserSetup] = useState(false);
-  const { uid } = auth.currentuser.uid;
+  const { uid, displayName } = user;
 
   const checkUserSetup = async () => {
-    const checkIsSetup = (currentUser) => {
-      if (currentUser.isUserSetup) {
+    const checkIsSetup = (currentUserFromDB) => {
+      if (currentUserFromDB.isSetup) {
         setIsUserSetup(true);
       }
     };
 
     const getUserInfo = async () => {
-      const userRef = collection(database, 'users', uid);
-      const q = query(userRef);
-      const querySnapshot = await getDocs(q);
-      return querySnapshot.docs.map((document) => document.data());
+      const userRef = doc(database, 'users', uid);
+      const docSnap = await getDoc(userRef);
+
+      if (!docSnap.exists()) {
+        console.log('User not found!');
+      }
+      return docSnap.data();
     };
 
-    const currentUser = await getUserInfo();
-
-    return checkIsSetup(currentUser);
+    const currentUserFromDB = await getUserInfo();
+    return checkIsSetup(currentUserFromDB.userObject);
   };
 
   useEffect(() => {
     checkUserSetup();
   }, []);
 
-  return <div className="start-container">{isUserSetup ? <Home /> : <CreateUserAccount />}</div>;
+  return (
+    <div className="start-container">
+      {isUserSetup ? <Home user={user} /> : <CreateUserAccount user={user} />}
+    </div>
+  );
 }
 
 export default Start;
