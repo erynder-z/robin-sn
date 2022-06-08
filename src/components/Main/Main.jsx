@@ -45,7 +45,9 @@ function Start({ user }) {
 
   return (
     <div className="main-container">
+      {isUserSetup && <Sidebar />}
       {isUserSetup ? <Home user={user} /> : <CreateUserAccount user={user} />}
+      {isUserSetup && <ContextBar />}
     </div>
   );
 }
