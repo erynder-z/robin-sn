@@ -41,7 +41,7 @@ function Main({ user }) {
 
   useEffect(() => {
     checkUserSetup();
-  }, []);
+  });
 
   return (
     <div className="main-container">
