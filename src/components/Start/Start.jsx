@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { doc, getDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
 import './Start.css';
@@ -7,7 +8,7 @@ import Home from '../Home/Home';
 
 function Start({ user }) {
   const [isUserSetup, setIsUserSetup] = useState(false);
-  const { uid, displayName } = user;
+  const { uid } = user;
 
   const checkUserSetup = async () => {
     const checkIsSetup = (currentUserFromDB) => {
@@ -27,7 +28,13 @@ function Start({ user }) {
     };
 
     const currentUserFromDB = await getUserInfo();
-    return checkIsSetup(currentUserFromDB.userObject);
+
+    if (currentUserFromDB) {
+      return checkIsSetup(currentUserFromDB.userObject);
+    }
+    return null;
+
+    /* return checkIsSetup(currentUserFromDB.userObject); */
   };
 
   useEffect(() => {
@@ -42,3 +49,9 @@ function Start({ user }) {
 }
 
 export default Start;
+
+Start.propTypes = {
+  user: PropTypes.shape({
+    uid: PropTypes.string.isRequired
+  }).isRequired
+};
