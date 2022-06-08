@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { doc, getDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
-import './Start.css';
+import './Main.css';
 import CreateUserAccount from '../CreateUserAccount/CreateUserAccount';
 import Home from '../Home/Home';
+import Sidebar from '../Sidebar/Sidebar';
+import ContextBar from '../ContextBar/ContextBar';
 
 function Start({ user }) {
   const [isUserSetup, setIsUserSetup] = useState(false);
@@ -42,7 +44,7 @@ function Start({ user }) {
   }, []);
 
   return (
-    <div className="start-container">
+    <div className="main-container">
       {isUserSetup ? <Home user={user} /> : <CreateUserAccount user={user} />}
     </div>
   );
