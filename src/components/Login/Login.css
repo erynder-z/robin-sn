@@ -1,3 +1,23 @@
+.signin-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: aqua;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  background-color: aquamarine;
+  height: 50vh;
+  min-width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1.5rem;
+}
+
 .signin-email {
   display: flex;
   flex-direction: column;
@@ -5,7 +25,7 @@
   align-items: center;
 }
 
-input[type='text'],
+input[type='email'],
 input[type='password'] {
   height: 2rem;
   padding: 0 0.5rem;

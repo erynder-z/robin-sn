@@ -1,10 +1,10 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import LoginScreen from './LoginScreen';
+import Login from './Login';
 
 describe('LoginScreen component', () => {
   it('displays eror message when tryling to login with non-valid credentials', async () => {
-    render(<LoginScreen />);
+    render(<Login />);
 
     const button = screen.getByRole('button', { name: 'Login' });
 
