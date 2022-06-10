@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './CreateUserAccount.css';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import resizeFile from '../../helpers/ImageResizer/ImageResizer';
 import { database } from '../Firebase/Firebase';
@@ -17,7 +17,7 @@ function CreateUserAccount({ user }) {
     description: '',
     userPic: placeholder,
     useremail: email,
-    joined: new Date(),
+    joined: serverTimestamp(),
     numberOfTweets: 0,
     followers: [],
     following: [],
