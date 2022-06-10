@@ -7,9 +7,9 @@ import resizeFile from '../../helpers/ImageResizer/ImageResizer';
 import { database } from '../Firebase/Firebase';
 import placeholder from '../../assets/placeholder.png';
 
-function CreateUserAccount({ user }) {
+function CreateUserAccount({ userCredentials }) {
   const navigate = useNavigate();
-  const { uid, email } = user;
+  const { uid, email } = userCredentials;
   const [isFinished, setIsFinished] = useState(false);
   const [userObject, setUserObject] = useState({
     isSetup: false,
@@ -131,7 +131,7 @@ function CreateUserAccount({ user }) {
 export default CreateUserAccount;
 
 CreateUserAccount.propTypes = {
-  user: PropTypes.shape({
+  userCredentials: PropTypes.shape({
     uid: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired
   }).isRequired

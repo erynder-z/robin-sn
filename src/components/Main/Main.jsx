@@ -11,8 +11,8 @@ import ContextBar from '../ContextBar/ContextBar';
 import FloatingMenu from '../FloatingMenu/FloatingMenu';
 import NewPostModal from '../NewPostModal/NewPostModal';
 
-function Main({ user }) {
-  const { uid } = user;
+function Main({ userCredentials }) {
+  const { uid } = userCredentials;
   const [usr] = useDocumentData(doc(database, 'users', uid));
   const [showNewPostModal, setShowNewPostModal] = useState(false);
   const [isUserSetup, setIsUserSetup] = useState(false);
@@ -38,10 +38,12 @@ function Main({ user }) {
   return (
     <div className="main-container">
       {isUserSetup && <Sidebar userData={userData} />}
-      {isUserSetup ? <Home /> : <CreateUserAccount user={user} />}
+      {isUserSetup ? <Home /> : <CreateUserAccount userCredentials={userCredentials} />}
       {isUserSetup && <ContextBar />}
       {isUserSetup && <FloatingMenu toggleModal={toggleModal} />}
-      {isUserSetup && showNewPostModal && <NewPostModal toggleModal={toggleModal} />}
+      {isUserSetup && showNewPostModal && (
+        <NewPostModal toggleModal={toggleModal} userCredentials={userCredentials} />
+      )}
     </div>
   );
 }
@@ -49,7 +51,7 @@ function Main({ user }) {
 export default Main;
 
 Main.propTypes = {
-  user: PropTypes.shape({
+  userCredentials: PropTypes.shape({
     uid: PropTypes.string.isRequired
   }).isRequired
 };

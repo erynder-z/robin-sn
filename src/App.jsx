@@ -9,7 +9,7 @@ import CreateUserAccount from './components/CreateUserAccount/CreateUserAccount'
 import Home from './components/Home/Home';
 
 function App() {
-  const [user] = useAuthState(auth);
+  const [userCredentials] = useAuthState(auth);
 
   /*   const logout = async () => {
     await signOut(auth);
@@ -18,12 +18,39 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/main" element={!user ? <Navigate replace to="/" /> : <Main user={user} />} />
-        <Route path="/" element={!user || !user === '' ? <Login /> : <Main user={user} />} />
-        <Route path="/home" element={!user ? <Navigate replace to="/" /> : <Home user={user} />} />
+        <Route
+          path="/main"
+          element={
+            !userCredentials ? (
+              <Navigate replace to="/" />
+            ) : (
+              <Main userCredentials={userCredentials} />
+            )
+          }
+        />
+        <Route
+          path="/"
+          element={!userCredentials ? <Login /> : <Main userCredentials={userCredentials} />}
+        />
+        <Route
+          path="/home"
+          element={
+            !userCredentials ? (
+              <Navigate replace to="/" />
+            ) : (
+              <Home userCredentials={userCredentials} />
+            )
+          }
+        />
         <Route
           path="/createaccount"
-          element={!user ? <Navigate replace to="/" /> : <CreateUserAccount user={user} />}
+          element={
+            !userCredentials ? (
+              <Navigate replace to="/" />
+            ) : (
+              <CreateUserAccount userCredentials={userCredentials} />
+            )
+          }
         />
       </Routes>
     </div>
