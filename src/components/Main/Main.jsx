@@ -16,6 +16,7 @@ function Main({ user }) {
   const [usr] = useDocumentData(doc(database, 'users', uid));
   const [showNewPostModal, setShowNewPostModal] = useState(false);
   const [isUserSetup, setIsUserSetup] = useState(false);
+  const [userData, setUserData] = useState({});
 
   const toggleModal = () => {
     setShowNewPostModal(!showNewPostModal);
@@ -30,12 +31,13 @@ function Main({ user }) {
   useEffect(() => {
     if (usr) {
       checkUserSetup();
+      setUserData(usr.userObject);
     }
   }, [usr]);
 
   return (
     <div className="main-container">
-      {isUserSetup && <Sidebar />}
+      {isUserSetup && <Sidebar userData={userData} />}
       {isUserSetup ? <Home /> : <CreateUserAccount user={user} />}
       {isUserSetup && <ContextBar />}
       {isUserSetup && <FloatingMenu toggleModal={toggleModal} />}
