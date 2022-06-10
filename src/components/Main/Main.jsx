@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { doc } from 'firebase/firestore';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
+import { Route, Routes } from 'react-router-dom';
 import { database } from '../Firebase/Firebase';
 import './Main.css';
 import CreateUserAccount from '../CreateUserAccount/CreateUserAccount';
@@ -10,6 +11,7 @@ import Sidebar from '../Sidebar/Sidebar';
 import ContextBar from '../ContextBar/ContextBar';
 import FloatingMenu from '../FloatingMenu/FloatingMenu';
 import NewPostModal from '../NewPostModal/NewPostModal';
+import Profile from '../Profile/Profile';
 
 function Main({ userCredentials }) {
   const { uid } = userCredentials;
@@ -38,7 +40,20 @@ function Main({ userCredentials }) {
   return (
     <div className="main-container">
       {isUserSetup && <Sidebar userData={userData} />}
-      {isUserSetup ? <Home /> : <CreateUserAccount userCredentials={userCredentials} />}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            isUserSetup ? (
+              <Home userCredentials={userCredentials} />
+            ) : (
+              <CreateUserAccount userCredentials={userCredentials} />
+            )
+          }
+        />
+        <Route path="home" element={<Home userCredentials={userCredentials} />} />
+        <Route path="profile" element={<Profile userCredentials={userCredentials} />} />
+      </Routes>
       {isUserSetup && <ContextBar />}
       {isUserSetup && <FloatingMenu toggleModal={toggleModal} />}
       {isUserSetup && showNewPostModal && (

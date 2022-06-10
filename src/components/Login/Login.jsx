@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   AuthErrorCodes,
   signInWithEmailAndPassword
 } from 'firebase/auth';
@@ -13,6 +13,8 @@ function Login() {
   const [emailFormValue, setEmailFormValue] = useState('');
   const [passwordFormValue, setPasswordFormValue] = useState('');
   const [loginError, setLoginError] = useState('');
+  const navigate = useNavigate();
+  const user = auth.currentUser;
 
   const showLoginError = (error) => {
     if (error.code === AuthErrorCodes.INVALID_PASSWORD) {
@@ -25,11 +27,7 @@ function Login() {
   const register = async () => {
     if (emailFormValue !== '' && passwordFormValue !== '') {
       try {
-        /*  const usr =  */ await createUserWithEmailAndPassword(
-          auth,
-          emailFormValue,
-          passwordFormValue
-        );
+        await createUserWithEmailAndPassword(auth, emailFormValue, passwordFormValue);
       } catch (error) {
         console.log(error.message);
         showLoginError(error);
@@ -41,12 +39,18 @@ function Login() {
 
   const login = async () => {
     try {
-      /* const usr =  */ await signInWithEmailAndPassword(auth, emailFormValue, passwordFormValue);
+      await signInWithEmailAndPassword(auth, emailFormValue, passwordFormValue);
     } catch (error) {
       console.log(error.message);
       showLoginError(error);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/main');
+    }
+  }, [user]);
 
   return (
     <div className="signin-container">
