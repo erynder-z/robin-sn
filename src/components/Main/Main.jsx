@@ -1,53 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc } from 'firebase/firestore';
+import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { database } from '../Firebase/Firebase';
 import './Main.css';
 import CreateUserAccount from '../CreateUserAccount/CreateUserAccount';
 import Home from '../Home/Home';
 import Sidebar from '../Sidebar/Sidebar';
 import ContextBar from '../ContextBar/ContextBar';
+import FloatingMenu from '../FloatingMenu/FloatingMenu';
+import NewPostModal from '../NewPostModal/NewPostModal';
 
 function Main({ user }) {
-  const [isUserSetup, setIsUserSetup] = useState(false);
   const { uid } = user;
+  const [usr] = useDocumentData(doc(database, 'users', uid));
+  const [showNewPostModal, setShowNewPostModal] = useState(false);
+  const [isUserSetup, setIsUserSetup] = useState(false);
 
-  const checkUserSetup = async () => {
-    const checkIsSetup = (currentUserFromDB) => {
-      if (currentUserFromDB.isSetup) {
-        setIsUserSetup(true);
-      }
-    };
+  const toggleModal = () => {
+    setShowNewPostModal(!showNewPostModal);
+  };
 
-    const getUserInfo = async () => {
-      const userRef = doc(database, 'users', uid);
-      const docSnap = await getDoc(userRef);
-
-      if (!docSnap.exists()) {
-        console.log('User not found!');
-      }
-      return docSnap.data();
-    };
-
-    const currentUserFromDB = await getUserInfo();
-
-    if (currentUserFromDB) {
-      return checkIsSetup(currentUserFromDB.userObject);
+  const checkUserSetup = () => {
+    if (usr.userObject.isSetup) {
+      setIsUserSetup(true);
     }
-    return null;
-
-    /* return checkIsSetup(currentUserFromDB.userObject); */
   };
 
   useEffect(() => {
-    checkUserSetup();
-  });
+    if (usr) {
+      checkUserSetup();
+    }
+  }, [usr]);
 
   return (
     <div className="main-container">
       {isUserSetup && <Sidebar />}
-      {isUserSetup ? <Home user={user} /> : <CreateUserAccount user={user} />}
+      {isUserSetup ? <Home /> : <CreateUserAccount user={user} />}
       {isUserSetup && <ContextBar />}
+      {isUserSetup && <FloatingMenu toggleModal={toggleModal} />}
+      {isUserSetup && showNewPostModal && <NewPostModal toggleModal={toggleModal} />}
     </div>
   );
 }
