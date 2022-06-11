@@ -25,7 +25,7 @@ function Main({ userCredentials }) {
   };
 
   const checkUserSetup = () => {
-    if (usr.userObject.isSetup) {
+    if (usr.isSetup) {
       setIsUserSetup(true);
     }
   };
@@ -33,7 +33,7 @@ function Main({ userCredentials }) {
   useEffect(() => {
     if (usr) {
       checkUserSetup();
-      setUserData(usr.userObject);
+      setUserData(usr);
     }
   }, [usr]);
 
@@ -45,12 +45,13 @@ function Main({ userCredentials }) {
           path="/"
           element={
             isUserSetup ? (
-              <Home userCredentials={userCredentials} />
+              <Home userData={userData} />
             ) : (
               <CreateUserAccount userCredentials={userCredentials} />
             )
           }
         />
+        {/* make nested route so UI elements like the sidebar don't have to be re-rendered on component change.  */}
         <Route path="home" element={<Home userCredentials={userCredentials} />} />
         <Route path="profile" element={<Profile userCredentials={userCredentials} />} />
       </Routes>

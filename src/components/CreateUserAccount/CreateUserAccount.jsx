@@ -18,10 +18,10 @@ function CreateUserAccount({ userCredentials }) {
     userPic: placeholder,
     useremail: email,
     joined: serverTimestamp(),
-    numberOfTweets: 0,
+    numberOfPosts: 0,
     followers: [],
     following: [],
-    tweets: [],
+    posts: [],
     replies: [],
     bookmarks: []
   });
@@ -50,7 +50,18 @@ function CreateUserAccount({ userCredentials }) {
 
   const uploadUser = async () => {
     await setDoc(doc(database, 'users', uid), {
-      userObject
+      isSetup: userObject.isSetup,
+      username: userObject.username,
+      description: userObject.description,
+      userPic: userObject.userPic,
+      useremail: userObject.useremail,
+      joined: userObject.joined,
+      numberOfPosts: userObject.numberOfPosts,
+      followers: userObject.followers,
+      following: userObject.following,
+      posts: userObject.posts,
+      replies: userObject.replies,
+      bookmarks: userObject.bookmarks
     });
   };
 
