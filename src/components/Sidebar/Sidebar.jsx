@@ -11,6 +11,7 @@ import {
   BiUserCircle
 } from 'react-icons/bi';
 import { signOut } from 'firebase/auth';
+import { Link } from 'react-router-dom';
 import { auth } from '../Firebase/Firebase';
 import UserInfo from '../UserInfo/UserInfo';
 
@@ -22,10 +23,12 @@ function Sidebar({ userData }) {
   return (
     <div className="sidebar">
       <ul>
-        <li className="sidebar-item">
-          <BiHomeAlt size="2rem" />
-          <span>Home</span>
-        </li>
+        <Link to="/main/home">
+          <li className="sidebar-item">
+            <BiHomeAlt size="2rem" />
+            <span>Home</span>
+          </li>
+        </Link>
         <li className="sidebar-item">
           <BiHash size="2rem" />
           <span>Explore</span>
@@ -45,11 +48,13 @@ function Sidebar({ userData }) {
         <li className="sidebar-item">
           <BiListUl size="2rem" />
           <span>Lists</span>
-        </li>
-        <li className="sidebar-item">
-          <BiUserCircle size="2rem" />
-          <span>Profile</span>
-        </li>
+        </li>{' '}
+        <Link to="/main/profile">
+          <li className="sidebar-item">
+            <BiUserCircle size="2rem" />
+            <span>Profile</span>
+          </li>
+        </Link>
         <UserInfo logout={logout} userData={userData} />
       </ul>
     </div>
@@ -66,10 +71,10 @@ Sidebar.propTypes = {
     userPic: PropTypes.string.isRequired,
     useremail: PropTypes.string.isRequired,
     joined: PropTypes.objectOf(PropTypes.number).isRequired,
-    numberOfTweets: PropTypes.number.isRequired,
+    numberOfPosts: PropTypes.number.isRequired,
     followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    tweets: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+    posts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     replies: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     bookmarks: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired
   }).isRequired
