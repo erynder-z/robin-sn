@@ -52,10 +52,10 @@ function Main({ userCredentials }) {
           }
         />
         {/* make nested route so UI elements like the sidebar don't have to be re-rendered on component change.  */}
-        <Route path="home" element={<Home userCredentials={userCredentials} />} />
-        <Route path="profile" element={<Profile userCredentials={userCredentials} />} />
+        <Route path="home" element={isUserSetup ? <Home userData={userData} /> : null} />
+        <Route path="profile" element={isUserSetup ? <Profile userData={userData} /> : null} />
       </Routes>
-      {isUserSetup && <ContextBar />}
+      {isUserSetup && <ContextBar userCredentials={userCredentials} />}
       {isUserSetup && <FloatingMenu toggleModal={toggleModal} />}
       {isUserSetup && showNewPostModal && (
         <NewPostModal toggleModal={toggleModal} userCredentials={userCredentials} />
