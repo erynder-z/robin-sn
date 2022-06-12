@@ -12,7 +12,7 @@ function Profile({ userData }) {
   const Posts = (
     <div className="posts">
       {posts.map((post) => (
-        <PostItem key={post.postID} postID={post.postID} />
+        <PostItem key={post.postID} postID={post.postID} userID={userData.userID} />
       ))}
     </div>
   );
