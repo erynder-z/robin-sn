@@ -21,23 +21,22 @@ function NewPostModal({ userCredentials, toggleModal }) {
     const postID = uniqid();
     await setDoc(doc(database, 'posts', postID), {
       created: serverTimestamp(),
+      postID,
       ownerID: uid,
       content: text,
       hasHashtag: false,
       hashtags: [],
-      reposts: {
-        numberOfReposts: 0,
-        repostedUsers: []
-      },
-      likes: {
-        numberOfLikes: 0,
-        likedUsers: []
-      },
-      replies: {
-        replyContent: '',
-        repliedUserID: '',
-        repliedUserName: ''
-      }
+      reposts: [
+        /* {repostedUserID: ""} */
+      ],
+
+      likes: [
+        /* {likedUserID: ""} */
+      ],
+
+      replies: [
+        /* { replyContent: '', repliedUserID: '', replyDate: '' } */
+      ]
     });
 
     addPostToUserObject(postID);
