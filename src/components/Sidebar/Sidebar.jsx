@@ -65,6 +65,7 @@ export default Sidebar;
 
 Sidebar.propTypes = {
   userData: PropTypes.shape({
+    userID: PropTypes.string.isRequired,
     isSetup: PropTypes.bool.isRequired,
     username: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,

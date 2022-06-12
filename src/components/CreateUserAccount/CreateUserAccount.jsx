@@ -12,6 +12,7 @@ function CreateUserAccount({ userCredentials }) {
   const { uid, email } = userCredentials;
   const [isFinished, setIsFinished] = useState(false);
   const [userObject, setUserObject] = useState({
+    userID: uid,
     isSetup: false,
     username: '',
     description: '',
@@ -50,6 +51,7 @@ function CreateUserAccount({ userCredentials }) {
 
   const uploadUser = async () => {
     await setDoc(doc(database, 'users', uid), {
+      userID: userObject.userID,
       isSetup: userObject.isSetup,
       username: userObject.username,
       description: userObject.description,
