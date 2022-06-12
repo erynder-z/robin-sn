@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import './PostItem.css';
 import { BiMessageRounded, BiRepost, BiLike } from 'react-icons/bi';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
-import { doc, getDoc } from 'firebase/firestore';
+import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { format, fromUnixTime } from 'date-fns';
 import { database } from '../Firebase/Firebase';
 
-function PostItem({ postID }) {
+function PostItem({ postID, userID }) {
   const [post] = useDocumentData(doc(database, 'posts', postID));
   const [ownerID, setOwnerID] = useState('');
   const [postOwner, setPostOwner] = useState('');
@@ -34,6 +34,14 @@ function PostItem({ postID }) {
     setPostOwner(docSnap.data().username);
   };
 
+  const like = async () => {
+    const docRef = doc(database, 'posts', postID);
+
+    await updateDoc(docRef, {
+      likes: arrayUnion({ userID })
+    });
+  };
+
   useEffect(() => {
     if (post) {
       getOwner();
@@ -56,15 +64,24 @@ function PostItem({ postID }) {
         <div className="post-options">
           <div className="optionItem">
             <BiMessageRounded size="1.5rem" />
-            {post.replies.replies.length}
+            {post.replies.length}
           </div>
           <div className="optionItem">
             <BiRepost size="1.5rem" />
-            {post.reposts.repostedUsers.length}
+            {post.reposts.length}
           </div>
-          <div className="optionItem">
+          <div
+            className="optionItem"
+            role="button"
+            tabIndex={0}
+            onClick={() => {
+              like();
+            }}
+            onKeyDown={() => {
+              like();
+            }}>
             <BiLike size="1.5rem" />
-            {post.likes.likedUsers.length}
+            {post.likes.length}
           </div>
         </div>
       </div>
@@ -75,5 +92,6 @@ function PostItem({ postID }) {
 export default PostItem;
 
 PostItem.propTypes = {
-  postID: PropTypes.string.isRequired
+  postID: PropTypes.string.isRequired,
+  userID: PropTypes.string.isRequired
 };
