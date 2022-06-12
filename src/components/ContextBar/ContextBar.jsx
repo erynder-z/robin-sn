@@ -1,20 +1,22 @@
-import { collection, getDocs } from 'firebase/firestore';
+import { arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore';
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { database } from '../Firebase/Firebase';
 import './ContextBar.css';
 
-function ContextBar() {
+function ContextBar({ userCredentials }) {
+  const { uid } = userCredentials;
   const [userList, setUserList] = useState([]);
 
   const getSomeUsers = async () => {
     const querySnapshot = await getDocs(collection(database, 'users'));
 
     const list = [];
-    querySnapshot.forEach((doc) => {
+    querySnapshot.forEach((document) => {
       list.push({
-        userID: doc.data().userID,
-        username: doc.data().username,
-        userPic: doc.data().userPic
+        userID: document.data().userID,
+        username: document.data().username,
+        userPic: document.data().userPic
       });
       setUserList(list);
     });
@@ -24,11 +26,34 @@ function ContextBar() {
     getSomeUsers();
   }, []);
 
+  const follow = async (followUserID) => {
+    const userToFollowRef = doc(database, 'users', followUserID);
+    const userThatFollowsRef = doc(database, 'users', uid);
+
+    await updateDoc(userToFollowRef, {
+      followers: arrayUnion({ userID: uid })
+    });
+    await updateDoc(userThatFollowsRef, {
+      following: arrayUnion({ userID: followUserID })
+    });
+  };
+
   const userItem = (usr) => (
     <div className="userlist-item" key={usr.userID}>
       <img className="userlist-usrpic" src={usr.userPic} alt="user avatar" />
       <div className="userlist-username">@{usr.username}</div>
-      <div className="userlist-follow">follow</div>
+      <div
+        className="userlist-follow"
+        role="button"
+        tabIndex={0}
+        onClick={() => {
+          follow(usr.userID);
+        }}
+        onKeyDown={() => {
+          follow(usr.userID);
+        }}>
+        follow
+      </div>
     </div>
   );
 
@@ -40,3 +65,9 @@ function ContextBar() {
 }
 
 export default ContextBar;
+
+ContextBar.propTypes = {
+  userCredentials: PropTypes.shape({
+    uid: PropTypes.string.isRequired
+  }).isRequired
+};
