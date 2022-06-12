@@ -13,12 +13,14 @@ function PostItem({ postID, userID }) {
   const [postOwner, setPostOwner] = useState('');
   const [postDate, setPostDate] = useState('');
 
+  // get the ownerID of the post so it can be used to retrieve the username of the post owner
   const getOwnerID = () => {
     if (post) {
       setOwnerID(post.ownerID);
     }
   };
 
+  // make date human-readable
   const getPostDate = () => {
     if (post) {
       const postDateFormatted = format(fromUnixTime(post.created.seconds), 'PPP');
