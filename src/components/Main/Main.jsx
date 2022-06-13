@@ -55,7 +55,7 @@ function Main({ userCredentials }) {
         <Route path="home" element={isUserSetup ? <Home userData={userData} /> : null} />
         <Route path="profile" element={isUserSetup ? <Profile userData={userData} /> : null} />
       </Routes>
-      {isUserSetup && <ContextBar userCredentials={userCredentials} />}
+      {isUserSetup && <ContextBar userData={userData} />}
       {isUserSetup && <FloatingMenu toggleModal={toggleModal} />}
       {isUserSetup && showNewPostModal && (
         <NewPostModal toggleModal={toggleModal} userCredentials={userCredentials} />
