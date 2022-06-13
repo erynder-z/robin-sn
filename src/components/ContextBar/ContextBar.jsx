@@ -1,11 +1,11 @@
-import { arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { database } from '../Firebase/Firebase';
 import './ContextBar.css';
 
 function ContextBar({ userData }) {
-  const { userID } = userData;
+  const { userID, following } = userData;
   const [userList, setUserList] = useState([]);
 
   const getSomeUsers = async () => {
@@ -35,7 +35,7 @@ function ContextBar({ userData }) {
 
   useEffect(() => {
     getSomeUsers();
-  }, []);
+  }, [following]);
 
   const follow = async (followUserID) => {
     const userToFollowRef = doc(database, 'users', followUserID);
@@ -46,6 +46,18 @@ function ContextBar({ userData }) {
     });
     await updateDoc(userThatFollowsRef, {
       following: arrayUnion({ userID: followUserID })
+    });
+  };
+
+  const unFollow = async (followUserID) => {
+    const userToFollowRef = doc(database, 'users', followUserID);
+    const userThatFollowsRef = doc(database, 'users', userID);
+
+    await updateDoc(userToFollowRef, {
+      followers: arrayRemove({ userID })
+    });
+    await updateDoc(userThatFollowsRef, {
+      following: arrayRemove({ userID: followUserID })
     });
   };
 
@@ -65,6 +77,20 @@ function ContextBar({ userData }) {
             follow(usr.userID);
           }}>
           follow
+        </div>
+      )}
+      {usr.following && (
+        <div
+          className="userlist-unfollow"
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            unFollow(usr.userID);
+          }}
+          onKeyDown={() => {
+            unFollow(usr.userID);
+          }}>
+          unfollow
         </div>
       )}
     </div>
