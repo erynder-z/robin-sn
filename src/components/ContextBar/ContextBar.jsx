@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { database } from '../Firebase/Firebase';
 import './ContextBar.css';
 
-function ContextBar({ userCredentials }) {
-  const { uid } = userCredentials;
+function ContextBar({ userData }) {
+  const { userID } = userData;
   const [userList, setUserList] = useState([]);
 
   const getSomeUsers = async () => {
@@ -13,10 +13,21 @@ function ContextBar({ userCredentials }) {
 
     const list = [];
     querySnapshot.forEach((document) => {
+      // check if we are already following that user
+      const checkIfAlreadyFollowing = (usr, followUsr) => {
+        const followingList = usr.following;
+
+        if (followingList.some((e) => e.userID === followUsr)) {
+          return true;
+        }
+        return false;
+      };
+
       list.push({
         userID: document.data().userID,
         username: document.data().username,
-        userPic: document.data().userPic
+        userPic: document.data().userPic,
+        following: checkIfAlreadyFollowing(userData, document.data().userID)
       });
       setUserList(list);
     });
@@ -28,10 +39,10 @@ function ContextBar({ userCredentials }) {
 
   const follow = async (followUserID) => {
     const userToFollowRef = doc(database, 'users', followUserID);
-    const userThatFollowsRef = doc(database, 'users', uid);
+    const userThatFollowsRef = doc(database, 'users', userID);
 
     await updateDoc(userToFollowRef, {
-      followers: arrayUnion({ userID: uid })
+      followers: arrayUnion({ userID })
     });
     await updateDoc(userThatFollowsRef, {
       following: arrayUnion({ userID: followUserID })
@@ -42,18 +53,20 @@ function ContextBar({ userCredentials }) {
     <div className="userlist-item" key={usr.userID}>
       <img className="userlist-usrpic" src={usr.userPic} alt="user avatar" />
       <div className="userlist-username">@{usr.username}</div>
-      <div
-        className="userlist-follow"
-        role="button"
-        tabIndex={0}
-        onClick={() => {
-          follow(usr.userID);
-        }}
-        onKeyDown={() => {
-          follow(usr.userID);
-        }}>
-        follow
-      </div>
+      {!usr.following && (
+        <div
+          className="userlist-follow"
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            follow(usr.userID);
+          }}
+          onKeyDown={() => {
+            follow(usr.userID);
+          }}>
+          follow
+        </div>
+      )}
     </div>
   );
 
@@ -67,7 +80,19 @@ function ContextBar({ userCredentials }) {
 export default ContextBar;
 
 ContextBar.propTypes = {
-  userCredentials: PropTypes.shape({
-    uid: PropTypes.string.isRequired
+  userData: PropTypes.shape({
+    userID: PropTypes.string.isRequired,
+    isSetup: PropTypes.bool.isRequired,
+    username: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    userPic: PropTypes.string.isRequired,
+    useremail: PropTypes.string.isRequired,
+    joined: PropTypes.objectOf(PropTypes.number).isRequired,
+    numberOfPosts: PropTypes.number.isRequired,
+    followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+    following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+    posts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+    replies: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+    bookmarks: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired
   }).isRequired
 };
