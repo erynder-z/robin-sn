@@ -33,7 +33,7 @@ function PostItem({ postID, userID }) {
   const getOwner = async () => {
     const docRef = doc(database, 'users', ownerID);
     const docSnap = await getDoc(docRef);
-    setPostOwner(docSnap.data().username);
+    setPostOwner({ username: docSnap.data().username, userpic: docSnap.data().userPic });
   };
 
   const like = async () => {
@@ -58,32 +58,38 @@ function PostItem({ postID, userID }) {
   return (
     post && (
       <div className="post-container">
-        <div className="post-header">
-          <div className="post-author">@{postOwner} - </div>
-          <div className="post-date">{postDate}</div>
+        <div className="post-left-wrapper">
+          {' '}
+          <img className="post-usrpic" src={postOwner.userpic} alt="user avatar" />
         </div>
-        <div className="post-content">{post.content}</div>
-        <div className="post-options">
-          <div className="optionItem">
-            <BiMessageRounded size="1.5rem" />
-            {post.replies.length}
+        <div className="post-right-wrapper">
+          <div className="post-header">
+            <div className="post-author">@{postOwner.username} - </div>
+            <div className="post-date">{postDate}</div>
           </div>
-          <div className="optionItem">
-            <BiRepost size="1.5rem" />
-            {post.reposts.length}
-          </div>
-          <div
-            className="optionItem"
-            role="button"
-            tabIndex={0}
-            onClick={() => {
-              like();
-            }}
-            onKeyDown={() => {
-              like();
-            }}>
-            <BiLike size="1.5rem" />
-            {post.likes.length}
+          <div className="post-content">{post.content}</div>
+          <div className="post-options">
+            <div className="optionItem">
+              <BiMessageRounded size="1.5rem" />
+              {post.replies.length}
+            </div>
+            <div className="optionItem">
+              <BiRepost size="1.5rem" />
+              {post.reposts.length}
+            </div>
+            <div
+              className="optionItem"
+              role="button"
+              tabIndex={0}
+              onClick={() => {
+                like();
+              }}
+              onKeyDown={() => {
+                like();
+              }}>
+              <BiLike size="1.5rem" />
+              {post.likes.length}
+            </div>
           </div>
         </div>
       </div>
