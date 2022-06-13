@@ -8,7 +8,7 @@ function ContextBar({ userData }) {
   const { userID, following } = userData;
   const [userList, setUserList] = useState([]);
 
-  const getSomeUsers = async () => {
+  const getUserList = async () => {
     const querySnapshot = await getDocs(collection(database, 'users'));
 
     const list = [];
@@ -34,7 +34,7 @@ function ContextBar({ userData }) {
   };
 
   useEffect(() => {
-    getSomeUsers();
+    getUserList();
   }, [following]);
 
   const follow = async (followUserID) => {
