@@ -12,6 +12,7 @@ import ContextBar from '../ContextBar/ContextBar';
 import FloatingMenu from '../FloatingMenu/FloatingMenu';
 import NewPostModal from '../NewPostModal/NewPostModal';
 import Profile from '../Profile/Profile';
+import PostDetails from '../PostDetails/PostDetails';
 
 function Main({ userCredentials }) {
   const { uid } = userCredentials;
@@ -20,7 +21,7 @@ function Main({ userCredentials }) {
   const [isUserSetup, setIsUserSetup] = useState(false);
   const [userData, setUserData] = useState({});
 
-  const toggleModal = () => {
+  const toggleNewPostModal = () => {
     setShowNewPostModal(!showNewPostModal);
   };
 
@@ -54,11 +55,15 @@ function Main({ userCredentials }) {
         {/* make nested route so UI elements like the sidebar don't have to be re-rendered on component change.  */}
         <Route path="home" element={isUserSetup ? <Home userData={userData} /> : null} />
         <Route path="profile" element={isUserSetup ? <Profile userData={userData} /> : null} />
+        <Route
+          path="postDetails"
+          element={isUserSetup ? <PostDetails userData={userData} /> : null}
+        />
       </Routes>
       {isUserSetup && <ContextBar userData={userData} />}
-      {isUserSetup && <FloatingMenu toggleModal={toggleModal} />}
+      {isUserSetup && <FloatingMenu toggleNewPostModal={toggleNewPostModal} />}
       {isUserSetup && showNewPostModal && (
-        <NewPostModal toggleModal={toggleModal} userCredentials={userCredentials} />
+        <NewPostModal toggleNewPostModal={toggleNewPostModal} userCredentials={userCredentials} />
       )}
     </div>
   );
