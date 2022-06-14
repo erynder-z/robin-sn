@@ -144,9 +144,5 @@ Reply.propTypes = {
   postID: PropTypes.string.isRequired,
   userID: PropTypes.string.isRequired,
   replyMode: PropTypes.string.isRequired,
-  toggleReplyModal: PropTypes.func
-};
-
-Reply.defaultProps = {
-  toggleReplyModal: null
+  toggleReplyModal: PropTypes.func.isRequired
 };
