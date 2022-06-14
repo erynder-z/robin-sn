@@ -18,7 +18,7 @@ function Profile({ userData }) {
   );
   const PostsAndReplies = <div className="postsAndReplies">posts and replies</div>;
   const Media = <div className="media">users media</div>;
-  const Likes = <div className="leikes">users likes</div>;
+  const Likes = <div className="likes">users likes</div>;
 
   return (
     <div className="profile-container">
@@ -103,7 +103,6 @@ Profile.propTypes = {
     userPic: PropTypes.string.isRequired,
     useremail: PropTypes.string.isRequired,
     joined: PropTypes.objectOf(PropTypes.number).isRequired,
-    numberOfPosts: PropTypes.number.isRequired,
     followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     posts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,

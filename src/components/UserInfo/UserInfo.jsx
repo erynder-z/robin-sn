@@ -35,7 +35,6 @@ UserInfo.propTypes = {
     userPic: PropTypes.string.isRequired,
     useremail: PropTypes.string.isRequired,
     joined: PropTypes.objectOf(PropTypes.number).isRequired,
-    numberOfPosts: PropTypes.number.isRequired,
     followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     posts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
