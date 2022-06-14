@@ -1,5 +1,7 @@
-import React from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
 import Reply from '../Reply/Reply';
 import ReplyItem from '../ReplyItem/ReplyItem';
@@ -9,6 +11,21 @@ function PostDetails() {
   const location = useLocation();
   /*   console.log(location.state); */
 
+  const [replies, setReplies] = useState([]);
+
+  const getReplies = async (postID) => {
+    const docRef = doc(database, 'posts', postID);
+    const docSnap = await getDoc(docRef);
+    const list = docSnap.data().replies;
+    setReplies(list);
+  };
+
+  const dummyModal = () => {};
+
+  useEffect(() => {
+    getReplies(location.state.postID);
+  }, [replies]);
+
   return (
     <div className="post-details-container">
       <PostItem
@@ -16,12 +33,16 @@ function PostDetails() {
         postID={location.state.postID}
         userID={location.state.userID}
       />
-      <ReplyItem
-        key={location.state.postID}
+      {replies.map((reply) => (
+        <ReplyItem key={reply.replyID} postID={location.state.postID} reply={reply} />
+      ))}
+
+      <Reply
         postID={location.state.postID}
         userID={location.state.userID}
+        replyMode="append"
+        toggleReplyModal={dummyModal}
       />
-      <Reply postID={location.state.postID} userID={location.state.userID} replyMode="append" />
     </div>
   );
 }
