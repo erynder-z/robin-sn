@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import './FloatingMenu.css';
 import { BiPencil } from 'react-icons/bi';
 
-function FloatingMenu({ toggleModal }) {
+function FloatingMenu({ toggleNewPostModal }) {
   return (
     <div
       className="floating-menu"
       role="button"
       tabIndex={0}
       onClick={() => {
-        toggleModal();
+        toggleNewPostModal();
       }}
       onKeyDown={() => {
-        toggleModal();
+        toggleNewPostModal();
       }}>
       <BiPencil size="2rem" color="whitesmoke" />
     </div>
@@ -23,5 +23,5 @@ function FloatingMenu({ toggleModal }) {
 export default FloatingMenu;
 
 FloatingMenu.propTypes = {
-  toggleModal: PropTypes.func.isRequired
+  toggleNewPostModal: PropTypes.func.isRequired
 };

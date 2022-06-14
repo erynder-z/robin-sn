@@ -5,7 +5,7 @@ import { arrayUnion, doc, serverTimestamp, setDoc, updateDoc } from 'firebase/fi
 import { database } from '../Firebase/Firebase';
 import './NewPostModal.css';
 
-function NewPostModal({ userCredentials, toggleModal }) {
+function NewPostModal({ userCredentials, toggleNewPostModal }) {
   const { uid } = userCredentials;
   const [text, setText] = useState('');
 
@@ -40,7 +40,7 @@ function NewPostModal({ userCredentials, toggleModal }) {
     });
 
     addPostToUserObject(postID);
-    toggleModal();
+    toggleNewPostModal();
   };
 
   return (
@@ -49,10 +49,10 @@ function NewPostModal({ userCredentials, toggleModal }) {
       role="button"
       tabIndex={0}
       onClick={() => {
-        toggleModal();
+        toggleNewPostModal();
       }}
       onKeyDown={() => {
-        toggleModal();
+        toggleNewPostModal();
       }}>
       <div
         role="textbox"
@@ -74,10 +74,10 @@ function NewPostModal({ userCredentials, toggleModal }) {
           role="button"
           tabIndex={0}
           onClick={() => {
-            toggleModal();
+            toggleNewPostModal();
           }}
           onKeyDown={() => {
-            toggleModal();
+            toggleNewPostModal();
           }}>
           &times;
         </div>
@@ -98,7 +98,7 @@ function NewPostModal({ userCredentials, toggleModal }) {
 export default NewPostModal;
 
 NewPostModal.propTypes = {
-  toggleModal: PropTypes.func.isRequired,
+  toggleNewPostModal: PropTypes.func.isRequired,
   userCredentials: PropTypes.shape({
     uid: PropTypes.string.isRequired
   }).isRequired
