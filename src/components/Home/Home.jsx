@@ -44,7 +44,7 @@ function Home({ userData }) {
       {followedUsersPosts.map((userObject) =>
         userObject.postIDs.map((idArray) =>
           idArray.map((id) => (
-            <PostItem key={id.postID} postID={id.postID} userID={userObject.userID} />
+            <PostItem key={id.postID} postID={id.postID} userID={userData.userID} />
           ))
         )
       )}
