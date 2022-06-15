@@ -1,3 +1,18 @@
+:root {
+  --button: #ea5168;
+  --button-hover: #ec8191;
+  --sidebar-background: #283c50;
+  --contextbar-background: #283c50;
+  --content-background: whitesmoke;
+  --card-background: whitesmoke;
+  --modal: whitesmoke;
+  --text-bright: whitesmoke;
+  --text-dark: black;
+  --float: #641358;
+  --float-hover: #982787;
+}
+
 .App {
   display: grid;
+  background-color: black;
 }

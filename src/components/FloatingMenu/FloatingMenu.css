@@ -1,0 +1,25 @@
+.floating-menu {
+  height: 10vh;
+  width: 10vh;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--float);
+  position: fixed;
+  bottom: 5%;
+  right: 15%;
+  transition: all 0.2s ease-in-out;
+}
+
+.floating-menu:hover {
+  transform: scale(1.1);
+  background-color: var(--float-hover);
+  transition: all 0.2s ease-in-out;
+}
+
+@media only screen and (max-width: 768px) {
+  .floating-menu {
+    right: 5%;
+  }
+}

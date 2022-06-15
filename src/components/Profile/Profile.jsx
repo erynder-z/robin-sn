@@ -5,7 +5,7 @@ import './Profile.css';
 import PostItem from '../PostItem/PostItem';
 
 function Profile({ userData }) {
-  const { userPic, username, joined, following, followers, posts } = userData;
+  const { userPic, username, joined, following, followers, posts, description } = userData;
   const [activeView, setActiveView] = useState('posts');
   const joinedDateFormatted = format(fromUnixTime(joined.seconds), 'dd LLLL yyy');
 
@@ -23,20 +23,26 @@ function Profile({ userData }) {
 
   return (
     <div className="profile-container">
-      <h2>Profile</h2>
+      <div className="profile-header">Profile</div>
       <div className="profile-card">
-        <img className="profile-usrpic" src={userPic} alt="user avatar" />
-        <h3 className="profile-header">@{username}</h3>
-        <div className="profile-joined">joined {joinedDateFormatted}</div>
-        <div className="profile-follow-container">
-          <div className="profile-following">following: {following.length}</div>
-          <div className="profile-followers">followers: {followers.length}</div>
+        <div className="card-wrapper">
+          <img className="profile-usrpic" src={userPic} alt="user avatar" />
+
+          <div className="profile-userinfo-container">
+            <h3 className="profile-username">@{username}</h3>
+            <div className="profile-joined">joined {joinedDateFormatted}</div>
+            <div className="profile-follow-container">
+              <div className="profile-following">following: {following.length}</div>
+              <div className="profile-followers">followers: {followers.length}</div>
+            </div>{' '}
+          </div>
+          <div className="profile-description">{description}</div>
         </div>
       </div>
       <div className="profile-content">
         <div className="profile-content-header">
           <div
-            className="posts"
+            className={`posts ${activeView === 'posts' ? 'active' : ''}`}
             role="button"
             tabIndex={0}
             onClick={() => {
@@ -48,7 +54,7 @@ function Profile({ userData }) {
             Posts
           </div>
           <div
-            className="postsAndReplies"
+            className={`postsAndReplies ${activeView === 'postsAndReplies' ? 'active' : ''}`}
             role="button"
             tabIndex={0}
             onClick={() => {
@@ -57,10 +63,10 @@ function Profile({ userData }) {
             onKeyDown={() => {
               setActiveView('postsAndReplies');
             }}>
-            Posts and Replies
+            Posts & Replies
           </div>
           <div
-            className="media"
+            className={`media ${activeView === 'media' ? 'active' : ''}`}
             role="button"
             tabIndex={0}
             onClick={() => {
@@ -72,7 +78,7 @@ function Profile({ userData }) {
             Media
           </div>
           <div
-            className="likes"
+            className={`likes ${activeView === 'likes' ? 'active' : ''}`}
             role="button"
             tabIndex={0}
             onClick={() => {

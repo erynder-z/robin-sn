@@ -1,8 +1,15 @@
 .main-container {
-  width: 100vw;
+  width: 80vw;
   height: 100vh;
-  background-color: violet;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-self: center;
+  background-color: var(--content-background);
+  display: grid;
+  grid-template-columns: 20vw 40vw 20vw;
+}
+
+@media only screen and (max-width: 768px) {
+  .main-container {
+    width: 100vw;
+    grid-template-columns: 15% 85%;
+  }
 }

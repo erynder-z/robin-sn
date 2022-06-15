@@ -1,14 +1,14 @@
 .signin-container {
   width: 100vw;
   height: 100vh;
-  background-color: aqua;
+  background-color: var(--content-background);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .login-container {
-  background-color: aquamarine;
+  background-color: var(--card-background);
   height: 50vh;
   min-width: 25%;
   display: flex;
@@ -38,7 +38,7 @@ input[type='password'] {
 }
 
 .login-form {
-  background-color: white;
+  background-color: var(--card-background);
   padding: 2rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

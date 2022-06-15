@@ -1,0 +1,73 @@
+.replyModal-overlay {
+  height: 100%;
+  width: 100vw;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.replyModal-body {
+  background-color: var(--card-background);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 1rem;
+  border: solid 2px var(--button);
+  border-radius: 2%;
+}
+
+.reply-upper-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.replyTo {
+  font-size: small;
+  font-weight: bolder;
+}
+
+.replyTo-append {
+  width: 100%;
+  text-align: center;
+}
+
+.close {
+  cursor: pointer;
+  font-size: 2rem;
+  color: crimson;
+  align-self: flex-end;
+}
+
+.replyAppend-body {
+  background-color: var(--card-background);
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.replyBtn {
+  height: 2rem;
+  border: none;
+  background-color: var(--button);
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+.replyBtn:hover {
+  background-color: var(--button-hover);
+}
+
+.hidden {
+  display: none;
+}

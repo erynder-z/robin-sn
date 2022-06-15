@@ -1,0 +1,57 @@
+.post-container {
+  background-color: var(--card-background);
+  padding: 1rem;
+  display: flex;
+  height: auto;
+  max-width: 100%;
+  border-bottom: solid 2px rgba(0, 0, 0, 0.2);
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+}
+.post-left-wrapper {
+  width: 15%;
+}
+
+.post-right-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+}
+
+.post-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.post-author {
+  font-weight: bold;
+}
+
+.post-content {
+  text-align: justify;
+  padding: 1rem;
+  height: auto;
+  word-wrap: break-word;
+}
+
+.post-options {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.post-options > div {
+  cursor: pointer;
+}
+
+.post-usrpic {
+  border-radius: 50%;
+  min-height: 50px;
+  min-width: 50px;
+  height: 50px;
+  width: 50px;
+}

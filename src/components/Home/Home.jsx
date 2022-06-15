@@ -41,13 +41,18 @@ function Home({ userData }) {
 
   return (
     <div className="home-container">
-      {followedUsersPosts.map((userObject) =>
-        userObject.postIDs.map((idArray) =>
-          idArray.map((id) => (
-            <PostItem key={id.postID} postID={id.postID} userID={userData.userID} />
-          ))
-        )
-      )}
+      <div className="home-header">home</div>
+      <div className="home-content">
+        <div className="posts">
+          {followedUsersPosts.map((userObject) =>
+            userObject.postIDs.map((idArray) =>
+              idArray.map((id) => (
+                <PostItem key={id.postID} postID={id.postID} userID={userData.userID} />
+              ))
+            )
+          )}
+        </div>
+      </div>
     </div>
   );
 }
