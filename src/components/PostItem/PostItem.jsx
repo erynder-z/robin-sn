@@ -50,7 +50,7 @@ function PostItem({ postID, userID }) {
 
   // navigate to the PostDetails component and passing the postID and userID as state
   const linkToPostDetailsComponent = () => {
-    navigate('/main/postDetails', { state: { postID, userID } });
+    navigate('/main/postDetails', { state: { postID, userID, postOwner } });
   };
 
   const toggleReplyModal = () => {
@@ -129,6 +129,7 @@ function PostItem({ postID, userID }) {
           <Reply
             postID={postID}
             userID={userID}
+            postOwner={postOwner}
             replyMode="modal"
             toggleReplyModal={toggleReplyModal}
           />
