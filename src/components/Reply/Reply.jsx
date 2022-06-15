@@ -33,6 +33,7 @@ function Reply({ postID, userID, replyMode, toggleReplyModal }) {
 
     addPostToUserObject(postID);
     toggleReplyModal();
+    setText('');
   };
 
   useEffect(() => {
@@ -95,34 +96,18 @@ function Reply({ postID, userID, replyMode, toggleReplyModal }) {
 
   // append a textbox in order to reply
   const ReplyAppend = (
-    <div
-      role="textbox"
-      tabIndex={0}
-      className="replyAppend-body"
-      placeholder="enter text"
-      value={text}
-      onChange={(e) => {
-        setText(e.target.value);
-      }}
-      onClick={(e) => {
-        e.stopPropagation();
-      }}
-      onKeyDown={(e) => {
-        e.stopPropagation();
-      }}>
-      <div
-        className="close"
-        role="button"
-        tabIndex={0}
-        onClick={() => {
-          toggleReplyModal();
+    <div className="replyAppend-body">
+      <textarea
+        name="newPost"
+        id="newPost"
+        cols="30"
+        rows="10"
+        placeholder="write your reply"
+        value={text}
+        onChange={(e) => {
+          setText(e.target.value);
         }}
-        onKeyDown={() => {
-          toggleReplyModal();
-        }}>
-        &times;
-      </div>
-      <textarea name="newPost" id="newPost" cols="30" rows="10" placeholder="write your reply" />
+      />
       <button
         className="postBtn"
         type="submit"

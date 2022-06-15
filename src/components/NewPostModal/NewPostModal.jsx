@@ -56,21 +56,7 @@ function NewPostModal({ userCredentials, toggleNewPostModal }) {
       onKeyDown={() => {
         toggleNewPostModal();
       }}>
-      <div
-        role="textbox"
-        tabIndex={0}
-        className="newPostModal-body"
-        placeholder="enter text"
-        value={text}
-        onChange={(e) => {
-          setText(e.target.value);
-        }}
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        onKeyDown={(e) => {
-          e.stopPropagation();
-        }}>
+      <div role="textbox" tabIndex={0} className="newPostModal-body">
         <div
           className="close"
           role="button"
@@ -83,7 +69,23 @@ function NewPostModal({ userCredentials, toggleNewPostModal }) {
           }}>
           &times;
         </div>
-        <textarea name="newPost" id="newPost" cols="30" rows="10" />
+        <textarea
+          name="newPost"
+          id="newPost"
+          cols="30"
+          rows="10"
+          placeholder="enter your message"
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value);
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          onKeyDown={(e) => {
+            e.stopPropagation();
+          }}
+        />
         <button
           className="postBtn"
           type="submit"
