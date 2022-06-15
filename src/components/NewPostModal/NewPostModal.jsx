@@ -5,13 +5,13 @@ import { arrayUnion, doc, serverTimestamp, setDoc, updateDoc } from 'firebase/fi
 import { database } from '../Firebase/Firebase';
 import './NewPostModal.css';
 
-function NewPostModal({ userCredentials, toggleNewPostModal }) {
-  const { uid } = userCredentials;
+function NewPostModal({ userData, toggleNewPostModal }) {
+  const { userID, userPic, username } = userData;
   const [text, setText] = useState('');
 
   // adds the postID to the user-object
   const addPostToUserObject = async (postID) => {
-    const docRef = doc(database, 'users', uid);
+    const docRef = doc(database, 'users', userID);
 
     await updateDoc(docRef, {
       posts: arrayUnion({ postID })
@@ -24,21 +24,13 @@ function NewPostModal({ userCredentials, toggleNewPostModal }) {
     await setDoc(doc(database, 'posts', postID), {
       created: serverTimestamp(),
       postID,
-      ownerID: uid,
+      ownerID: userID,
       content: text,
       hasHashtag: false,
       hashtags: [],
-      reposts: [
-        /* {repostedUserID: ""} */
-      ],
-
-      likes: [
-        /* {likedUserID: ""} */
-      ],
-
-      replies: [
-        /* { replyContent: '', repliedUserID: '', replyDate: '' } */
-      ]
+      reposts: [],
+      likes: [],
+      replies: []
     });
 
     addPostToUserObject(postID);
@@ -56,24 +48,37 @@ function NewPostModal({ userCredentials, toggleNewPostModal }) {
       onKeyDown={() => {
         toggleNewPostModal();
       }}>
-      <div role="textbox" tabIndex={0} className="newPostModal-body">
-        <div
-          className="close"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            toggleNewPostModal();
-          }}
-          onKeyDown={() => {
-            toggleNewPostModal();
-          }}>
-          &times;
+      <div
+        role="textbox"
+        tabIndex={0}
+        className="newPostModal-body"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        onKeyDown={(e) => {
+          e.stopPropagation();
+        }}>
+        <div className="newPostModal-upper">
+          <div className="user-header">
+            <img className="post-usrpic" src={userPic} alt="user avatar" />
+            <div className="post-author">@{username} </div>
+          </div>
+          <div
+            className="close"
+            role="button"
+            tabIndex={0}
+            onClick={() => {
+              toggleNewPostModal();
+            }}
+            onKeyDown={() => {
+              toggleNewPostModal();
+            }}>
+            &times;
+          </div>
         </div>
         <textarea
-          name="newPost"
-          id="newPost"
           cols="30"
-          rows="10"
+          rows="5"
           placeholder="enter your message"
           value={text}
           onChange={(e) => {
@@ -103,7 +108,18 @@ export default NewPostModal;
 
 NewPostModal.propTypes = {
   toggleNewPostModal: PropTypes.func.isRequired,
-  userCredentials: PropTypes.shape({
-    uid: PropTypes.string.isRequired
+  userData: PropTypes.shape({
+    userID: PropTypes.string.isRequired,
+    isSetup: PropTypes.bool.isRequired,
+    username: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    userPic: PropTypes.string.isRequired,
+    useremail: PropTypes.string.isRequired,
+    joined: PropTypes.objectOf(PropTypes.number).isRequired,
+    followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+    following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+    posts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+    replies: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+    bookmarks: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired
   }).isRequired
 };
