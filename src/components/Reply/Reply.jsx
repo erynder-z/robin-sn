@@ -5,9 +5,11 @@ import './Reply.css';
 import { arrayUnion, doc, Timestamp, updateDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
 
-function Reply({ postID, userID, replyMode, toggleReplyModal }) {
+function Reply({ postID, userID, replyMode, toggleReplyModal, postOwner }) {
   const [mode, setMode] = useState('');
   const [text, setText] = useState('');
+  const [replyUserName, setReplyUserName] = useState('');
+  const [showReplyUserName, setShowReplyUserName] = useState(false);
 
   // add replied post's ID to user object
   const addPostToUserObject = async () => {
@@ -38,6 +40,7 @@ function Reply({ postID, userID, replyMode, toggleReplyModal }) {
 
   useEffect(() => {
     setMode(replyMode);
+    setReplyUserName(postOwner.username);
   }, []);
 
   // show a modal in order to reply
@@ -69,21 +72,24 @@ function Reply({ postID, userID, replyMode, toggleReplyModal }) {
         onKeyDown={(e) => {
           e.stopPropagation();
         }}>
-        <div
-          className="close"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            toggleReplyModal();
-          }}
-          onKeyDown={() => {
-            toggleReplyModal();
-          }}>
-          &times;
+        <div className="reply-upper-wrapper">
+          <div className="replyTo"> Replying to @{postOwner.username}</div>
+          <div
+            className="close"
+            role="button"
+            tabIndex={0}
+            onClick={() => {
+              toggleReplyModal();
+            }}
+            onKeyDown={() => {
+              toggleReplyModal();
+            }}>
+            &times;
+          </div>
         </div>
-        <textarea name="newPost" id="newPost" cols="30" rows="10" placeholder="write your reply" />
+        <textarea cols="30" rows="5" placeholder="write your reply" />
         <button
-          className="postBtn"
+          className="replyBtn"
           type="submit"
           onClick={() => {
             reply();
@@ -97,15 +103,22 @@ function Reply({ postID, userID, replyMode, toggleReplyModal }) {
   // append a textbox in order to reply
   const ReplyAppend = (
     <div className="replyAppend-body">
+      <div className={`replyTo-append ${!showReplyUserName ? 'hidden' : ''}`}>
+        replying to: @{replyUserName}
+      </div>
       <textarea
-        name="newPost"
-        id="newPost"
         cols="30"
-        rows="10"
+        rows="5"
         placeholder="write your reply"
         value={text}
         onChange={(e) => {
           setText(e.target.value);
+        }}
+        onFocus={() => {
+          setShowReplyUserName(true);
+        }}
+        onBlur={() => {
+          setShowReplyUserName(false);
         }}
       />
       <button
@@ -133,5 +146,9 @@ Reply.propTypes = {
   postID: PropTypes.string.isRequired,
   userID: PropTypes.string.isRequired,
   replyMode: PropTypes.string.isRequired,
-  toggleReplyModal: PropTypes.func.isRequired
+  toggleReplyModal: PropTypes.func.isRequired,
+  postOwner: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    userpic: PropTypes.string.isRequired
+  }).isRequired
 };
