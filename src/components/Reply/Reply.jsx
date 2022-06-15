@@ -9,6 +9,7 @@ function Reply({ postID, userID, replyMode, toggleReplyModal }) {
   const [mode, setMode] = useState('');
   const [text, setText] = useState('');
 
+  // add replied post's ID to user object
   const addPostToUserObject = async () => {
     const docRef = doc(database, 'users', userID);
 
@@ -17,6 +18,7 @@ function Reply({ postID, userID, replyMode, toggleReplyModal }) {
     });
   };
 
+  // adds reply to the post object
   const reply = async () => {
     const replyID = uniqid();
     const docRef = doc(database, 'posts', postID);
@@ -37,6 +39,7 @@ function Reply({ postID, userID, replyMode, toggleReplyModal }) {
     setMode(replyMode);
   }, []);
 
+  // show a modal in order to reply
   const ReplyModal = (
     <div
       className="replyModal-overlay"
@@ -90,6 +93,7 @@ function Reply({ postID, userID, replyMode, toggleReplyModal }) {
     </div>
   );
 
+  // append a textbox in order to reply
   const ReplyAppend = (
     <div
       role="textbox"

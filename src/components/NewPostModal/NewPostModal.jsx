@@ -9,6 +9,7 @@ function NewPostModal({ userCredentials, toggleNewPostModal }) {
   const { uid } = userCredentials;
   const [text, setText] = useState('');
 
+  // adds the postID to the user-object
   const addPostToUserObject = async (postID) => {
     const docRef = doc(database, 'users', uid);
 
@@ -17,6 +18,7 @@ function NewPostModal({ userCredentials, toggleNewPostModal }) {
     });
   };
 
+  // creates the post in the database
   const submitPost = async () => {
     const postID = uniqid();
     await setDoc(doc(database, 'posts', postID), {

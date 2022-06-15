@@ -48,6 +48,7 @@ function PostItem({ postID, userID }) {
     });
   };
 
+  // navigate to the PostDetails component and passing the postID and userID as state
   const linkToPostDetailsComponent = () => {
     navigate('/main/postDetails', { state: { postID, userID } });
   };

@@ -8,12 +8,14 @@ function ContextBar({ userData }) {
   const { userID, following } = userData;
   const [userList, setUserList] = useState([]);
 
+  // get all list of all users in the datababse
+  // TODO: limit number of users
   const getUserList = async () => {
     const querySnapshot = await getDocs(collection(database, 'users'));
 
     const list = [];
     querySnapshot.forEach((document) => {
-      // check if we are already following that user
+      // for each user: check if we are already following that user
       const checkIfAlreadyFollowing = (usr, followUsr) => {
         const followingList = usr.following;
 

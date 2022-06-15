@@ -24,6 +24,7 @@ function Login() {
     }
   };
 
+  // creates an account with entered email and password
   const register = async () => {
     if (emailFormValue !== '' && passwordFormValue !== '') {
       try {
@@ -37,6 +38,7 @@ function Login() {
     }
   };
 
+  // logs in with entered email and password
   const login = async () => {
     try {
       await signInWithEmailAndPassword(auth, emailFormValue, passwordFormValue);

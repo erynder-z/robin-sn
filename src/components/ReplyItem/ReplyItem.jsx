@@ -8,6 +8,7 @@ import { database } from '../Firebase/Firebase';
 function ReplyItem({ reply }) {
   const [replyUser, setReplyUser] = useState();
 
+  // get the details of the replying user
   const getReplyUserData = async () => {
     const { replyUserID } = reply;
 

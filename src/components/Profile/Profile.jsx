@@ -9,6 +9,7 @@ function Profile({ userData }) {
   const [activeView, setActiveView] = useState('posts');
   const joinedDateFormatted = format(fromUnixTime(joined.seconds), 'dd LLLL yyy');
 
+  // lists all the posts made by the user
   const Posts = (
     <div className="posts">
       {posts.map((post) => (

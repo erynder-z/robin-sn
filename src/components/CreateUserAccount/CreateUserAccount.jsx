@@ -39,6 +39,7 @@ function CreateUserAccount({ userCredentials }) {
     }
   };
 
+  // update userObject to that the user-setup screen will not be shown
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserObject((prevState) => ({

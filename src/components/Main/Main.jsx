@@ -25,6 +25,7 @@ function Main({ userCredentials }) {
     setShowNewPostModal(!showNewPostModal);
   };
 
+  // is user isSetup, the CreateUserAccount component will not be shown
   const checkUserSetup = () => {
     if (usr.isSetup) {
       setIsUserSetup(true);

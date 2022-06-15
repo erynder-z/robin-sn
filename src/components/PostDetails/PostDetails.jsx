@@ -10,9 +10,9 @@ import './PostDetails.css';
 function PostDetails() {
   const location = useLocation();
   /*   console.log(location.state); */
-
   const [replies, setReplies] = useState([]);
 
+  // get all replies of a post
   const getReplies = async (postID) => {
     const docRef = doc(database, 'posts', postID);
     const docSnap = await getDoc(docRef);
@@ -20,6 +20,7 @@ function PostDetails() {
     setReplies(list);
   };
 
+  // dummy function to prevent passing null.parameter to Reply component
   const dummyModal = () => {};
 
   useEffect(() => {
