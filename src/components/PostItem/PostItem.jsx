@@ -85,7 +85,7 @@ function PostItem({ postID, userID }) {
           <img className="post-usrpic" src={postOwner.userpic} alt="user avatar" />
         </div>
         <div className="post-right-wrapper">
-          <div className="post-header">
+          <div className="post-userDetails">
             <div className="post-author">@{postOwner.username} - </div>
             <div className="post-date">{postDate}</div>
           </div>
@@ -114,11 +114,13 @@ function PostItem({ postID, userID }) {
               className="optionItem"
               role="button"
               tabIndex={0}
-              onClick={() => {
+              onClick={(e) => {
                 like();
+                e.stopPropagation();
               }}
-              onKeyDown={() => {
+              onKeyDown={(e) => {
                 like();
+                e.stopPropagation();
               }}>
               <BiLike size="1.5rem" />
               {post.likes.length}

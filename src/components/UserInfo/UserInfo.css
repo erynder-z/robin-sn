@@ -38,7 +38,7 @@
 }
 
 .logoutBtn:hover {
-  background-color: var(--button: hover);
+  background-color: var(--button-hover);
 }
 
 @media only screen and (max-width: 768px) {

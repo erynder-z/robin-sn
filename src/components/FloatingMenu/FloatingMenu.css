@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--float);
+  background-color: var(--button);
   position: fixed;
   bottom: 5%;
   right: 15%;
@@ -14,7 +14,7 @@
 
 .floating-menu:hover {
   transform: scale(1.1);
-  background-color: var(--float-hover);
+  background-color: var(--button-hover);
   transition: all 0.2s ease-in-out;
 }
 

@@ -41,7 +41,7 @@ function Home({ userData }) {
 
   return (
     <div className="home-container">
-      <div className="home-header">home</div>
+      <div className="home-header">Home</div>
       <div className="home-content">
         <div className="posts">
           {followedUsersPosts.map((userObject) =>

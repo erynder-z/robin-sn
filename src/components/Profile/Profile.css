@@ -4,7 +4,12 @@
 }
 
 .profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 5%;
+  font-size: 1.5rem;
+  font-weight: bolder;
 }
 
 .profile-card {

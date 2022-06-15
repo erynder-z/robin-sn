@@ -5,6 +5,7 @@
   height: auto;
   max-width: 100%;
   border-bottom: solid 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .posts {
@@ -21,7 +22,7 @@
   width: 85%;
 }
 
-.post-header {
+.post-userDetails {
   display: flex;
   justify-content: flex-start;
   align-items: center;

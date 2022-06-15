@@ -8,6 +8,7 @@ import ReplyItem from '../ReplyItem/ReplyItem';
 import './PostDetails.css';
 
 function PostDetails() {
+  // get state from PostItem component // state: { postID, userID, postOwner }
   const location = useLocation();
   /*   console.log(location.state); */
   const [replies, setReplies] = useState([]);
@@ -29,21 +30,22 @@ function PostDetails() {
 
   return (
     <div className="post-details-container">
+      <div className="post-header">Post</div>
       <PostItem
         key={location.state.postID}
         postID={location.state.postID}
         userID={location.state.userID}
       />
-      {replies.map((reply) => (
-        <ReplyItem key={reply.replyID} postID={location.state.postID} reply={reply} />
-      ))}
-
       <Reply
         postID={location.state.postID}
         userID={location.state.userID}
+        postOwner={location.state.postOwner}
         replyMode="append"
         toggleReplyModal={dummyModal}
       />
+      {replies.map((reply) => (
+        <ReplyItem key={reply.replyID} postID={location.state.postID} reply={reply} />
+      ))}
     </div>
   );
 }

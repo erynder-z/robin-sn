@@ -64,7 +64,7 @@ function Main({ userCredentials }) {
       {isUserSetup && <ContextBar userData={userData} />}
       {isUserSetup && <FloatingMenu toggleNewPostModal={toggleNewPostModal} />}
       {isUserSetup && showNewPostModal && (
-        <NewPostModal toggleNewPostModal={toggleNewPostModal} userCredentials={userCredentials} />
+        <NewPostModal toggleNewPostModal={toggleNewPostModal} userData={userData} />
       )}
     </div>
   );

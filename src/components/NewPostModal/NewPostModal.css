@@ -5,20 +5,38 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.75);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
+.newPostModal-upper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.user-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-header > .post-author {
+  padding-left: 1rem;
+}
+
 .newPostModal-body {
-  width: 25vw;
-  height: 25vw;
   background-color: var(--card-background);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 2rem;
+  align-items: stretch;
+  padding: 0 1rem 1rem 1rem;
+  border: solid 2px var(--button);
+  border-radius: 2%;
 }
 
 textarea {
@@ -28,7 +46,6 @@ textarea {
 .close {
   cursor: pointer;
   font-size: 2rem;
-  color: crimson;
 }
 
 .postBtn {

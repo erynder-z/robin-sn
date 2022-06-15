@@ -3,9 +3,9 @@
   --button-hover: #ec8191;
   --sidebar-background: #283c50;
   --contextbar-background: #283c50;
-  --content-background: whitesmoke;
-  --card-background: whitesmoke;
-  --modal: whitesmoke;
+  --content-background: rgb(235, 235, 235);
+  --card-background: rgb(235, 235, 235);
+  --modal: rgb(225, 225, 225);
   --text-bright: whitesmoke;
   --text-dark: black;
   --float: #641358;
