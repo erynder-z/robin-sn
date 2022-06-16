@@ -49,6 +49,8 @@ usr: {
   following: [{userID: "string"}],
   posts: [{postID: "string"}],
   replies: [{postID: "string"}],
+  reposts: [{postID: "string"}],
+  likes: [{postID: "string"}],
   bookmarks: [{postID: "string"}]
 } */
 

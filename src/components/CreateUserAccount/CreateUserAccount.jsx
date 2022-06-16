@@ -23,6 +23,8 @@ function CreateUserAccount({ userCredentials }) {
     following: [],
     posts: [],
     replies: [],
+    reposts: [],
+    likes: [],
     bookmarks: []
   });
 
@@ -62,6 +64,8 @@ function CreateUserAccount({ userCredentials }) {
       following: userObject.following,
       posts: userObject.posts,
       replies: userObject.replies,
+      reposts: userObject.reposts,
+      likes: userObject.likes,
       bookmarks: userObject.bookmarks
     });
   };

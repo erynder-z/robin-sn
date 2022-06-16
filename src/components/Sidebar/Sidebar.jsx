@@ -76,6 +76,8 @@ Sidebar.propTypes = {
     following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     posts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     replies: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+    reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+    likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     bookmarks: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired
   }).isRequired
 };
