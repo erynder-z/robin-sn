@@ -55,10 +55,15 @@ function PostItem({ postID, userID }) {
   };
 
   const like = async () => {
-    const docRef = doc(database, 'posts', postID);
+    const postDocRef = doc(database, 'posts', postID);
+    const userDocRef = doc(database, 'users', userID);
 
-    await updateDoc(docRef, {
+    await updateDoc(postDocRef, {
       likes: arrayUnion({ userID })
+    });
+
+    await updateDoc(userDocRef, {
+      likes: arrayUnion({ postID })
     });
   };
 
