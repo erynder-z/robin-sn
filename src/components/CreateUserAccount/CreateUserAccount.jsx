@@ -43,12 +43,16 @@ function CreateUserAccount({ userCredentials }) {
 
   // update userObject to that the user-setup screen will not be shown
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setUserObject((prevState) => ({
-      ...prevState,
-      isSetup: true
-    }));
-    setIsFinished(true);
+    if (userObject.username) {
+      e.preventDefault();
+      setUserObject((prevState) => ({
+        ...prevState,
+        isSetup: true
+      }));
+      setIsFinished(true);
+    } else {
+      alert('enter a username!');
+    }
   };
 
   const uploadUser = async () => {
