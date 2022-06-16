@@ -1,25 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './UserInfo.css';
+import { BiLogOut } from 'react-icons/bi';
 
 function UserInfo({ userData, logout }) {
   return (
     <div className="usr-container">
       <div className="head">
         <img className="usrpic" src={userData.userPic} alt="user avatar" />
-        <div className="usrname">@{userData.username}</div>
+        <div className="usrname">
+          <button
+            className="logoutBtn"
+            type="button"
+            onClick={() => {
+              logout();
+            }}
+            onKeyDown={() => {
+              logout();
+            }}>
+            <BiLogOut size="2rem" />
+          </button>{' '}
+          @{userData.username}{' '}
+        </div>
       </div>
-      <button
-        className="logoutBtn"
-        type="button"
-        onClick={() => {
-          logout();
-        }}
-        onKeyDown={() => {
-          logout();
-        }}>
-        Logout
-      </button>
     </div>
   );
 }

@@ -3,6 +3,7 @@
   height: 100vh;
   justify-self: center;
   background-color: var(--content-background);
+  color: var(--text-bright);
   display: grid;
   grid-template-columns: 20vw 40vw 20vw;
 }

@@ -1,5 +1,6 @@
 .profile-container {
-  background-color: var(--content-background);
+  background-color: var(--card-background);
+  color: var(--text-bright);
   max-height: 100vh;
 }
 
@@ -16,6 +17,7 @@
   width: 100%;
   height: 25%;
   background-color: var(--card-background);
+  color: var(--text-bright);
   display: flex;
 }
 
@@ -47,12 +49,14 @@
 .profile-description {
   grid-area: description;
   place-self: center;
+  font-style: italic;
 }
 
 .profile-content {
   width: 100%;
   height: 70%;
-  background-color: var(--content-background);
+  background-color: var(--card-background);
+  color: var(--text-bright);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,6 +67,7 @@
   overflow-x: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--button) var(--card-background);
+  color: var(--text-bright);
 }
 
 .profile-content > .posts::-webkit-scrollbar {
@@ -80,6 +85,7 @@
   width: 100%;
   height: 2rem;
   background-color: var(--card-background);
+  color: var(--text-bright);
 }
 
 .profile-content-header > div {
@@ -96,4 +102,5 @@
 
 .profile-content-header > .active {
   background-color: var(--button);
+  color: var(--text-bright);
 }

@@ -86,7 +86,8 @@ function PostItem({ postID, userID }) {
         </div>
         <div className="post-right-wrapper">
           <div className="post-userDetails">
-            <div className="post-author">@{postOwner.username} - </div>
+            <div className="post-author">@{postOwner.username}</div>
+            <div className="post-userDetails-separator">∙</div>
             <div className="post-date">{postDate}</div>
           </div>
           <div className="post-content">{post.content}</div>

@@ -30,6 +30,7 @@
 
 .newPostModal-body {
   background-color: var(--card-background);
+  color: var(--text-bright);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -41,6 +42,8 @@
 
 textarea {
   resize: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-bright);
 }
 
 .close {
@@ -52,7 +55,7 @@ textarea {
   height: 2rem;
   border: none;
   background-color: var(--button);
-  color: var(--text-dark);
+  color: var(--text-bright);
   cursor: pointer;
 }
 

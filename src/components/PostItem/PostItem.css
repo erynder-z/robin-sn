@@ -1,10 +1,11 @@
 .post-container {
   background-color: var(--card-background);
+  color: var(--text-bright);
   padding: 1rem;
   display: flex;
   height: auto;
   max-width: 100%;
-  border-bottom: solid 2px rgba(0, 0, 0, 0.2);
+  border-bottom: solid 2px var(--text-grey);
   cursor: pointer;
 }
 
@@ -32,8 +33,15 @@
   font-weight: bold;
 }
 
+.post-userDetails-separator {
+  padding: 0 0.5rem;
+}
+
+.post-date {
+  color: var(--text-grey);
+}
+
 .post-content {
-  text-align: justify;
   padding: 1rem;
   height: auto;
   word-wrap: break-word;
@@ -43,6 +51,7 @@
   display: flex;
   width: 100%;
   justify-content: space-evenly;
+  color: var(--text-grey);
 }
 
 .post-options > div {

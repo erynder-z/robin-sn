@@ -2,6 +2,7 @@
   width: 100vw;
   height: 100vh;
   background-color: var(--content-background);
+  color: var(--text-bright);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,6 +10,7 @@
 
 .login-container {
   background-color: var(--card-background);
+  color: var(--text-bright);
   height: 50vh;
   min-width: 25%;
   display: flex;
@@ -39,6 +41,7 @@ input[type='password'] {
 
 .login-form {
   background-color: var(--card-background);
+  color: var(--text-bright);
   padding: 2rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

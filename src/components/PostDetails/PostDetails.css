@@ -1,5 +1,6 @@
 .post-details-container {
-  background-color: var(--content-background);
+  background-color: var(--card-background);
+  color: var(--text-bright);
   max-height: 100vh;
   overflow-x: auto;
   scrollbar-width: thin;
@@ -26,4 +27,9 @@
   height: 5%;
   font-size: 1.5rem;
   font-weight: bolder;
+}
+
+.post-details-container > .post-container > .post-right-wrapper > .post-content {
+  font-size: 1.3rem;
+  font-weight: 500;
 }

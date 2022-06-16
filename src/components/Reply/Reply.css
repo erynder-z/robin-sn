@@ -13,6 +13,7 @@
 }
 .replyModal-body {
   background-color: var(--card-background);
+  color: var(--text-bright);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -46,6 +47,7 @@
 
 .replyAppend-body {
   background-color: var(--card-background);
+  color: var(--text-bright);
   display: flex;
   flex-direction: column;
 }
@@ -59,7 +61,7 @@ textarea {
   height: 2rem;
   border: none;
   background-color: var(--button);
-  color: var(--text-dark);
+  color: var(--text-bright);
   cursor: pointer;
 }
 

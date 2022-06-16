@@ -1,18 +1,25 @@
 :root {
-  --button: #ea5168;
+  --button: #f94962;
   --button-hover: #ec8191;
-  --sidebar-background: #283c50;
-  --contextbar-background: #283c50;
-  --content-background: rgb(235, 235, 235);
-  --card-background: rgb(235, 235, 235);
+  --sidebar-background: #182f3a;
+  --contextbar-background: #182f3a;
+  --content-background: #182f3a;
+  --card-background: #0f2731;
   --modal: rgb(225, 225, 225);
   --text-bright: whitesmoke;
   --text-dark: black;
-  --float: #641358;
-  --float-hover: #982787;
+  --text-grey: #787878;
+  --follow-button: #0168b8;
+  --unfollow-button: #4e2a85;
+  --follow-button-hover: #027bd7;
+  --unfollow-button-hover: #6b39b6;
 }
 
 .App {
   display: grid;
-  background-color: black;
+  background-color: var(--content-background);
+}
+
+a {
+  color: aqua;
 }

@@ -1,6 +1,7 @@
 import { arrayRemove, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import { BiUserPlus, BiUserMinus } from 'react-icons/bi';
 import { database } from '../Firebase/Firebase';
 import './ContextBar.css';
 
@@ -78,7 +79,7 @@ function ContextBar({ userData }) {
           onKeyDown={() => {
             follow(usr.userID);
           }}>
-          follow
+          <BiUserPlus size="1.5rem" />
         </div>
       )}
       {usr.following && (
@@ -92,7 +93,7 @@ function ContextBar({ userData }) {
           onKeyDown={() => {
             unFollow(usr.userID);
           }}>
-          unfollow
+          <BiUserMinus size="1.5rem" />
         </div>
       )}
     </div>

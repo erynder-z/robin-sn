@@ -1,5 +1,6 @@
 .home-container {
-  background-color: var(--content-background);
+  background-color: var(--card-background);
+  color: var(--text-bright);
   max-height: 100vh;
 }
 
@@ -26,6 +27,7 @@
   overflow-x: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--button) var(--card-background);
+  color: var(--text-bright);
 }
 
 .home-content > .posts::-webkit-scrollbar {
