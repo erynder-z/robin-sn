@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './PostItem.css';
+import uniqid from 'uniqid';
 import { useNavigate } from 'react-router-dom';
 import { BiMessageRounded, BiRepost, BiLike } from 'react-icons/bi';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
-import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, getDoc, setDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { format, fromUnixTime } from 'date-fns';
 import { database } from '../Firebase/Firebase';
 import Reply from '../Reply/Reply';
@@ -44,14 +45,39 @@ function PostItem({ postID, userID }) {
     setPostOwner({ username: docSnap.data().username, userpic: docSnap.data().userPic });
   };
 
-  const repost = async () => {
+  const repost = async (ownerName, postContent) => {
+    // copy userID to post document
     await updateDoc(postDocRef, {
       reposts: arrayUnion({ userID })
     });
-
+    // copy postID to user document
     await updateDoc(userDocRef, {
       reposts: arrayUnion({ postID })
     });
+    // create a new post in the user document with the repost as content
+    const newPostID = uniqid();
+    const repostContent = `reposting @${ownerName}:\n\n &laquo; ${postContent} &raquo;`;
+    await setDoc(doc(database, 'posts', newPostID), {
+      created: serverTimestamp(),
+      postID: newPostID,
+      ownerID: userID,
+      content: repostContent,
+      hasHashtag: false,
+      hashtags: [],
+      reposts: [],
+      likes: [],
+      replies: []
+    });
+
+    const addPostToUserObject = async (pID) => {
+      const docRef = doc(database, 'users', userID);
+
+      await updateDoc(docRef, {
+        posts: arrayUnion({ postID: pID })
+      });
+    };
+
+    addPostToUserObject(newPostID);
   };
 
   const like = async () => {
@@ -97,7 +123,6 @@ function PostItem({ postID, userID }) {
           linkToPostDetailsComponent();
         }}>
         <div className="post-left-wrapper">
-          {' '}
           <img className="post-usrpic" src={postOwner.userpic} alt="user avatar" />
         </div>
         <div className="post-right-wrapper">
@@ -128,11 +153,11 @@ function PostItem({ postID, userID }) {
               role="button"
               tabIndex={0}
               onClick={(e) => {
-                repost();
+                repost(postOwner.username, post.content);
                 e.stopPropagation();
               }}
               onKeyDown={(e) => {
-                repost();
+                repost(postOwner.username, post.content);
                 e.stopPropagation();
               }}>
               <BiRepost size="1.5rem" />
