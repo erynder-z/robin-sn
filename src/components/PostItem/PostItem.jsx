@@ -41,6 +41,19 @@ function PostItem({ postID, userID }) {
     setPostOwner({ username: docSnap.data().username, userpic: docSnap.data().userPic });
   };
 
+  const repost = async () => {
+    const postDocRef = doc(database, 'posts', postID);
+    const userDocRef = doc(database, 'users', userID);
+
+    await updateDoc(postDocRef, {
+      reposts: arrayUnion({ userID })
+    });
+
+    await updateDoc(userDocRef, {
+      reposts: arrayUnion({ postID })
+    });
+  };
+
   const like = async () => {
     const docRef = doc(database, 'posts', postID);
 
@@ -107,7 +120,18 @@ function PostItem({ postID, userID }) {
               <BiMessageRounded size="1.5rem" />
               {post.replies.length}
             </div>
-            <div className="optionItem">
+            <div
+              className="optionItem"
+              role="button"
+              tabIndex={0}
+              onClick={(e) => {
+                repost();
+                e.stopPropagation();
+              }}
+              onKeyDown={(e) => {
+                repost();
+                e.stopPropagation();
+              }}>
               <BiRepost size="1.5rem" />
               {post.reposts.length}
             </div>
