@@ -18,6 +18,9 @@ function PostItem({ postID, userID }) {
   const [postDate, setPostDate] = useState('');
   const [showReplyModal, setShowReplyModal] = useState(false);
 
+  const postDocRef = doc(database, 'posts', postID);
+  const userDocRef = doc(database, 'users', userID);
+
   // get the ownerID of the post so it can be used to retrieve the username of the post owner
   const getOwnerID = () => {
     if (post) {
@@ -36,15 +39,12 @@ function PostItem({ postID, userID }) {
 
   // get username via getDoc rather than useDocumentData-hook to prevent exposing the whole user object to the front end
   const getOwner = async () => {
-    const docRef = doc(database, 'users', ownerID);
-    const docSnap = await getDoc(docRef);
+    const ownerDocRef = doc(database, 'users', ownerID);
+    const docSnap = await getDoc(ownerDocRef);
     setPostOwner({ username: docSnap.data().username, userpic: docSnap.data().userPic });
   };
 
   const repost = async () => {
-    const postDocRef = doc(database, 'posts', postID);
-    const userDocRef = doc(database, 'users', userID);
-
     await updateDoc(postDocRef, {
       reposts: arrayUnion({ userID })
     });
@@ -55,9 +55,6 @@ function PostItem({ postID, userID }) {
   };
 
   const like = async () => {
-    const postDocRef = doc(database, 'posts', postID);
-    const userDocRef = doc(database, 'users', userID);
-
     await updateDoc(postDocRef, {
       likes: arrayUnion({ userID })
     });
@@ -86,6 +83,7 @@ function PostItem({ postID, userID }) {
     getOwnerID();
     getPostDate();
   }, [post]);
+
   return (
     post && (
       <div
