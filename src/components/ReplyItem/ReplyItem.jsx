@@ -4,6 +4,7 @@ import './ReplyItem.css';
 import { format, fromUnixTime } from 'date-fns';
 import { doc, getDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
+import parseText from '../../helpers/ParseText/parseText';
 
 function ReplyItem({ reply }) {
   const [replyUser, setReplyUser] = useState();
@@ -37,7 +38,7 @@ function ReplyItem({ reply }) {
             <div className="reply-author">@{replyUser.username} - </div>
             <div className="reply-date">{replyUser.replyDate}</div>
           </div>
-          <div className="post-content">{reply.replyContent}</div>
+          <div className="post-content">{parseText(reply.replyContent)}</div>
         </div>
       </div>
     )

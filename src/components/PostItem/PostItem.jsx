@@ -8,6 +8,7 @@ import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { format, fromUnixTime } from 'date-fns';
 import { database } from '../Firebase/Firebase';
 import Reply from '../Reply/Reply';
+import parseText from '../../helpers/ParseText/parseText';
 
 function PostItem({ postID, userID }) {
   const navigate = useNavigate();
@@ -67,7 +68,6 @@ function PostItem({ postID, userID }) {
     getOwnerID();
     getPostDate();
   }, [post]);
-
   return (
     post && (
       <div
@@ -90,7 +90,7 @@ function PostItem({ postID, userID }) {
             <div className="post-userDetails-separator">∙</div>
             <div className="post-date">{postDate}</div>
           </div>
-          <div className="post-content">{post.content}</div>
+          <div className="post-content"> {parseText(post.content)}</div>
           <div className="post-options">
             <div
               className="optionItem"
