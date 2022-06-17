@@ -25,14 +25,16 @@ function Home({ userData }) {
 
   // merge userIDs & posts and save them in state
   const getPostsList = async () => {
-    setFollowingPosts([]);
     const list = [];
     const idList = await getUserIdList();
+
     idList.map(async (user) => {
       const postList = await getUserPosts(user.userID);
       list.push({ userID: user.userID, postIDs: [postList] });
-      setFollowingPosts(list);
     });
+    setTimeout(() => {
+      setFollowingPosts(list);
+    }, 500);
   };
 
   useEffect(() => {
