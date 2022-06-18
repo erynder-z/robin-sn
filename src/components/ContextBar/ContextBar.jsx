@@ -25,13 +25,14 @@ function ContextBar({ userData }) {
         }
         return false;
       };
-
-      list.push({
-        userID: document.data().userID,
-        username: document.data().username,
-        userPic: document.data().userPic,
-        following: checkIfAlreadyFollowing(userData, document.data().userID)
-      });
+      if (document.data().userID !== userData.userID) {
+        list.push({
+          userID: document.data().userID,
+          username: document.data().username,
+          userPic: document.data().userPic,
+          following: checkIfAlreadyFollowing(userData, document.data().userID)
+        });
+      }
       setUserList(list);
     });
   };
