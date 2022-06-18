@@ -23,20 +23,34 @@ function Home({ userData }) {
     return docSnap.data().posts;
   };
 
+  // create a array with all postIDs sorted by creation date
+  const sortPosts = (list) => {
+    const unsorted = [];
+    list.map((u) =>
+      u.postIDs.map((a) =>
+        a.map((i) =>
+          unsorted.push({ postID: i.postID, created: i.created, userID: userData.userID })
+        )
+      )
+    );
+    const sorted = unsorted.sort((a, b) => (a.created.seconds > b.created.seconds ? 1 : -1));
+
+    return sorted;
+  };
+
   // merge userIDs & posts and save them in state
   const getPostsList = async () => {
     const list = [];
-
     const idList = await getUserIdList();
 
     await Promise.all(
       idList.map(async (user) => {
         const postList = await getUserPosts(user.userID);
+
         list.push({ userID: user.userID, postIDs: [postList] });
       })
     );
-
-    setFollowingPosts(list);
+    setFollowingPosts(sortPosts(list));
   };
 
   useEffect(() => {
@@ -48,13 +62,9 @@ function Home({ userData }) {
       <div className="home-header">Home</div>
       <div className="home-content">
         <div className="posts">
-          {followedUsersPosts.map((userObject) =>
-            userObject.postIDs.map((idArray) =>
-              idArray.map((id) => (
-                <PostItem key={id.postID} postID={id.postID} userID={userData.userID} />
-              ))
-            )
-          )}
+          {followedUsersPosts.map((p) => (
+            <PostItem key={p.postID} postID={p.postID} userID={userData.userID} />
+          ))}
         </div>
       </div>
     </div>
@@ -74,7 +84,12 @@ Home.propTypes = {
     joined: PropTypes.objectOf(PropTypes.number).isRequired,
     followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    posts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+    posts: PropTypes.arrayOf(
+      PropTypes.shape({
+        created: PropTypes.objectOf(PropTypes.number),
+        postID: PropTypes.string
+      })
+    ).isRequired,
     replies: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
