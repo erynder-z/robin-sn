@@ -20,7 +20,7 @@ function CreateUserAccount({ userCredentials }) {
     useremail: email,
     joined: serverTimestamp(),
     followers: [],
-    following: [],
+    following: [{ userID: uid }], // so the user can see it's own posts in the home component
     posts: [],
     replies: [],
     reposts: [],
