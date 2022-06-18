@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import uniqid from 'uniqid';
-import { arrayUnion, doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, getDoc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
 import './NewPostModal.css';
 
@@ -11,10 +11,12 @@ function NewPostModal({ userData, toggleNewPostModal }) {
 
   // adds the postID to the user-object
   const addPostToUserObject = async (postID) => {
-    const docRef = doc(database, 'users', userID);
+    const userRef = doc(database, 'users', userID);
+    const docRef = doc(database, 'posts', postID);
+    const docSnap = await getDoc(docRef);
 
-    await updateDoc(docRef, {
-      posts: arrayUnion({ postID })
+    await updateDoc(userRef, {
+      posts: arrayUnion({ postID, created: docSnap.data().created })
     });
   };
 
@@ -118,7 +120,12 @@ NewPostModal.propTypes = {
     joined: PropTypes.objectOf(PropTypes.number).isRequired,
     followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    posts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+    posts: PropTypes.arrayOf(
+      PropTypes.shape({
+        created: PropTypes.objectOf(PropTypes.number),
+        postID: PropTypes.string
+      })
+    ).isRequired,
     replies: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
