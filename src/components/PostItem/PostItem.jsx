@@ -5,7 +5,15 @@ import uniqid from 'uniqid';
 import { useNavigate } from 'react-router-dom';
 import { BiMessageRounded, BiRepost, BiLike } from 'react-icons/bi';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
-import { arrayUnion, doc, getDoc, setDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import {
+  arrayUnion,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  serverTimestamp,
+  arrayRemove
+} from 'firebase/firestore';
 import { format, fromUnixTime } from 'date-fns';
 import { database } from '../Firebase/Firebase';
 import Reply from '../Reply/Reply';
@@ -82,14 +90,35 @@ function PostItem({ postID, userID }) {
     addPostToUserObject(newPostID);
   };
 
-  const like = async () => {
-    await updateDoc(postDocRef, {
-      likes: arrayUnion({ userID })
-    });
+  const like = async (pID) => {
+    const docSnap = await getDoc(userDocRef);
+    const found = pID;
 
-    await updateDoc(userDocRef, {
-      likes: arrayUnion({ postID })
-    });
+    const likePost = async () => {
+      await updateDoc(postDocRef, {
+        likes: arrayUnion({ userID })
+      });
+
+      await updateDoc(userDocRef, {
+        likes: arrayUnion({ postID })
+      });
+    };
+
+    const unLikePost = async () => {
+      await updateDoc(postDocRef, {
+        likes: arrayRemove({ userID })
+      });
+
+      await updateDoc(userDocRef, {
+        likes: arrayRemove({ postID })
+      });
+    };
+    // like a post if not already liked or unlike if already liked
+    if (docSnap.data().likes.some((item) => item.postID === found)) {
+      unLikePost();
+    } else {
+      likePost();
+    }
   };
 
   // navigate to the PostDetails component and passing the postID and userID as state
@@ -170,11 +199,11 @@ function PostItem({ postID, userID }) {
               role="button"
               tabIndex={0}
               onClick={(e) => {
-                like();
+                like(postID);
                 e.stopPropagation();
               }}
               onKeyDown={(e) => {
-                like();
+                like(postID);
                 e.stopPropagation();
               }}>
               <BiLike size="1.5rem" />
