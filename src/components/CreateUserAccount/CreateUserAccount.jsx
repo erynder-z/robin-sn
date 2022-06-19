@@ -32,10 +32,15 @@ function CreateUserAccount({ userCredentials }) {
     try {
       const file = e.target.files[0];
       const image = await resizeFile(file);
-      setUserObject((prevState) => ({
-        ...prevState,
-        userPic: image
-      }));
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onloadend = () => {
+        const base64data = reader.result;
+        setUserObject((prevState) => ({
+          ...prevState,
+          userPic: base64data
+        }));
+      };
     } catch (err) {
       console.log(err);
     }
