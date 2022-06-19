@@ -1,13 +1,32 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import uniqid from 'uniqid';
+import { BiImage } from 'react-icons/bi';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { arrayUnion, doc, getDoc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
-import { database } from '../Firebase/Firebase';
+import { database, storage } from '../Firebase/Firebase';
+import resizeFile from '../../helpers/ImageResizer/ImageResizer';
 import './NewPostModal.css';
 
 function NewPostModal({ userData, toggleNewPostModal }) {
   const { userID, userPic, username } = userData;
   const [text, setText] = useState('');
+  const [imagePreview, setImagePreview] = useState(null);
+  const [imageUpload, setImageUpload] = useState(null);
+
+  // upload image to database and adds the image URL to the post in the database
+  const uploadPicture = (postID) => {
+    if (imageUpload == null) return;
+    const randomID = uniqid();
+    const imageRef = ref(storage, `images/${imageUpload.name + randomID}`);
+    const postRef = doc(database, 'posts', postID);
+
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setDoc(postRef, { imageURL: url }, { merge: true });
+      });
+    });
+  };
 
   // adds the postID to the user-object
   const addPostToUserObject = async (postID) => {
@@ -32,11 +51,28 @@ function NewPostModal({ userData, toggleNewPostModal }) {
       hashtags: [],
       reposts: [],
       likes: [],
-      replies: []
+      replies: [],
+      imageURL: null
     });
 
+    uploadPicture(postID);
     addPostToUserObject(postID);
     toggleNewPostModal();
+  };
+
+  // Load image into state to preview
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    const image = await resizeFile(file);
+    setImageUpload(image);
+
+    // image needs to be base64 to be rendered, so it must be converted first
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onloadend = () => {
+      const base64data = reader.result;
+      setImagePreview(base64data);
+    };
   };
 
   return (
@@ -93,14 +129,51 @@ function NewPostModal({ userData, toggleNewPostModal }) {
             e.stopPropagation();
           }}
         />
-        <button
-          className="postBtn"
-          type="submit"
-          onClick={() => {
-            submitPost();
-          }}>
-          Post
-        </button>
+
+        {imagePreview && (
+          <div className="picture-upload-container">
+            <div
+              className="removeImage"
+              role="button"
+              tabIndex={0}
+              onClick={() => {
+                setImagePreview(null);
+                setImageUpload(null);
+              }}
+              onKeyDown={() => {
+                setImagePreview(null);
+                setImageUpload(null);
+              }}>
+              &times;
+            </div>
+            <img className="picture-upload" src={imagePreview} alt="uploaded content" />{' '}
+          </div>
+        )}
+
+        <div className="post-options-container">
+          <div className="upload-options">
+            <label htmlFor="pictureUpload" className="picture-upload-label">
+              <BiImage size="2rem" />
+              <input
+                className="picture-upload"
+                type="file"
+                id="pictureUpload"
+                accept="image/png, image/jpeg"
+                onChange={(e) => {
+                  handleImageUpload(e);
+                }}
+              />
+            </label>
+          </div>
+          <button
+            className="postBtn"
+            type="submit"
+            onClick={() => {
+              submitPost();
+            }}>
+            Post
+          </button>
+        </div>
       </div>
     </div>
   );
