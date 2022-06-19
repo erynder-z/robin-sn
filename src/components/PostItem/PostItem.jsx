@@ -53,7 +53,7 @@ function PostItem({ postID, userID }) {
     setPostOwner({ username: docSnap.data().username, userpic: docSnap.data().userPic });
   };
 
-  const repost = async (ownerName, postContent) => {
+  const repost = async (ownerName, postContent, postImageURL) => {
     // copy userID to post document
     await updateDoc(postDocRef, {
       reposts: arrayUnion({ userID })
@@ -74,7 +74,8 @@ function PostItem({ postID, userID }) {
       hashtags: [],
       reposts: [],
       likes: [],
-      replies: []
+      replies: [],
+      imageURL: postImageURL
     });
 
     const addPostToUserObject = async (pID) => {
@@ -163,6 +164,9 @@ function PostItem({ postID, userID }) {
             <div className="post-date">{postDate}</div>
           </div>
           <div className="post-content"> {parseText(post.content)}</div>
+          {post.imageURL !== null && (
+            <img className="post-image" src={post.imageURL} alt="uploaded content" />
+          )}
           <div className="post-options">
             <div
               className="optionItem"
@@ -184,11 +188,11 @@ function PostItem({ postID, userID }) {
               role="button"
               tabIndex={0}
               onClick={(e) => {
-                repost(postOwner.username, post.content);
+                repost(postOwner.username, post.content, post.imageURL);
                 e.stopPropagation();
               }}
               onKeyDown={(e) => {
-                repost(postOwner.username, post.content);
+                repost(postOwner.username, post.content, post.imageURL);
                 e.stopPropagation();
               }}>
               <BiRepost size="1.5rem" />
