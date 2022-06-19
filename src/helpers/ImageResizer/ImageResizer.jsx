@@ -4,15 +4,15 @@ const resizeFile = (file) =>
   new Promise((resolve) => {
     Resizer.imageFileResizer(
       file,
-      100,
-      100,
+      250,
+      250,
       'JPEG',
       100,
       0,
       (uri) => {
         resolve(uri);
       },
-      'base64'
+      'file'
     );
   });
 
