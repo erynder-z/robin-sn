@@ -1,13 +1,13 @@
 .floating-menu {
-  height: 10vh;
-  width: 10vh;
+  height: 9vh;
+  width: 9vh;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--button);
   position: fixed;
-  bottom: 5%;
+  bottom: 8.5%;
   right: 15%;
   transition: all 0.2s ease-in-out;
 }

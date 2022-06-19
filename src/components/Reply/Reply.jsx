@@ -87,7 +87,12 @@ function Reply({ postID, userID, replyMode, toggleReplyModal, postOwner }) {
             &times;
           </div>
         </div>
-        <textarea cols="30" rows="5" placeholder="write your reply" />
+        <textarea
+          className="reply-modal-textarea"
+          cols="30"
+          rows="5"
+          placeholder="write your reply"
+        />
         <button
           className="replyBtn"
           type="submit"
@@ -107,6 +112,7 @@ function Reply({ postID, userID, replyMode, toggleReplyModal, postOwner }) {
         replying to: @{replyUserName}
       </div>
       <textarea
+        className="reply-append-textarea"
         cols="30"
         rows="5"
         placeholder="write your reply"

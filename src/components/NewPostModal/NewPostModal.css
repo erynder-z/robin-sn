@@ -40,15 +40,60 @@
   border-radius: 2%;
 }
 
-textarea {
+.newPost-textarea {
+  padding: 0.5rem;
+  font-size: 1rem;
   resize: none;
+  outline: none;
+  border: none;
   background-color: rgba(255, 255, 255, 0.1);
   color: var(--text-bright);
+}
+
+.newPost-textarea:focus {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .close {
   cursor: pointer;
   font-size: 2rem;
+}
+
+.post-options-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-options {
+  padding: 0.5rem 0;
+}
+
+.picture-upload-label {
+  cursor: pointer;
+}
+
+.picture-upload-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  text-align: center;
+  padding: 1rem;
+}
+
+.removeImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  height: 2rem;
+  width: 2rem;
+  font-size: 2rem;
+  color: var(--text-bright);
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  position: absolute;
+}
+
+.picture-upload {
+  max-height: 25vh;
 }
 
 .postBtn {

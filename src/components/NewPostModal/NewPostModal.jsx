@@ -115,6 +115,7 @@ function NewPostModal({ userData, toggleNewPostModal }) {
           </div>
         </div>
         <textarea
+          className="newPost-textarea"
           cols="30"
           rows="5"
           placeholder="enter your message"

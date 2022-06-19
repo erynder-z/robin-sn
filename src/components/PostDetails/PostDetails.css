@@ -25,6 +25,7 @@
   align-items: center;
   justify-content: center;
   height: 5%;
+  padding: 0 1rem;
   font-size: 1.5rem;
   font-weight: bolder;
 }
@@ -32,4 +33,9 @@
 .post-details-container > .post-container > .post-right-wrapper > .post-content {
   font-size: 1.3rem;
   font-weight: 500;
+}
+
+.post-header > :first-child {
+  position: absolute;
+  left: 33%;
 }

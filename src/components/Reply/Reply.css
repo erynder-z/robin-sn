@@ -11,6 +11,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .replyModal-body {
   background-color: var(--card-background);
   color: var(--text-bright);
@@ -27,6 +28,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.reply-modal-textarea {
+  padding: 0.5rem;
+  font-size: 1rem;
+  resize: none;
+  outline: none;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-bright);
+}
+
+.reply-modal-textarea:focus {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .replyTo {
@@ -52,9 +67,18 @@
   flex-direction: column;
 }
 
-textarea {
+.reply-append-textarea {
   padding: 0.5rem;
   font-size: 1rem;
+  resize: none;
+  outline: none;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-bright);
+}
+
+.reply-append-textarea:focus {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .replyBtn {
@@ -63,6 +87,7 @@ textarea {
   background-color: var(--button);
   color: var(--text-bright);
   cursor: pointer;
+  z-index: 10;
 }
 
 .replyBtn:hover {
