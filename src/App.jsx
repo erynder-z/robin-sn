@@ -65,5 +65,5 @@ pst: {
   postID: "string",
   replies: [{replyContent: "string", replyDate: {seconds: number, nanoseconds: number}, replyID: "string", replyUserID: "string"}],
   reposts: [{userID: "string"}],
-  
+  imageURL: "string"
 } */
