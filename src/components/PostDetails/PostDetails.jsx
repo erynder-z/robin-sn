@@ -1,6 +1,7 @@
+import { BiArrowBack } from 'react-icons/bi';
 import { doc, getDoc } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
 import Reply from '../Reply/Reply';
@@ -8,6 +9,7 @@ import ReplyItem from '../ReplyItem/ReplyItem';
 import './PostDetails.css';
 
 function PostDetails() {
+  const navigate = useNavigate();
   // get state from PostItem component // state: { postID, userID, postOwner }
   const location = useLocation();
   /*   console.log(location.state); */
@@ -30,7 +32,20 @@ function PostDetails() {
 
   return (
     <div className="post-details-container">
-      <div className="post-header">Post</div>
+      <div className="post-header">
+        <BiArrowBack
+          size="1.5rem"
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            navigate(-1);
+          }}
+          onKeyDown={() => {
+            navigate(-1);
+          }}
+        />
+        <span>Post</span>
+      </div>
       <PostItem
         key={location.state.postID}
         postID={location.state.postID}
