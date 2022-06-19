@@ -70,10 +70,12 @@ function PostItem({ postID, userID }) {
     });
 
     const addPostToUserObject = async (pID) => {
-      const docRef = doc(database, 'users', userID);
+      const userRef = doc(database, 'users', userID);
+      const docRef = doc(database, 'posts', pID);
+      const docSnap = await getDoc(docRef);
 
-      await updateDoc(docRef, {
-        posts: arrayUnion({ postID: pID })
+      await updateDoc(userRef, {
+        posts: arrayUnion({ postID: pID, created: docSnap.data().created })
       });
     };
 
