@@ -117,7 +117,7 @@ ContextBar.propTypes = {
     description: PropTypes.string.isRequired,
     userPic: PropTypes.string.isRequired,
     useremail: PropTypes.string.isRequired,
-    joined: PropTypes.objectOf(PropTypes.number).isRequired,
+    joined: PropTypes.objectOf(PropTypes.number),
     followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     posts: PropTypes.arrayOf(
