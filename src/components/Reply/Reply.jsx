@@ -13,29 +13,37 @@ function Reply({ postID, userID, replyMode, toggleReplyModal, postOwner }) {
 
   // add replied post's ID to user object
   const addPostToUserObject = async () => {
-    const docRef = doc(database, 'users', userID);
+    try {
+      const docRef = doc(database, 'users', userID);
 
-    await updateDoc(docRef, {
-      replies: arrayUnion({ postID })
-    });
+      await updateDoc(docRef, {
+        replies: arrayUnion({ postID })
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // adds reply to the post object
   const reply = async () => {
-    const replyID = uniqid();
-    const docRef = doc(database, 'posts', postID);
-    await updateDoc(docRef, {
-      replies: arrayUnion({
-        replyID,
-        replyUserID: userID,
-        replyContent: text,
-        replyDate: Timestamp.now()
-      })
-    });
+    try {
+      const replyID = uniqid();
+      const docRef = doc(database, 'posts', postID);
+      await updateDoc(docRef, {
+        replies: arrayUnion({
+          replyID,
+          replyUserID: userID,
+          replyContent: text,
+          replyDate: Timestamp.now()
+        })
+      });
 
-    addPostToUserObject(postID);
-    toggleReplyModal();
-    setText('');
+      addPostToUserObject(postID);
+      toggleReplyModal();
+      setText('');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {

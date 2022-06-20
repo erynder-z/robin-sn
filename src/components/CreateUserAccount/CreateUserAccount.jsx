@@ -61,22 +61,26 @@ function CreateUserAccount({ userCredentials }) {
   };
 
   const uploadUser = async () => {
-    await setDoc(doc(database, 'users', uid), {
-      userID: userObject.userID,
-      isSetup: userObject.isSetup,
-      username: userObject.username,
-      description: userObject.description,
-      userPic: userObject.userPic,
-      useremail: userObject.useremail,
-      joined: userObject.joined,
-      followers: userObject.followers,
-      following: userObject.following,
-      posts: userObject.posts,
-      replies: userObject.replies,
-      reposts: userObject.reposts,
-      likes: userObject.likes,
-      bookmarks: userObject.bookmarks
-    });
+    try {
+      await setDoc(doc(database, 'users', uid), {
+        userID: userObject.userID,
+        isSetup: userObject.isSetup,
+        username: userObject.username,
+        description: userObject.description,
+        userPic: userObject.userPic,
+        useremail: userObject.useremail,
+        joined: userObject.joined,
+        followers: userObject.followers,
+        following: userObject.following,
+        posts: userObject.posts,
+        replies: userObject.replies,
+        reposts: userObject.reposts,
+        likes: userObject.likes,
+        bookmarks: userObject.bookmarks
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {

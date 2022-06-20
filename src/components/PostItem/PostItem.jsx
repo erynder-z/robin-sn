@@ -48,77 +48,89 @@ function PostItem({ postID, userID }) {
 
   // get username via getDoc rather than useDocumentData-hook to prevent exposing the whole user object to the front end
   const getOwner = async () => {
-    const ownerDocRef = doc(database, 'users', ownerID);
-    const docSnap = await getDoc(ownerDocRef);
-    setPostOwner({ username: docSnap.data().username, userpic: docSnap.data().userPic });
+    try {
+      const ownerDocRef = doc(database, 'users', ownerID);
+      const docSnap = await getDoc(ownerDocRef);
+      setPostOwner({ username: docSnap.data().username, userpic: docSnap.data().userPic });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const repost = async (ownerName, postContent, postImageURL) => {
-    // copy userID to post document
-    await updateDoc(postDocRef, {
-      reposts: arrayUnion({ userID })
-    });
-    // copy postID to user document
-    await updateDoc(userDocRef, {
-      reposts: arrayUnion({ postID })
-    });
-    // create a new post in the user document with the repost as content
-    const newPostID = uniqid();
-    const repostContent = `reposting @${ownerName}:\n\n &laquo; ${postContent} &raquo;`;
-    await setDoc(doc(database, 'posts', newPostID), {
-      created: serverTimestamp(),
-      postID: newPostID,
-      ownerID: userID,
-      content: repostContent,
-      hasHashtag: false,
-      hashtags: [],
-      reposts: [],
-      likes: [],
-      replies: [],
-      imageURL: postImageURL
-    });
-
-    const addPostToUserObject = async (pID) => {
-      const userRef = doc(database, 'users', userID);
-      const docRef = doc(database, 'posts', pID);
-      const docSnap = await getDoc(docRef);
-
-      await updateDoc(userRef, {
-        posts: arrayUnion({ postID: pID, created: docSnap.data().created })
+    try {
+      // copy userID to post document
+      await updateDoc(postDocRef, {
+        reposts: arrayUnion({ userID })
       });
-    };
+      // copy postID to user document
+      await updateDoc(userDocRef, {
+        reposts: arrayUnion({ postID })
+      });
+      // create a new post in the user document with the repost as content
+      const newPostID = uniqid();
+      const repostContent = `reposting @${ownerName}:\n\n &laquo; ${postContent} &raquo;`;
+      await setDoc(doc(database, 'posts', newPostID), {
+        created: serverTimestamp(),
+        postID: newPostID,
+        ownerID: userID,
+        content: repostContent,
+        hasHashtag: false,
+        hashtags: [],
+        reposts: [],
+        likes: [],
+        replies: [],
+        imageURL: postImageURL
+      });
 
-    addPostToUserObject(newPostID);
+      const addPostToUserObject = async (pID) => {
+        const userRef = doc(database, 'users', userID);
+        const docRef = doc(database, 'posts', pID);
+        const docSnap = await getDoc(docRef);
+
+        await updateDoc(userRef, {
+          posts: arrayUnion({ postID: pID, created: docSnap.data().created })
+        });
+      };
+
+      addPostToUserObject(newPostID);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const like = async (pID) => {
-    const docSnap = await getDoc(userDocRef);
-    const found = pID;
+    try {
+      const docSnap = await getDoc(userDocRef);
+      const found = pID;
 
-    const likePost = async () => {
-      await updateDoc(postDocRef, {
-        likes: arrayUnion({ userID })
-      });
+      const likePost = async () => {
+        await updateDoc(postDocRef, {
+          likes: arrayUnion({ userID })
+        });
 
-      await updateDoc(userDocRef, {
-        likes: arrayUnion({ postID })
-      });
-    };
+        await updateDoc(userDocRef, {
+          likes: arrayUnion({ postID })
+        });
+      };
 
-    const unLikePost = async () => {
-      await updateDoc(postDocRef, {
-        likes: arrayRemove({ userID })
-      });
+      const unLikePost = async () => {
+        await updateDoc(postDocRef, {
+          likes: arrayRemove({ userID })
+        });
 
-      await updateDoc(userDocRef, {
-        likes: arrayRemove({ postID })
-      });
-    };
-    // like a post if not already liked or unlike if already liked
-    if (docSnap.data().likes.some((item) => item.postID === found)) {
-      unLikePost();
-    } else {
-      likePost();
+        await updateDoc(userDocRef, {
+          likes: arrayRemove({ postID })
+        });
+      };
+      // like a post if not already liked or unlike if already liked
+      if (docSnap.data().likes.some((item) => item.postID === found)) {
+        unLikePost();
+      } else {
+        likePost();
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 

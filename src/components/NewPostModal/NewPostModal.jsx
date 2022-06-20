@@ -17,62 +17,78 @@ function NewPostModal({ userData, toggleNewPostModal }) {
   // upload image to database and adds the image URL to the post in the database
   const uploadPicture = (postID) => {
     if (imageUpload == null) return;
-    const randomID = uniqid();
-    const imageRef = ref(storage, `images/${imageUpload.name + randomID}`);
-    const postRef = doc(database, 'posts', postID);
+    try {
+      const randomID = uniqid();
+      const imageRef = ref(storage, `images/${imageUpload.name + randomID}`);
+      const postRef = doc(database, 'posts', postID);
 
-    uploadBytes(imageRef, imageUpload).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        setDoc(postRef, { imageURL: url }, { merge: true });
+      uploadBytes(imageRef, imageUpload).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
+          setDoc(postRef, { imageURL: url }, { merge: true });
+        });
       });
-    });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // adds the postID to the user-object
   const addPostToUserObject = async (postID) => {
-    const userRef = doc(database, 'users', userID);
-    const docRef = doc(database, 'posts', postID);
-    const docSnap = await getDoc(docRef);
+    try {
+      const userRef = doc(database, 'users', userID);
+      const docRef = doc(database, 'posts', postID);
+      const docSnap = await getDoc(docRef);
 
-    await updateDoc(userRef, {
-      posts: arrayUnion({ postID, created: docSnap.data().created })
-    });
+      await updateDoc(userRef, {
+        posts: arrayUnion({ postID, created: docSnap.data().created })
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // creates the post in the database
   const submitPost = async () => {
-    const postID = uniqid();
-    await setDoc(doc(database, 'posts', postID), {
-      created: serverTimestamp(),
-      postID,
-      ownerID: userID,
-      content: text,
-      hasHashtag: false,
-      hashtags: [],
-      reposts: [],
-      likes: [],
-      replies: [],
-      imageURL: null
-    });
+    try {
+      const postID = uniqid();
+      await setDoc(doc(database, 'posts', postID), {
+        created: serverTimestamp(),
+        postID,
+        ownerID: userID,
+        content: text,
+        hasHashtag: false,
+        hashtags: [],
+        reposts: [],
+        likes: [],
+        replies: [],
+        imageURL: null
+      });
 
-    uploadPicture(postID);
-    addPostToUserObject(postID);
-    toggleNewPostModal();
+      uploadPicture(postID);
+      addPostToUserObject(postID);
+      toggleNewPostModal();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // Load image into state to preview
   const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    const image = await resizeFile(file);
-    setImageUpload(image);
+    try {
+      const file = e.target.files[0];
+      const image = await resizeFile(file);
+      setImageUpload(image);
 
-    // image needs to be base64 to be rendered, so it must be converted first
-    const reader = new FileReader();
-    reader.readAsDataURL(image);
-    reader.onloadend = () => {
-      const base64data = reader.result;
-      setImagePreview(base64data);
-    };
+      // image needs to be base64 to be rendered, so it must be converted first
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onloadend = () => {
+        const base64data = reader.result;
+        setImagePreview(base64data);
+      };
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
