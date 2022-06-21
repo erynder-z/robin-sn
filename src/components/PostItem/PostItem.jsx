@@ -143,6 +143,11 @@ function PostItem({ postID, userID }) {
     navigate('/main/postDetails', { state: { postID, userID, postOwner } });
   };
 
+  const linkToUserProfile = (e) => {
+    e.stopPropagation();
+    navigate(`/main/userprofile/${postOwner.ownerID}`, { state: { usr: postOwner.ownerID } });
+  };
+
   const toggleReplyModal = () => {
     setShowReplyModal(!showReplyModal);
   };
@@ -171,11 +176,35 @@ function PostItem({ postID, userID }) {
           linkToPostDetailsComponent();
         }}>
         <div className="post-left-wrapper">
-          <img className="post-usrpic" src={postOwner.userpic} alt="user avatar" />
+          <input
+            type="image"
+            className="post-usrpic"
+            src={postOwner.userpic}
+            alt="user avatar"
+            tabIndex={0}
+            onClick={(e) => {
+              linkToUserProfile(e);
+            }}
+            onKeyDown={(e) => {
+              linkToUserProfile(e);
+            }}
+          />
         </div>
         <div className="post-right-wrapper">
           <div className="post-userDetails">
-            <div className="post-author">@{postOwner.username}</div>
+            <div
+              className="post-author"
+              role="link"
+              tabIndex={0}
+              onClick={(e) => {
+                linkToUserProfile(e);
+              }}
+              onKeyDown={(e) => {
+                linkToUserProfile(e);
+              }}>
+              @{postOwner.username}
+            </div>
+
             <div className="post-userDetails-separator">∙</div>
             <div className="post-date">{postDate}</div>
           </div>
