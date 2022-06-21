@@ -49,7 +49,7 @@ function Sidebar({ userData }) {
           <BiListUl size="2rem" />
           <span>Lists</span>
         </li>{' '}
-        <Link to="/main/profile">
+        <Link to="/main/myprofile">
           <li className="sidebar-item">
             <BiUserCircle size="2rem" />
             <span>Profile</span>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
-import './Profile.css';
+import './MyProfile.css';
 import PostItem from '../PostItem/PostItem';
 
-function Profile({ userData }) {
+function MyProfile({ userData }) {
   const { userPic, username, joined, following, followers, posts, description } = userData;
   const [activeView, setActiveView] = useState('posts');
   const joinedDateFormatted = format(fromUnixTime(joined.seconds), 'dd LLLL yyy');
@@ -23,7 +23,7 @@ function Profile({ userData }) {
 
   return (
     <div className="profile-container">
-      <div className="profile-header">Profile</div>
+      <div className="profile-header"> My Profile</div>
       <div className="profile-card">
         <div className="card-wrapper">
           <img className="profile-usrpic" src={userPic} alt="user avatar" />
@@ -99,9 +99,9 @@ function Profile({ userData }) {
   );
 }
 
-export default Profile;
+export default MyProfile;
 
-Profile.propTypes = {
+MyProfile.propTypes = {
   userData: PropTypes.shape({
     userID: PropTypes.string.isRequired,
     isSetup: PropTypes.bool.isRequired,

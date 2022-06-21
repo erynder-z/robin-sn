@@ -11,8 +11,8 @@ import Sidebar from '../Sidebar/Sidebar';
 import ContextBar from '../ContextBar/ContextBar';
 import FloatingMenu from '../FloatingMenu/FloatingMenu';
 import NewPostModal from '../NewPostModal/NewPostModal';
-import Profile from '../Profile/Profile';
 import PostDetails from '../PostDetails/PostDetails';
+import MyProfile from '../MyProfile/MyProfile.jsx';
 
 function Main({ userCredentials }) {
   const { uid } = userCredentials;
@@ -55,7 +55,8 @@ function Main({ userCredentials }) {
         />
         {/* make nested route so UI elements like the sidebar don't have to be re-rendered on component change.  */}
         <Route path="home" element={isUserSetup ? <Home userData={userData} /> : null} />
-        <Route path="profile" element={isUserSetup ? <Profile userData={userData} /> : null} />
+        <Route path="myprofile" element={isUserSetup ? <MyProfile userData={userData} /> : null} />
+        {/*      <Route path="userprofile/:id" element={isUserSetup ? <UserProfile /> : null} /> */}
         <Route
           path="postDetails"
           element={isUserSetup ? <PostDetails userData={userData} /> : null}
