@@ -51,7 +51,11 @@ function PostItem({ postID, userID }) {
     try {
       const ownerDocRef = doc(database, 'users', ownerID);
       const docSnap = await getDoc(ownerDocRef);
-      setPostOwner({ username: docSnap.data().username, userpic: docSnap.data().userPic });
+      setPostOwner({
+        username: docSnap.data().username,
+        userpic: docSnap.data().userPic,
+        ownerID: docSnap.data().userID
+      });
     } catch (err) {
       console.log(err);
     }
