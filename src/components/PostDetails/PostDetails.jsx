@@ -1,4 +1,5 @@
 import { BiArrowBack, BiTrash } from 'react-icons/bi';
+import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { arrayRemove, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -12,16 +13,8 @@ function PostDetails() {
   const navigate = useNavigate();
   // get state from PostItem component // state: { postID, userID, postOwner }
   const location = useLocation();
-  /*   console.log(location.state); */
   const [replies, setReplies] = useState([]);
-
-  // get all replies of a post
-  const getReplies = async (postID) => {
-    const docRef = doc(database, 'posts', postID);
-    const docSnap = await getDoc(docRef);
-    const list = docSnap.data().replies;
-    setReplies(list);
-  };
+  const [post] = useDocumentData(doc(database, 'posts', location.state.postID));
 
   // delete post from posts-collection and remove it from the user-object
   const deletePost = async (postID, userID) => {
@@ -35,7 +28,7 @@ function PostDetails() {
         // need to pass the exact object to delete into arrayRemove(), so we first need to retrieve the post-object from the user object.posts-array
         const userRef = doc(database, 'users', userID);
         const userSnap = await getDoc(userRef);
-        const postToDelete = userSnap.data().posts.find((post) => post.postID === postID);
+        const postToDelete = userSnap.data().posts.find((p) => p.postID === postID);
         await updateDoc(userRef, {
           posts: arrayRemove(postToDelete)
         });
@@ -53,8 +46,11 @@ function PostDetails() {
   const dummyModal = () => {};
 
   useEffect(() => {
-    getReplies(location.state.postID);
-  }, [replies]);
+    // get all replies of a post
+    if (post) {
+      setReplies(post.replies);
+    }
+  }, [post]);
 
   return (
     <div className="post-details-container">
