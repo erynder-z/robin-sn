@@ -12,6 +12,15 @@ function MyProfile({ userData }) {
   const joinedDateFormatted = format(fromUnixTime(joined.seconds), 'dd LLLL yyy');
   const [postsAndReplies, setPostsAndReplies] = useState([]);
 
+  const sortPosts = (lst) => {
+    const unsorted = [];
+    lst.map((o) =>
+      unsorted.push({ postID: o.postID, created: o.created, userID: userData.userID })
+    );
+    const sorted = unsorted.sort((a, b) => (a.created.seconds > b.created.seconds ? 1 : -1));
+    return sorted;
+  };
+
   // get all of the users posts and posts the user has replied to
   const getPostsAndReplies = async () => {
     const list = [...posts];
@@ -25,7 +34,7 @@ function MyProfile({ userData }) {
       });
     });
 
-    setPostsAndReplies(list);
+    setPostsAndReplies(sortPosts(list));
   };
 
   useEffect(() => {
@@ -35,7 +44,7 @@ function MyProfile({ userData }) {
   // lists all the posts made by the user
   const Posts = (
     <div className="posts">
-      {posts.map((post) => (
+      {sortPosts(posts).map((post) => (
         <PostItem key={post.postID} postID={post.postID} userID={userData.userID} />
       ))}
     </div>
