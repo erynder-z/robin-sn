@@ -3,7 +3,8 @@ import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { arrayRemove, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { database } from '../Firebase/Firebase';
+import { deleteObject, ref } from 'firebase/storage';
+import { database, storage } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
 import Reply from '../Reply/Reply';
 import ReplyItem from '../ReplyItem/ReplyItem';
@@ -21,7 +22,11 @@ function PostDetails() {
     try {
       const handleDeleteDoc = async () => {
         const docRef = doc(database, 'posts', postID);
+        const getImageRef = post.image.imageRef.split('appspot.com/').pop();
+        const imageRef = ref(storage, getImageRef);
+
         await deleteDoc(docRef);
+        await deleteObject(imageRef);
       };
 
       const handleDeleteFromUserObject = async () => {

@@ -24,7 +24,7 @@ function NewPostModal({ userData, toggleNewPostModal }) {
 
       uploadBytes(imageRef, imageUpload).then((snapshot) => {
         getDownloadURL(snapshot.ref).then((url) => {
-          updateDoc(postRef, { imageURL: url });
+          updateDoc(postRef, { image: { imageURL: url, imageRef: imageRef.toString() } });
         });
       });
     } catch (err) {
@@ -61,7 +61,7 @@ function NewPostModal({ userData, toggleNewPostModal }) {
         reposts: [],
         likes: [],
         replies: [],
-        imageURL: null
+        image: { imageURL: null, imageRef: null }
       });
 
       uploadPicture(postID);

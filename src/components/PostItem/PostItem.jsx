@@ -42,7 +42,7 @@ function PostItem({ postID, userID }) {
     }
   };
 
-  const repost = async (ownerName, postContent, postImageURL) => {
+  const repost = async (ownerName, postContent, postImage) => {
     try {
       // copy userID to post document
       await updateDoc(postDocRef, {
@@ -65,7 +65,7 @@ function PostItem({ postID, userID }) {
         reposts: [],
         likes: [],
         replies: [],
-        imageURL: postImageURL
+        image: { imageURL: postImage.imageURL, imageRef: postImage.imageRef }
       });
 
       const addPostToUserObject = async (pID) => {
@@ -185,8 +185,8 @@ function PostItem({ postID, userID }) {
             <div className="post-date">{format(fromUnixTime(post.created.seconds), 'PPP')}</div>
           </div>
           <div className="post-content"> {parseText(post.content)}</div>
-          {post.imageURL !== null && (
-            <img className="post-image" src={post.imageURL} alt="uploaded content" />
+          {post.image.imageURL !== null && (
+            <img className="post-image" src={post.image.imageURL} alt="uploaded content" />
           )}
           <div className="post-options">
             <div
@@ -209,11 +209,11 @@ function PostItem({ postID, userID }) {
               role="button"
               tabIndex={0}
               onClick={(e) => {
-                repost(postOwner.username, post.content, post.imageURL);
+                repost(postOwner.username, post.content, post.image);
                 e.stopPropagation();
               }}
               onKeyDown={(e) => {
-                repost(postOwner.username, post.content, post.imageURL);
+                repost(postOwner.username, post.content, post.image);
                 e.stopPropagation();
               }}>
               <BiRepost size="1.5rem" />
