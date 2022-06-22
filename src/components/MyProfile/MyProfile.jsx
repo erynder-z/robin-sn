@@ -1,13 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
 import './MyProfile.css';
 import PostItem from '../PostItem/PostItem';
+import { database } from '../Firebase/Firebase';
 
 function MyProfile({ userData }) {
-  const { userPic, username, joined, following, followers, posts, description } = userData;
+  const { userPic, username, joined, following, followers, posts, description, replies } = userData;
   const [activeView, setActiveView] = useState('posts');
   const joinedDateFormatted = format(fromUnixTime(joined.seconds), 'dd LLLL yyy');
+  const [postsAndReplies, setPostsAndReplies] = useState([]);
+
+  // get all of the users posts and posts the user has replied to
+  const getPostsAndReplies = async () => {
+    const list = [...posts];
+    const userReplies = [...replies];
+
+    userReplies.forEach(async (reply) => {
+      const q = query(collection(database, 'posts'), where('postID', '==', reply.postID));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        list.push({ postID: doc.data().postID, created: doc.data().created });
+      });
+    });
+
+    setPostsAndReplies(list);
+  };
+
+  useEffect(() => {
+    getPostsAndReplies();
+  }, []);
 
   // lists all the posts made by the user
   const Posts = (
@@ -17,7 +40,16 @@ function MyProfile({ userData }) {
       ))}
     </div>
   );
-  const PostsAndReplies = <div className="postsAndReplies">posts and replies</div>;
+
+  const PostsAndReplies = (
+    <div className="postsAndReplies">
+      {' '}
+      {postsAndReplies.map((post) => (
+        <PostItem key={post.postID} postID={post.postID} userID={userData.userID} />
+      ))}
+    </div>
+  );
+
   const Media = <div className="media">users media</div>;
   const Likes = <div className="likes">users likes</div>;
 
