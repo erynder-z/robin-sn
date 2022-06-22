@@ -7,16 +7,16 @@ import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
 
 function MyProfile({ userData }) {
-  const { userPic, username, joined, following, followers, posts, description, replies } = userData;
+  const { userPic, username, joined, following, followers, posts, description, replies, userID } =
+    userData;
   const [activeView, setActiveView] = useState('posts');
   const joinedDateFormatted = format(fromUnixTime(joined.seconds), 'dd LLLL yyy');
   const [postsAndReplies, setPostsAndReplies] = useState([]);
+  const [media, setMedia] = useState([]);
 
   const sortPosts = (lst) => {
     const unsorted = [];
-    lst.map((o) =>
-      unsorted.push({ postID: o.postID, created: o.created, userID: userData.userID })
-    );
+    lst.map((o) => unsorted.push({ postID: o.postID, created: o.created, userID }));
     const sorted = unsorted.sort((a, b) => (a.created.seconds > b.created.seconds ? 1 : -1));
     return sorted;
   };
@@ -27,7 +27,7 @@ function MyProfile({ userData }) {
     const userReplies = [...replies];
 
     userReplies.forEach(async (reply) => {
-      const q = query(collection(database, 'posts'), where('postID', '==', reply.postID));
+      const q = query(collection(database, 'posts'), where('ownerID', '==', reply.postID));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         list.push({ postID: doc.data().postID, created: doc.data().created });
@@ -37,9 +37,29 @@ function MyProfile({ userData }) {
     setPostsAndReplies(sortPosts(list));
   };
 
+  // get all of the users posts with an image
+  const getMediaPosts = async () => {
+    const list = [];
+    const q = query(
+      collection(database, 'posts'),
+      where('ownerID', '==', userID),
+      where('image.imageRef', '!=', 'null')
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      list.push({ postID: doc.data().postID, created: doc.data().created });
+    });
+
+    setMedia(sortPosts(list));
+  };
+
   useEffect(() => {
     getPostsAndReplies();
-  }, []);
+  }, [activeView === 'postsAndReplies']);
+
+  useEffect(() => {
+    getMediaPosts();
+  }, [activeView === 'media']);
 
   // lists all the posts made by the user
   const Posts = (
@@ -52,14 +72,20 @@ function MyProfile({ userData }) {
 
   const PostsAndReplies = (
     <div className="postsAndReplies">
-      {' '}
       {postsAndReplies.map((post) => (
         <PostItem key={post.postID} postID={post.postID} userID={userData.userID} />
       ))}
     </div>
   );
 
-  const Media = <div className="media">users media</div>;
+  const Media = (
+    <div className="media">
+      {media.map((post) => (
+        <PostItem key={post.postID} postID={post.postID} userID={userData.userID} />
+      ))}
+    </div>
+  );
+
   const Likes = <div className="likes">users likes</div>;
 
   return (
