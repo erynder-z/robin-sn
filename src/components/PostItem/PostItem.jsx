@@ -22,34 +22,15 @@ import parseText from '../../helpers/ParseText/parseText';
 function PostItem({ postID, userID }) {
   const navigate = useNavigate();
   const [post] = useDocumentData(doc(database, 'posts', postID));
-  const [ownerID, setOwnerID] = useState('');
   const [postOwner, setPostOwner] = useState('');
-  const [postDate, setPostDate] = useState('');
   const [showReplyModal, setShowReplyModal] = useState(false);
-
   const postDocRef = doc(database, 'posts', postID);
   const userDocRef = doc(database, 'users', userID);
-
-  // get the ownerID of the post so it can be used to retrieve the username of the post owner
-  const getOwnerID = () => {
-    if (post) {
-      setOwnerID(post.ownerID);
-    }
-  };
-
-  // make date human-readable
-  const getPostDate = () => {
-    if (post) {
-      const postDateFormatted = format(fromUnixTime(post.created.seconds), 'PPP');
-
-      setPostDate(postDateFormatted);
-    }
-  };
 
   // get username via getDoc rather than useDocumentData-hook to prevent exposing the whole user object to the front end
   const getOwner = async () => {
     try {
-      const ownerDocRef = doc(database, 'users', ownerID);
+      const ownerDocRef = doc(database, 'users', post.ownerID);
       const docSnap = await getDoc(ownerDocRef);
       setPostOwner({
         username: docSnap.data().username,
@@ -156,11 +137,6 @@ function PostItem({ postID, userID }) {
     if (post) {
       getOwner();
     }
-  }, [ownerID]);
-
-  useEffect(() => {
-    getOwnerID();
-    getPostDate();
   }, [post]);
 
   return (
@@ -206,7 +182,7 @@ function PostItem({ postID, userID }) {
             </div>
 
             <div className="post-userDetails-separator">∙</div>
-            <div className="post-date">{postDate}</div>
+            <div className="post-date">{format(fromUnixTime(post.created.seconds), 'PPP')}</div>
           </div>
           <div className="post-content"> {parseText(post.content)}</div>
           {post.imageURL !== null && (
