@@ -7,8 +7,18 @@ import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
 
 function MyProfile({ userData }) {
-  const { userPic, username, joined, following, followers, posts, description, replies, userID } =
-    userData;
+  const {
+    userPic,
+    username,
+    joined,
+    following,
+    followers,
+    posts,
+    description,
+    replies,
+    userID,
+    likes
+  } = userData;
   const [activeView, setActiveView] = useState('posts');
   const joinedDateFormatted = format(fromUnixTime(joined.seconds), 'dd LLLL yyy');
   const [postsAndReplies, setPostsAndReplies] = useState([]);
@@ -86,7 +96,13 @@ function MyProfile({ userData }) {
     </div>
   );
 
-  const Likes = <div className="likes">users likes</div>;
+  const Likes = (
+    <div className="likes">
+      {likes.map((post) => (
+        <PostItem key={post.postID} postID={post.postID} userID={userData.userID} />
+      ))}
+    </div>
+  );
 
   return (
     <div className="profile-container">
