@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import uniqid from 'uniqid';
+import Picker from 'emoji-picker-react';
 import { BiImage } from 'react-icons/bi';
+import { MdOutlineEmojiEmotions } from 'react-icons/md';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { arrayUnion, doc, getDoc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
 import { database, storage } from '../Firebase/Firebase';
@@ -13,6 +15,7 @@ function NewPostModal({ userData, toggleNewPostModal }) {
   const [text, setText] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   // upload image to database and adds the image URL to the post in the database
   const uploadPicture = (postID) => {
@@ -89,6 +92,12 @@ function NewPostModal({ userData, toggleNewPostModal }) {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  // add emoji from picker to text
+  const onEmojiClick = (event, emojiObject) => {
+    setShowEmojiPicker(false);
+    setText(text + emojiObject.emoji);
   };
 
   return (
@@ -181,6 +190,27 @@ function NewPostModal({ userData, toggleNewPostModal }) {
                 }}
               />
             </label>
+            <MdOutlineEmojiEmotions
+              size="2rem"
+              className="show-emoji-picker"
+              onClick={() => {
+                setShowEmojiPicker(true);
+              }}
+            />
+            {showEmojiPicker && (
+              <div
+                className="emoji-picker-overlay"
+                role="button"
+                tabIndex={0}
+                onClick={() => {
+                  setShowEmojiPicker(false);
+                }}
+                onKeyDown={() => {
+                  setShowEmojiPicker(false);
+                }}>
+                <Picker className="emoji-picker" onEmojiClick={onEmojiClick} disableSearchBar />
+              </div>
+            )}
           </div>
           <button
             className="postBtn"
