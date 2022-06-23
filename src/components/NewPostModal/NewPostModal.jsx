@@ -96,7 +96,7 @@ function NewPostModal({ userData, toggleNewPostModal }) {
 
   // add emoji from picker to text
   const onEmojiClick = (event, emojiObject) => {
-    setShowEmojiPicker(false);
+    /*  setShowEmojiPicker(false); */
     setText(text + emojiObject.emoji);
   };
 
@@ -198,17 +198,21 @@ function NewPostModal({ userData, toggleNewPostModal }) {
               }}
             />
             {showEmojiPicker && (
-              <div
-                className="emoji-picker-overlay"
-                role="button"
-                tabIndex={0}
-                onClick={() => {
-                  setShowEmojiPicker(false);
-                }}
-                onKeyDown={() => {
-                  setShowEmojiPicker(false);
-                }}>
-                <Picker className="emoji-picker" onEmojiClick={onEmojiClick} disableSearchBar />
+              <div className="emoji-picker-overlay">
+                <div
+                  className="emoji-picker-close"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => {
+                    setShowEmojiPicker(false);
+                  }}
+                  onKeyDown={() => {
+                    setShowEmojiPicker(false);
+                  }}>
+                  {' '}
+                  &times;
+                </div>
+                <Picker onEmojiClick={onEmojiClick} disableSearchBar />
               </div>
             )}
           </div>
