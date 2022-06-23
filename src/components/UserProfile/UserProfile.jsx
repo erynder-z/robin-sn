@@ -39,7 +39,7 @@ function UserProfile() {
   const sortPosts = (lst) => {
     const unsorted = [];
     lst.map((o) => unsorted.push({ postID: o.postID, created: o.created, userID: user.userID }));
-    const sorted = unsorted.sort((a, b) => (a.created.seconds > b.created.seconds ? 1 : -1));
+    const sorted = unsorted.sort((a, b) => (a.created.seconds < b.created.seconds ? 1 : -1));
     return sorted;
   };
 

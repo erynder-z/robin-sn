@@ -33,7 +33,7 @@ function Home({ userData }) {
         )
       )
     );
-    const sorted = unsorted.sort((a, b) => (a.created.seconds > b.created.seconds ? 1 : -1));
+    const sorted = unsorted.sort((a, b) => (a.created.seconds < b.created.seconds ? 1 : -1));
 
     return sorted;
   };
