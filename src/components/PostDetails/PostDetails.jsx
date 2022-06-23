@@ -22,11 +22,13 @@ function PostDetails() {
     try {
       const handleDeleteDoc = async () => {
         const docRef = doc(database, 'posts', postID);
-        const getImageRef = post.image.imageRef.split('appspot.com/').pop();
-        const imageRef = ref(storage, getImageRef);
-
         await deleteDoc(docRef);
-        await deleteObject(imageRef);
+
+        if (post.image.imageRef !== null) {
+          const getImageRef = post.image.imageRef.split('appspot.com/').pop();
+          const imageRef = ref(storage, getImageRef);
+          await deleteObject(imageRef);
+        }
       };
 
       const handleDeleteFromUserObject = async () => {
