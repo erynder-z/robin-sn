@@ -25,6 +25,7 @@ function UserProfile() {
         joined: docSnap.data().joined,
         following: docSnap.data().following,
         followers: docSnap.data().followers,
+        likes: docSnap.data().likes,
         posts: docSnap.data().posts,
         replies: docSnap.data().replies,
         description: docSnap.data().description,
@@ -101,7 +102,7 @@ function UserProfile() {
     <div className="postsAndReplies">
       {' '}
       {postsAndReplies.map((post) => (
-        <PostItem key={post.postID} postID={post.postID} userID={user.userID} />
+        <PostItem key={post.postID} postID={post.postID} userID={usr} />
       ))}
     </div>
   );
@@ -110,11 +111,16 @@ function UserProfile() {
     <div className="media">
       {' '}
       {media.map((post) => (
-        <PostItem key={post.postID} postID={post.postID} userID={user.userID} />
+        <PostItem key={post.postID} postID={post.postID} userID={usr} />
       ))}
     </div>
   );
-  const Likes = <div className="likes">users likes</div>;
+  const Likes = (
+    <div className="likes">
+      {user &&
+        user.likes.map((post) => <PostItem key={post.postID} postID={post.postID} userID={usr} />)}
+    </div>
+  );
 
   return (
     <div className="profile-container">
