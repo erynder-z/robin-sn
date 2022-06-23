@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { format, fromUnixTime } from 'date-fns';
 import './UserProfile.css';
 import { useLocation } from 'react-router-dom';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
 
@@ -11,6 +11,7 @@ function UserProfile() {
   const { usr } = location.state;
   const [user, setUser] = useState(null);
   const [activeView, setActiveView] = useState('posts');
+  const [postsAndReplies, setPostsAndReplies] = useState([]);
 
   const getUserData = async () => {
     try {
@@ -24,16 +25,47 @@ function UserProfile() {
         following: docSnap.data().following,
         followers: docSnap.data().followers,
         posts: docSnap.data().posts,
-        description: docSnap.data().description
+        replies: docSnap.data().replies,
+        description: docSnap.data().description,
+        userID: docSnap.data().userID
       });
     } catch (err) {
       console.log(err);
     }
   };
 
+  const sortPosts = (lst) => {
+    const unsorted = [];
+    lst.map((o) => unsorted.push({ postID: o.postID, created: o.created, userID: user.userID }));
+    const sorted = unsorted.sort((a, b) => (a.created.seconds > b.created.seconds ? 1 : -1));
+    return sorted;
+  };
+
+  // get all of the users posts and posts the user has replied to
+  const getPostsAndReplies = async () => {
+    const list = [...user.posts];
+    const userReplies = [...user.replies];
+
+    userReplies.forEach(async (reply) => {
+      const q = query(collection(database, 'posts'), where('postID', '==', reply.postID));
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((d) => {
+        list.push({ postID: d.data().postID, created: d.data().created });
+      });
+      setPostsAndReplies(sortPosts(list));
+    });
+  };
+
   useEffect(() => {
     getUserData();
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      getPostsAndReplies();
+    }
+  }, [activeView === 'postsAndReplies']);
 
   // lists all the posts made by the user
   const Posts = (
@@ -42,7 +74,15 @@ function UserProfile() {
         user.posts.map((post) => <PostItem key={post.postID} postID={post.postID} userID={usr} />)}
     </div>
   );
-  const PostsAndReplies = <div className="postsAndReplies">posts and replies</div>;
+  const PostsAndReplies = (
+    <div className="postsAndReplies">
+      {' '}
+      {postsAndReplies.map((post) => (
+        <PostItem key={post.postID} postID={post.postID} userID={user.userID} />
+      ))}
+    </div>
+  );
+
   const Media = <div className="media">users media</div>;
   const Likes = <div className="likes">users likes</div>;
 
