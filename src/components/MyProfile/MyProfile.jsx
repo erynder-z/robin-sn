@@ -37,14 +37,14 @@ function MyProfile({ userData }) {
     const userReplies = [...replies];
 
     userReplies.forEach(async (reply) => {
-      const q = query(collection(database, 'posts'), where('ownerID', '==', reply.postID));
+      const q = query(collection(database, 'posts'), where('postID', '==', reply.postID));
       const querySnapshot = await getDocs(q);
+
       querySnapshot.forEach((doc) => {
         list.push({ postID: doc.data().postID, created: doc.data().created });
       });
+      setPostsAndReplies(sortPosts(list));
     });
-
-    setPostsAndReplies(sortPosts(list));
   };
 
   // get all of the users posts with an image

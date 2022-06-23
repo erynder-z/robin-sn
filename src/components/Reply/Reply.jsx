@@ -17,7 +17,7 @@ function Reply({ postID, userID, replyMode, toggleReplyModal, postOwner }) {
       const docRef = doc(database, 'users', userID);
 
       await updateDoc(docRef, {
-        replies: arrayUnion({ postID })
+        replies: arrayUnion({ postID, created: Timestamp.now() })
       });
     } catch (err) {
       console.log(err);
@@ -25,20 +25,20 @@ function Reply({ postID, userID, replyMode, toggleReplyModal, postOwner }) {
   };
 
   // adds reply to the post object
-  const reply = async () => {
+  const reply = async (pID, uID) => {
     try {
       const replyID = uniqid();
-      const docRef = doc(database, 'posts', postID);
+      const docRef = doc(database, 'posts', pID);
       await updateDoc(docRef, {
         replies: arrayUnion({
           replyID,
-          replyUserID: userID,
+          replyUserID: uID,
           replyContent: text,
           replyDate: Timestamp.now()
         })
       });
 
-      addPostToUserObject(postID);
+      addPostToUserObject(pID);
       toggleReplyModal();
       setText('');
     } catch (err) {
@@ -105,7 +105,7 @@ function Reply({ postID, userID, replyMode, toggleReplyModal, postOwner }) {
           className="replyBtn"
           type="submit"
           onClick={() => {
-            reply();
+            reply(postID, userID);
           }}>
           Reply
         </button>
@@ -139,7 +139,7 @@ function Reply({ postID, userID, replyMode, toggleReplyModal, postOwner }) {
         className="postBtn"
         type="submit"
         onClick={() => {
-          reply();
+          reply(postID, userID);
         }}>
         Reply
       </button>
