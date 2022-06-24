@@ -2,7 +2,7 @@ import { arrayRemove, arrayUnion, collection, doc, getDocs, updateDoc } from 'fi
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { BiUserPlus, BiUserMinus } from 'react-icons/bi';
-import { database } from '../Firebase/Firebase';
+import { database } from '../../Firebase/Firebase';
 import './FollowUserList.css';
 
 function FollowUserList({ userData }) {
