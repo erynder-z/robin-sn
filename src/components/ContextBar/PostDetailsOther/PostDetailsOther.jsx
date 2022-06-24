@@ -1,14 +1,26 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
+import { BiBookmark } from 'react-icons/bi';
 import './PostDetailsOther.css';
 
-function PostDetailsOther({ userData }) {
+function PostDetailsOther({ bookmarkPost }) {
   return (
     <div className="postDetails-other">
-      OTHER ipsum dolor sit amet, consectetur adipisicing elit. Eaque officia molestias aspernatur
-      quidem. Repellat quos saepe quo omnis commodi autem eligendi consequatur voluptate molestias
-      distinctio?
+      <div className="otherPost">soemthing</div>
+      <div className="bookmarkPost">
+        <BiBookmark
+          className="post-bookmark"
+          size="2rem"
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            bookmarkPost();
+          }}
+          onKeyDown={() => {
+            bookmarkPost();
+          }}
+        />
+      </div>
     </div>
   );
 }
@@ -16,30 +28,5 @@ function PostDetailsOther({ userData }) {
 export default PostDetailsOther;
 
 PostDetailsOther.propTypes = {
-  userData: PropTypes.shape({
-    userID: PropTypes.string.isRequired,
-    isSetup: PropTypes.bool.isRequired,
-    username: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    userPic: PropTypes.string.isRequired,
-    useremail: PropTypes.string.isRequired,
-    joined: PropTypes.objectOf(PropTypes.number),
-    followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    posts: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    replies: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    bookmarks: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired
-  }).isRequired
+  bookmarkPost: PropTypes.func.isRequired
 };

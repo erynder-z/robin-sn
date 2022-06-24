@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { deleteObject, ref } from 'firebase/storage';
-import { arrayRemove, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { database, storage } from '../Firebase/Firebase';
@@ -48,11 +48,11 @@ function Main({ userCredentials }) {
 
   // delete post from posts-collection and remove it from the user-object
   const deletePost = async () => {
+    const docRef = doc(database, 'posts', postInfo.post.postID);
+    const userRef = doc(database, 'users', uid);
     try {
       const handleDeleteDoc = async () => {
-        const docRef = doc(database, 'posts', postInfo.post.postID);
         await deleteDoc(docRef);
-
         if (postInfo.post.image.imageRef !== null) {
           const getImageRef = postInfo.post.image.imageRef.split('appspot.com/').pop();
           const imageRef = ref(storage, getImageRef);
@@ -62,7 +62,6 @@ function Main({ userCredentials }) {
 
       const handleDeleteFromUserObject = async () => {
         // need to pass the exact object to delete into arrayRemove(), so we first need to retrieve the post-object from the user object.posts-array
-        const userRef = doc(database, 'users', uid);
         const userSnap = await getDoc(userRef);
         const postToDelete = userSnap.data().posts.find((p) => p.postID === postInfo.post.postID);
         await updateDoc(userRef, {
@@ -73,6 +72,34 @@ function Main({ userCredentials }) {
       handleDeleteDoc();
       handleDeleteFromUserObject();
       navigate(-1);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const bookmarkPost = async () => {
+    const userRef = doc(database, 'users', uid);
+    try {
+      const docSnap = await getDoc(userRef);
+      const found = postInfo.post.postID;
+
+      const addBookmark = async () => {
+        await updateDoc(userRef, {
+          bookmarks: arrayUnion({ postID: postInfo.post.postID })
+        });
+      };
+
+      const removeBookmark = async () => {
+        await updateDoc(userRef, {
+          bookmarks: arrayRemove({ postID: postInfo.post.postID })
+        });
+      };
+      // like a post if not already liked or unlike if already liked
+      if (docSnap.data().bookmarks.some((item) => item.postID === found)) {
+        removeBookmark();
+      } else {
+        addBookmark();
+      }
     } catch (err) {
       console.log(err);
     }
@@ -136,6 +163,7 @@ function Main({ userCredentials }) {
           mode={contextBarMode}
           postInfo={postInfo}
           deletePost={deletePost}
+          bookmarkPost={bookmarkPost}
         />
       )}
       {isUserSetup && <FloatingMenu toggleNewPostModal={toggleNewPostModal} />}
