@@ -100,7 +100,12 @@ function FollowUserList({ userData }) {
     </div>
   );
 
-  return <div className="userlist">{userList.map((user) => userItem(user))}</div>;
+  return (
+    <div className="userlist">
+      <div className="userlist-header">Who to follow:</div>
+      {userList.map((user) => userItem(user))}
+    </div>
+  );
 }
 
 export default FollowUserList;
