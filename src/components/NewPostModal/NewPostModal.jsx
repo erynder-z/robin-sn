@@ -96,7 +96,7 @@ function NewPostModal({ userData, toggleNewPostModal }) {
 
   // add emoji from picker to text
   const onEmojiClick = (event, emojiObject) => {
-    /*  setShowEmojiPicker(false); */
+    setShowEmojiPicker(false);
     setText(text + emojiObject.emoji);
   };
 
