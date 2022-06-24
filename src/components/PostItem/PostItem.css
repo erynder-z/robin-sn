@@ -9,6 +9,10 @@
   cursor: pointer;
 }
 
+.post-container:hover {
+  background-color: #173643;
+}
+
 .posts {
   display: flex;
   flex-direction: column;
@@ -31,6 +35,7 @@
 
 .post-author {
   font-weight: bold;
+  cursor: pointer;
 }
 
 .post-userDetails-separator {

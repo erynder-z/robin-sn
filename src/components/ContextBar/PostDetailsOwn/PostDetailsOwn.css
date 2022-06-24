@@ -1,0 +1,13 @@
+.postDetails-own {
+  background-color: rgba(245, 245, 245, 0.1);
+  color: var(--text-bright);
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+}
+
+.post-delete {
+  cursor: pointer;
+}

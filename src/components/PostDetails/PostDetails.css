@@ -35,7 +35,9 @@
   font-weight: 500;
 }
 
-.post-header > :first-child {
+.post-back {
   position: absolute;
+  top: 1.5%;
   left: 33%;
+  cursor: pointer;
 }

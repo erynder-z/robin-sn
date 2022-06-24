@@ -4,64 +4,6 @@
   position: relative;
 }
 
-.userlist-item {
-  background-color: rgba(245, 245, 245, 0.1);
-  color: var(--text-bright);
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: auto;
-}
-
-.userlist-usrpic {
-  border-radius: 50%;
-  min-height: 50px;
-  min-width: 50px;
-  height: 50px;
-  width: 50px;
-}
-.userlist-username {
-  padding: 0 0.5rem;
-  width: 100%;
-  height: auto;
-  word-wrap: break-word;
-  min-width: 0;
-  text-overflow: ellipsis;
-}
-
-.userlist-follow {
-  background-color: var(--follow-button);
-  color: var(--text-bright);
-  height: 2rem;
-  width: 10vw;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.userlist-follow:hover {
-  background-color: var(--follow-button-hover);
-}
-
-.userlist-unfollow {
-  background-color: var(--unfollow-button);
-  color: var(--text-bright);
-  height: 2rem;
-  width: 10vw;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.userlist-unfollow:hover {
-  background-color: var(--unfollow-button-hover);
-}
-
 @media only screen and (max-width: 768px) {
   .contextbar {
     display: none;
