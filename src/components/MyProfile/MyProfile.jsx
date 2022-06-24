@@ -119,7 +119,7 @@ function MyProfile({ userData, changeContextBarMode }) {
             <h3 className="profile-username">@{username}</h3>
             <div className="profile-joined">joined {joinedDateFormatted}</div>
             <div className="profile-follow-container">
-              <div className="profile-following">following: {following.length}</div>
+              <div className="profile-following">following: {following.length - 1}</div>
               <div className="profile-followers">followers: {followers.length}</div>
             </div>{' '}
           </div>

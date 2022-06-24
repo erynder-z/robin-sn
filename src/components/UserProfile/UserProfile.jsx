@@ -137,7 +137,7 @@ function UserProfile() {
                   joined {format(fromUnixTime(user.joined.seconds), 'dd LLLL yyy')}
                 </div>
                 <div className="profile-follow-container">
-                  <div className="profile-following">following: {user.following.length}</div>
+                  <div className="profile-following">following: {user.following.length - 1}</div>
                   <div className="profile-followers">followers: {user.followers.length}</div>
                 </div>{' '}
               </div>
