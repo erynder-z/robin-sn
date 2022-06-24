@@ -21,6 +21,11 @@ function Main({ userCredentials }) {
   const [showNewPostModal, setShowNewPostModal] = useState(false);
   const [isUserSetup, setIsUserSetup] = useState(false);
   const [userData, setUserData] = useState({});
+  const [contextBarMode, setContextBarMode] = useState('');
+
+  const changeContextBarMode = (mode) => {
+    setContextBarMode(mode);
+  };
 
   const toggleNewPostModal = () => {
     setShowNewPostModal(!showNewPostModal);
@@ -48,22 +53,36 @@ function Main({ userCredentials }) {
           path="/"
           element={
             isUserSetup ? (
-              <Home userData={userData} />
+              <Home userData={userData} changeContextBarMode={changeContextBarMode} />
             ) : (
               <CreateUserAccount userCredentials={userCredentials} />
             )
           }
         />
         {/* make nested route so UI elements like the sidebar don't have to be re-rendered on component change.  */}
-        <Route path="home" element={isUserSetup ? <Home userData={userData} /> : null} />
-        <Route path="myprofile" element={isUserSetup ? <MyProfile userData={userData} /> : null} />
+        <Route
+          path="home"
+          element={
+            isUserSetup ? (
+              <Home userData={userData} changeContextBarMode={changeContextBarMode} />
+            ) : null
+          }
+        />
+        <Route
+          path="myprofile"
+          element={
+            isUserSetup ? (
+              <MyProfile userData={userData} changeContextBarMode={changeContextBarMode} />
+            ) : null
+          }
+        />
         <Route path="userprofile/:id" element={isUserSetup ? <UserProfile /> : null} />
         <Route
           path="postDetails"
           element={isUserSetup ? <PostDetails userData={userData} /> : null}
         />
       </Routes>
-      {isUserSetup && <ContextBar userData={userData} />}
+      {isUserSetup && <ContextBar userData={userData} mode={contextBarMode} />}
       {isUserSetup && <FloatingMenu toggleNewPostModal={toggleNewPostModal} />}
       {isUserSetup && showNewPostModal && (
         <NewPostModal toggleNewPostModal={toggleNewPostModal} userData={userData} />
