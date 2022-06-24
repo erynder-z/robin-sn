@@ -5,7 +5,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
 
-function Home({ userData }) {
+function Home({ userData, changeContextBarMode }) {
   const { following } = userData;
   const [followedUsersPosts, setFollowingPosts] = useState([]);
 
@@ -57,6 +57,10 @@ function Home({ userData }) {
     getPostsList();
   }, [following]);
 
+  useEffect(() => {
+    changeContextBarMode('home');
+  }, []);
+
   return (
     <div className="home-container">
       <div className="home-header">Home</div>
@@ -99,5 +103,6 @@ Home.propTypes = {
     reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     bookmarks: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired
-  }).isRequired
+  }).isRequired,
+  changeContextBarMode: PropTypes.func.isRequired
 };
