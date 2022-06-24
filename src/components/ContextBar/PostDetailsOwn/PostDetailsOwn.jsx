@@ -1,14 +1,26 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
+import { BiTrash } from 'react-icons/bi';
 import './PostDetailsOwn.css';
 
-function PostDetailsOwn({ userData }) {
+function PostDetailsOwn({ userData, postInfo, deletePost }) {
   return (
     <div className="postDetails-own">
-      OWN ipsum dolor sit amet, consectetur adipisicing elit. Eaque officia molestias aspernatur
-      quidem. Repellat quos saepe quo omnis commodi autem eligendi consequatur voluptate molestias
-      distinctio?
+      <div className="deletePost">
+        {' '}
+        <BiTrash
+          className="post-delete"
+          size="1.5rem"
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            deletePost(postInfo.postID, userData.userID);
+          }}
+          onKeyDown={() => {
+            deletePost(postInfo.postID, userData.userID);
+          }}
+        />
+      </div>
     </div>
   );
 }
@@ -41,5 +53,22 @@ PostDetailsOwn.propTypes = {
     reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     bookmarks: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired
-  }).isRequired
+  }).isRequired,
+  postInfo: PropTypes.shape({
+    content: PropTypes.string,
+    created: PropTypes.objectOf(PropTypes.number),
+    hasHashtag: PropTypes.bool,
+    image: PropTypes.shape({ imageRef: PropTypes.string, imageURL: PropTypes.string }),
+    likes: PropTypes.shape({ userID: PropTypes.string }),
+    ownerID: PropTypes.string,
+    postID: PropTypes.string,
+    replies: PropTypes.shape({
+      replyContent: PropTypes.string,
+      replyDate: PropTypes.objectOf(PropTypes.number),
+      replyID: PropTypes.string.isRequired,
+      replyUser: PropTypes.string
+    }),
+    reposts: PropTypes.shape({ userID: PropTypes.string })
+  }).isRequired,
+  deletePost: PropTypes.func.isRequired
 };
