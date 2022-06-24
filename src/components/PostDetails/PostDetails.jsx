@@ -2,6 +2,7 @@ import { BiArrowBack, BiTrash } from 'react-icons/bi';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { arrayRemove, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { deleteObject, ref } from 'firebase/storage';
 import { database, storage } from '../Firebase/Firebase';
@@ -10,7 +11,7 @@ import Reply from '../Reply/Reply';
 import ReplyItem from '../ReplyItem/ReplyItem';
 import './PostDetails.css';
 
-function PostDetails() {
+function PostDetails({ changeContextBarMode }) {
   const navigate = useNavigate();
   // get state from PostItem component // state: { postID, userID, postOwner }
   const location = useLocation();
@@ -59,21 +60,31 @@ function PostDetails() {
     }
   }, [post]);
 
+  useEffect(() => {
+    if (location.state.postOwner.ownerID === location.state.userID) {
+      changeContextBarMode('postdetailsown');
+    } else {
+      changeContextBarMode('postdetailsother');
+    }
+  }, []);
+
   return (
     <div className="post-details-container">
       <div className="post-header">
-        <BiArrowBack
-          className="post-back"
-          size="1.5rem"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            navigate(-1);
-          }}
-          onKeyDown={() => {
-            navigate(-1);
-          }}
-        />
+        <div className="backPost">
+          <BiArrowBack
+            className="post-back"
+            size="1.5rem"
+            role="button"
+            tabIndex={0}
+            onClick={() => {
+              navigate(-1);
+            }}
+            onKeyDown={() => {
+              navigate(-1);
+            }}
+          />
+        </div>
         <span>Post</span>
         {location.state.postOwner.ownerID === location.state.userID && (
           <div className="deletePost">
@@ -113,3 +124,7 @@ function PostDetails() {
 }
 
 export default PostDetails;
+
+PostDetails.propTypes = {
+  changeContextBarMode: PropTypes.func.isRequired
+};

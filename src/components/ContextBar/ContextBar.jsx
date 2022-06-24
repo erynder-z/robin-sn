@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import FollowUserList from '../FollowUserList/FollowUserList';
-import ProfileOptions from '../ProfileOptions/ProfileOptions';
-
+import FollowUserList from './FollowUserList/FollowUserList';
+import ProfileOptions from './ProfileOptions/ProfileOptions';
+import PostDetailsOwn from './PostDetailsOwn/PostDetailsOwn';
+import PostDetailsOther from './PostDetailsOther/PostDetailsOther';
 import './ContextBar.css';
 
 function ContextBar({ userData, mode }) {
@@ -10,6 +11,8 @@ function ContextBar({ userData, mode }) {
     <div className="contextbar">
       {mode === 'home' && <FollowUserList userData={userData} />}
       {mode === 'myprofile' && <ProfileOptions userData={userData} />}
+      {mode === 'postdetailsown' && <PostDetailsOwn userData={userData} />}
+      {mode === 'postdetailsother' && <PostDetailsOther userData={userData} />}
     </div>
   );
 }

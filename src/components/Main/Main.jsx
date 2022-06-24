@@ -79,7 +79,11 @@ function Main({ userCredentials }) {
         <Route path="userprofile/:id" element={isUserSetup ? <UserProfile /> : null} />
         <Route
           path="postDetails"
-          element={isUserSetup ? <PostDetails userData={userData} /> : null}
+          element={
+            isUserSetup ? (
+              <PostDetails userData={userData} changeContextBarMode={changeContextBarMode} />
+            ) : null
+          }
         />
       </Routes>
       {isUserSetup && <ContextBar userData={userData} mode={contextBarMode} />}

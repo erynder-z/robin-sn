@@ -6,7 +6,7 @@ import './MyProfile.css';
 import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
 
-function MyProfile({ userData }) {
+function MyProfile({ userData, changeContextBarMode }) {
   const {
     userPic,
     username,
@@ -70,6 +70,10 @@ function MyProfile({ userData }) {
   useEffect(() => {
     getMediaPosts();
   }, [activeView === 'media']);
+
+  useEffect(() => {
+    changeContextBarMode('myprofile');
+  }, []);
 
   // lists all the posts made by the user
   const Posts = (
@@ -210,5 +214,6 @@ MyProfile.propTypes = {
     reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     bookmarks: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired
-  }).isRequired
+  }).isRequired,
+  changeContextBarMode: PropTypes.func.isRequired
 };
