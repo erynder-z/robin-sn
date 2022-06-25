@@ -15,6 +15,7 @@ import NewPostModal from '../NewPostModal/NewPostModal';
 import PostDetails from '../PostDetails/PostDetails';
 import MyProfile from '../MyProfile/MyProfile.jsx';
 import UserProfile from '../UserProfile/UserProfile';
+import Bookmarks from '../Bookmarks/Bookmarks';
 
 function Main({ userCredentials }) {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ function Main({ userCredentials }) {
   const [userData, setUserData] = useState({});
   const [contextBarMode, setContextBarMode] = useState('');
   const [postInfo, setPostInfo] = useState({});
+  const [isPostBookmarked, setIsPostBookmarked] = useState(false);
 
   // save post info so it can be passed down to the contextbar
   const handlePostInfo = (post) => {
@@ -43,6 +45,14 @@ function Main({ userCredentials }) {
   const checkUserSetup = () => {
     if (usr.isSetup) {
       setIsUserSetup(true);
+    }
+  };
+
+  const checkIsPostbookmarked = () => {
+    if (usr.bookmarks.some((bookmark) => bookmark.postID === postInfo.post.postID)) {
+      setIsPostBookmarked(true);
+    } else {
+      setIsPostBookmarked(false);
     }
   };
 
@@ -85,13 +95,13 @@ function Main({ userCredentials }) {
 
       const addBookmark = async () => {
         await updateDoc(userRef, {
-          bookmarks: arrayUnion({ postID: postInfo.post.postID })
+          bookmarks: arrayUnion({ postID: postInfo.post.postID, created: postInfo.post.created })
         });
       };
 
       const removeBookmark = async () => {
         await updateDoc(userRef, {
-          bookmarks: arrayRemove({ postID: postInfo.post.postID })
+          bookmarks: arrayRemove({ postID: postInfo.post.postID, created: postInfo.post.created })
         });
       };
       // like a post if not already liked or unlike if already liked
@@ -104,6 +114,12 @@ function Main({ userCredentials }) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (postInfo.post) {
+      checkIsPostbookmarked();
+    }
+  }, [postInfo]);
 
   useEffect(() => {
     if (usr) {
@@ -135,6 +151,7 @@ function Main({ userCredentials }) {
             ) : null
           }
         />
+        <Route path="bookmarks" element={isUserSetup ? <Bookmarks userData={userData} /> : null} />
         <Route
           path="myprofile"
           element={
@@ -164,6 +181,7 @@ function Main({ userCredentials }) {
           postInfo={postInfo}
           deletePost={deletePost}
           bookmarkPost={bookmarkPost}
+          isPostBookmarked={isPostBookmarked}
         />
       )}
       {isUserSetup && <FloatingMenu toggleNewPostModal={toggleNewPostModal} />}

@@ -1,25 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { BiBookmark } from 'react-icons/bi';
+import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import './PostDetailsOther.css';
 
-function PostDetailsOther({ bookmarkPost }) {
+function PostDetailsOther({ bookmarkPost, isPostBookmarked }) {
+  const [bookmarkCheck, setBookmarkCheck] = useState(null);
+
+  useEffect(() => {
+    setBookmarkCheck(isPostBookmarked);
+  }, [isPostBookmarked]);
+
   return (
     <div className="postDetails-other">
-      <div className="otherPost">soemthing</div>
+      <div className="otherPost">Post options</div>
       <div className="bookmarkPost">
-        <BiBookmark
-          className="post-bookmark"
-          size="2rem"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            bookmarkPost();
-          }}
-          onKeyDown={() => {
-            bookmarkPost();
-          }}
-        />
+        {bookmarkCheck && (
+          <FaBookmark
+            className="post-bookmark"
+            size="2rem"
+            role="button"
+            tabIndex={0}
+            onClick={() => {
+              bookmarkPost();
+              setBookmarkCheck(!bookmarkCheck);
+            }}
+            onKeyDown={() => {
+              bookmarkPost();
+              setBookmarkCheck(!bookmarkCheck);
+            }}
+          />
+        )}
+        {!bookmarkCheck && (
+          <FaRegBookmark
+            className="post-bookmark"
+            size="2rem"
+            role="button"
+            tabIndex={0}
+            onClick={() => {
+              bookmarkPost();
+              setBookmarkCheck(!bookmarkCheck);
+            }}
+            onKeyDown={() => {
+              bookmarkPost();
+              setBookmarkCheck(!bookmarkCheck);
+            }}
+          />
+        )}
       </div>
     </div>
   );
@@ -28,5 +54,6 @@ function PostDetailsOther({ bookmarkPost }) {
 export default PostDetailsOther;
 
 PostDetailsOther.propTypes = {
-  bookmarkPost: PropTypes.func.isRequired
+  bookmarkPost: PropTypes.func.isRequired,
+  isPostBookmarked: PropTypes.bool.isRequired
 };

@@ -6,15 +6,21 @@ import PostDetailsOwn from './PostDetailsOwn/PostDetailsOwn';
 import PostDetailsOther from './PostDetailsOther/PostDetailsOther';
 import './ContextBar.css';
 
-function ContextBar({ userData, mode, deletePost, bookmarkPost }) {
+function ContextBar({ userData, mode, deletePost, bookmarkPost, isPostBookmarked }) {
   return (
     <div className="contextbar">
       {mode === 'home' && <FollowUserList userData={userData} />}
       {mode === 'myprofile' && <ProfileOptions userData={userData} />}
       {mode === 'postdetailsown' && (
-        <PostDetailsOwn deletePost={deletePost} bookmarkPost={bookmarkPost} />
+        <PostDetailsOwn
+          deletePost={deletePost}
+          bookmarkPost={bookmarkPost}
+          isPostBookmarked={isPostBookmarked}
+        />
       )}
-      {mode === 'postdetailsother' && <PostDetailsOther bookmarkPost={bookmarkPost} />}
+      {mode === 'postdetailsother' && (
+        <PostDetailsOther bookmarkPost={bookmarkPost} isPostBookmarked={isPostBookmarked} />
+      )}
     </div>
   );
 }
@@ -50,5 +56,6 @@ ContextBar.propTypes = {
   }).isRequired,
   mode: PropTypes.string.isRequired,
   deletePost: PropTypes.func.isRequired,
-  bookmarkPost: PropTypes.func.isRequired
+  bookmarkPost: PropTypes.func.isRequired,
+  isPostBookmarked: PropTypes.bool.isRequired
 };
