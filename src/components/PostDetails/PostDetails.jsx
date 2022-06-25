@@ -102,7 +102,12 @@ PostDetails.propTypes = {
     ).isRequired,
     reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    bookmarks: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired
+    bookmarks: PropTypes.arrayOf(
+      PropTypes.shape({
+        created: PropTypes.objectOf(PropTypes.number),
+        postID: PropTypes.string
+      })
+    ).isRequired
   }).isRequired,
   changeContextBarMode: PropTypes.func.isRequired,
   handlePostInfo: PropTypes.func.isRequired

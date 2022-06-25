@@ -41,10 +41,12 @@ function Sidebar({ userData }) {
           <BiEnvelope size="2rem" />
           <span>Messages</span>
         </li>
-        <li className="sidebar-item">
-          <BiBookmark size="2rem" />
-          <span>Bookomarks</span>
-        </li>
+        <Link to="/main/bookmarks">
+          <li className="sidebar-item">
+            <BiBookmark size="2rem" />
+            <span>Bookmarks</span>
+          </li>
+        </Link>
         <li className="sidebar-item">
           <BiListUl size="2rem" />
           <span>Lists</span>
@@ -88,6 +90,11 @@ Sidebar.propTypes = {
     ).isRequired,
     reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
     likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    bookmarks: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired
+    bookmarks: PropTypes.arrayOf(
+      PropTypes.shape({
+        created: PropTypes.objectOf(PropTypes.number),
+        postID: PropTypes.string
+      })
+    ).isRequired
   }).isRequired
 };
