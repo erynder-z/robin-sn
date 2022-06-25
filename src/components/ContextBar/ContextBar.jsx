@@ -10,6 +10,7 @@ function ContextBar({ userData, mode, deletePost, bookmarkPost, isPostBookmarked
   return (
     <div className="contextbar">
       {mode === 'home' && <FollowUserList userData={userData} />}
+      {mode === 'bookmarks' && <FollowUserList userData={userData} />}
       {mode === 'myprofile' && <ProfileOptions userData={userData} />}
       {mode === 'postdetailsown' && (
         <PostDetailsOwn

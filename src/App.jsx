@@ -35,35 +35,3 @@ function App() {
 }
 
 export default App;
-
-/* Structure of the userData object:
-usr: {
-  userID: "string",
-  isSetup: boolean,
-  username: "string",
-  description: "string",
-  userPic: imagefile / blob,
-  useremail: "string",
-  joined: {seconds: number, nanseconds: number},
-  followers: [{userID: "string"}],
-  following: [{userID: "string"}],
-  posts: [{postID: "string"}],
-  replies: [{postID: "string"}],
-  reposts: [{postID: "string"}],
-  likes: [{postID: "string"}],
-  bookmarks: [{postID: "string"}]
-} */
-
-/* Structure of the post object:
-pst: {
-  content: "string",
-  created: {seconds: number, nanseconds: number},
-  hasHashtag: boolean,
-  hashtags: ["string"],
-  likes: [{userID: "string"}],
-  ownerID: "string",
-  postID: "string",
-  replies: [{replyContent: "string", replyDate: {seconds: number, nanoseconds: number}, replyID: "string", replyUserID: "string"}],
-  reposts: [{userID: "string"}],
-  imageURL: "string"
-} */

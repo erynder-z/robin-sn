@@ -151,7 +151,14 @@ function Main({ userCredentials }) {
             ) : null
           }
         />
-        <Route path="bookmarks" element={isUserSetup ? <Bookmarks userData={userData} /> : null} />
+        <Route
+          path="bookmarks"
+          element={
+            isUserSetup ? (
+              <Bookmarks userData={userData} changeContextBarMode={changeContextBarMode} />
+            ) : null
+          }
+        />
         <Route
           path="myprofile"
           element={

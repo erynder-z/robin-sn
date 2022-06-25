@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './Bookmarks.css';
 import PostItem from '../PostItem/PostItem';
 
-function Bookmarks({ userData }) {
+function Bookmarks({ userData, changeContextBarMode }) {
   const [bookmarks, setBookmarks] = useState(null);
 
   const sortPosts = (lst) => {
@@ -16,6 +16,7 @@ function Bookmarks({ userData }) {
   };
 
   useEffect(() => {
+    changeContextBarMode('home');
     setBookmarks(userData.bookmarks);
   }, []);
 
@@ -67,5 +68,6 @@ Bookmarks.propTypes = {
         postID: PropTypes.string
       })
     ).isRequired
-  }).isRequired
+  }).isRequired,
+  changeContextBarMode: PropTypes.func.isRequired
 };
