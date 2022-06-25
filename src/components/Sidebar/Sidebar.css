@@ -3,6 +3,7 @@
   background-color: var(--sidebar-background);
   color: var(--text-bright);
   position: relative;
+  border-right: solid 1px var(--border);
   /*   min-width: 0; */
 }
 

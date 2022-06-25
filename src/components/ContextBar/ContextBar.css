@@ -2,6 +2,7 @@
   height: 100vh;
   background-color: var(--contextbar-background);
   position: relative;
+  border-left: solid 1px var(--border);
 }
 
 @media only screen and (max-width: 768px) {

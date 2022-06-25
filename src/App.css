@@ -1,10 +1,10 @@
 :root {
   --button: #f94962;
   --button-hover: #ec8191;
-  --sidebar-background: #182f3a;
-  --contextbar-background: #182f3a;
-  --content-background: #182f3a;
-  --card-background: #0f2731;
+  --sidebar-background: #15202b;
+  --contextbar-background: #15202b;
+  --content-background: #15202b;
+  --card-background: #15202b;
   --modal: rgb(225, 225, 225);
   --text-bright: whitesmoke;
   --text-dark: black;
@@ -13,6 +13,7 @@
   --unfollow-button: #4e2a85;
   --follow-button-hover: #027bd7;
   --unfollow-button-hover: #6b39b6;
+  --border: rgba(255, 255, 255, 0.1);
 }
 
 .App {
