@@ -87,7 +87,11 @@ function MyProfile({ userData, changeContextBarMode }) {
   const PostsAndReplies = (
     <div className="postsAndReplies">
       {postsAndReplies.map((post) => (
-        <PostItem key={post.postID} postID={post.postID} userID={userData.userID} />
+        <PostItem
+          key={postsAndReplies.indexOf(post)}
+          postID={post.postID}
+          userID={userData.userID}
+        />
       ))}
     </div>
   );
