@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { deleteObject, ref } from 'firebase/storage';
-import { arrayRemove, arrayUnion, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
+import {
+  arrayRemove,
+  arrayUnion,
+  deleteDoc,
+  doc,
+  getDoc,
+  increment,
+  updateDoc
+} from 'firebase/firestore';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { database, storage } from '../Firebase/Firebase';
@@ -16,6 +24,7 @@ import PostDetails from '../PostDetails/PostDetails';
 import MyProfile from '../MyProfile/MyProfile.jsx';
 import UserProfile from '../UserProfile/UserProfile';
 import Bookmarks from '../Bookmarks/Bookmarks';
+import Explore from '../Explore/Explore';
 
 function Main({ userCredentials }) {
   const navigate = useNavigate();
@@ -79,8 +88,30 @@ function Main({ userCredentials }) {
         });
       };
 
+      const handleRemoveHashtag = async (hashtagArray) => {
+        hashtagArray.map(async (hashtag) => {
+          const hashtagRef = doc(database, 'hashtags', hashtag);
+          try {
+            await updateDoc(hashtagRef, {
+              hashtag,
+              count: increment(-1)
+            });
+          } catch (err) {
+            console.log(err);
+          }
+
+          const hashtagSnap = await getDoc(hashtagRef);
+          if (hashtagSnap.data().count <= 0) {
+            await deleteDoc(hashtagRef);
+          }
+        });
+      };
+
       handleDeleteDoc();
       handleDeleteFromUserObject();
+      if (postInfo.post.hashtags.length > 0) {
+        handleRemoveHashtag(postInfo.post.hashtags);
+      }
       navigate(-1);
     } catch (err) {
       console.log(err);
@@ -150,6 +181,10 @@ function Main({ userCredentials }) {
               <Home userData={userData} changeContextBarMode={changeContextBarMode} />
             ) : null
           }
+        />
+        <Route
+          path="explore"
+          element={isUserSetup ? <Explore changeContextBarMode={changeContextBarMode} /> : null}
         />
         <Route
           path="bookmarks"

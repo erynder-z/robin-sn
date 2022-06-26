@@ -5,10 +5,19 @@ import Picker from 'emoji-picker-react';
 import { BiImage } from 'react-icons/bi';
 import { MdOutlineEmojiEmotions } from 'react-icons/md';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { arrayUnion, doc, getDoc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
+import {
+  arrayUnion,
+  doc,
+  getDoc,
+  increment,
+  serverTimestamp,
+  setDoc,
+  updateDoc
+} from 'firebase/firestore';
 import { database, storage } from '../Firebase/Firebase';
 import resizeFile from '../../helpers/ImageResizer/ImageResizer';
 import './NewPostModal.css';
+import parseHashtag from '../../helpers/HashtagCreator/HashtagCreator';
 
 function NewPostModal({ userData, toggleNewPostModal }) {
   const { userID, userPic, username } = userData;
@@ -16,6 +25,23 @@ function NewPostModal({ userData, toggleNewPostModal }) {
   const [imagePreview, setImagePreview] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+  const addHashtag = async (hashtagArray) => {
+    hashtagArray.map(async (hashtag) => {
+      try {
+        await setDoc(
+          doc(database, 'hashtags', hashtag),
+          {
+            hashtag,
+            count: increment(1)
+          },
+          { merge: true }
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  };
 
   // upload image to database and adds the image URL to the post in the database
   const uploadPicture = (postID) => {
@@ -52,6 +78,8 @@ function NewPostModal({ userData, toggleNewPostModal }) {
 
   // creates the post in the database
   const submitPost = async () => {
+    const hashtagArray = await parseHashtag(text);
+
     try {
       const postID = uniqid();
       await setDoc(doc(database, 'posts', postID), {
@@ -59,7 +87,7 @@ function NewPostModal({ userData, toggleNewPostModal }) {
         postID,
         ownerID: userID,
         content: text,
-        hashtags: [],
+        hashtags: hashtagArray,
         reposts: [],
         likes: [],
         replies: [],
@@ -68,6 +96,7 @@ function NewPostModal({ userData, toggleNewPostModal }) {
 
       uploadPicture(postID);
       addPostToUserObject(postID);
+      addHashtag(hashtagArray);
       toggleNewPostModal();
     } catch (err) {
       console.log(err);
