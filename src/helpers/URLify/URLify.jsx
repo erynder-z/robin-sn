@@ -1,6 +1,6 @@
 import parse from 'html-react-parser';
 
-const parseText = (text) => {
+const parseURL = (text) => {
   const urlify = (txt) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     // parse = parse <a> as jsx
@@ -10,4 +10,4 @@ const parseText = (text) => {
   return urlify(text);
 };
 
-export default parseText;
+export default parseURL;

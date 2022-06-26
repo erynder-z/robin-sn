@@ -17,7 +17,7 @@ import {
 import { format, fromUnixTime } from 'date-fns';
 import { database } from '../Firebase/Firebase';
 import Reply from '../Reply/Reply';
-import parseText from '../../helpers/ParseText/parseText';
+import parseURL from '../../helpers/URLify/URLify';
 
 function PostItem({ postID, userID }) {
   const navigate = useNavigate();
@@ -183,7 +183,7 @@ function PostItem({ postID, userID }) {
             <div className="post-userDetails-separator">∙</div>
             <div className="post-date">{format(fromUnixTime(post.created.seconds), 'PPP')}</div>
           </div>
-          <div className="post-content"> {parseText(post.content)}</div>
+          <div className="post-content"> {parseURL(post.content)}</div>
           {post.image.imageURL !== null && (
             <img className="post-image" src={post.image.imageURL} alt="uploaded content" />
           )}
