@@ -29,10 +29,12 @@ function Sidebar({ userData }) {
             <span>Home</span>
           </li>
         </Link>
-        <li className="sidebar-item">
-          <BiHash size="2rem" />
-          <span>Explore</span>
-        </li>
+        <Link to="/main/explore">
+          <li className="sidebar-item">
+            <BiHash size="2rem" />
+            <span>Explore</span>
+          </li>
+        </Link>
         <li className="sidebar-item">
           <BiBell size="2rem" />
           <span>Notifications</span>
