@@ -90,10 +90,10 @@ function Main({ userCredentials }) {
 
       const handleRemoveHashtag = async (hashtagArray) => {
         hashtagArray.map(async (hashtag) => {
-          const hashtagRef = doc(database, 'hashtags', hashtag);
+          const hashtagRef = doc(database, 'hashtags', hashtag.toLowerCase());
           try {
             await updateDoc(hashtagRef, {
-              hashtag,
+              hashtag: hashtag.toLowerCase(),
               count: increment(-1)
             });
           } catch (err) {

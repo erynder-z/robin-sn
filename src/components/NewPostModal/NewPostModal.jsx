@@ -30,9 +30,9 @@ function NewPostModal({ userData, toggleNewPostModal }) {
     hashtagArray.map(async (hashtag) => {
       try {
         await setDoc(
-          doc(database, 'hashtags', hashtag),
+          doc(database, 'hashtags', hashtag.toLowerCase()),
           {
-            hashtag,
+            hashtag: hashtag.toLowerCase(),
             count: increment(1)
           },
           { merge: true }
