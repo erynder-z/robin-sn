@@ -59,7 +59,6 @@ function NewPostModal({ userData, toggleNewPostModal }) {
         postID,
         ownerID: userID,
         content: text,
-        hasHashtag: false,
         hashtags: [],
         reposts: [],
         likes: [],

@@ -60,7 +60,6 @@ function PostItem({ postID, userID }) {
         postID: newPostID,
         ownerID: userID,
         content: repostContent,
-        hasHashtag: false,
         hashtags: [],
         reposts: [],
         likes: [],
