@@ -1,21 +1,61 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './FloatingMenu.css';
-import { BiPencil } from 'react-icons/bi';
+import { BiPlus, BiPencil, BiSearch } from 'react-icons/bi';
+import { Fab, Action } from 'react-tiny-fab';
+import 'react-tiny-fab/dist/styles.css';
 
-function FloatingMenu({ toggleNewPostModal }) {
+function FloatingMenu({ toggleNewPostModal, toggleSearchModal }) {
+  const mainButtonStyles = {
+    color: 'var(--text-bright)',
+    backgroundColor: 'var(--button)',
+    padding: '10px'
+  };
+
+  const newPostActionBtn = {
+    color: 'var(--text-bright)',
+    backgroundColor: 'var(--button)',
+    padding: '10px'
+  };
+
+  const searchActionBtn = {
+    color: 'var(--text-bright)',
+    backgroundColor: 'var(--button)',
+    padding: '10px'
+  };
+
   return (
-    <div
-      className="floating-menu"
-      role="button"
-      tabIndex={0}
-      onClick={() => {
-        toggleNewPostModal();
-      }}
-      onKeyDown={() => {
-        toggleNewPostModal();
-      }}>
-      <BiPencil size="2rem" color="whitesmoke" />
+    <div className="floating-menu-container">
+      <Fab mainButtonStyles={mainButtonStyles} icon={<BiPlus />}>
+        <Action
+          style={newPostActionBtn}
+          text="New post"
+          onClick={(e) => {
+            toggleNewPostModal();
+            e.stopPropagation();
+          }}
+          onKeyDown={(e) => {
+            toggleNewPostModal();
+            e.stopPropagation();
+          }}>
+          {' '}
+          <BiPencil />
+        </Action>
+        <Action
+          style={searchActionBtn}
+          text="Search"
+          onClick={(e) => {
+            toggleSearchModal();
+            e.stopPropagation();
+          }}
+          onKeyDown={(e) => {
+            toggleSearchModal();
+            e.stopPropagation();
+          }}>
+          {' '}
+          <BiSearch />
+        </Action>
+      </Fab>
     </div>
   );
 }
@@ -23,5 +63,6 @@ function FloatingMenu({ toggleNewPostModal }) {
 export default FloatingMenu;
 
 FloatingMenu.propTypes = {
-  toggleNewPostModal: PropTypes.func.isRequired
+  toggleNewPostModal: PropTypes.func.isRequired,
+  toggleSearchModal: PropTypes.func.isRequired
 };
