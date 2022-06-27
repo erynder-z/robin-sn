@@ -25,17 +25,21 @@ import MyProfile from '../MyProfile/MyProfile.jsx';
 import UserProfile from '../UserProfile/UserProfile';
 import Bookmarks from '../Bookmarks/Bookmarks';
 import Explore from '../Explore/Explore';
+import SearchModal from '../SearchModal/SearchModal';
+import Search from '../Search/Search';
 
 function Main({ userCredentials }) {
   const navigate = useNavigate();
   const { uid } = userCredentials;
   const [usr] = useDocumentData(doc(database, 'users', uid));
   const [showNewPostModal, setShowNewPostModal] = useState(false);
+  const [showSearchModal, setShowSearchModal] = useState(false);
   const [isUserSetup, setIsUserSetup] = useState(false);
   const [userData, setUserData] = useState({});
   const [contextBarMode, setContextBarMode] = useState('');
   const [postInfo, setPostInfo] = useState({});
   const [isPostBookmarked, setIsPostBookmarked] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // save post info so it can be passed down to the contextbar
   const handlePostInfo = (post) => {
@@ -48,6 +52,16 @@ function Main({ userCredentials }) {
 
   const toggleNewPostModal = () => {
     setShowNewPostModal(!showNewPostModal);
+    setShowSearchModal(false);
+  };
+
+  const toggleSearchModal = () => {
+    setShowSearchModal(!showSearchModal);
+    setShowNewPostModal(false);
+  };
+
+  const handleSearchQuery = (q) => {
+    setSearchQuery(q);
   };
 
   // is user isSetup, the CreateUserAccount component will not be shown
@@ -204,6 +218,14 @@ function Main({ userCredentials }) {
         />
         <Route path="userprofile/:id" element={isUserSetup ? <UserProfile /> : null} />
         <Route
+          path="search"
+          element={
+            isUserSetup ? (
+              <Search searchQuery={searchQuery} changeContextBarMode={changeContextBarMode} />
+            ) : null
+          }
+        />
+        <Route
           path="postDetails"
           element={
             isUserSetup ? (
@@ -216,6 +238,7 @@ function Main({ userCredentials }) {
           }
         />
       </Routes>
+
       {isUserSetup && (
         <ContextBar
           userData={userData}
@@ -226,9 +249,17 @@ function Main({ userCredentials }) {
           isPostBookmarked={isPostBookmarked}
         />
       )}
-      {isUserSetup && <FloatingMenu toggleNewPostModal={toggleNewPostModal} />}
+      {isUserSetup && (
+        <FloatingMenu
+          toggleNewPostModal={toggleNewPostModal}
+          toggleSearchModal={toggleSearchModal}
+        />
+      )}
       {isUserSetup && showNewPostModal && (
         <NewPostModal toggleNewPostModal={toggleNewPostModal} userData={userData} />
+      )}
+      {isUserSetup && showSearchModal && (
+        <SearchModal handleSearchQuery={handleSearchQuery} toggleSearchModal={toggleSearchModal} />
       )}
     </div>
   );

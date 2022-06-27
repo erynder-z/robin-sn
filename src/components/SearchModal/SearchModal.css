@@ -1,0 +1,66 @@
+.searchModal-overlay {
+  height: 100%;
+  width: 100vw;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchModal-upper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.searchModal-body {
+  background-color: var(--card-background);
+  color: var(--text-bright);
+  display: flex;
+  flex-direction: column;
+
+  align-items: stretch;
+  padding: 0 1rem 1rem 1rem;
+  border: solid 2px var(--button);
+  border-radius: 2%;
+}
+
+.search-header {
+  font-weight: bold;
+}
+
+.close {
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+.searchModal-body > .input-wrapper input {
+  outline: none;
+  border: none;
+  height: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-bright);
+}
+
+.searchModal-body > .input-wrapper input:focus {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.searchModal-body > .input-wrapper > button {
+  border: none;
+  height: 100%;
+
+  background-color: var(--button);
+  color: var(--text-bright);
+  cursor: pointer;
+}
+
+.postBtn:hover {
+  background-color: var(--button-hover);
+}
