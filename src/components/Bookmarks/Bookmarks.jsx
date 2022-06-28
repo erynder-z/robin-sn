@@ -22,7 +22,7 @@ function Bookmarks({ userData, changeContextBarMode }) {
 
   return (
     <div className="bookmarks-container">
-      <div className="bookmarks-header">Bookmarks</div>
+      <div className="bookmarks-header">Bookmarked posts</div>
       <div className="bookmarks-content">
         <div className="posts">
           {bookmarks &&

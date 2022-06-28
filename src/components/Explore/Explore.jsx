@@ -29,7 +29,7 @@ function Explore({ handleSearchQuery, changeContextBarMode }) {
           trends.map((trend) => (
             <div
               key={trend.hashtag.toString()}
-              className="trend-item"
+              className={`trend-item trend${trends.indexOf(trend)}`}
               role="link"
               tabIndex={0}
               onClick={() => {
@@ -38,6 +38,21 @@ function Explore({ handleSearchQuery, changeContextBarMode }) {
               onKeyDown={() => {
                 handleClick(trend.hashtag);
               }}>
+              {trends.indexOf(trend) < 10 && <span>{trends.indexOf(trend) + 1}</span>}
+              {trends.indexOf(trend) === 10 && (
+                <div
+                  className="other-trends"
+                  role="link"
+                  tabIndex={0}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                  onKeyDown={(e) => {
+                    e.stopPropagation();
+                  }}>
+                  other trends:
+                </div>
+              )}
               #{trend.hashtag}
             </div>
           ))}

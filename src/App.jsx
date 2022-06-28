@@ -1,4 +1,5 @@
 import './App.css';
+import './components/shared-styles.css';
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
