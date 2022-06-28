@@ -27,6 +27,7 @@ import Bookmarks from '../Bookmarks/Bookmarks';
 import Explore from '../Explore/Explore';
 import SearchModal from '../SearchModal/SearchModal';
 import Search from '../Search/Search';
+import Trends from '../Trends/Trends';
 
 function Main({ userCredentials }) {
   const navigate = useNavigate();
@@ -198,7 +199,14 @@ function Main({ userCredentials }) {
         />
         <Route
           path="explore"
-          element={isUserSetup ? <Explore changeContextBarMode={changeContextBarMode} /> : null}
+          element={
+            isUserSetup ? (
+              <Explore
+                handleSearchQuery={handleSearchQuery}
+                changeContextBarMode={changeContextBarMode}
+              />
+            ) : null
+          }
         />
         <Route
           path="bookmarks"
@@ -229,6 +237,19 @@ function Main({ userCredentials }) {
             ) : null
           }
         />
+        <Route
+          path="trends"
+          element={
+            isUserSetup ? (
+              <Trends
+                userData={userData}
+                searchQuery={searchQuery}
+                changeContextBarMode={changeContextBarMode}
+              />
+            ) : null
+          }
+        />
+
         <Route
           path="postDetails"
           element={

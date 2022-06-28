@@ -14,6 +14,7 @@ function ContextBar({ userData, mode, deletePost, bookmarkPost, isPostBookmarked
       {mode === 'bookmarks' && <FollowUserList userData={userData} />}
       {mode === 'myprofile' && <ProfileOptions userData={userData} />}
       {mode === 'search' && <FollowUserList userData={userData} />}
+      {mode === 'trends' && <FollowUserList userData={userData} />}
       {mode === 'postdetailsown' && (
         <PostDetailsOwn
           deletePost={deletePost}
