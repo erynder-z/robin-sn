@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { BiArrowBack } from 'react-icons/bi';
 import './Search.css';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
@@ -56,7 +57,23 @@ function Search({ userData, searchQuery, changeContextBarMode }) {
 
   return (
     <div className="search-container">
-      <div className="search-header">Search</div>
+      <div className="search-header">
+        <div className="backPost">
+          <BiArrowBack
+            className="post-back"
+            size="1.5rem"
+            role="button"
+            tabIndex={0}
+            onClick={() => {
+              navigate(-1);
+            }}
+            onKeyDown={() => {
+              navigate(-1);
+            }}
+          />
+        </div>
+        <span>Search</span>
+      </div>
       <div className="search-content">
         <div className="results">
           <div className="user-results">
