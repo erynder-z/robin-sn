@@ -5,7 +5,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
 
 function Search({ searchQuery, changeContextBarMode }) {
-  const [userResults, setUserResults] = useState(null);
+  const [userResults, setUserResults] = useState([]);
   const [search, setSearch] = useState('');
 
   const getSearchResults = async (s) => {
