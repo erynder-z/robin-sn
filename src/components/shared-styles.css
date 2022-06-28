@@ -1,0 +1,76 @@
+.home-container,
+.explore-container,
+.search-container,
+.profile-container,
+.trends-container,
+.bookmarks-container {
+  background-color: var(--card-background);
+  color: var(--text-bright);
+  max-height: 100vh;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--button) var(--card-background);
+}
+
+.home-header,
+.explore-header,
+.search-header,
+.profile-header,
+.trends-header,
+.bookmarks-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5%;
+  font-size: 1.2rem;
+  font-weight: bolder;
+}
+
+.home-content,
+.explore-content,
+.search-content,
+.trends-content,
+.bookmarks-content {
+  width: 100%;
+  max-height: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-content > .posts,
+.explore-content > .posts,
+.search-content > .results,
+.trends-content > .results,
+.bookmarks-content > .posts {
+  width: 100%;
+  max-height: 95%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--button) var(--card-background);
+  color: var(--text-bright);
+}
+
+.home-content > .posts::-webkit-scrollbar,
+.explore-content > .posts::-webkit-scrollbar,
+.search-content > .results::-webkit-scrollbar,
+.trends-content > .results::-webkit-scrollbar,
+.bookmarks-content > .posts::-webkit-scrollbar {
+  width: 10px;
+  background-color: var(--card-background);
+}
+
+.home-content > .posts::-webkit-scrollbar-thumb,
+.explore-content > .posts::-webkit-scrollbar-thumb,
+.search-content > .results::-webkit-scrollbar-thumb,
+.trends-content > .results::-webkit-scrollbar-thumb,
+.bookmarks-content > .posts::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 10px var(--button);
+}
+
+.post-back {
+  position: absolute;
+  top: 1.5%;
+  left: 33%;
+  cursor: pointer;
+}
