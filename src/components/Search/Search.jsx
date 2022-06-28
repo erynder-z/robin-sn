@@ -11,7 +11,7 @@ function Search({ searchQuery, changeContextBarMode }) {
   const getSearchResults = async (s) => {
     const foundUsers = [];
     const usersRef = collection(database, 'users');
-    const q = query(usersRef, where('username', '==', s));
+    const q = query(usersRef, where('username', '==', s.toLowerCase()));
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {

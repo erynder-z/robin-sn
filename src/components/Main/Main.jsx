@@ -61,7 +61,7 @@ function Main({ userCredentials }) {
   };
 
   const handleSearchQuery = (q) => {
-    setSearchQuery(q);
+    setSearchQuery(q.toLowerCase());
   };
 
   // is user isSetup, the CreateUserAccount component will not be shown
