@@ -20,7 +20,11 @@ function Search({ userData, searchQuery, changeContextBarMode }) {
 
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        foundUsers.push(doc.data());
+        foundUsers.push({
+          username: doc.data().username,
+          userID: doc.data().userID,
+          userPic: doc.data().userPic
+        });
       });
       setUserResults(foundUsers);
     };
