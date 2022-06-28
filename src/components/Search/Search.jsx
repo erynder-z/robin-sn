@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Search.css';
 import { collection, getDocs, query, where } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
 
 function Search({ userData, searchQuery, changeContextBarMode }) {
+  const navigate = useNavigate();
   const [userResults, setUserResults] = useState([]);
   const [postResults, setPostResults] = useState([]);
   const [search, setSearch] = useState('');
@@ -60,9 +62,24 @@ function Search({ userData, searchQuery, changeContextBarMode }) {
               <div className="found-container">
                 <h3 className="found">Found users:</h3>
                 {userResults.map((user) => (
-                  <li key={user.toString()} className="userResult-item">
+                  <div
+                    key={user.toString()}
+                    className="userResult-item"
+                    role="link"
+                    tabIndex={0}
+                    onClick={() => {
+                      navigate(`/main/userprofile/${user.userID}`, {
+                        state: { usr: user.userID }
+                      });
+                    }}
+                    onKeyDown={() => {
+                      navigate(`/main/userprofile/${user.userID}`, {
+                        state: { usr: user.userID }
+                      });
+                    }}>
+                    <img className="profile-usrpic" src={user.userPic} alt="user avatar" />@
                     {user.username}
-                  </li>
+                  </div>
                 ))}
               </div>
             )}
