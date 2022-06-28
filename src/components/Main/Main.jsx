@@ -221,7 +221,11 @@ function Main({ userCredentials }) {
           path="search"
           element={
             isUserSetup ? (
-              <Search searchQuery={searchQuery} changeContextBarMode={changeContextBarMode} />
+              <Search
+                userData={userData}
+                searchQuery={searchQuery}
+                changeContextBarMode={changeContextBarMode}
+              />
             ) : null
           }
         />

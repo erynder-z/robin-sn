@@ -35,7 +35,7 @@ function SearchModal({ handleSearchQuery, toggleSearchModal }) {
           e.stopPropagation();
         }}>
         <div className="searchModal-upper">
-          <div className="search-header">Search users</div>
+          <div className="search-header">Search</div>
           <div
             className="close"
             role="button"
@@ -52,7 +52,7 @@ function SearchModal({ handleSearchQuery, toggleSearchModal }) {
         <div className="input-wrapper">
           <input
             type="query"
-            placeholder="username"
+            placeholder="search users or hashtags"
             value={text}
             onChange={(e) => {
               setText(e.target.value);
