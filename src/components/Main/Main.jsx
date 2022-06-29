@@ -28,6 +28,7 @@ import Explore from '../Explore/Explore';
 import SearchModal from '../SearchModal/SearchModal';
 import Search from '../Search/Search';
 import Trends from '../Trends/Trends';
+import NewPostEffect from '../NewPostEffect/NewPostEffect';
 
 function Main({ userCredentials }) {
   const navigate = useNavigate();
@@ -41,6 +42,11 @@ function Main({ userCredentials }) {
   const [postInfo, setPostInfo] = useState({});
   const [isPostBookmarked, setIsPostBookmarked] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [newPostEffect, setNewPostEffect] = useState(false);
+
+  const showNewPostEffect = () => {
+    setNewPostEffect(true);
+  };
 
   // save post info so it can be passed down to the contextbar
   const handlePostInfo = (post) => {
@@ -174,6 +180,12 @@ function Main({ userCredentials }) {
     }
   }, [usr]);
 
+  useEffect(() => {
+    if (newPostEffect) {
+      setTimeout(() => setNewPostEffect(false), 2000);
+    }
+  }, [newPostEffect]);
+
   return (
     <div className="main-container">
       {isUserSetup && <Sidebar userData={userData} />}
@@ -281,11 +293,16 @@ function Main({ userCredentials }) {
         />
       )}
       {isUserSetup && showNewPostModal && (
-        <NewPostModal toggleNewPostModal={toggleNewPostModal} userData={userData} />
+        <NewPostModal
+          toggleNewPostModal={toggleNewPostModal}
+          userData={userData}
+          showNewPostEffect={showNewPostEffect}
+        />
       )}
       {isUserSetup && showSearchModal && (
         <SearchModal handleSearchQuery={handleSearchQuery} toggleSearchModal={toggleSearchModal} />
       )}
+      {newPostEffect && <NewPostEffect />}
     </div>
   );
 }

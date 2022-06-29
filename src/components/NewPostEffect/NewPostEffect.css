@@ -1,0 +1,20 @@
+.newPostEffect-overlay {
+  height: 100%;
+  width: 100vw;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  backdrop-filter: blur(6px);
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation-name: custom-fadein;
+  animation-duration: 0.1s;
+}
+
+.newPostEffect-icon {
+  animation: spin 0.5s ease-in-out both;
+}
