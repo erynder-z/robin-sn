@@ -6,7 +6,7 @@ import { collection, limit, orderBy, query } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { database } from '../Firebase/Firebase';
 
-function Explore({ handleSearchQuery, changeContextBarMode }) {
+function Explore({ handleSearchQuery, changeActiveTab }) {
   const navigate = useNavigate();
   const hashtagRef = collection(database, 'hashtags');
   const q = query(hashtagRef, orderBy('count', 'desc'), limit(25));
@@ -18,7 +18,7 @@ function Explore({ handleSearchQuery, changeContextBarMode }) {
   };
 
   useEffect(() => {
-    changeContextBarMode('explore');
+    changeActiveTab('explore');
   }, []);
 
   return (
@@ -65,5 +65,5 @@ export default Explore;
 
 Explore.propTypes = {
   handleSearchQuery: PropTypes.func.isRequired,
-  changeContextBarMode: PropTypes.func.isRequired
+  changeActiveTab: PropTypes.func.isRequired
 };

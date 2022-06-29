@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
 
-function Trends({ userData, searchQuery, changeContextBarMode }) {
+function Trends({ userData, searchQuery, changeActiveTab }) {
   const navigate = useNavigate();
   const [postResults, setPostResults] = useState([]);
   const [search, setSearch] = useState('');
@@ -33,7 +33,7 @@ function Trends({ userData, searchQuery, changeContextBarMode }) {
   }, [searchQuery]);
 
   useEffect(() => {
-    changeContextBarMode('trends');
+    changeActiveTab('trends');
     getSearchResults(search);
   }, [search]);
 
@@ -111,5 +111,5 @@ Trends.propTypes = {
     ).isRequired
   }).isRequired,
   searchQuery: PropTypes.string.isRequired,
-  changeContextBarMode: PropTypes.func.isRequired
+  changeActiveTab: PropTypes.func.isRequired
 };

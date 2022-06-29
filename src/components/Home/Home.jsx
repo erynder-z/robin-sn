@@ -5,7 +5,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
 
-function Home({ userData, changeContextBarMode }) {
+function Home({ userData, changeActiveTab }) {
   const { following } = userData;
   const [followedUsersPosts, setFollowingPosts] = useState([]);
 
@@ -58,7 +58,7 @@ function Home({ userData, changeContextBarMode }) {
   }, [following]);
 
   useEffect(() => {
-    changeContextBarMode('home');
+    changeActiveTab('home');
   }, []);
 
   return (
@@ -109,5 +109,5 @@ Home.propTypes = {
       })
     ).isRequired
   }).isRequired,
-  changeContextBarMode: PropTypes.func.isRequired
+  changeActiveTab: PropTypes.func.isRequired
 };

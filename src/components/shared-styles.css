@@ -85,6 +85,30 @@
   cursor: pointer;
 }
 
+.search-closeBtn,
+.reply-closeBtn,
+.newPost-closeBtn {
+  cursor: pointer;
+  font-size: 3rem;
+  position: absolute;
+  top: 5%;
+  left: 90%;
+  color: var(--button);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-closeBtn:hover,
+.reply-closeBtn:hover,
+.newPost-closeBtn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
 @-webkit-keyframes spin {
   from {
     -webkit-transform: rotate(0deg);

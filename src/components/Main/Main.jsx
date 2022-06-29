@@ -38,7 +38,7 @@ function Main({ userCredentials }) {
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [isUserSetup, setIsUserSetup] = useState(false);
   const [userData, setUserData] = useState({});
-  const [contextBarMode, setContextBarMode] = useState('');
+  const [activeTab, setActiveTab] = useState('');
   const [postInfo, setPostInfo] = useState({});
   const [isPostBookmarked, setIsPostBookmarked] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -53,8 +53,8 @@ function Main({ userCredentials }) {
     setPostInfo(post);
   };
 
-  const changeContextBarMode = (mode) => {
-    setContextBarMode(mode);
+  const changeActiveTab = (mode) => {
+    setActiveTab(mode);
   };
 
   const toggleNewPostModal = () => {
@@ -188,13 +188,13 @@ function Main({ userCredentials }) {
 
   return (
     <div className="main-container">
-      {isUserSetup && <Sidebar userData={userData} />}
+      {isUserSetup && <Sidebar userData={userData} activeTab={activeTab} />}
       <Routes>
         <Route
           path="/"
           element={
             isUserSetup ? (
-              <Home userData={userData} changeContextBarMode={changeContextBarMode} />
+              <Home userData={userData} changeActiveTab={changeActiveTab} />
             ) : (
               <CreateUserAccount userCredentials={userCredentials} />
             )
@@ -204,36 +204,27 @@ function Main({ userCredentials }) {
         <Route
           path="home"
           element={
-            isUserSetup ? (
-              <Home userData={userData} changeContextBarMode={changeContextBarMode} />
-            ) : null
+            isUserSetup ? <Home userData={userData} changeActiveTab={changeActiveTab} /> : null
           }
         />
         <Route
           path="explore"
           element={
             isUserSetup ? (
-              <Explore
-                handleSearchQuery={handleSearchQuery}
-                changeContextBarMode={changeContextBarMode}
-              />
+              <Explore handleSearchQuery={handleSearchQuery} changeActiveTab={changeActiveTab} />
             ) : null
           }
         />
         <Route
           path="bookmarks"
           element={
-            isUserSetup ? (
-              <Bookmarks userData={userData} changeContextBarMode={changeContextBarMode} />
-            ) : null
+            isUserSetup ? <Bookmarks userData={userData} changeActiveTab={changeActiveTab} /> : null
           }
         />
         <Route
           path="myprofile"
           element={
-            isUserSetup ? (
-              <MyProfile userData={userData} changeContextBarMode={changeContextBarMode} />
-            ) : null
+            isUserSetup ? <MyProfile userData={userData} changeActiveTab={changeActiveTab} /> : null
           }
         />
         <Route path="userprofile/:id" element={isUserSetup ? <UserProfile /> : null} />
@@ -244,7 +235,7 @@ function Main({ userCredentials }) {
               <Search
                 userData={userData}
                 searchQuery={searchQuery}
-                changeContextBarMode={changeContextBarMode}
+                changeActiveTab={changeActiveTab}
               />
             ) : null
           }
@@ -256,7 +247,7 @@ function Main({ userCredentials }) {
               <Trends
                 userData={userData}
                 searchQuery={searchQuery}
-                changeContextBarMode={changeContextBarMode}
+                changeActiveTab={changeActiveTab}
               />
             ) : null
           }
@@ -268,7 +259,7 @@ function Main({ userCredentials }) {
             isUserSetup ? (
               <PostDetails
                 userData={userData}
-                changeContextBarMode={changeContextBarMode}
+                changeActiveTab={changeActiveTab}
                 handlePostInfo={handlePostInfo}
               />
             ) : null
@@ -279,7 +270,7 @@ function Main({ userCredentials }) {
       {isUserSetup && (
         <ContextBar
           userData={userData}
-          mode={contextBarMode}
+          activeTab={activeTab}
           postInfo={postInfo}
           deletePost={deletePost}
           bookmarkPost={bookmarkPost}

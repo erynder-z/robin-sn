@@ -1,5 +1,6 @@
 .explore-content {
   padding: 1rem;
+  text-align: center;
 }
 
 .trend-item {
@@ -13,11 +14,11 @@
 }
 
 .trend-item > span {
-  color: yellow;
+  color: var(--text-bright);
 }
 
 .other-trends {
-  color: yellow;
+  color: var(--text-bright);
   text-decoration: underline;
   cursor: initial;
   padding: 1rem 0;

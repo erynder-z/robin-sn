@@ -59,13 +59,15 @@ function Reply({ postID, userID, replyMode, toggleReplyModal, postOwner }) {
         className="reply-closeBtn"
         role="button"
         tabIndex={0}
-        onClick={() => {
+        onClick={(e) => {
           setFadeModal(true);
           setTimeout(() => toggleReplyModal(), 100);
+          e.stopPropagation();
         }}
-        onKeyDown={() => {
+        onKeyDown={(e) => {
           setFadeModal(true);
           setTimeout(() => toggleReplyModal(), 100);
+          e.stopPropagation();
         }}>
         &times;
       </div>

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
 
-function Search({ userData, searchQuery, changeContextBarMode }) {
+function Search({ userData, searchQuery, changeActiveTab }) {
   const navigate = useNavigate();
   const [userResults, setUserResults] = useState([]);
   const [postResults, setPostResults] = useState([]);
@@ -51,7 +51,7 @@ function Search({ userData, searchQuery, changeContextBarMode }) {
   }, [searchQuery]);
 
   useEffect(() => {
-    changeContextBarMode('search');
+    changeActiveTab('search');
     getSearchResults(search);
   }, [search]);
 
@@ -158,5 +158,5 @@ Search.propTypes = {
     ).isRequired
   }).isRequired,
   searchQuery: PropTypes.string.isRequired,
-  changeContextBarMode: PropTypes.func.isRequired
+  changeActiveTab: PropTypes.func.isRequired
 };

@@ -11,7 +11,7 @@ import Reply from '../Reply/Reply';
 import ReplyItem from '../ReplyItem/ReplyItem';
 import './PostDetails.css';
 
-function PostDetails({ userData, changeContextBarMode, handlePostInfo }) {
+function PostDetails({ userData, changeActiveTab, handlePostInfo }) {
   const navigate = useNavigate();
   // get state from PostItem component // state: { postID, userID, postOwner }
   const location = useLocation();
@@ -31,9 +31,9 @@ function PostDetails({ userData, changeContextBarMode, handlePostInfo }) {
 
   useEffect(() => {
     if (location.state.postOwner.ownerID === userID) {
-      changeContextBarMode('postdetailsown');
+      changeActiveTab('postdetailsown');
     } else {
-      changeContextBarMode('postdetailsother');
+      changeActiveTab('postdetailsother');
     }
   }, []);
 
@@ -109,6 +109,6 @@ PostDetails.propTypes = {
       })
     ).isRequired
   }).isRequired,
-  changeContextBarMode: PropTypes.func.isRequired,
+  changeActiveTab: PropTypes.func.isRequired,
   handlePostInfo: PropTypes.func.isRequired
 };

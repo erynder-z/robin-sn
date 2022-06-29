@@ -6,23 +6,23 @@ import PostDetailsOwn from './PostDetailsOwn/PostDetailsOwn';
 import PostDetailsOther from './PostDetailsOther/PostDetailsOther';
 import './ContextBar.css';
 
-function ContextBar({ userData, mode, deletePost, bookmarkPost, isPostBookmarked }) {
+function ContextBar({ userData, activeTab, deletePost, bookmarkPost, isPostBookmarked }) {
   return (
     <div className="contextbar">
-      {mode === 'home' && <FollowUserList userData={userData} />}
-      {mode === 'explore' && <FollowUserList userData={userData} />}
-      {mode === 'bookmarks' && <FollowUserList userData={userData} />}
-      {mode === 'myprofile' && <ProfileOptions userData={userData} />}
-      {mode === 'search' && <FollowUserList userData={userData} />}
-      {mode === 'trends' && <FollowUserList userData={userData} />}
-      {mode === 'postdetailsown' && (
+      {activeTab === 'home' && <FollowUserList userData={userData} />}
+      {activeTab === 'explore' && <FollowUserList userData={userData} />}
+      {activeTab === 'bookmarks' && <FollowUserList userData={userData} />}
+      {activeTab === 'myprofile' && <ProfileOptions userData={userData} />}
+      {activeTab === 'search' && <FollowUserList userData={userData} />}
+      {activeTab === 'trends' && <FollowUserList userData={userData} />}
+      {activeTab === 'postdetailsown' && (
         <PostDetailsOwn
           deletePost={deletePost}
           bookmarkPost={bookmarkPost}
           isPostBookmarked={isPostBookmarked}
         />
       )}
-      {mode === 'postdetailsother' && (
+      {activeTab === 'postdetailsother' && (
         <PostDetailsOther bookmarkPost={bookmarkPost} isPostBookmarked={isPostBookmarked} />
       )}
     </div>
@@ -63,7 +63,7 @@ ContextBar.propTypes = {
       })
     ).isRequired
   }).isRequired,
-  mode: PropTypes.string.isRequired,
+  activeTab: PropTypes.string.isRequired,
   deletePost: PropTypes.func.isRequired,
   bookmarkPost: PropTypes.func.isRequired,
   isPostBookmarked: PropTypes.bool.isRequired

@@ -6,7 +6,7 @@ import './MyProfile.css';
 import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
 
-function MyProfile({ userData, changeContextBarMode }) {
+function MyProfile({ userData, changeActiveTab }) {
   const {
     userPic,
     username,
@@ -72,7 +72,7 @@ function MyProfile({ userData, changeContextBarMode }) {
   }, [activeView === 'media']);
 
   useEffect(() => {
-    changeContextBarMode('myprofile');
+    changeActiveTab('myprofile');
   }, []);
 
   // lists all the posts made by the user
@@ -224,5 +224,5 @@ MyProfile.propTypes = {
       })
     ).isRequired
   }).isRequired,
-  changeContextBarMode: PropTypes.func.isRequired
+  changeActiveTab: PropTypes.func.isRequired
 };
