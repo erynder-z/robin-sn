@@ -4,7 +4,6 @@
   color: var(--text-bright);
   position: relative;
   border-right: solid 1px var(--border);
-  /*   min-width: 0; */
 }
 
 .sidebar ul {
@@ -21,6 +20,7 @@
 .sidebar ul a {
   color: var(--text-bright);
   text-decoration: none;
+  width: 100%;
 }
 
 .sidebar-item {
@@ -28,11 +28,21 @@
   justify-content: flex-start;
   align-items: center;
   cursor: pointer;
-  padding: 1rem;
+  padding: 1rem 0;
+  width: 100%;
+}
+
+.sidebar-item.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease-out;
+}
+
+.sidebar-item.inactive {
+  transition: all 0.2s ease-out;
 }
 
 .sidebar-item svg {
-  margin-right: 1rem;
+  padding: 0 1rem;
 }
 
 @media only screen and (max-width: 768px) {

@@ -1,21 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Sidebar.css';
-import {
-  BiHomeAlt,
-  BiHash,
-  BiBell,
-  BiEnvelope,
-  BiBookmark,
-  BiListUl,
-  BiUserCircle
-} from 'react-icons/bi';
+import { BiHomeAlt, BiHash, BiBell, BiBookmark, BiUserCircle } from 'react-icons/bi';
 import { signOut } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 import { auth } from '../Firebase/Firebase';
 import UserInfo from '../UserInfo/UserInfo';
 
-function Sidebar({ userData }) {
+function Sidebar({ userData, activeTab }) {
   const logout = async () => {
     await signOut(auth);
   };
@@ -24,37 +16,29 @@ function Sidebar({ userData }) {
     <div className="sidebar">
       <ul>
         <Link to="/main/home">
-          <li className="sidebar-item">
+          <li className={`sidebar-item ${activeTab === 'home' ? 'active' : 'inactive'}`}>
             <BiHomeAlt size="2rem" />
             <span>Home</span>
           </li>
         </Link>
         <Link to="/main/explore">
-          <li className="sidebar-item">
+          <li className={`sidebar-item ${activeTab === 'explore' ? 'active' : 'inactive'}`}>
             <BiHash size="2rem" />
             <span>Explore</span>
           </li>
         </Link>
-        <li className="sidebar-item">
+        <li className={`sidebar-item ${activeTab === 'notifications' ? 'active' : 'inactive'}`}>
           <BiBell size="2rem" />
           <span>Notifications</span>
         </li>
-        <li className="sidebar-item">
-          <BiEnvelope size="2rem" />
-          <span>Messages</span>
-        </li>
         <Link to="/main/bookmarks">
-          <li className="sidebar-item">
+          <li className={`sidebar-item ${activeTab === 'bookmarks' ? 'active' : 'inactive'}`}>
             <BiBookmark size="2rem" />
             <span>Bookmarks</span>
           </li>
         </Link>
-        <li className="sidebar-item">
-          <BiListUl size="2rem" />
-          <span>Lists</span>
-        </li>{' '}
         <Link to="/main/myprofile">
-          <li className="sidebar-item">
+          <li className={`sidebar-item ${activeTab === 'myprofile' ? 'active' : 'inactive'}`}>
             <BiUserCircle size="2rem" />
             <span>Profile</span>
           </li>
@@ -98,5 +82,6 @@ Sidebar.propTypes = {
         postID: PropTypes.string
       })
     ).isRequired
-  }).isRequired
+  }).isRequired,
+  activeTab: PropTypes.string.isRequired
 };
