@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { BiSend } from 'react-icons/bi';
+import { BiSend, BiSearch } from 'react-icons/bi';
 import './SearchModal.css';
 import { useNavigate } from 'react-router-dom';
 
 function SearchModal({ handleSearchQuery, toggleSearchModal }) {
   const navigate = useNavigate();
   const [text, setText] = useState('');
+  const [fadeModal, setFadeModal] = useState(false);
 
   const search = () => {
     handleSearchQuery(text);
@@ -14,16 +15,21 @@ function SearchModal({ handleSearchQuery, toggleSearchModal }) {
   };
 
   return (
-    <div
-      className="searchModal-overlay"
-      role="button"
-      tabIndex={0}
-      onClick={() => {
-        toggleSearchModal();
-      }}
-      onKeyDown={() => {
-        toggleSearchModal();
-      }}>
+    <div className={`searchModal-overlay ${fadeModal ? 'fadeout' : 'fadein'}`}>
+      <div
+        className="search-closeBtn"
+        role="button"
+        tabIndex={0}
+        onClick={() => {
+          setFadeModal(true);
+          setTimeout(() => toggleSearchModal(), 100);
+        }}
+        onKeyDown={() => {
+          setFadeModal(true);
+          setTimeout(() => toggleSearchModal(), 100);
+        }}>
+        &times;
+      </div>
       <div
         role="textbox"
         tabIndex={0}
@@ -35,18 +41,8 @@ function SearchModal({ handleSearchQuery, toggleSearchModal }) {
           e.stopPropagation();
         }}>
         <div className="searchModal-upper">
-          <div className="search-header">Search</div>
-          <div
-            className="close"
-            role="button"
-            tabIndex={0}
-            onClick={() => {
-              toggleSearchModal();
-            }}
-            onKeyDown={() => {
-              toggleSearchModal();
-            }}>
-            &times;
+          <div className="search-header">
+            <BiSearch />
           </div>
         </div>
         <div className="input-wrapper">
@@ -62,11 +58,13 @@ function SearchModal({ handleSearchQuery, toggleSearchModal }) {
           <button
             type="button"
             onClick={() => {
-              toggleSearchModal();
+              setFadeModal(true);
+              setTimeout(() => toggleSearchModal(), 100);
               search();
             }}
             onKeyDown={() => {
-              toggleSearchModal();
+              setFadeModal(true);
+              setTimeout(() => toggleSearchModal(), 100);
               search();
             }}>
             {' '}

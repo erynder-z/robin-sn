@@ -19,12 +19,13 @@ import resizeFile from '../../helpers/ImageResizer/ImageResizer';
 import './NewPostModal.css';
 import parseHashtag from '../../helpers/HashtagCreator/HashtagCreator';
 
-function NewPostModal({ userData, toggleNewPostModal }) {
+function NewPostModal({ userData, toggleNewPostModal, showNewPostEffect }) {
   const { userID, userPic, username } = userData;
   const [text, setText] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [fadeModal, setFadeModal] = useState(false);
 
   const addHashtag = async (hashtagArray) => {
     hashtagArray.map(async (hashtag) => {
@@ -101,6 +102,7 @@ function NewPostModal({ userData, toggleNewPostModal }) {
     } catch (err) {
       console.log(err);
     }
+    showNewPostEffect();
   };
 
   // Load image into state to preview
@@ -129,16 +131,7 @@ function NewPostModal({ userData, toggleNewPostModal }) {
   };
 
   return (
-    <div
-      className="newPostModal-overlay"
-      role="button"
-      tabIndex={0}
-      onClick={() => {
-        toggleNewPostModal();
-      }}
-      onKeyDown={() => {
-        toggleNewPostModal();
-      }}>
+    <div className={`newPostModal-overlay ${fadeModal ? 'fadeout' : 'fadein'}`}>
       <div
         role="textbox"
         tabIndex={0}
@@ -149,22 +142,24 @@ function NewPostModal({ userData, toggleNewPostModal }) {
         onKeyDown={(e) => {
           e.stopPropagation();
         }}>
+        <div
+          className="newPost-closeBtn"
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            setFadeModal(true);
+            setTimeout(() => toggleNewPostModal(), 100);
+          }}
+          onKeyDown={() => {
+            setFadeModal(true);
+            setTimeout(() => toggleNewPostModal(), 100);
+          }}>
+          &times;
+        </div>
         <div className="newPostModal-upper">
           <div className="user-header">
             <img className="post-usrpic" src={userPic} alt="user avatar" />
             <div className="post-author">@{username} </div>
-          </div>
-          <div
-            className="close"
-            role="button"
-            tabIndex={0}
-            onClick={() => {
-              toggleNewPostModal();
-            }}
-            onKeyDown={() => {
-              toggleNewPostModal();
-            }}>
-            &times;
           </div>
         </div>
         <textarea
@@ -243,15 +238,15 @@ function NewPostModal({ userData, toggleNewPostModal }) {
                 <Picker onEmojiClick={onEmojiClick} disableSearchBar />
               </div>
             )}
+            <button
+              className="postBtn"
+              type="submit"
+              onClick={() => {
+                submitPost();
+              }}>
+              Post
+            </button>
           </div>
-          <button
-            className="postBtn"
-            type="submit"
-            onClick={() => {
-              submitPost();
-            }}>
-            Post
-          </button>
         </div>
       </div>
     </div>
@@ -292,5 +287,6 @@ NewPostModal.propTypes = {
         postID: PropTypes.string
       })
     ).isRequired
-  }).isRequired
+  }).isRequired,
+  showNewPostEffect: PropTypes.func.isRequired
 };

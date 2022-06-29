@@ -1,3 +1,13 @@
+.fadeout {
+  animation-name: custom-fadeout;
+  animation-duration: 0.1s;
+}
+
+.fadein {
+  animation-name: custom-fadein;
+  animation-duration: 0.1s;
+}
+
 .home-container,
 .explore-container,
 .search-container,
@@ -73,4 +83,55 @@
   top: 1.5%;
   left: 33%;
   cursor: pointer;
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-o-keyframes spin {
+  from {
+    -o-transform: rotate(0deg);
+  }
+  to {
+    -o-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes custom-fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes custom-fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
