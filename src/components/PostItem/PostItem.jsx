@@ -141,7 +141,7 @@ function PostItem({ postID, userID }) {
   return (
     post && (
       <div
-        className="post-container"
+        className="post-container fadein"
         role="link"
         tabIndex={0}
         onClick={() => {

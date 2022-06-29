@@ -11,7 +11,7 @@ function PostDetailsOther({ bookmarkPost, isPostBookmarked }) {
   }, [isPostBookmarked]);
 
   return (
-    <div className="postDetails-other">
+    <div className="postDetails-other fadein">
       <div className="otherPost">Post options</div>
       <div className="bookmarkPost">
         {bookmarkCheck && (

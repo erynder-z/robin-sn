@@ -55,7 +55,7 @@ function Login() {
   }, [user]);
 
   return (
-    <div className="signin-container">
+    <div className="signin-container fadein">
       <div className="login-container">
         <div className="signin-email">
           <form>

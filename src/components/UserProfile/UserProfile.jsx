@@ -93,13 +93,13 @@ function UserProfile() {
 
   // lists all the posts made by the user
   const Posts = (
-    <div className="posts">
+    <div className="posts fadein">
       {user &&
         user.posts.map((post) => <PostItem key={post.postID} postID={post.postID} userID={usr} />)}
     </div>
   );
   const PostsAndReplies = (
-    <div className="postsAndReplies">
+    <div className="postsAndReplies fadein">
       {' '}
       {postsAndReplies.map((post) => (
         <PostItem key={post.postID} postID={post.postID} userID={usr} />
@@ -108,7 +108,7 @@ function UserProfile() {
   );
 
   const Media = (
-    <div className="media">
+    <div className="media fadein">
       {' '}
       {media.map((post) => (
         <PostItem key={post.postID} postID={post.postID} userID={usr} />
@@ -116,14 +116,14 @@ function UserProfile() {
     </div>
   );
   const Likes = (
-    <div className="likes">
+    <div className="likes fadein">
       {user &&
         user.likes.map((post) => <PostItem key={post.postID} postID={post.postID} userID={usr} />)}
     </div>
   );
 
   return (
-    <div className="profile-container">
+    <div className="profile-container fadein">
       {user && (
         <>
           <div className="profile-header">{user.username}&apos;s Profile</div>

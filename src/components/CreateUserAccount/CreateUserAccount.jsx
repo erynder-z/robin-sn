@@ -91,7 +91,7 @@ function CreateUserAccount({ userCredentials }) {
   }, [isFinished]);
 
   return (
-    <div className="create-user-account">
+    <div className="create-user-account fadein">
       <div className="create-user-container">
         <img src={userObject.userPic} alt="avatar" />
         <label htmlFor="picture" className="custom-file-upload-label">
@@ -112,6 +112,7 @@ function CreateUserAccount({ userCredentials }) {
             <label htmlFor="uname">
               Username
               <input
+                className="username-input"
                 type="text"
                 placeholder="enter user name"
                 value={userObject.username}

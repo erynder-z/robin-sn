@@ -22,7 +22,7 @@ function Explore({ handleSearchQuery, changeContextBarMode }) {
   }, []);
 
   return (
-    <div className="explore-container">
+    <div className="explore-container fadein">
       <div className="explore-header">Trending hashtags</div>
       <div className="explore-content">
         {trends &&

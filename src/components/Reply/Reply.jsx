@@ -10,6 +10,7 @@ function Reply({ postID, userID, replyMode, toggleReplyModal, postOwner }) {
   const [text, setText] = useState('');
   const [replyUserName, setReplyUserName] = useState('');
   const [showReplyUserName, setShowReplyUserName] = useState(false);
+  const [fadeModal, setFadeModal] = useState(false);
 
   // add replied post's ID to user object
   const addPostToUserObject = async () => {
@@ -53,18 +54,21 @@ function Reply({ postID, userID, replyMode, toggleReplyModal, postOwner }) {
 
   // show a modal in order to reply
   const ReplyModal = (
-    <div
-      className="replyModal-overlay"
-      role="button"
-      tabIndex={0}
-      onClick={(e) => {
-        toggleReplyModal();
-        e.stopPropagation();
-      }}
-      onKeyDown={(e) => {
-        toggleReplyModal();
-        e.stopPropagation();
-      }}>
+    <div className={`replyModal-overlay ${fadeModal ? 'fadeout' : 'fadein'}`}>
+      <div
+        className="reply-closeBtn"
+        role="button"
+        tabIndex={0}
+        onClick={() => {
+          setFadeModal(true);
+          setTimeout(() => toggleReplyModal(), 100);
+        }}
+        onKeyDown={() => {
+          setFadeModal(true);
+          setTimeout(() => toggleReplyModal(), 100);
+        }}>
+        &times;
+      </div>
       <div
         role="textbox"
         tabIndex={0}
@@ -80,20 +84,8 @@ function Reply({ postID, userID, replyMode, toggleReplyModal, postOwner }) {
         onKeyDown={(e) => {
           e.stopPropagation();
         }}>
-        <div className="reply-upper-wrapper">
+        <div className="replyModal-upper">
           <div className="replyTo"> Replying to @{postOwner.username}</div>
-          <div
-            className="close"
-            role="button"
-            tabIndex={0}
-            onClick={() => {
-              toggleReplyModal();
-            }}
-            onKeyDown={() => {
-              toggleReplyModal();
-            }}>
-            &times;
-          </div>
         </div>
         <textarea
           className="reply-modal-textarea"

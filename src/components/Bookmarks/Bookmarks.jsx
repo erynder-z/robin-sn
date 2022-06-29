@@ -21,7 +21,7 @@ function Bookmarks({ userData, changeContextBarMode }) {
   }, []);
 
   return (
-    <div className="bookmarks-container">
+    <div className="bookmarks-container fadein">
       <div className="bookmarks-header">Bookmarked posts</div>
       <div className="bookmarks-content">
         <div className="posts">

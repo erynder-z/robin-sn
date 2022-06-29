@@ -12,7 +12,7 @@ function PostDetailsOwn({ deletePost, bookmarkPost, isPostBookmarked }) {
   }, [isPostBookmarked]);
 
   return (
-    <div className="postDetails-own">
+    <div className="postDetails-own fadein">
       <div className="myPost">My post</div>
       <div className="deletePost">
         {' '}

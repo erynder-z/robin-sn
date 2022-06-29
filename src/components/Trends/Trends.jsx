@@ -38,7 +38,7 @@ function Trends({ userData, searchQuery, changeContextBarMode }) {
   }, [search]);
 
   return (
-    <div className="trends-container">
+    <div className="trends-container fadein">
       <div className="trends-header">
         <div className="backPost">
           <BiArrowBack

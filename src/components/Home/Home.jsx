@@ -62,7 +62,7 @@ function Home({ userData, changeContextBarMode }) {
   }, []);
 
   return (
-    <div className="home-container">
+    <div className="home-container fadein">
       <div className="home-header">Home</div>
       <div className="home-content">
         <div className="posts">

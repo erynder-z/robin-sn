@@ -77,7 +77,7 @@ function MyProfile({ userData, changeContextBarMode }) {
 
   // lists all the posts made by the user
   const Posts = (
-    <div className="posts">
+    <div className="posts fadein">
       {sortPosts(posts).map((post) => (
         <PostItem key={post.postID} postID={post.postID} userID={userData.userID} />
       ))}
@@ -85,7 +85,7 @@ function MyProfile({ userData, changeContextBarMode }) {
   );
 
   const PostsAndReplies = (
-    <div className="postsAndReplies">
+    <div className="postsAndReplies fadein">
       {postsAndReplies.map((post) => (
         <PostItem
           key={postsAndReplies.indexOf(post)}
@@ -97,7 +97,7 @@ function MyProfile({ userData, changeContextBarMode }) {
   );
 
   const Media = (
-    <div className="media">
+    <div className="media fadein">
       {media.map((post) => (
         <PostItem key={post.postID} postID={post.postID} userID={userData.userID} />
       ))}
@@ -105,7 +105,7 @@ function MyProfile({ userData, changeContextBarMode }) {
   );
 
   const Likes = (
-    <div className="likes">
+    <div className="likes fadein">
       {likes.map((post) => (
         <PostItem key={post.postID} postID={post.postID} userID={userData.userID} />
       ))}
@@ -113,7 +113,7 @@ function MyProfile({ userData, changeContextBarMode }) {
   );
 
   return (
-    <div className="profile-container">
+    <div className="profile-container fadein">
       <div className="profile-header"> My Profile</div>
       <div className="profile-card">
         <div className="card-wrapper">

@@ -42,7 +42,7 @@ function PostDetails({ userData, changeContextBarMode, handlePostInfo }) {
   }, [post]);
 
   return (
-    <div className="post-details-container">
+    <div className="post-details-container fadein">
       <div className="post-header">
         <div className="backPost">
           <BiArrowBack

@@ -56,7 +56,7 @@ function Search({ userData, searchQuery, changeContextBarMode }) {
   }, [search]);
 
   return (
-    <div className="search-container">
+    <div className="search-container fadein">
       <div className="search-header">
         <div className="backPost">
           <BiArrowBack

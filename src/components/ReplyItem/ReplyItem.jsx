@@ -28,7 +28,7 @@ function ReplyItem({ reply }) {
 
   return (
     replyUser && (
-      <div className="reply-body">
+      <div className="reply-body fadein">
         <div className="reply-left-wrapper">
           {' '}
           <img className="reply-usrpic" src={replyUser.userpic} alt="user avatar" />
