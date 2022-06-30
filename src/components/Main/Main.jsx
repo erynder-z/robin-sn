@@ -227,7 +227,10 @@ function Main({ userCredentials }) {
             isUserSetup ? <MyProfile userData={userData} changeActiveTab={changeActiveTab} /> : null
           }
         />
-        <Route path="userprofile/:id" element={isUserSetup ? <UserProfile /> : null} />
+        <Route
+          path="userprofile/:id"
+          element={isUserSetup ? <UserProfile userData={userData} /> : null}
+        />
         <Route
           path="search"
           element={

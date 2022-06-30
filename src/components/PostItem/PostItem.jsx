@@ -17,9 +17,9 @@ import {
 import { format, fromUnixTime } from 'date-fns';
 import { database } from '../Firebase/Firebase';
 import Reply from '../Reply/Reply';
-import parseURL from '../../helpers/URLify/URLify';
+import parseText from '../../helpers/ParseText/ParseText';
 
-function PostItem({ postID, userID }) {
+function PostItem({ postID, userID, userPic }) {
   const navigate = useNavigate();
   const [post] = useDocumentData(doc(database, 'posts', postID));
   const [postOwner, setPostOwner] = useState('');
@@ -125,7 +125,9 @@ function PostItem({ postID, userID }) {
 
   const linkToUserProfile = (e) => {
     e.stopPropagation();
-    navigate(`/main/userprofile/${postOwner.ownerID}`, { state: { usr: postOwner.ownerID } });
+    navigate(`/main/userprofile/${postOwner.ownerID}`, {
+      state: { usr: postOwner.ownerID }
+    });
   };
 
   const toggleReplyModal = () => {
@@ -183,7 +185,7 @@ function PostItem({ postID, userID }) {
             <div className="post-userDetails-separator">∙</div>
             <div className="post-date">{format(fromUnixTime(post.created.seconds), 'PPP')}</div>
           </div>
-          <div className="post-content"> {parseURL(post.content)}</div>
+          <div className="post-content"> {parseText(post.content)}</div>
           {post.image.imageURL !== null && (
             <img className="post-image" src={post.image.imageURL} alt="uploaded content" />
           )}
@@ -239,6 +241,7 @@ function PostItem({ postID, userID }) {
           <Reply
             postID={postID}
             userID={userID}
+            userPic={userPic}
             postOwner={postOwner}
             replyMode="modal"
             toggleReplyModal={toggleReplyModal}
@@ -253,5 +256,6 @@ export default PostItem;
 
 PostItem.propTypes = {
   postID: PropTypes.string.isRequired,
-  userID: PropTypes.string.isRequired
+  userID: PropTypes.string.isRequired,
+  userPic: PropTypes.string.isRequired
 };

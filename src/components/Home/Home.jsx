@@ -67,7 +67,12 @@ function Home({ userData, changeActiveTab }) {
       <div className="home-content">
         <div className="posts">
           {followedUsersPosts.map((p) => (
-            <PostItem key={p.postID} postID={p.postID} userID={userData.userID} />
+            <PostItem
+              key={p.postID}
+              postID={p.postID}
+              userID={userData.userID}
+              userPic={userData.userPic}
+            />
           ))}
         </div>
       </div>

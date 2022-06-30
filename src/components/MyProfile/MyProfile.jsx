@@ -79,7 +79,12 @@ function MyProfile({ userData, changeActiveTab }) {
   const Posts = (
     <div className="posts fadein">
       {sortPosts(posts).map((post) => (
-        <PostItem key={post.postID} postID={post.postID} userID={userData.userID} />
+        <PostItem
+          key={post.postID}
+          postID={post.postID}
+          userID={userData.userID}
+          userPic={userData.userPic}
+        />
       ))}
     </div>
   );
@@ -91,6 +96,7 @@ function MyProfile({ userData, changeActiveTab }) {
           key={postsAndReplies.indexOf(post)}
           postID={post.postID}
           userID={userData.userID}
+          userPic={userData.userPic}
         />
       ))}
     </div>
@@ -99,7 +105,12 @@ function MyProfile({ userData, changeActiveTab }) {
   const Media = (
     <div className="media fadein">
       {media.map((post) => (
-        <PostItem key={post.postID} postID={post.postID} userID={userData.userID} />
+        <PostItem
+          key={post.postID}
+          postID={post.postID}
+          userID={userData.userID}
+          userPic={userData.userPic}
+        />
       ))}
     </div>
   );
@@ -107,7 +118,12 @@ function MyProfile({ userData, changeActiveTab }) {
   const Likes = (
     <div className="likes fadein">
       {likes.map((post) => (
-        <PostItem key={post.postID} postID={post.postID} userID={userData.userID} />
+        <PostItem
+          key={post.postID}
+          postID={post.postID}
+          userID={userData.userID}
+          userPic={userData.userPic}
+        />
       ))}
     </div>
   );

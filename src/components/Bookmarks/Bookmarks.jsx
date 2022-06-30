@@ -27,7 +27,12 @@ function Bookmarks({ userData, changeActiveTab }) {
         <div className="posts">
           {bookmarks &&
             sortPosts(bookmarks).map((post) => (
-              <PostItem key={post.postID} postID={post.postID} userID={userData.userID} />
+              <PostItem
+                key={post.postID}
+                postID={post.postID}
+                userID={userData.userID}
+                userPic={userData.userPic}
+              />
             ))}
         </div>
       </div>

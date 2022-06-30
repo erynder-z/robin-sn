@@ -15,7 +15,7 @@ function PostDetails({ userData, changeActiveTab, handlePostInfo }) {
   const navigate = useNavigate();
   // get state from PostItem component // state: { postID, userID, postOwner }
   const location = useLocation();
-  const { userID } = userData;
+  const { userID, userPic } = userData;
   const [replies, setReplies] = useState([]);
   const [post] = useDocumentData(doc(database, 'posts', location.state.postID));
 
@@ -60,10 +60,16 @@ function PostDetails({ userData, changeActiveTab, handlePostInfo }) {
         </div>
         <span>Post</span>
       </div>
-      <PostItem key={location.state.postID} postID={location.state.postID} userID={userID} />
+      <PostItem
+        key={location.state.postID}
+        postID={location.state.postID}
+        userID={userID}
+        userPic={userData.userPic}
+      />
       <Reply
         postID={location.state.postID}
         userID={userID}
+        userPic={userPic}
         postOwner={location.state.postOwner}
         replyMode="append"
         toggleReplyModal={dummyModal}

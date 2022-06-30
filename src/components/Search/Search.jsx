@@ -112,7 +112,12 @@ function Search({ userData, searchQuery, changeActiveTab }) {
               <div className="found-container">
                 <h3 className="found">Found posts:</h3>
                 {postResults.map((p) => (
-                  <PostItem key={p.postID} postID={p.postID} userID={userData.userID} />
+                  <PostItem
+                    key={p.postID}
+                    postID={p.postID}
+                    userID={userData.userID}
+                    userPic={userData.userPic}
+                  />
                 ))}
               </div>
             )}
