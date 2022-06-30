@@ -1,11 +1,10 @@
 .main-container {
-  width: 80vw;
   height: 100vh;
   justify-self: center;
   background-color: var(--content-background);
   color: var(--text-bright);
   display: grid;
-  grid-template-columns: 20vw 40vw 20vw;
+  grid-template-columns: 15vw 35vw 20vw;
 }
 
 @media only screen and (max-width: 768px) {

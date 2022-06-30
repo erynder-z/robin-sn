@@ -9,24 +9,27 @@ function FloatingMenu({ toggleNewPostModal, toggleSearchModal }) {
   const mainButtonStyles = {
     color: 'var(--text-bright)',
     backgroundColor: 'var(--button)',
-    padding: '10px'
+    padding: '10px',
+    fontWeight: 'bold'
   };
 
   const newPostActionBtn = {
     color: 'var(--text-bright)',
     backgroundColor: 'var(--button)',
-    padding: '10px'
+    padding: '10px',
+    fontWeight: 'bold'
   };
 
   const searchActionBtn = {
     color: 'var(--text-bright)',
     backgroundColor: 'var(--button)',
-    padding: '10px'
+    padding: '10px',
+    fontWeight: 'bold'
   };
 
   return (
     <div className="floating-menu-container">
-      <Fab mainButtonStyles={mainButtonStyles} icon={<BiPlus />}>
+      <Fab mainButtonStyles={mainButtonStyles} icon={<BiPlus size="2rem" />}>
         <Action
           style={newPostActionBtn}
           text="New post"
@@ -39,7 +42,7 @@ function FloatingMenu({ toggleNewPostModal, toggleSearchModal }) {
             e.stopPropagation();
           }}>
           {' '}
-          <BiPencil />
+          <BiPencil size="2rem" />
         </Action>
         <Action
           style={searchActionBtn}
@@ -53,7 +56,7 @@ function FloatingMenu({ toggleNewPostModal, toggleSearchModal }) {
             e.stopPropagation();
           }}>
           {' '}
-          <BiSearch />
+          <BiSearch size="2rem" />
         </Action>
       </Fab>
     </div>

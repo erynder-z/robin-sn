@@ -109,6 +109,45 @@
   background-color: rgba(255, 255, 255, 0.3);
 }
 
+.replyBtn-modal,
+.replyBtn-append,
+.postBtn {
+  height: 2rem;
+  width: 5rem;
+  border-radius: 20px;
+  border: none;
+  background-color: var(--button);
+  color: var(--text-bright);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.replyBtn-append:hover,
+.replyBtn-modal:hover,
+.postBtn:hover {
+  background-color: var(--button-hover);
+}
+
+.show-emoji-picker {
+  color: var(--text-grey);
+}
+
+.emoji-picker-close {
+  color: crimson;
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  font-size: 2rem;
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: relative;
+  left: 15%;
+  bottom: 2%;
+}
+
 @-webkit-keyframes spin {
   from {
     -webkit-transform: rotate(0deg);

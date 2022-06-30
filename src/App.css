@@ -1,19 +1,21 @@
 :root {
-  --button: #f94962;
-  --button-hover: #ec8191;
-  --sidebar-background: #15202b;
-  --contextbar-background: #15202b;
-  --content-background: #15202b;
-  --card-background: #15202b;
+  --button: #ff79c6;
+  --button-hover: #ec94c6;
+  --sidebar-background: #282a36;
+  --contextbar-background: #282a36;
+  --content-background: #282a36;
+  --card-background: #282a36;
+  --card-hover: rgba(255, 121, 197, 0.1);
   --modal: rgb(225, 225, 225);
-  --text-bright: whitesmoke;
+  --text-bright: #f8f8f2;
   --text-dark: black;
   --text-grey: #787878;
-  --follow-button: #0168b8;
-  --unfollow-button: #4e2a85;
-  --follow-button-hover: #027bd7;
-  --unfollow-button-hover: #6b39b6;
+  --follow-button: #6272a4;
+  --unfollow-button: #6272a4;
+  --follow-button-hover: #5873c2;
+  --unfollow-button-hover: #5873c2;
   --border: rgba(255, 255, 255, 0.1);
+  --hashtag: #ff5555;
 }
 
 .App {
@@ -22,5 +24,5 @@
 }
 
 a {
-  color: aqua;
+  color: #50fa7b;
 }

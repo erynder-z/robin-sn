@@ -10,7 +10,7 @@
 }
 
 .post-container:hover {
-  background-color: #173643;
+  background-color: var(--card-hover);
 }
 
 .posts {
@@ -75,4 +75,8 @@
   min-width: 50px;
   height: 50px;
   width: 50px;
+}
+
+.hashtag {
+  color: var(--hashtag);
 }
