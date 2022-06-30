@@ -29,6 +29,7 @@ import SearchModal from '../SearchModal/SearchModal';
 import Search from '../Search/Search';
 import Trends from '../Trends/Trends';
 import NewPostEffect from '../NewPostEffect/NewPostEffect';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 
 function Main({ userCredentials }) {
   const navigate = useNavigate();
@@ -186,7 +187,9 @@ function Main({ userCredentials }) {
     }
   }, [newPostEffect]);
 
-  return (
+  return !usr ? (
+    <LoadingScreen />
+  ) : (
     <div className="main-container">
       {isUserSetup && <Sidebar userData={userData} activeTab={activeTab} />}
       <Routes>
