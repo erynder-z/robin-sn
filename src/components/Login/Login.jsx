@@ -5,13 +5,15 @@ import {
   AuthErrorCodes,
   signInWithEmailAndPassword
 } from 'firebase/auth';
+import { BiArrowBack } from 'react-icons/bi';
 import { auth } from '../Firebase/Firebase';
-
 import './Login.css';
 
 function Login() {
+  const [newAccount, setNewAccount] = useState(false);
   const [emailFormValue, setEmailFormValue] = useState('');
   const [passwordFormValue, setPasswordFormValue] = useState('');
+  const [confirmPasswordFormValue, setConfirmPasswordFormValue] = useState('');
   const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
   const user = auth.currentUser;
@@ -54,9 +56,90 @@ function Login() {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (confirmPasswordFormValue !== passwordFormValue) {
+      setLoginError('passwords do not match');
+    } else {
+      setLoginError('');
+    }
+  }, [confirmPasswordFormValue]);
+
+  const CreateNewAccount = (
+    <div className="newAccountContainer fadein">
+      <div className="backPost">
+        <BiArrowBack
+          className="post-back"
+          size="1.5rem"
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            setNewAccount(false);
+          }}
+          onKeyDown={() => {
+            setNewAccount(false);
+          }}
+        />
+      </div>
+      <div className="signup-email">
+        <form>
+          <div className="input-container">
+            <label htmlFor="uname">
+              Email
+              <input
+                type="email"
+                placeholder="enter email"
+                value={emailFormValue}
+                onChange={(e) => {
+                  setEmailFormValue(e.target.value);
+                }}
+                required
+              />
+            </label>
+          </div>
+          <div className="input-container">
+            <label htmlFor="pass">
+              Password
+              <input
+                type="password"
+                placeholder="enter password"
+                value={passwordFormValue}
+                onChange={(e) => {
+                  setPasswordFormValue(e.target.value);
+                }}
+                required
+              />
+            </label>
+          </div>
+          <div className="input-container">
+            <label htmlFor="confirm-pass">
+              Confirm password
+              <input
+                type="password"
+                placeholder="confirm password"
+                value={confirmPasswordFormValue}
+                onChange={(e) => {
+                  setConfirmPasswordFormValue(e.target.value);
+                }}
+                required
+              />
+            </label>
+          </div>
+
+          <div className="button-container">
+            <button className="signupBtn" type="button" onClick={register}>
+              Create Account
+            </button>
+          </div>
+        </form>
+        <div className="loginError">{loginError}</div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="signin-container fadein">
       <div className="login-container">
+        <h2>Login to existing account</h2>
         <div className="signin-email">
           <form>
             <div className="input-container">
@@ -92,15 +175,22 @@ function Login() {
                 Login
               </button>
             </div>
+            <h2 className="createNewAccount-header">Or create a new account</h2>
             <div className="button-container">
-              <button className="signupBtn" type="button" onClick={register}>
-                Create Account
+              <button
+                className="createNewAccountBtn"
+                type="button"
+                onClick={() => {
+                  setNewAccount(true);
+                }}>
+                Create New Account
               </button>
             </div>
           </form>
           <div className="loginError">{loginError}</div>
         </div>
       </div>
+      {newAccount && CreateNewAccount}
     </div>
   );
 }
