@@ -6,11 +6,13 @@ import { useNavigate } from 'react-router-dom';
 import resizeFile from '../../helpers/ImageResizer/ImageResizer';
 import { database } from '../Firebase/Firebase';
 import placeholder from '../../assets/placeholder.png';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 
 function CreateUserAccount({ userCredentials }) {
   const navigate = useNavigate();
   const { uid, email } = userCredentials;
   const [isFinished, setIsFinished] = useState(false);
+  const [showLoading, setShowLoading] = useState(true);
   const [userObject, setUserObject] = useState({
     userID: uid,
     isSetup: false,
@@ -90,7 +92,13 @@ function CreateUserAccount({ userCredentials }) {
     }
   }, [isFinished]);
 
-  return (
+  useEffect(() => {
+    setTimeout(() => setShowLoading(false), 2000);
+  }, []);
+
+  return showLoading ? (
+    <LoadingScreen />
+  ) : (
     <div className="create-user-account fadein">
       <div className="create-user-container">
         <img src={userObject.userPic} alt="avatar" />
