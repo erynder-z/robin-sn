@@ -19,8 +19,11 @@
 }
 
 .App {
-  display: grid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: var(--content-background);
+  height: 100vh;
 }
 
 a {

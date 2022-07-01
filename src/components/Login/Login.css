@@ -1,6 +1,5 @@
-.signin-container {
-  width: 100vw;
-  height: 100vh;
+.signin-container,
+.signup-container {
   background-color: var(--content-background);
   color: var(--text-bright);
   display: flex;
@@ -16,6 +15,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  text-align: center;
   align-items: center;
   padding: 1.5rem;
 }
@@ -32,6 +32,11 @@ input[type='password'] {
   height: 2rem;
   padding: 0 0.5rem;
   border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+input:focus[type='email'],
+input:focus[type='password'] {
+  outline: 2px solid #ff79c6;
 }
 
 .button-container {
@@ -73,23 +78,53 @@ input[type='password'] {
 .loginBtn {
   height: 5vh;
   width: 95%;
-  background-color: blueviolet;
-  color: whitesmoke;
+  background-color: #ff79c6;
+  color: #f8f8f2;
+  font-size: 1.2rem;
   border: none;
 }
 
 .loginBtn:hover {
-  background-color: rgb(161, 77, 238);
+  background-color: #f78eca;
+}
+
+.createNewAccount-header {
+  margin-top: 5rem;
+}
+
+.createNewAccountBtn {
+  height: 5vh;
+  width: 95%;
+  background-color: #bd93f9;
+  color: #f8f8f2;
+  font-size: 1.2rem;
+  border: none;
+}
+
+.createNewAccountBtn:hover {
+  background-color: #c8a7f6;
+}
+
+.newAccountContainer {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  background-color: var(--card-background);
 }
 
 .signupBtn {
   height: 5vh;
   width: 95%;
-  background-color: rgb(43, 55, 226);
-  color: whitesmoke;
+  background-color: #bd93f9;
+  color: #f8f8f2;
+  font-size: 1.2rem;
   border: none;
 }
 
 .signupBtn:hover {
-  background-color: rgb(71, 82, 241);
+  background-color: #c3a3ef;
 }
