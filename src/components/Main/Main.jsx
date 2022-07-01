@@ -14,7 +14,7 @@ import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { database, storage } from '../Firebase/Firebase';
 import './Main.css';
-import CreateUserAccount from '../CreateUserAccount/CreateUserAccount';
+import SetupUserAccount from '../SetupUserAccount/SetupUserAccount';
 import Home from '../Home/Home';
 import Sidebar from '../Sidebar/Sidebar';
 import ContextBar from '../ContextBar/ContextBar';
@@ -196,7 +196,7 @@ function Main({ userCredentials }) {
             isUserSetup ? (
               <Home userData={userData} changeActiveTab={changeActiveTab} />
             ) : (
-              <CreateUserAccount userCredentials={userCredentials} />
+              <SetupUserAccount userCredentials={userCredentials} />
             )
           }
         />

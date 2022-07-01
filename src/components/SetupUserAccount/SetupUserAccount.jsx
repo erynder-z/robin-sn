@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import './CreateUserAccount.css';
+import './SetupUserAccount.css';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import resizeFile from '../../helpers/ImageResizer/ImageResizer';
@@ -99,8 +99,8 @@ function CreateUserAccount({ userCredentials }) {
   return showLoading ? (
     <LoadingScreen />
   ) : (
-    <div className="create-user-account fadein">
-      <div className="create-user-container">
+    <div className="setup-user-account fadein">
+      <div className="setup-user-container">
         <img src={userObject.userPic} alt="avatar" />
         <label htmlFor="picture" className="custom-file-upload-label">
           Upload picture

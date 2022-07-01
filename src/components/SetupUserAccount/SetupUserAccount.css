@@ -1,4 +1,4 @@
-.create-user-account {
+.setup-user-account {
   height: 66%;
   align-self: center;
   background-color: var(--card-background);
@@ -9,7 +9,7 @@
   grid-column: 2/3;
 }
 
-.create-user-container {
+.setup-user-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,12 +21,12 @@
   margin: 2rem;
 }
 
-.create-user-container img {
+.setup-user-container img {
   width: 35%;
   height: auto;
 }
 
-.create-user-container form {
+.setup-user-container form {
   display: flex;
   flex-direction: column;
   padding: 1rem;
