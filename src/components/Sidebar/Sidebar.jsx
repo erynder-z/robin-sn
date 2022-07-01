@@ -6,8 +6,10 @@ import { signOut } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 import { auth } from '../Firebase/Firebase';
 import UserInfo from '../UserInfo/UserInfo';
+import { GetUserContext } from '../../contexts/UserContext';
 
-function Sidebar({ userData, activeTab }) {
+function Sidebar({ activeTab }) {
+  const { userData } = GetUserContext();
   const logout = async () => {
     await signOut(auth);
   };
@@ -52,36 +54,5 @@ function Sidebar({ userData, activeTab }) {
 export default Sidebar;
 
 Sidebar.propTypes = {
-  userData: PropTypes.shape({
-    userID: PropTypes.string.isRequired,
-    isSetup: PropTypes.bool.isRequired,
-    username: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    userPic: PropTypes.string.isRequired,
-    useremail: PropTypes.string.isRequired,
-    joined: PropTypes.objectOf(PropTypes.number),
-    followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    posts: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    replies: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    bookmarks: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired
-  }).isRequired,
   activeTab: PropTypes.string.isRequired
 };

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
 import './UserProfile.css';
 import { useLocation } from 'react-router-dom';
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
+import { GetUserContext } from '../../contexts/UserContext';
 
-function UserProfile({ userData }) {
+function UserProfile() {
+  const { userData } = GetUserContext();
   const location = useLocation();
   // from PostItem component
   const { usr } = location.state;
@@ -233,37 +234,3 @@ function UserProfile({ userData }) {
 }
 
 export default UserProfile;
-
-UserProfile.propTypes = {
-  userData: PropTypes.shape({
-    userID: PropTypes.string.isRequired,
-    isSetup: PropTypes.bool.isRequired,
-    username: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    userPic: PropTypes.string.isRequired,
-    useremail: PropTypes.string.isRequired,
-    joined: PropTypes.objectOf(PropTypes.number),
-    followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    posts: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    replies: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    bookmarks: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired
-  }).isRequired
-};

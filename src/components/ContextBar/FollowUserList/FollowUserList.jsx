@@ -1,11 +1,12 @@
 import { arrayRemove, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore';
-import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { BiUserPlus, BiUserMinus } from 'react-icons/bi';
+import { GetUserContext } from '../../../contexts/UserContext';
 import { database } from '../../Firebase/Firebase';
 import './FollowUserList.css';
 
-function FollowUserList({ userData }) {
+function FollowUserList() {
+  const { userData } = GetUserContext();
   const { userID, following } = userData;
   const [userList, setUserList] = useState([]);
 
@@ -109,37 +110,3 @@ function FollowUserList({ userData }) {
 }
 
 export default FollowUserList;
-
-FollowUserList.propTypes = {
-  userData: PropTypes.shape({
-    userID: PropTypes.string.isRequired,
-    isSetup: PropTypes.bool.isRequired,
-    username: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    userPic: PropTypes.string.isRequired,
-    useremail: PropTypes.string.isRequired,
-    joined: PropTypes.objectOf(PropTypes.number),
-    followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    posts: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    replies: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    bookmarks: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired
-  }).isRequired
-};

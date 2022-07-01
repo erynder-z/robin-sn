@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './UserInfo.css';
 import { BiLogOut } from 'react-icons/bi';
+import { GetUserContext } from '../../contexts/UserContext';
 
-function UserInfo({ userData, logout }) {
+function UserInfo({ logout }) {
+  const { userData } = GetUserContext();
   return (
     <div className="usr-container">
       <div className="head">
@@ -30,36 +32,5 @@ function UserInfo({ userData, logout }) {
 export default UserInfo;
 
 UserInfo.propTypes = {
-  userData: PropTypes.shape({
-    userID: PropTypes.string.isRequired,
-    isSetup: PropTypes.bool.isRequired,
-    username: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    userPic: PropTypes.string.isRequired,
-    useremail: PropTypes.string.isRequired,
-    joined: PropTypes.objectOf(PropTypes.number),
-    followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    posts: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    replies: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    bookmarks: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired
-  }).isRequired,
   logout: PropTypes.func.isRequired
 };

@@ -7,6 +7,7 @@ import { auth } from './components/Firebase/Firebase';
 import Login from './components/Login/Login';
 import Main from './components/Main/Main';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
+import { UserProvider } from './contexts/UserContext';
 
 function App() {
   const [userCredentials] = useAuthState(auth);
@@ -25,7 +26,13 @@ function App() {
           <Route
             path="/"
             element={
-              !userCredentials ? <Navigate replace to="/login" /> : <Navigate replace to="/main" />
+              !userCredentials ? (
+                <Navigate replace to="/login" />
+              ) : (
+                <UserProvider>
+                  <Navigate replace to="/main" />
+                </UserProvider>
+              )
             }
           />
           <Route path="/login" element={<Login />} />
@@ -35,7 +42,9 @@ function App() {
               !userCredentials ? (
                 <Navigate replace to="/login" />
               ) : (
-                <Main userCredentials={userCredentials} />
+                <UserProvider>
+                  <Main userCredentials={userCredentials} />
+                </UserProvider>
               )
             }
           />

@@ -4,9 +4,10 @@ import './Home.css';
 import { doc, getDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
+import { GetUserContext } from '../../contexts/UserContext';
 
-function Home({ userData, changeActiveTab }) {
-  const { following } = userData;
+function Home({ changeActiveTab }) {
+  const { userData } = GetUserContext();
   const [followedUsersPosts, setFollowingPosts] = useState([]);
 
   // make a list with the ID of all users we are following
@@ -55,7 +56,7 @@ function Home({ userData, changeActiveTab }) {
 
   useEffect(() => {
     getPostsList();
-  }, [following]);
+  }, [userData]);
 
   useEffect(() => {
     changeActiveTab('home');
@@ -83,36 +84,5 @@ function Home({ userData, changeActiveTab }) {
 export default Home;
 
 Home.propTypes = {
-  userData: PropTypes.shape({
-    userID: PropTypes.string.isRequired,
-    isSetup: PropTypes.bool.isRequired,
-    username: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    userPic: PropTypes.string.isRequired,
-    useremail: PropTypes.string.isRequired,
-    joined: PropTypes.objectOf(PropTypes.number),
-    followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    posts: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    replies: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    bookmarks: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired
-  }).isRequired,
   changeActiveTab: PropTypes.func.isRequired
 };

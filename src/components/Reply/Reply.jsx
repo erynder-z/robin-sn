@@ -6,8 +6,10 @@ import './Reply.css';
 import { MdOutlineEmojiEmotions } from 'react-icons/md';
 import { arrayUnion, doc, Timestamp, updateDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
+import { GetUserContext } from '../../contexts/UserContext';
 
-function Reply({ postID, userID, userPic, replyMode, toggleReplyModal, postOwner }) {
+function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
+  const { userData } = GetUserContext();
   const [mode, setMode] = useState('');
   const [text, setText] = useState('');
   const [replyUserName, setReplyUserName] = useState('');
@@ -18,7 +20,7 @@ function Reply({ postID, userID, userPic, replyMode, toggleReplyModal, postOwner
   // add replied post's ID to user object
   const addPostToUserObject = async () => {
     try {
-      const docRef = doc(database, 'users', userID);
+      const docRef = doc(database, 'users', userData.userID);
 
       await updateDoc(docRef, {
         replies: arrayUnion({ postID, created: Timestamp.now() })
@@ -29,14 +31,14 @@ function Reply({ postID, userID, userPic, replyMode, toggleReplyModal, postOwner
   };
 
   // adds reply to the post object
-  const reply = async (pID, uID) => {
+  const reply = async (pID) => {
     try {
       const replyID = uniqid();
       const docRef = doc(database, 'posts', pID);
       await updateDoc(docRef, {
         replies: arrayUnion({
           replyID,
-          replyUserID: uID,
+          replyUserID: userData.userID,
           replyContent: text,
           replyDate: Timestamp.now()
         })
@@ -99,7 +101,7 @@ function Reply({ postID, userID, userPic, replyMode, toggleReplyModal, postOwner
           {' '}
           <img className="reply-userpic" src={replyUserName.userpic} alt="user avatar" />
           <div className="reply-userpic-divider" />
-          <img className="reply-userpic" src={userPic} alt="user avatar" />
+          <img className="reply-userpic" src={userData.userPic} alt="user avatar" />
         </div>
         <div className="replyModal-right">
           <div className="replyModal-upper">
@@ -141,7 +143,7 @@ function Reply({ postID, userID, userPic, replyMode, toggleReplyModal, postOwner
               className="replyBtn-modal"
               type="submit"
               onClick={() => {
-                reply(postID, userID);
+                reply(postID);
               }}>
               Reply
             </button>
@@ -158,7 +160,7 @@ function Reply({ postID, userID, userPic, replyMode, toggleReplyModal, postOwner
         replying to: @{replyUserName.username}
       </div>
       <div className="replyAppend-wrapper">
-        <img className="reply-userpic-append" src={userPic} alt="user avatar" />
+        <img className="reply-userpic-append" src={userData.userPic} alt="user avatar" />
         <textarea
           className="reply-append-textarea"
           cols="30"
@@ -207,7 +209,7 @@ function Reply({ postID, userID, userPic, replyMode, toggleReplyModal, postOwner
           className="replyBtn-append"
           type="submit"
           onClick={() => {
-            reply(postID, userID);
+            reply(postID);
           }}>
           Reply
         </button>
@@ -227,12 +229,10 @@ export default Reply;
 
 Reply.propTypes = {
   postID: PropTypes.string.isRequired,
-  userID: PropTypes.string.isRequired,
   replyMode: PropTypes.string.isRequired,
   toggleReplyModal: PropTypes.func.isRequired,
   postOwner: PropTypes.shape({
     username: PropTypes.string.isRequired,
     userpic: PropTypes.string.isRequired
-  }).isRequired,
-  userPic: PropTypes.string.isRequired
+  }).isRequired
 };

@@ -18,14 +18,16 @@ import { format, fromUnixTime } from 'date-fns';
 import { database } from '../Firebase/Firebase';
 import Reply from '../Reply/Reply';
 import parseText from '../../helpers/ParseText/ParseText';
+import { GetUserContext } from '../../contexts/UserContext';
 
-function PostItem({ postID, userID, userPic }) {
+function PostItem({ postID }) {
+  const { userData } = GetUserContext();
   const navigate = useNavigate();
   const [post] = useDocumentData(doc(database, 'posts', postID));
   const [postOwner, setPostOwner] = useState('');
   const [showReplyModal, setShowReplyModal] = useState(false);
   const postDocRef = doc(database, 'posts', postID);
-  const userDocRef = doc(database, 'users', userID);
+  const userDocRef = doc(database, 'users', userData.userID);
 
   // get username via getDoc rather than useDocumentData-hook to prevent exposing the whole user object to the front end
   const getOwner = async () => {
@@ -46,7 +48,7 @@ function PostItem({ postID, userID, userPic }) {
     try {
       // copy userID to post document
       await updateDoc(postDocRef, {
-        reposts: arrayUnion({ userID })
+        reposts: arrayUnion({ userID: userData.userID })
       });
       // copy postID to user document
       await updateDoc(userDocRef, {
@@ -58,7 +60,7 @@ function PostItem({ postID, userID, userPic }) {
       await setDoc(doc(database, 'posts', newPostID), {
         created: serverTimestamp(),
         postID: newPostID,
-        ownerID: userID,
+        ownerID: userData.userID,
         content: repostContent,
         hashtags: [],
         reposts: [],
@@ -68,7 +70,7 @@ function PostItem({ postID, userID, userPic }) {
       });
 
       const addPostToUserObject = async (pID) => {
-        const userRef = doc(database, 'users', userID);
+        const userRef = doc(database, 'users', userData.userID);
         const docRef = doc(database, 'posts', pID);
         const docSnap = await getDoc(docRef);
 
@@ -90,7 +92,7 @@ function PostItem({ postID, userID, userPic }) {
 
       const likePost = async () => {
         await updateDoc(postDocRef, {
-          likes: arrayUnion({ userID })
+          likes: arrayUnion({ userID: userData.userID })
         });
 
         await updateDoc(userDocRef, {
@@ -100,7 +102,7 @@ function PostItem({ postID, userID, userPic }) {
 
       const unLikePost = async () => {
         await updateDoc(postDocRef, {
-          likes: arrayRemove({ userID })
+          likes: arrayRemove({ userID: userData.userID })
         });
 
         await updateDoc(userDocRef, {
@@ -120,7 +122,7 @@ function PostItem({ postID, userID, userPic }) {
 
   // navigate to the PostDetails component and passing the postID and userID as state
   const linkToPostDetailsComponent = () => {
-    navigate('/main/postDetails', { state: { postID, userID, postOwner } });
+    navigate('/main/postDetails', { state: { postID, postOwner } });
   };
 
   const linkToUserProfile = (e) => {
@@ -240,8 +242,6 @@ function PostItem({ postID, userID, userPic }) {
         {showReplyModal && (
           <Reply
             postID={postID}
-            userID={userID}
-            userPic={userPic}
             postOwner={postOwner}
             replyMode="modal"
             toggleReplyModal={toggleReplyModal}
@@ -255,7 +255,5 @@ function PostItem({ postID, userID, userPic }) {
 export default PostItem;
 
 PostItem.propTypes = {
-  postID: PropTypes.string.isRequired,
-  userID: PropTypes.string.isRequired,
-  userPic: PropTypes.string.isRequired
+  postID: PropTypes.string.isRequired
 };

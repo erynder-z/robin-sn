@@ -18,8 +18,10 @@ import { database, storage } from '../Firebase/Firebase';
 import resizeFile from '../../helpers/ImageResizer/ImageResizer';
 import './NewPostModal.css';
 import parseHashtag from '../../helpers/HashtagCreator/HashtagCreator';
+import { GetUserContext } from '../../contexts/UserContext';
 
-function NewPostModal({ userData, toggleNewPostModal, showNewPostEffect }) {
+function NewPostModal({ toggleNewPostModal, showNewPostEffect }) {
+  const { userData } = GetUserContext();
   const { userID, userPic, username } = userData;
   const [text, setText] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
@@ -257,36 +259,6 @@ export default NewPostModal;
 
 NewPostModal.propTypes = {
   toggleNewPostModal: PropTypes.func.isRequired,
-  userData: PropTypes.shape({
-    userID: PropTypes.string.isRequired,
-    isSetup: PropTypes.bool.isRequired,
-    username: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    userPic: PropTypes.string.isRequired,
-    useremail: PropTypes.string.isRequired,
-    joined: PropTypes.objectOf(PropTypes.number),
-    followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    posts: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    replies: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    bookmarks: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired
-  }).isRequired,
+
   showNewPostEffect: PropTypes.func.isRequired
 };

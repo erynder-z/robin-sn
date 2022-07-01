@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { deleteObject, ref } from 'firebase/storage';
-import {
-  arrayRemove,
-  arrayUnion,
-  deleteDoc,
-  doc,
-  getDoc,
-  increment,
-  updateDoc
-} from 'firebase/firestore';
+import { arrayRemove, deleteDoc, doc, getDoc, increment, updateDoc } from 'firebase/firestore';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { database, storage } from '../Firebase/Firebase';
@@ -37,7 +29,6 @@ function Main({ userCredentials }) {
   const [showNewPostModal, setShowNewPostModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [isUserSetup, setIsUserSetup] = useState(false);
-  const [userData, setUserData] = useState({});
   const [activeTab, setActiveTab] = useState('');
   const [postInfo, setPostInfo] = useState({});
   const [isPostBookmarked, setIsPostBookmarked] = useState(false);
@@ -139,34 +130,6 @@ function Main({ userCredentials }) {
     }
   };
 
-  const bookmarkPost = async () => {
-    const userRef = doc(database, 'users', uid);
-    try {
-      const docSnap = await getDoc(userRef);
-      const found = postInfo.post.postID;
-
-      const addBookmark = async () => {
-        await updateDoc(userRef, {
-          bookmarks: arrayUnion({ postID: postInfo.post.postID, created: postInfo.post.created })
-        });
-      };
-
-      const removeBookmark = async () => {
-        await updateDoc(userRef, {
-          bookmarks: arrayRemove({ postID: postInfo.post.postID, created: postInfo.post.created })
-        });
-      };
-      // like a post if not already liked or unlike if already liked
-      if (docSnap.data().bookmarks.some((item) => item.postID === found)) {
-        removeBookmark();
-      } else {
-        addBookmark();
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
     if (postInfo.post) {
       checkIsPostbookmarked();
@@ -176,7 +139,6 @@ function Main({ userCredentials }) {
   useEffect(() => {
     if (usr) {
       checkUserSetup();
-      setUserData(usr);
     }
   }, [usr]);
 
@@ -188,13 +150,13 @@ function Main({ userCredentials }) {
 
   return (
     <div className="main-container">
-      {isUserSetup && <Sidebar userData={userData} activeTab={activeTab} />}
+      {isUserSetup && <Sidebar activeTab={activeTab} />}
       <Routes>
         <Route
           path="/"
           element={
             isUserSetup ? (
-              <Home userData={userData} changeActiveTab={changeActiveTab} />
+              <Home changeActiveTab={changeActiveTab} />
             ) : (
               <SetupUserAccount userCredentials={userCredentials} />
             )
@@ -203,9 +165,7 @@ function Main({ userCredentials }) {
         {/* make nested route so UI elements like the sidebar don't have to be re-rendered on component change.  */}
         <Route
           path="home"
-          element={
-            isUserSetup ? <Home userData={userData} changeActiveTab={changeActiveTab} /> : null
-          }
+          element={isUserSetup ? <Home changeActiveTab={changeActiveTab} /> : null}
         />
         <Route
           path="explore"
@@ -217,29 +177,18 @@ function Main({ userCredentials }) {
         />
         <Route
           path="bookmarks"
-          element={
-            isUserSetup ? <Bookmarks userData={userData} changeActiveTab={changeActiveTab} /> : null
-          }
+          element={isUserSetup ? <Bookmarks changeActiveTab={changeActiveTab} /> : null}
         />
         <Route
           path="myprofile"
-          element={
-            isUserSetup ? <MyProfile userData={userData} changeActiveTab={changeActiveTab} /> : null
-          }
+          element={isUserSetup ? <MyProfile changeActiveTab={changeActiveTab} /> : null}
         />
-        <Route
-          path="userprofile/:id"
-          element={isUserSetup ? <UserProfile userData={userData} /> : null}
-        />
+        <Route path="userprofile/:id" element={isUserSetup ? <UserProfile /> : null} />
         <Route
           path="search"
           element={
             isUserSetup ? (
-              <Search
-                userData={userData}
-                searchQuery={searchQuery}
-                changeActiveTab={changeActiveTab}
-              />
+              <Search searchQuery={searchQuery} changeActiveTab={changeActiveTab} />
             ) : null
           }
         />
@@ -247,11 +196,7 @@ function Main({ userCredentials }) {
           path="trends"
           element={
             isUserSetup ? (
-              <Trends
-                userData={userData}
-                searchQuery={searchQuery}
-                changeActiveTab={changeActiveTab}
-              />
+              <Trends searchQuery={searchQuery} changeActiveTab={changeActiveTab} />
             ) : null
           }
         />
@@ -260,11 +205,7 @@ function Main({ userCredentials }) {
           path="postDetails"
           element={
             isUserSetup ? (
-              <PostDetails
-                userData={userData}
-                changeActiveTab={changeActiveTab}
-                handlePostInfo={handlePostInfo}
-              />
+              <PostDetails changeActiveTab={changeActiveTab} handlePostInfo={handlePostInfo} />
             ) : null
           }
         />
@@ -272,11 +213,9 @@ function Main({ userCredentials }) {
 
       {isUserSetup && (
         <ContextBar
-          userData={userData}
           activeTab={activeTab}
           postInfo={postInfo}
           deletePost={deletePost}
-          bookmarkPost={bookmarkPost}
           isPostBookmarked={isPostBookmarked}
         />
       )}
@@ -289,7 +228,6 @@ function Main({ userCredentials }) {
       {isUserSetup && showNewPostModal && (
         <NewPostModal
           toggleNewPostModal={toggleNewPostModal}
-          userData={userData}
           showNewPostEffect={showNewPostEffect}
         />
       )}

@@ -10,8 +10,10 @@ import PostItem from '../PostItem/PostItem';
 import Reply from '../Reply/Reply';
 import ReplyItem from '../ReplyItem/ReplyItem';
 import './PostDetails.css';
+import { GetUserContext } from '../../contexts/UserContext';
 
-function PostDetails({ userData, changeActiveTab, handlePostInfo }) {
+function PostDetails({ changeActiveTab, handlePostInfo }) {
+  const { userData } = GetUserContext();
   const navigate = useNavigate();
   // get state from PostItem component // state: { postID, userID, postOwner }
   const location = useLocation();
@@ -60,12 +62,7 @@ function PostDetails({ userData, changeActiveTab, handlePostInfo }) {
         </div>
         <span>Post</span>
       </div>
-      <PostItem
-        key={location.state.postID}
-        postID={location.state.postID}
-        userID={userID}
-        userPic={userData.userPic}
-      />
+      <PostItem key={location.state.postID} postID={location.state.postID} />
       <Reply
         postID={location.state.postID}
         userID={userID}
@@ -84,37 +81,6 @@ function PostDetails({ userData, changeActiveTab, handlePostInfo }) {
 export default PostDetails;
 
 PostDetails.propTypes = {
-  userData: PropTypes.shape({
-    userID: PropTypes.string.isRequired,
-    isSetup: PropTypes.bool.isRequired,
-    username: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    userPic: PropTypes.string.isRequired,
-    useremail: PropTypes.string.isRequired,
-    joined: PropTypes.objectOf(PropTypes.number),
-    followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    posts: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    replies: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired,
-    reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-    bookmarks: PropTypes.arrayOf(
-      PropTypes.shape({
-        created: PropTypes.objectOf(PropTypes.number),
-        postID: PropTypes.string
-      })
-    ).isRequired
-  }).isRequired,
   changeActiveTab: PropTypes.func.isRequired,
   handlePostInfo: PropTypes.func.isRequired
 };
