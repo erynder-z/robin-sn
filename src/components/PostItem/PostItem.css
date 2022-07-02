@@ -80,3 +80,7 @@
 .hashtag {
   color: var(--hashtag);
 }
+
+.mention {
+  color: var(--mention);
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { BiImageAdd } from 'react-icons/bi';
 import './SetupUserAccount.css';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
@@ -103,7 +104,7 @@ function CreateUserAccount({ userCredentials }) {
       <div className="setup-user-container">
         <img src={userObject.userPic} alt="avatar" />
         <label htmlFor="picture" className="custom-file-upload-label">
-          Upload picture
+          <BiImageAdd size="2rem" />
           <input
             className="custom-file-upload"
             type="file"
@@ -116,9 +117,9 @@ function CreateUserAccount({ userCredentials }) {
           />
         </label>
         <form>
-          <div className="input-container">
-            <label htmlFor="uname">
-              Username
+          <div className="user-input-container">
+            <label htmlFor="uname" className="unameinput-label">
+              <h3>Username</h3>
               <input
                 className="username-input"
                 type="text"
@@ -134,19 +135,22 @@ function CreateUserAccount({ userCredentials }) {
               />
             </label>
           </div>
-          <textarea
-            className="description-input"
-            type="text"
-            placeholder="write a little bit about yourself"
-            value={userObject.description}
-            onChange={(e) => {
-              setUserObject((prevState) => ({
-                ...prevState,
-                description: e.target.value
-              }));
-            }}
-            required
-          />
+          <label htmlFor="udesc" className="descinput-label">
+            <h3>About you</h3>
+            <textarea
+              className="description-input"
+              type="text"
+              placeholder="write a little bit about yourself"
+              value={userObject.description}
+              onChange={(e) => {
+                setUserObject((prevState) => ({
+                  ...prevState,
+                  description: e.target.value
+                }));
+              }}
+              required
+            />
+          </label>
         </form>
       </div>
 
@@ -160,7 +164,7 @@ function CreateUserAccount({ userCredentials }) {
           handleSubmit(e);
         }}
         tabIndex={0}>
-        Lets go!
+        Let&apos;s go!
       </button>
     </div>
   );
