@@ -19,6 +19,7 @@ import resizeFile from '../../helpers/ImageResizer/ImageResizer';
 import './NewPostModal.css';
 import parseHashtag from '../../helpers/HashtagCreator/HashtagCreator';
 import { GetUserContext } from '../../contexts/UserContext';
+import parseMention from '../../helpers/MentionCreator/MentionCreator';
 
 function NewPostModal({ toggleNewPostModal, showNewPostEffect }) {
   const { userData } = GetUserContext();
@@ -82,6 +83,7 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect }) {
   // creates the post in the database
   const submitPost = async () => {
     const hashtagArray = await parseHashtag(text);
+    const mentionArray = await parseMention(text);
 
     try {
       const postID = uniqid();
@@ -91,6 +93,7 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect }) {
         ownerID: userID,
         content: text,
         hashtags: hashtagArray,
+        mentions: mentionArray,
         reposts: [],
         likes: [],
         replies: [],
