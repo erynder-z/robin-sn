@@ -1,10 +1,10 @@
 const parseMention = async (text) => {
   const mention = (txt) => {
-    const mentionsAssay = [];
+    const mentionsArray = [];
     txt.replace(/(?<=@).*?(?=( |$))/g, (m) => {
-      mentionsAssay.push(m);
+      mentionsArray.push(m);
     });
-    return mentionsAssay;
+    return mentionsArray;
   };
   return mention(text);
 };
