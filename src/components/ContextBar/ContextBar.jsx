@@ -48,6 +48,7 @@ function ContextBar({ activeTab, postInfo, deletePost, isPostBookmarked }) {
       {activeTab === 'myprofile' && <ProfileOptions userData={userData} />}
       {activeTab === 'search' && <FollowUserList userData={userData} />}
       {activeTab === 'trends' && <FollowUserList userData={userData} />}
+      {activeTab === 'mentions' && <FollowUserList userData={userData} />}
       {activeTab === 'postdetailsown' && (
         <PostDetailsOwn
           deletePost={deletePost}

@@ -21,6 +21,7 @@ import SearchModal from '../SearchModal/SearchModal';
 import Search from '../Search/Search';
 import Trends from '../Trends/Trends';
 import NewPostEffect from '../NewPostEffect/NewPostEffect';
+import Mentions from '../Mentions/Mentions';
 
 function Main({ userCredentials }) {
   const navigate = useNavigate();
@@ -199,6 +200,10 @@ function Main({ userCredentials }) {
               <Trends searchQuery={searchQuery} changeActiveTab={changeActiveTab} />
             ) : null
           }
+        />
+        <Route
+          path="mentions"
+          element={isUserSetup ? <Mentions changeActiveTab={changeActiveTab} /> : null}
         />
 
         <Route
