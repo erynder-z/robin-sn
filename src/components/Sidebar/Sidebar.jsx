@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Sidebar.css';
-import { BiHomeAlt, BiHash, BiBell, BiBookmark, BiUserCircle } from 'react-icons/bi';
+import { BiHomeAlt, BiHash, BiAt, BiBookmark, BiUserCircle } from 'react-icons/bi';
 import { signOut } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 import { auth } from '../Firebase/Firebase';
@@ -29,10 +29,12 @@ function Sidebar({ activeTab }) {
             <span>Explore</span>
           </li>
         </Link>
-        <li className={`sidebar-item ${activeTab === 'notifications' ? 'active' : 'inactive'}`}>
-          <BiBell size="2rem" />
-          <span>Notifications</span>
-        </li>
+        <Link to="/main/mentions">
+          <li className={`sidebar-item ${activeTab === 'mentions' ? 'active' : 'inactive'}`}>
+            <BiAt size="2rem" />
+            <span>Mentions</span>
+          </li>
+        </Link>
         <Link to="/main/bookmarks">
           <li className={`sidebar-item ${activeTab === 'bookmarks' ? 'active' : 'inactive'}`}>
             <BiBookmark size="2rem" />
