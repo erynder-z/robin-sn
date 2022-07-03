@@ -9,7 +9,7 @@ import './ContextBar.css';
 import { GetUserContext } from '../../contexts/UserContext';
 import { database } from '../Firebase/Firebase';
 
-function ContextBar({ activeTab, postInfo, deletePost, isPostBookmarked }) {
+function ContextBar({ activeTab, postInfo, deleteAccount, deletePost, isPostBookmarked }) {
   const { userData } = GetUserContext();
   const { post } = postInfo;
   const bookmarkPost = async () => {
@@ -52,6 +52,7 @@ function ContextBar({ activeTab, postInfo, deletePost, isPostBookmarked }) {
       {activeTab === 'postdetailsown' && (
         <PostDetailsOwn
           deletePost={deletePost}
+          postInfo={postInfo}
           bookmarkPost={bookmarkPost}
           isPostBookmarked={isPostBookmarked}
         />
@@ -87,6 +88,7 @@ ContextBar.propTypes = {
     })
   }),
   activeTab: PropTypes.string.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   isPostBookmarked: PropTypes.bool.isRequired
 };

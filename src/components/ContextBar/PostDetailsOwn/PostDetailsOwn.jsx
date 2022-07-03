@@ -4,7 +4,7 @@ import { BiTrash } from 'react-icons/bi';
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import './PostDetailsOwn.css';
 
-function PostDetailsOwn({ deletePost, bookmarkPost, isPostBookmarked }) {
+function PostDetailsOwn({ deletePost, postInfo, bookmarkPost, isPostBookmarked }) {
   const [bookmarkCheck, setBookmarkCheck] = useState(null);
 
   useEffect(() => {
@@ -22,10 +22,10 @@ function PostDetailsOwn({ deletePost, bookmarkPost, isPostBookmarked }) {
           role="button"
           tabIndex={0}
           onClick={() => {
-            deletePost();
+            deletePost(postInfo.post);
           }}
           onKeyDown={() => {
-            deletePost();
+            deletePost(postInfo.post);
           }}
         />
       </div>
@@ -71,7 +71,41 @@ function PostDetailsOwn({ deletePost, bookmarkPost, isPostBookmarked }) {
 export default PostDetailsOwn;
 
 PostDetailsOwn.propTypes = {
+  postInfo: PropTypes.shape({
+    post: PropTypes.shape({
+      content: PropTypes.string,
+      created: PropTypes.objectOf(PropTypes.number),
+      hashtags: PropTypes.arrayOf(PropTypes.string),
+      image: PropTypes.objectOf(PropTypes.string),
+      likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+      ownerID: PropTypes.string,
+      postID: PropTypes.string,
+      replies: PropTypes.arrayOf(
+        PropTypes.shape({
+          replyContent: PropTypes.string,
+          replyDate: PropTypes.objectOf(PropTypes.number),
+          replyID: PropTypes.string,
+          replyUserID: PropTypes.string
+        })
+      ),
+      reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string))
+    })
+  }),
   deletePost: PropTypes.func.isRequired,
   bookmarkPost: PropTypes.func.isRequired,
   isPostBookmarked: PropTypes.bool.isRequired
+};
+
+PostDetailsOwn.defaultProps = {
+  postInfo: PropTypes.shape({
+    content: '',
+    created: {},
+    hashtags: [],
+    image: {},
+    likes: [],
+    ownerID: '',
+    postID: '',
+    replies: {},
+    reposts: []
+  })
 };

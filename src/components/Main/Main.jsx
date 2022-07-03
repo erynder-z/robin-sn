@@ -79,14 +79,14 @@ function Main({ userCredentials }) {
   };
 
   // delete post from posts-collection and remove it from the user-object
-  const deletePost = async () => {
-    const docRef = doc(database, 'posts', postInfo.post.postID);
+  const deletePost = async (post) => {
+    const docRef = doc(database, 'posts', post.postID);
     const userRef = doc(database, 'users', uid);
     try {
       const handleDeleteDoc = async () => {
         await deleteDoc(docRef);
-        if (postInfo.post.image.imageRef !== null) {
-          const getImageRef = postInfo.post.image.imageRef.split('appspot.com/').pop();
+        if (post.image.imageRef !== null) {
+          const getImageRef = post.image.imageRef.split('appspot.com/').pop();
           const imageRef = ref(storage, getImageRef);
           await deleteObject(imageRef);
         }
@@ -95,7 +95,7 @@ function Main({ userCredentials }) {
       const handleDeleteFromUserObject = async () => {
         // need to pass the exact object to delete into arrayRemove(), so we first need to retrieve the post-object from the user object.posts-array
         const userSnap = await getDoc(userRef);
-        const postToDelete = userSnap.data().posts.find((p) => p.postID === postInfo.post.postID);
+        const postToDelete = userSnap.data().posts.find((p) => p.postID === post.postID);
         await updateDoc(userRef, {
           posts: arrayRemove(postToDelete)
         });
@@ -122,8 +122,8 @@ function Main({ userCredentials }) {
 
       handleDeleteDoc();
       handleDeleteFromUserObject();
-      if (postInfo.post.hashtags.length > 0) {
-        handleRemoveHashtag(postInfo.post.hashtags);
+      if (post.hashtags.length > 0) {
+        handleRemoveHashtag(post.hashtags);
       }
       navigate(-1);
     } catch (err) {
@@ -220,6 +220,7 @@ function Main({ userCredentials }) {
         <ContextBar
           activeTab={activeTab}
           postInfo={postInfo}
+          deleteAccount={deleteAccount}
           deletePost={deletePost}
           isPostBookmarked={isPostBookmarked}
         />
