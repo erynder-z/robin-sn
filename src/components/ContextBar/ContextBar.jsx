@@ -42,15 +42,13 @@ function ContextBar({ activeTab, postInfo, deleteAccount, deletePost, isPostBook
 
   return (
     <div className="contextbar">
-      {activeTab === 'home' && <FollowUserList userData={userData} />}
-      {activeTab === 'explore' && <FollowUserList userData={userData} />}
-      {activeTab === 'bookmarks' && <FollowUserList userData={userData} />}
-      {activeTab === 'myprofile' && (
-        <ProfileOptions userData={userData} deleteAccount={deleteAccount} />
-      )}
-      {activeTab === 'search' && <FollowUserList userData={userData} />}
-      {activeTab === 'trends' && <FollowUserList userData={userData} />}
-      {activeTab === 'mentions' && <FollowUserList userData={userData} />}
+      {activeTab === 'home' && <FollowUserList />}
+      {activeTab === 'explore' && <FollowUserList />}
+      {activeTab === 'bookmarks' && <FollowUserList />}
+      {activeTab === 'myprofile' && <ProfileOptions deleteAccount={deleteAccount} />}
+      {activeTab === 'search' && <FollowUserList />}
+      {activeTab === 'trends' && <FollowUserList />}
+      {activeTab === 'mentions' && <FollowUserList />}
       {activeTab === 'postdetailsown' && (
         <PostDetailsOwn
           deletePost={deletePost}
