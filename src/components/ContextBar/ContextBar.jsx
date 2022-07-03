@@ -45,7 +45,9 @@ function ContextBar({ activeTab, postInfo, deleteAccount, deletePost, isPostBook
       {activeTab === 'home' && <FollowUserList userData={userData} />}
       {activeTab === 'explore' && <FollowUserList userData={userData} />}
       {activeTab === 'bookmarks' && <FollowUserList userData={userData} />}
-      {activeTab === 'myprofile' && <ProfileOptions userData={userData} />}
+      {activeTab === 'myprofile' && (
+        <ProfileOptions userData={userData} deleteAccount={deleteAccount} />
+      )}
       {activeTab === 'search' && <FollowUserList userData={userData} />}
       {activeTab === 'trends' && <FollowUserList userData={userData} />}
       {activeTab === 'mentions' && <FollowUserList userData={userData} />}

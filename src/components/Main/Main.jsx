@@ -4,7 +4,8 @@ import { deleteObject, ref } from 'firebase/storage';
 import { arrayRemove, deleteDoc, doc, getDoc, increment, updateDoc } from 'firebase/firestore';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { database, storage } from '../Firebase/Firebase';
+import { deleteUser } from 'firebase/auth';
+import { auth, database, storage } from '../Firebase/Firebase';
 import './Main.css';
 import SetupUserAccount from '../SetupUserAccount/SetupUserAccount';
 import Home from '../Home/Home';
@@ -81,7 +82,7 @@ function Main({ userCredentials }) {
   // delete post from posts-collection and remove it from the user-object
   const deletePost = async (post) => {
     const docRef = doc(database, 'posts', post.postID);
-    const userRef = doc(database, 'users', uid);
+    const userRef = doc(database, 'users', usr.userID);
     try {
       const handleDeleteDoc = async () => {
         await deleteDoc(docRef);
@@ -95,10 +96,12 @@ function Main({ userCredentials }) {
       const handleDeleteFromUserObject = async () => {
         // need to pass the exact object to delete into arrayRemove(), so we first need to retrieve the post-object from the user object.posts-array
         const userSnap = await getDoc(userRef);
-        const postToDelete = userSnap.data().posts.find((p) => p.postID === post.postID);
-        await updateDoc(userRef, {
-          posts: arrayRemove(postToDelete)
-        });
+        if (userSnap.data()) {
+          const postToDelete = userSnap.data().posts.find((p) => p.postID === post.postID);
+          await updateDoc(userRef, {
+            posts: arrayRemove(postToDelete)
+          });
+        }
       };
 
       const handleRemoveHashtag = async (hashtagArray) => {
@@ -119,16 +122,55 @@ function Main({ userCredentials }) {
           }
         });
       };
-
       handleDeleteDoc();
       handleDeleteFromUserObject();
       if (post.hashtags.length > 0) {
         handleRemoveHashtag(post.hashtags);
       }
+
       navigate(-1);
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const deleteAccount = async () => {
+    const deletePosts = async () => {
+      const IDArray = [];
+      usr.posts.forEach((post) => {
+        IDArray.push(post.postID);
+      });
+      IDArray.forEach(async (id) => {
+        const docRef = doc(database, 'posts', id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const p = docSnap.data();
+          deletePost(p);
+        } else {
+          console.log('No such document!');
+        }
+      });
+    };
+
+    const deleteUserAuthentication = async () => {
+      const user = auth.currentUser;
+      deleteUser(user)
+        .then(() => {
+          console.log('user deleted');
+        })
+        .catch((error) => {
+          console.log(`an error occurred: ${error}`);
+        });
+    };
+
+    const deleteUserInDatabase = async () => {
+      await deleteDoc(doc(database, 'users', usr.userID));
+      deleteUserAuthentication();
+    };
+
+    navigate('/login');
+    await deletePosts();
+    await deleteUserInDatabase();
   };
 
   useEffect(() => {

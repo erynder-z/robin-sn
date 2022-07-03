@@ -5,6 +5,7 @@ import { format, fromUnixTime } from 'date-fns';
 import { doc, getDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
 import parseText from '../../helpers/ParseText/ParseText';
+import placeholder from '../../assets/placeholder.png';
 
 function ReplyItem({ reply }) {
   const [replyUser, setReplyUser] = useState();
@@ -15,6 +16,13 @@ function ReplyItem({ reply }) {
 
     const docRef = doc(database, 'users', replyUserID);
     const docSnap = await getDoc(docRef);
+    if (!docSnap.data()) {
+      setReplyUser({
+        username: 'deleted user',
+        userpic: placeholder,
+        replyDate: format(fromUnixTime(reply.replyDate.seconds), 'PPP')
+      });
+    }
     setReplyUser({
       username: docSnap.data().username,
       userpic: docSnap.data().userPic,
