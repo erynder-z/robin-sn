@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { format, fromUnixTime } from 'date-fns';
+import { BiMeh } from 'react-icons/bi';
 import './UserProfile.css';
 import { useLocation } from 'react-router-dom';
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
@@ -97,6 +98,13 @@ function UserProfile() {
   // lists all the posts made by the user
   const Posts = (
     <div className="posts fadein">
+      {user && user.posts.length <= 0 && (
+        <div className="empty">
+          <BiMeh size="3rem" />
+          <h4> empty...</h4>
+          <h5> all of {user.username}&apos;s posts will show up here</h5>
+        </div>
+      )}
       {user &&
         user.posts.map((post) => (
           <PostItem
@@ -110,7 +118,13 @@ function UserProfile() {
   );
   const PostsAndReplies = (
     <div className="postsAndReplies fadein">
-      {' '}
+      {user && postsAndReplies.length <= 0 && (
+        <div className="empty">
+          <BiMeh size="3rem" />
+          <h4> empty...</h4>
+          <h5> all of {user.username}&apos;s replies will show up here</h5>
+        </div>
+      )}
       {postsAndReplies.map((post) => (
         <PostItem
           key={post.postID}
@@ -124,7 +138,13 @@ function UserProfile() {
 
   const Media = (
     <div className="media fadein">
-      {' '}
+      {user && media.length <= 0 && (
+        <div className="empty">
+          <BiMeh size="3rem" />
+          <h4> empty...</h4>
+          <h5> all of {user.username}&apos;s posts with images will show up here</h5>
+        </div>
+      )}
       {media.map((post) => (
         <PostItem
           key={post.postID}
@@ -137,6 +157,13 @@ function UserProfile() {
   );
   const Likes = (
     <div className="likes fadein">
+      {user && user.likes.length <= 0 && (
+        <div className="empty">
+          <BiMeh size="3rem" />
+          <h4> empty...</h4>
+          <h5> all posts {user.username} liked will show up here</h5>
+        </div>
+      )}
       {user &&
         user.likes.map((post) => (
           <PostItem

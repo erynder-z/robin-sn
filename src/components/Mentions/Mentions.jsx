@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { BiMeh } from 'react-icons/bi';
 import './Mentions.css';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import PostItem from '../PostItem/PostItem';
@@ -44,6 +45,13 @@ function Mentions({ changeActiveTab }) {
       <div className="mentions-header">Mentions</div>
       <div className="mentions-content">
         <div className="posts">
+          {mentions && mentions.length <= 0 && (
+            <div className="empty">
+              <BiMeh size="3rem" />
+              <h4> empty...</h4>
+              <h5> posts you were mentioned in will show up here</h5>
+            </div>
+          )}
           {mentions &&
             sortPosts(mentions).map((post) => (
               <PostItem

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
+import { BiMeh } from 'react-icons/bi';
 import './MyProfile.css';
 import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
@@ -80,6 +81,13 @@ function MyProfile({ changeActiveTab }) {
   // lists all the posts made by the user
   const Posts = (
     <div className="posts fadein">
+      {posts && posts.length <= 0 && (
+        <div className="empty">
+          <BiMeh size="3rem" />
+          <h4> empty...</h4>
+          <h5> all your posts will show up here</h5>
+        </div>
+      )}
       {sortPosts(posts).map((post) => (
         <PostItem
           key={post.postID}
@@ -93,6 +101,13 @@ function MyProfile({ changeActiveTab }) {
 
   const PostsAndReplies = (
     <div className="postsAndReplies fadein">
+      {postsAndReplies && postsAndReplies.length <= 0 && (
+        <div className="empty">
+          <BiMeh size="3rem" />
+          <h4> empty...</h4>
+          <h5> all posts you replied to will show up here</h5>
+        </div>
+      )}
       {postsAndReplies.map((post) => (
         <PostItem
           key={postsAndReplies.indexOf(post)}
@@ -106,6 +121,13 @@ function MyProfile({ changeActiveTab }) {
 
   const Media = (
     <div className="media fadein">
+      {media && media.length <= 0 && (
+        <div className="empty">
+          <BiMeh size="3rem" />
+          <h4> empty...</h4>
+          <h5> all your posts with uploaded pictures will how up here</h5>
+        </div>
+      )}
       {media.map((post) => (
         <PostItem
           key={post.postID}
@@ -119,6 +141,13 @@ function MyProfile({ changeActiveTab }) {
 
   const Likes = (
     <div className="likes fadein">
+      {likes && likes.length <= 0 && (
+        <div className="empty">
+          <BiMeh size="3rem" />
+          <h4> empty...</h4>
+          <h5> all posts you liked will show up here</h5>
+        </div>
+      )}
       {likes.map((post) => (
         <PostItem
           key={post.postID}

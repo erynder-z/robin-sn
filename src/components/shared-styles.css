@@ -93,7 +93,8 @@
 
 .search-closeBtn,
 .reply-closeBtn,
-.newPost-closeBtn {
+.newPost-closeBtn,
+.stats-closeBtn {
   cursor: pointer;
   font-size: 3rem;
   position: absolute;
@@ -139,7 +140,7 @@
 }
 
 .emoji-picker-close {
-  color: crimson;
+  color: var(--button);
   background-color: rgba(255, 255, 255, 0.3);
   cursor: pointer;
   font-size: 2rem;
@@ -152,6 +153,14 @@
   position: relative;
   left: 15%;
   bottom: 2%;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5rem;
 }
 
 @-webkit-keyframes spin {

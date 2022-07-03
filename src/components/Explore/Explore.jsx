@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { BiMeh } from 'react-icons/bi';
 import './Explore.css';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { collection, limit, orderBy, query } from 'firebase/firestore';
@@ -25,6 +26,13 @@ function Explore({ handleSearchQuery, changeActiveTab }) {
     <div className="explore-container fadein">
       <div className="explore-header">Trending hashtags</div>
       <div className="explore-content">
+        {trends && trends.length <= 0 && (
+          <div className="empty">
+            <BiMeh size="3rem" />
+            <h4> empty...</h4>
+            <h5> trends will show up here</h5>
+          </div>
+        )}
         {trends &&
           trends.map((trend) => (
             <div

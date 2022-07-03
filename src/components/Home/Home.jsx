@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { BiMeh } from 'react-icons/bi';
 import './Home.css';
 import { doc, getDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
@@ -67,6 +68,13 @@ function Home({ changeActiveTab }) {
       <div className="home-header">Home</div>
       <div className="home-content">
         <div className="posts">
+          {followedUsersPosts && followedUsersPosts.length <= 0 && (
+            <div className="empty">
+              <BiMeh size="3rem" />
+              <h4> empty...</h4>
+              <h5> your own posts and posts of users you follow will show up here</h5>
+            </div>
+          )}
           {followedUsersPosts.map((p) => (
             <PostItem
               key={p.postID}
