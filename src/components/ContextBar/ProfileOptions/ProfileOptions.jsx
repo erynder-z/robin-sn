@@ -1,11 +1,35 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { MdOutlineDangerous } from 'react-icons/md';
-
+import { BiImageAdd } from 'react-icons/bi';
 import './ProfileOptions.css';
+import { doc, updateDoc } from 'firebase/firestore';
+import resizeFile from '../../../helpers/ImageResizer/ImageResizer';
+import { database } from '../../Firebase/Firebase';
+import { GetUserContext } from '../../../contexts/UserContext';
 
 function ProfileOptions({ deleteAccount }) {
+  const { userData } = GetUserContext();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const changeUserpic = async (e) => {
+    const userRef = doc(database, 'users', userData.userID);
+
+    try {
+      const file = e.target.files[0];
+      const image = await resizeFile(file);
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onloadend = async () => {
+        const base64data = reader.result;
+        await updateDoc(userRef, {
+          userPic: base64data
+        });
+      };
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const DeleteModal = (
     <div className="deleteModal-overlay">
@@ -46,9 +70,25 @@ function ProfileOptions({ deleteAccount }) {
         onKeyDown={() => {
           setShowDeleteModal(true);
         }}>
-        <MdOutlineDangerous className="account-delete" size="2rem" />
+        <MdOutlineDangerous className="deleteAccount-icon" size="2rem" />
         delete account
       </div>
+
+      <label htmlFor="picture" className="changeUserpic">
+        <BiImageAdd className="changePicture-icon" size="2rem" />
+        <input
+          className="custom-file-upload"
+          type="file"
+          id="picture"
+          name="picture"
+          accept="image/png, image/jpeg"
+          onChange={(e) => {
+            changeUserpic(e);
+          }}
+        />
+        change profile picure
+      </label>
+
       {showDeleteModal && DeleteModal}
     </div>
   );
