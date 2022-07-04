@@ -59,3 +59,10 @@
 .userlist-unfollow:hover {
   background-color: var(--unfollow-button-hover);
 }
+
+@media only screen and (max-width: 768px) {
+  .userlist-follow,
+  .userlist-unfollow {
+    width: 33vw;
+  }
+}

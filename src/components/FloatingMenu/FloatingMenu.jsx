@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './FloatingMenu.css';
 import { BiPlus, BiPencil, BiSearch } from 'react-icons/bi';
+import { TbLayoutSidebarRightExpand, TbLayoutSidebarRightCollapse } from 'react-icons/tb';
 import { Fab, Action } from 'react-tiny-fab';
 import 'react-tiny-fab/dist/styles.css';
 
-function FloatingMenu({ toggleNewPostModal, toggleSearchModal }) {
+function FloatingMenu({ toggleNewPostModal, toggleSearchModal, toggleContextbar, showContextbar }) {
+  const [toggleContextbarBtnStyle, setToggleContextbarBtnStyle] = useState();
+
   const mainButtonStyles = {
     color: 'var(--text-bright)',
     backgroundColor: 'var(--button)',
@@ -26,6 +29,24 @@ function FloatingMenu({ toggleNewPostModal, toggleSearchModal }) {
     padding: '10px',
     fontWeight: 'bold'
   };
+
+  const toggleContextbarBtn = toggleContextbarBtnStyle;
+
+  // set breakpoint for mobile devices since we cannot use inline media queries
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setToggleContextbarBtnStyle({
+        color: 'var(--text-bright)',
+        backgroundColor: 'var(--button)',
+        padding: '10px',
+        fontWeight: 'bold'
+      });
+    } else {
+      setToggleContextbarBtnStyle({
+        display: 'none'
+      });
+    }
+  }, []);
 
   return (
     <div className="floating-menu-container">
@@ -58,6 +79,24 @@ function FloatingMenu({ toggleNewPostModal, toggleSearchModal }) {
           {' '}
           <BiSearch size="2rem" />
         </Action>
+        <Action
+          style={toggleContextbarBtn}
+          text="Toggle contextbar"
+          onClick={(e) => {
+            toggleContextbar();
+            e.stopPropagation();
+          }}
+          onKeyDown={(e) => {
+            toggleContextbar();
+            e.stopPropagation();
+          }}>
+          {' '}
+          {showContextbar ? (
+            <TbLayoutSidebarRightCollapse size="2rem" />
+          ) : (
+            <TbLayoutSidebarRightExpand size="2rem" />
+          )}
+        </Action>
       </Fab>
     </div>
   );
@@ -67,5 +106,7 @@ export default FloatingMenu;
 
 FloatingMenu.propTypes = {
   toggleNewPostModal: PropTypes.func.isRequired,
-  toggleSearchModal: PropTypes.func.isRequired
+  toggleSearchModal: PropTypes.func.isRequired,
+  toggleContextbar: PropTypes.func.isRequired,
+  showContextbar: PropTypes.bool.isRequired
 };

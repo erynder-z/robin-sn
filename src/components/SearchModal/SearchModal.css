@@ -28,6 +28,9 @@
 
 .search-header {
   font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .searchModal-body > .input-wrapper input {

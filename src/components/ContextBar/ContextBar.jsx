@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { TbLayoutSidebarRightCollapse } from 'react-icons/tb';
 import FollowUserList from './FollowUserList/FollowUserList';
 import ProfileOptions from './ProfileOptions/ProfileOptions';
 import PostDetailsOwn from './PostDetailsOwn/PostDetailsOwn';
@@ -9,9 +10,18 @@ import './ContextBar.css';
 import { GetUserContext } from '../../contexts/UserContext';
 import { database } from '../Firebase/Firebase';
 
-function ContextBar({ activeTab, postInfo, deleteAccount, deletePost, isPostBookmarked }) {
+function ContextBar({
+  activeTab,
+  postInfo,
+  deleteAccount,
+  deletePost,
+  isPostBookmarked,
+  showContextbar,
+  toggleContextbar
+}) {
   const { userData } = GetUserContext();
   const { post } = postInfo;
+
   const bookmarkPost = async () => {
     const userRef = doc(database, 'users', userData.userID);
     try {
@@ -41,7 +51,15 @@ function ContextBar({ activeTab, postInfo, deleteAccount, deletePost, isPostBook
   };
 
   return (
-    <div className="contextbar">
+    <div className={`contextbar ${showContextbar ? 'active' : 'inactive'}`}>
+      <div className="contextbar-toggle">
+        <TbLayoutSidebarRightCollapse
+          size="1.5rem"
+          onClick={() => {
+            toggleContextbar();
+          }}
+        />
+      </div>
       {activeTab === 'home' && <FollowUserList />}
       {activeTab === 'explore' && <FollowUserList />}
       {activeTab === 'bookmarks' && <FollowUserList />}
@@ -90,7 +108,9 @@ ContextBar.propTypes = {
   activeTab: PropTypes.string.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
-  isPostBookmarked: PropTypes.bool.isRequired
+  isPostBookmarked: PropTypes.bool.isRequired,
+  showContextbar: PropTypes.bool.isRequired,
+  toggleContextbar: PropTypes.func.isRequired
 };
 
 ContextBar.defaultProps = {

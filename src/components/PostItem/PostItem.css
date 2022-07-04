@@ -51,6 +51,7 @@
   height: auto;
   word-wrap: break-word;
   white-space: pre-wrap;
+  text-align: left;
 }
 
 .post-options {
@@ -83,4 +84,18 @@
 
 .mention {
   color: var(--mention);
+}
+
+@media only screen and (max-width: 768px) {
+  .post-container {
+    padding: 1rem 0;
+  }
+
+  .post-details-container > .post-container {
+    padding-left: 1rem;
+  }
+
+  .post-userDetails {
+    padding-left: 1rem;
+  }
 }

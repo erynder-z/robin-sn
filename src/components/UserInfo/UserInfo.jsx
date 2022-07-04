@@ -22,7 +22,7 @@ function UserInfo({ logout }) {
             }}>
             <BiLogOut size="2rem" />
           </button>{' '}
-          @{userData.username}{' '}
+          <span> @{userData.username}</span>
         </div>
       </div>
     </div>

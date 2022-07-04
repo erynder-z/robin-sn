@@ -97,56 +97,58 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
         onKeyDown={(e) => {
           e.stopPropagation();
         }}>
-        <div className="replyModal-left">
-          {' '}
-          <img className="reply-userpic" src={replyUserName.userpic} alt="user avatar" />
-          <div className="reply-userpic-divider" />
-          <img className="reply-userpic" src={userData.userPic} alt="user avatar" />
-        </div>
-        <div className="replyModal-right">
-          <div className="replyModal-upper">
-            <div className="replyTo"> Replying to @{replyUserName.username}</div>
+        <div className="replyModal-container">
+          <div className="replyModal-left">
+            {' '}
+            <img className="reply-userpic" src={replyUserName.userpic} alt="user avatar" />
+            <div className="reply-userpic-divider" />
+            <img className="reply-userpic" src={userData.userPic} alt="user avatar" />
           </div>
-          <textarea
-            className="reply-modal-textarea"
-            cols="30"
-            rows="5"
-            placeholder="write your reply"
-          />
-          <div className="replyModal-post">
-            <MdOutlineEmojiEmotions
-              size="2rem"
-              className="show-emoji-picker"
-              onClick={() => {
-                setShowEmojiPicker(true);
-              }}
+          <div className="replyModal-right">
+            <div className="replyModal-upper">
+              <div className="replyTo"> Replying to @{replyUserName.username}</div>
+            </div>
+            <textarea
+              className="reply-modal-textarea"
+              cols="30"
+              rows="5"
+              placeholder="write your reply"
             />
-            {showEmojiPicker && (
-              <div className="emoji-picker-overlay">
-                <div
-                  className="emoji-picker-close"
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => {
-                    setShowEmojiPicker(false);
-                  }}
-                  onKeyDown={() => {
-                    setShowEmojiPicker(false);
-                  }}>
-                  {' '}
-                  &times;
+            <div className="replyModal-post">
+              <MdOutlineEmojiEmotions
+                size="2rem"
+                className="show-emoji-picker"
+                onClick={() => {
+                  setShowEmojiPicker(true);
+                }}
+              />
+              {showEmojiPicker && (
+                <div className="emoji-picker-overlay">
+                  <div
+                    className="emoji-picker-close"
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => {
+                      setShowEmojiPicker(false);
+                    }}
+                    onKeyDown={() => {
+                      setShowEmojiPicker(false);
+                    }}>
+                    {' '}
+                    &times;
+                  </div>
+                  <Picker onEmojiClick={onEmojiClick} disableSearchBar />
                 </div>
-                <Picker onEmojiClick={onEmojiClick} disableSearchBar />
-              </div>
-            )}
-            <button
-              className="replyBtn-modal"
-              type="submit"
-              onClick={() => {
-                reply(postID);
-              }}>
-              Reply
-            </button>
+              )}
+              <button
+                className="replyBtn-modal"
+                type="submit"
+                onClick={() => {
+                  reply(postID);
+                }}>
+                Reply
+              </button>
+            </div>
           </div>
         </div>
       </div>

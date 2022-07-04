@@ -33,37 +33,39 @@ function Explore({ handleSearchQuery, changeActiveTab }) {
             <h5> trends will show up here</h5>
           </div>
         )}
-        {trends &&
-          trends.map((trend) => (
-            <div
-              key={trend.hashtag.toString()}
-              className={`trend-item trend${trends.indexOf(trend)}`}
-              role="link"
-              tabIndex={0}
-              onClick={() => {
-                handleClick(trend.hashtag);
-              }}
-              onKeyDown={() => {
-                handleClick(trend.hashtag);
-              }}>
-              {trends.indexOf(trend) < 10 && <span>{trends.indexOf(trend) + 1}</span>}
-              {trends.indexOf(trend) === 10 && (
-                <div
-                  className="other-trends"
-                  role="link"
-                  tabIndex={0}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                  onKeyDown={(e) => {
-                    e.stopPropagation();
-                  }}>
-                  other trends:
-                </div>
-              )}
-              #{trend.hashtag}
-            </div>
-          ))}
+        <div className="trends">
+          {trends &&
+            trends.map((trend) => (
+              <div
+                key={trend.hashtag.toString()}
+                className={`trend-item trend${trends.indexOf(trend)}`}
+                role="link"
+                tabIndex={0}
+                onClick={() => {
+                  handleClick(trend.hashtag);
+                }}
+                onKeyDown={() => {
+                  handleClick(trend.hashtag);
+                }}>
+                {trends.indexOf(trend) < 10 && <span>{trends.indexOf(trend) + 1}</span>}
+                {trends.indexOf(trend) === 10 && (
+                  <div
+                    className="other-trends"
+                    role="link"
+                    tabIndex={0}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                    onKeyDown={(e) => {
+                      e.stopPropagation();
+                    }}>
+                    other trends:
+                  </div>
+                )}
+                #{trend.hashtag}
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   );

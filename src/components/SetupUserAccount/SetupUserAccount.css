@@ -113,3 +113,20 @@ input[type='file'] {
 .createBtn:hover {
   background-color: var(--button-hover);
 }
+
+@media only screen and (max-width: 768px) {
+  .setup-user-account {
+    height: unset;
+    grid-column: 1/-1;
+  }
+  .setup-user-container {
+    width: 90%;
+  }
+  .username-input {
+    width: 60%;
+  }
+
+  .description-input {
+    width: 60%;
+  }
+}

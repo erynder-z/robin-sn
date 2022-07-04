@@ -36,6 +36,11 @@ function Main({ userCredentials }) {
   const [isPostBookmarked, setIsPostBookmarked] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [newPostEffect, setNewPostEffect] = useState(false);
+  const [showContextbar, setShowContextbar] = useState(false);
+
+  const toggleContextbar = () => {
+    setShowContextbar(!showContextbar);
+  };
 
   const showNewPostEffect = () => {
     setNewPostEffect(true);
@@ -265,12 +270,16 @@ function Main({ userCredentials }) {
           deleteAccount={deleteAccount}
           deletePost={deletePost}
           isPostBookmarked={isPostBookmarked}
+          showContextbar={showContextbar}
+          toggleContextbar={toggleContextbar}
         />
       )}
       {isUserSetup && (
         <FloatingMenu
           toggleNewPostModal={toggleNewPostModal}
           toggleSearchModal={toggleSearchModal}
+          toggleContextbar={toggleContextbar}
+          showContextbar={showContextbar}
         />
       )}
       {isUserSetup && showNewPostModal && (

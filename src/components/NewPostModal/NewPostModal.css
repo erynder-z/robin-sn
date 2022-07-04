@@ -1,7 +1,7 @@
 .newPostModal-overlay,
 .emoji-picker-overlay {
   height: 100%;
-  width: 100vw;
+  width: 100%;
   position: fixed;
   left: 50%;
   top: 50%;
@@ -127,4 +127,11 @@ aside.emoji-picker-react {
   box-shadow: none;
   height: 40vh;
   width: 40vh;
+}
+
+@media only screen and (max-width: 768px) {
+  .newPostModal-body {
+    width: 80vw;
+    height: 45vh;
+  }
 }
