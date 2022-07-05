@@ -46,14 +46,35 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    height: 7vh;
+    width: 100vw;
+    background-color: var(--sidebar-background-mobile);
+    opacity: 0.8;
+  }
+
+  .sidebar ul {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sidebar ul a {
+    height: 100%;
+  }
+
   .sidebar-item {
     justify-content: center;
-    padding: 1rem 0;
-    width: 100%;
+    padding: 0;
+    height: 100%;
   }
 
   .sidebar-item svg {
     margin-right: 0;
+    height: 2rem;
+    width: 2rem;
   }
 
   .sidebar-item span {
