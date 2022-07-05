@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { MdOutlineDangerous } from 'react-icons/md';
-import { BiImageAdd, BiBarChart, BiLandscape } from 'react-icons/bi';
+import { BiImageAdd, BiBarChart, BiLandscape, BiWindowClose } from 'react-icons/bi';
 import './ProfileOptions.css';
 import { doc, updateDoc } from 'firebase/firestore';
 import resizeFile from '../../../helpers/ImageResizer/ImageResizer';
@@ -16,7 +16,6 @@ function ProfileOptions({ deleteAccount }) {
 
   const changeUserpic = async (e) => {
     const userRef = doc(database, 'users', userData.userID);
-    console.log('usr');
     try {
       const file = e.target.files[0];
       const image = await resizeFile(file);
@@ -35,7 +34,7 @@ function ProfileOptions({ deleteAccount }) {
 
   const changeProfileBackground = async (e) => {
     const userRef = doc(database, 'users', userData.userID);
-    console.log('back');
+
     try {
       const file = e.target.files[0];
       const image = await resizeFile(file);
@@ -47,6 +46,18 @@ function ProfileOptions({ deleteAccount }) {
           userBackground: base64data
         });
       };
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const removeProfileBackground = async () => {
+    const userRef = doc(database, 'users', userData.userID);
+
+    try {
+      await updateDoc(userRef, {
+        userBackground: null
+      });
     } catch (err) {
       console.log(err);
     }
@@ -150,6 +161,20 @@ function ProfileOptions({ deleteAccount }) {
         />
         change profile background
       </label>
+
+      <div
+        className="removeBackground"
+        role="button"
+        tabIndex={0}
+        onClick={() => {
+          removeProfileBackground();
+        }}
+        onKeyDown={() => {
+          removeProfileBackground();
+        }}>
+        <BiWindowClose className="removeBackground-icon" size="2rem" />
+        remove profile background
+      </div>
 
       <div
         className="accountStats"

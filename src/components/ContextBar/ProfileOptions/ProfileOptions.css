@@ -16,6 +16,7 @@
 .deleteAccount,
 .changeUserpic,
 .changeProfileBackground,
+.removeBackground,
 .accountStats {
   display: flex;
   justify-content: flex-start;
@@ -28,6 +29,7 @@
 .deleteAccount-icon,
 .changePicture-icon,
 .changeProfileBackground-icon,
+.removeBackground-icon,
 .accountStats-icon {
   padding-right: 0.5rem;
 }
