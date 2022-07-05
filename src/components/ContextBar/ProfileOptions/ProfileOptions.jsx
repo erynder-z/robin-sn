@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { MdOutlineDangerous } from 'react-icons/md';
-import { BiImageAdd, BiBarChart } from 'react-icons/bi';
+import { BiImageAdd, BiBarChart, BiLandscape } from 'react-icons/bi';
 import './ProfileOptions.css';
 import { doc, updateDoc } from 'firebase/firestore';
 import resizeFile from '../../../helpers/ImageResizer/ImageResizer';
@@ -16,7 +16,7 @@ function ProfileOptions({ deleteAccount }) {
 
   const changeUserpic = async (e) => {
     const userRef = doc(database, 'users', userData.userID);
-
+    console.log('usr');
     try {
       const file = e.target.files[0];
       const image = await resizeFile(file);
@@ -26,6 +26,25 @@ function ProfileOptions({ deleteAccount }) {
         const base64data = reader.result;
         await updateDoc(userRef, {
           userPic: base64data
+        });
+      };
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const changeProfileBackground = async (e) => {
+    const userRef = doc(database, 'users', userData.userID);
+    console.log('back');
+    try {
+      const file = e.target.files[0];
+      const image = await resizeFile(file);
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onloadend = async () => {
+        const base64data = reader.result;
+        await updateDoc(userRef, {
+          userBackground: base64data
         });
       };
     } catch (err) {
@@ -114,7 +133,22 @@ function ProfileOptions({ deleteAccount }) {
             changeUserpic(e);
           }}
         />
-        change profile picure
+        change user picure
+      </label>
+
+      <label htmlFor="background" className="changeProfileBackground">
+        <BiLandscape className="changeProfileBackground-icon" size="2rem" />
+        <input
+          className="custom-file-upload"
+          type="file"
+          id="background"
+          name="background"
+          accept="image/png, image/jpeg"
+          onChange={(e) => {
+            changeProfileBackground(e);
+          }}
+        />
+        change profile background
       </label>
 
       <div

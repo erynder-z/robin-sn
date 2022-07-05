@@ -34,9 +34,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 5%;
+  height: 2.5rem;
   font-size: 1.2rem;
   font-weight: bolder;
+  background-color: var(--header-background);
 }
 
 .home-content,
@@ -212,16 +213,6 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .home-container,
-  .explore-container,
-  .search-container,
-  .profile-container,
-  .trends-container,
-  .bookmarks-container,
-  .mentions-container {
-    padding: 0 1rem;
-  }
-
   .home-content > .posts,
   .explore-content > .trends,
   .search-content > .results,
@@ -229,6 +220,7 @@
   .bookmarks-content > .posts,
   .mentions-content > .posts {
     margin-bottom: 7vh;
+    padding: 0 1rem;
   }
 
   .search-closeBtn,

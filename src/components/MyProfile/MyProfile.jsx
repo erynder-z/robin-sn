@@ -165,20 +165,30 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
 
   return (
     <div className="profile-container fadein">
-      <div className="profile-header"> My Profile</div>
-      <div className="profile-card">
-        <div className="card-wrapper">
-          <img className="profile-usrpic" src={userPic} alt="user avatar" />
+      <div
+        className="background-wrapper"
+        style={{
+          backgroundImage: `url(${userData.userBackground})`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat'
+        }}>
+        <div className="profile-header"> My Profile</div>
 
-          <div className="profile-userinfo-container">
-            <h3 className="profile-username">@{username}</h3>
-            <div className="profile-joined">joined {joinedDateFormatted}</div>
-            <div className="profile-follow-container">
-              <div className="profile-following">following: {following.length - 1}</div>
-              <div className="profile-followers">followers: {followers.length}</div>
-            </div>{' '}
+        <div className="profile-card">
+          <div className="card-wrapper">
+            <img className="profile-usrpic" src={userPic} alt="user avatar" />
+
+            <div className="profile-userinfo-container">
+              <h3 className="profile-username">@{username}</h3>
+              <div className="profile-joined">joined {joinedDateFormatted}</div>
+              <div className="profile-follow-container">
+                <div className="profile-following">following: {following.length - 1}</div>
+                <div className="profile-followers">followers: {followers.length}</div>
+              </div>{' '}
+            </div>
+            <div className="profile-description">{description}</div>
           </div>
-          <div className="profile-description">{description}</div>
         </div>
       </div>
       <div className="profile-content">
@@ -229,7 +239,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
             onKeyDown={() => {
               setActiveView('likes');
             }}>
-            Likes
+            Likes{' '}
           </div>
         </div>
         {activeView === 'posts' && Posts}

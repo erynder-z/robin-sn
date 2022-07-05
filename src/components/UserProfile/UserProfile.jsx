@@ -27,6 +27,7 @@ function UserProfile({ handleSetIsReplyModalActive }) {
       setUser({
         userPic: docSnap.data().userPic,
         username: docSnap.data().username,
+        userBackground: docSnap.data().userBackground,
         joined: docSnap.data().joined,
         following: docSnap.data().following,
         followers: docSnap.data().followers,
@@ -185,22 +186,31 @@ function UserProfile({ handleSetIsReplyModalActive }) {
     <div className="profile-container fadein">
       {user && (
         <>
-          <div className="profile-header">{user.username}&apos;s Profile</div>
-          <div className="profile-card">
-            <div className="card-wrapper">
-              <img className="profile-usrpic" src={user.userPic} alt="user avatar" />
+          <div
+            className="background-wrapper"
+            style={{
+              backgroundImage: `url(${user.userBackground})`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat'
+            }}>
+            <div className="profile-header">{user.username}&apos;s Profile</div>
+            <div className="profile-card">
+              <div className="card-wrapper">
+                <img className="profile-usrpic" src={user.userPic} alt="user avatar" />
 
-              <div className="profile-userinfo-container">
-                <h3 className="profile-username">@{user.username}</h3>
-                <div className="profile-joined">
-                  joined {format(fromUnixTime(user.joined.seconds), 'dd LLLL yyy')}
+                <div className="profile-userinfo-container">
+                  <h3 className="profile-username">@{user.username}</h3>
+                  <div className="profile-joined">
+                    joined {format(fromUnixTime(user.joined.seconds), 'dd LLLL yyy')}
+                  </div>
+                  <div className="profile-follow-container">
+                    <div className="profile-following">following: {user.following.length - 1}</div>
+                    <div className="profile-followers">followers: {user.followers.length}</div>
+                  </div>{' '}
                 </div>
-                <div className="profile-follow-container">
-                  <div className="profile-following">following: {user.following.length - 1}</div>
-                  <div className="profile-followers">followers: {user.followers.length}</div>
-                </div>{' '}
+                <div className="profile-description">{user.description}</div>
               </div>
-              <div className="profile-description">{user.description}</div>
             </div>
           </div>
           <div className="profile-content">

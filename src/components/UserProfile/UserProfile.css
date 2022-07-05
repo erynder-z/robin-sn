@@ -4,19 +4,10 @@
   max-height: 100vh;
 }
 
-.profile-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 5%;
-  font-size: 1.2rem;
-  font-weight: bolder;
-}
-
 .profile-card {
   width: 100%;
   height: 25vh;
-  background-color: var(--card-background);
+  /*   background-color: var(--card-background); */
   color: var(--text-bright);
   display: flex;
 }
