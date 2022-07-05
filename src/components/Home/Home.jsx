@@ -7,7 +7,7 @@ import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
 import { GetUserContext } from '../../contexts/UserContext';
 
-function Home({ changeActiveTab }) {
+function Home({ changeActiveTab, handleSetIsReplyModalActive }) {
   const { userData } = GetUserContext();
   const [followedUsersPosts, setFollowingPosts] = useState([]);
 
@@ -81,6 +81,7 @@ function Home({ changeActiveTab }) {
               postID={p.postID}
               userID={userData.userID}
               userPic={userData.userPic}
+              handleSetIsReplyModalActive={handleSetIsReplyModalActive}
             />
           ))}
         </div>
@@ -92,5 +93,6 @@ function Home({ changeActiveTab }) {
 export default Home;
 
 Home.propTypes = {
-  changeActiveTab: PropTypes.func.isRequired
+  changeActiveTab: PropTypes.func.isRequired,
+  handleSetIsReplyModalActive: PropTypes.func.isRequired
 };

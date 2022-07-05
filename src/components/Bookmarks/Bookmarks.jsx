@@ -5,7 +5,7 @@ import './Bookmarks.css';
 import PostItem from '../PostItem/PostItem';
 import { GetUserContext } from '../../contexts/UserContext';
 
-function Bookmarks({ changeActiveTab }) {
+function Bookmarks({ changeActiveTab, handleSetIsReplyModalActive }) {
   const { userData } = GetUserContext();
   const [bookmarks, setBookmarks] = useState(null);
 
@@ -42,6 +42,7 @@ function Bookmarks({ changeActiveTab }) {
                 postID={post.postID}
                 userID={userData.userID}
                 userPic={userData.userPic}
+                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
               />
             ))}
         </div>
@@ -53,5 +54,6 @@ function Bookmarks({ changeActiveTab }) {
 export default Bookmarks;
 
 Bookmarks.propTypes = {
-  changeActiveTab: PropTypes.func.isRequired
+  changeActiveTab: PropTypes.func.isRequired,
+  handleSetIsReplyModalActive: PropTypes.func.isRequired
 };

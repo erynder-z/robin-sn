@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
 import { BiMeh } from 'react-icons/bi';
 import './UserProfile.css';
@@ -8,7 +9,7 @@ import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 
-function UserProfile() {
+function UserProfile({ handleSetIsReplyModalActive }) {
   const { userData } = GetUserContext();
   const location = useLocation();
   // from PostItem component
@@ -112,6 +113,7 @@ function UserProfile() {
             postID={post.postID}
             userID={userData.userID}
             userPic={userData.userPic}
+            handleSetIsReplyModalActive={handleSetIsReplyModalActive}
           />
         ))}
     </div>
@@ -131,6 +133,7 @@ function UserProfile() {
           postID={post.postID}
           userID={userData.userID}
           userPic={userData.userPic}
+          handleSetIsReplyModalActive={handleSetIsReplyModalActive}
         />
       ))}
     </div>
@@ -151,6 +154,7 @@ function UserProfile() {
           postID={post.postID}
           userID={userData.userID}
           userPic={userData.userPic}
+          handleSetIsReplyModalActive={handleSetIsReplyModalActive}
         />
       ))}
     </div>
@@ -171,6 +175,7 @@ function UserProfile() {
             postID={post.postID}
             userID={userData.userID}
             userPic={userData.userPic}
+            handleSetIsReplyModalActive={handleSetIsReplyModalActive}
           />
         ))}
     </div>
@@ -261,3 +266,7 @@ function UserProfile() {
 }
 
 export default UserProfile;
+
+UserProfile.propTypes = {
+  handleSetIsReplyModalActive: PropTypes.func.isRequired
+};

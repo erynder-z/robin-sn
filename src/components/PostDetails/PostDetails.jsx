@@ -12,7 +12,7 @@ import ReplyItem from '../ReplyItem/ReplyItem';
 import './PostDetails.css';
 import { GetUserContext } from '../../contexts/UserContext';
 
-function PostDetails({ changeActiveTab, handlePostInfo }) {
+function PostDetails({ changeActiveTab, handlePostInfo, handleSetIsReplyModalActive }) {
   const { userData } = GetUserContext();
   const navigate = useNavigate();
   // get state from PostItem component // state: { postID, userID, postOwner }
@@ -62,7 +62,11 @@ function PostDetails({ changeActiveTab, handlePostInfo }) {
         </div>
         <span>Post</span>
       </div>
-      <PostItem key={location.state.postID} postID={location.state.postID} />
+      <PostItem
+        key={location.state.postID}
+        postID={location.state.postID}
+        handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+      />
       <Reply
         postID={location.state.postID}
         userID={userID}
@@ -82,5 +86,6 @@ export default PostDetails;
 
 PostDetails.propTypes = {
   changeActiveTab: PropTypes.func.isRequired,
-  handlePostInfo: PropTypes.func.isRequired
+  handlePostInfo: PropTypes.func.isRequired,
+  handleSetIsReplyModalActive: PropTypes.func.isRequired
 };

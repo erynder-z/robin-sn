@@ -37,6 +37,11 @@ function Main({ userCredentials }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [newPostEffect, setNewPostEffect] = useState(false);
   const [showContextbar, setShowContextbar] = useState(false);
+  const [isReplyModalActive, setIsReplyModalActive] = useState(false);
+
+  const handleSetIsReplyModalActive = () => {
+    setIsReplyModalActive(!isReplyModalActive);
+  };
 
   const toggleContextbar = () => {
     setShowContextbar(!showContextbar);
@@ -204,7 +209,10 @@ function Main({ userCredentials }) {
           path="/"
           element={
             isUserSetup ? (
-              <Home changeActiveTab={changeActiveTab} />
+              <Home
+                changeActiveTab={changeActiveTab}
+                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+              />
             ) : (
               <SetupUserAccount userCredentials={userCredentials} />
             )
@@ -213,7 +221,14 @@ function Main({ userCredentials }) {
         {/* make nested route so UI elements like the sidebar don't have to be re-rendered on component change.  */}
         <Route
           path="home"
-          element={isUserSetup ? <Home changeActiveTab={changeActiveTab} /> : null}
+          element={
+            isUserSetup ? (
+              <Home
+                changeActiveTab={changeActiveTab}
+                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+              />
+            ) : null
+          }
         />
         <Route
           path="explore"
@@ -225,18 +240,43 @@ function Main({ userCredentials }) {
         />
         <Route
           path="bookmarks"
-          element={isUserSetup ? <Bookmarks changeActiveTab={changeActiveTab} /> : null}
+          element={
+            isUserSetup ? (
+              <Bookmarks
+                changeActiveTab={changeActiveTab}
+                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+              />
+            ) : null
+          }
         />
         <Route
           path="myprofile"
-          element={isUserSetup ? <MyProfile changeActiveTab={changeActiveTab} /> : null}
+          element={
+            isUserSetup ? (
+              <MyProfile
+                changeActiveTab={changeActiveTab}
+                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+              />
+            ) : null
+          }
         />
-        <Route path="userprofile/:id" element={isUserSetup ? <UserProfile /> : null} />
+        <Route
+          path="userprofile/:id"
+          element={
+            isUserSetup ? (
+              <UserProfile handleSetIsReplyModalActive={handleSetIsReplyModalActive} />
+            ) : null
+          }
+        />
         <Route
           path="search"
           element={
             isUserSetup ? (
-              <Search searchQuery={searchQuery} changeActiveTab={changeActiveTab} />
+              <Search
+                searchQuery={searchQuery}
+                changeActiveTab={changeActiveTab}
+                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+              />
             ) : null
           }
         />
@@ -244,20 +284,35 @@ function Main({ userCredentials }) {
           path="trends"
           element={
             isUserSetup ? (
-              <Trends searchQuery={searchQuery} changeActiveTab={changeActiveTab} />
+              <Trends
+                searchQuery={searchQuery}
+                changeActiveTab={changeActiveTab}
+                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+              />
             ) : null
           }
         />
         <Route
           path="mentions"
-          element={isUserSetup ? <Mentions changeActiveTab={changeActiveTab} /> : null}
+          element={
+            isUserSetup ? (
+              <Mentions
+                changeActiveTab={changeActiveTab}
+                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+              />
+            ) : null
+          }
         />
 
         <Route
           path="postDetails"
           element={
             isUserSetup ? (
-              <PostDetails changeActiveTab={changeActiveTab} handlePostInfo={handlePostInfo} />
+              <PostDetails
+                changeActiveTab={changeActiveTab}
+                handlePostInfo={handlePostInfo}
+                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+              />
             ) : null
           }
         />
@@ -274,7 +329,7 @@ function Main({ userCredentials }) {
           toggleContextbar={toggleContextbar}
         />
       )}
-      {isUserSetup && (
+      {isUserSetup && !showSearchModal && !showNewPostModal && !isReplyModalActive && (
         <FloatingMenu
           toggleNewPostModal={toggleNewPostModal}
           toggleSearchModal={toggleSearchModal}

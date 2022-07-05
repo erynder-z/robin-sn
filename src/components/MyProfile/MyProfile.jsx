@@ -8,7 +8,7 @@ import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 
-function MyProfile({ changeActiveTab }) {
+function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
   const { userData } = GetUserContext();
   const {
     userPic,
@@ -94,6 +94,7 @@ function MyProfile({ changeActiveTab }) {
           postID={post.postID}
           userID={userData.userID}
           userPic={userData.userPic}
+          handleSetIsReplyModalActive={handleSetIsReplyModalActive}
         />
       ))}
     </div>
@@ -114,6 +115,7 @@ function MyProfile({ changeActiveTab }) {
           postID={post.postID}
           userID={userData.userID}
           userPic={userData.userPic}
+          handleSetIsReplyModalActive={handleSetIsReplyModalActive}
         />
       ))}
     </div>
@@ -134,6 +136,7 @@ function MyProfile({ changeActiveTab }) {
           postID={post.postID}
           userID={userData.userID}
           userPic={userData.userPic}
+          handleSetIsReplyModalActive={handleSetIsReplyModalActive}
         />
       ))}
     </div>
@@ -154,6 +157,7 @@ function MyProfile({ changeActiveTab }) {
           postID={post.postID}
           userID={userData.userID}
           userPic={userData.userPic}
+          handleSetIsReplyModalActive={handleSetIsReplyModalActive}
         />
       ))}
     </div>
@@ -240,5 +244,6 @@ function MyProfile({ changeActiveTab }) {
 export default MyProfile;
 
 MyProfile.propTypes = {
-  changeActiveTab: PropTypes.func.isRequired
+  changeActiveTab: PropTypes.func.isRequired,
+  handleSetIsReplyModalActive: PropTypes.func.isRequired
 };
