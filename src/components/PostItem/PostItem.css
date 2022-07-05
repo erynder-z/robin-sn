@@ -3,8 +3,6 @@
   color: var(--text-bright);
   padding: 1rem;
   display: flex;
-  height: auto;
-  max-width: 100%;
   border-bottom: solid 2px var(--border);
   cursor: pointer;
 }
@@ -40,6 +38,7 @@
 
 .post-userDetails-separator {
   padding: 0 0.5rem;
+  color: var(--text-grey);
 }
 
 .post-date {
@@ -78,6 +77,10 @@
   width: 50px;
 }
 
+.post-image {
+  padding-right: 1rem;
+}
+
 .hashtag {
   color: var(--hashtag);
 }
@@ -92,7 +95,7 @@
   }
 
   .post-details-container > .post-container {
-    padding-left: 1rem;
+    padding: 1rem 0.5rem;
   }
 
   .post-userDetails {

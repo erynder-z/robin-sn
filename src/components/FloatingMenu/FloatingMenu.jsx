@@ -8,6 +8,7 @@ import 'react-tiny-fab/dist/styles.css';
 
 function FloatingMenu({ toggleNewPostModal, toggleSearchModal, toggleContextbar, showContextbar }) {
   const [toggleContextbarBtnStyle, setToggleContextbarBtnStyle] = useState();
+  const [fabStyle, setFabStyle] = useState();
 
   const mainButtonStyles = {
     color: 'var(--text-bright)',
@@ -41,16 +42,24 @@ function FloatingMenu({ toggleNewPostModal, toggleSearchModal, toggleContextbar,
         padding: '10px',
         fontWeight: 'bold'
       });
+      setFabStyle({
+        bottom: 40,
+        right: 1
+      });
     } else {
       setToggleContextbarBtnStyle({
         display: 'none'
+      });
+      setFabStyle({
+        bottom: 1,
+        right: 1
       });
     }
   }, []);
 
   return (
     <div className="floating-menu-container">
-      <Fab mainButtonStyles={mainButtonStyles} icon={<BiPlus size="2rem" />}>
+      <Fab style={fabStyle} mainButtonStyles={mainButtonStyles} icon={<BiPlus size="2rem" />}>
         <Action
           style={newPostActionBtn}
           text="New post"

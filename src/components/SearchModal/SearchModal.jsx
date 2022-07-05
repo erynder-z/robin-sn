@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { BiSend, BiSearch } from 'react-icons/bi';
+import { BiSearch } from 'react-icons/bi';
 import './SearchModal.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,20 +17,6 @@ function SearchModal({ handleSearchQuery, toggleSearchModal }) {
   return (
     <div className={`searchModal-overlay ${fadeModal ? 'fadeout' : 'fadein'}`}>
       <div
-        className="search-closeBtn"
-        role="button"
-        tabIndex={0}
-        onClick={() => {
-          setFadeModal(true);
-          setTimeout(() => toggleSearchModal(), 100);
-        }}
-        onKeyDown={() => {
-          setFadeModal(true);
-          setTimeout(() => toggleSearchModal(), 100);
-        }}>
-        &times;
-      </div>
-      <div
         role="textbox"
         tabIndex={0}
         className="searchModal-body"
@@ -40,9 +26,20 @@ function SearchModal({ handleSearchQuery, toggleSearchModal }) {
         onKeyDown={(e) => {
           e.stopPropagation();
         }}>
-        <div className="searchModal-upper">
-          <div className="search-header">
-            <BiSearch />
+        <div className="searchModal-left">
+          <div
+            className="search-closeBtn"
+            role="button"
+            tabIndex={0}
+            onClick={() => {
+              setFadeModal(true);
+              setTimeout(() => toggleSearchModal(), 100);
+            }}
+            onKeyDown={() => {
+              setFadeModal(true);
+              setTimeout(() => toggleSearchModal(), 100);
+            }}>
+            &times;
           </div>
         </div>
         <div className="input-wrapper">
@@ -68,7 +65,7 @@ function SearchModal({ handleSearchQuery, toggleSearchModal }) {
               search();
             }}>
             {' '}
-            <BiSend />
+            <BiSearch size="1.5rem" />
           </button>
         </div>
       </div>

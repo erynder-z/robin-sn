@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { BiTrash } from 'react-icons/bi';
-import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
+import { BsFillBookmarkDashFill, BsBookmarkPlus } from 'react-icons/bs';
 import './PostDetailsOwn.css';
 
 function PostDetailsOwn({ deletePost, postInfo, bookmarkPost, isPostBookmarked }) {
@@ -16,7 +16,7 @@ function PostDetailsOwn({ deletePost, postInfo, bookmarkPost, isPostBookmarked }
       <div className="myPost">My post</div>
       <div className="deletePost">
         {' '}
-        <BiTrash
+        <div
           className="post-delete"
           size="2rem"
           role="button"
@@ -26,15 +26,16 @@ function PostDetailsOwn({ deletePost, postInfo, bookmarkPost, isPostBookmarked }
           }}
           onKeyDown={() => {
             deletePost(postInfo.post);
-          }}
-        />
+          }}>
+          <BiTrash size="2rem" className="post-delete-icon" />
+          Remove Post
+        </div>
       </div>
 
       <div className="bookmarkPost">
         {bookmarkCheck && (
-          <FaBookmark
+          <div
             className="post-bookmark"
-            size="2rem"
             role="button"
             tabIndex={0}
             onClick={() => {
@@ -44,13 +45,13 @@ function PostDetailsOwn({ deletePost, postInfo, bookmarkPost, isPostBookmarked }
             onKeyDown={() => {
               bookmarkPost();
               setBookmarkCheck(!bookmarkCheck);
-            }}
-          />
+            }}>
+            <BsFillBookmarkDashFill size="2rem" className="post-bookmark-icon" /> Remove bookmark
+          </div>
         )}
         {!bookmarkCheck && (
-          <FaRegBookmark
+          <div
             className="post-bookmark"
-            size="2rem"
             role="button"
             tabIndex={0}
             onClick={() => {
@@ -60,8 +61,10 @@ function PostDetailsOwn({ deletePost, postInfo, bookmarkPost, isPostBookmarked }
             onKeyDown={() => {
               bookmarkPost();
               setBookmarkCheck(!bookmarkCheck);
-            }}
-          />
+            }}>
+            <BsBookmarkPlus size="2rem" className="post-bookmark-icon" />
+            Bookmark post
+          </div>
         )}
       </div>
     </div>

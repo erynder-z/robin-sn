@@ -22,7 +22,7 @@
 
 .post-header {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   height: 5%;
   padding: 0 1rem;
@@ -30,7 +30,17 @@
   font-weight: bolder;
 }
 
+.backPost {
+  display: flex;
+}
+
 .post-details-container > .post-container > .post-right-wrapper > .post-content {
   font-size: 1.3rem;
   font-weight: 500;
+}
+
+@media only screen and (max-width: 768px) {
+  .post-details-container {
+    margin-bottom: 7vh;
+  }
 }

@@ -147,24 +147,24 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect }) {
         onKeyDown={(e) => {
           e.stopPropagation();
         }}>
-        <div
-          className="newPost-closeBtn"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            setFadeModal(true);
-            setTimeout(() => toggleNewPostModal(), 100);
-          }}
-          onKeyDown={() => {
-            setFadeModal(true);
-            setTimeout(() => toggleNewPostModal(), 100);
-          }}>
-          &times;
-        </div>
         <div className="newPostModal-upper">
           <div className="user-header">
             <img className="post-usrpic" src={userPic} alt="user avatar" />
             <div className="post-author">@{username} </div>
+          </div>
+          <div
+            className="newPost-closeBtn"
+            role="button"
+            tabIndex={0}
+            onClick={() => {
+              setFadeModal(true);
+              setTimeout(() => toggleNewPostModal(), 100);
+            }}
+            onKeyDown={() => {
+              setFadeModal(true);
+              setTimeout(() => toggleNewPostModal(), 100);
+            }}>
+            &times;
           </div>
         </div>
         <textarea

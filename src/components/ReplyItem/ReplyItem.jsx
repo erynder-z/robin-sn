@@ -43,8 +43,9 @@ function ReplyItem({ reply }) {
         </div>
         <div className="reply-right-wrapper">
           <div className="reply-header">
-            <div className="reply-author">@{replyUser.username} - </div>
-            <div className="reply-date">{replyUser.replyDate}</div>
+            <div className="reply-author">@{replyUser.username} </div>
+            <div className="reply-userDetails-separator">∙</div>
+            <div className="reply-date"> {replyUser.replyDate}</div>
           </div>
           <div className="post-content">{parseText(reply.replyContent)}</div>
         </div>

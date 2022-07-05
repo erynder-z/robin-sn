@@ -17,6 +17,7 @@
 .mentions-container {
   background-color: var(--card-background);
   color: var(--text-bright);
+  height: 100vh;
   max-height: 100vh;
   overflow-x: auto;
   scrollbar-width: thin;
@@ -31,7 +32,7 @@
 .bookmarks-header,
 .mentions-header {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   height: 5%;
   font-size: 1.2rem;
@@ -89,24 +90,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  left: 33vw;
-  top: 1.6rem;
+  position: relative;
+  right: 12.5vw;
   cursor: pointer;
 }
 
-.search-closeBtn,
 .reply-closeBtn,
-.newPost-closeBtn,
-.stats-closeBtn {
+.newPost-closeBtn {
   cursor: pointer;
   font-size: 3rem;
-  position: absolute;
-  top: 5%;
-  left: 90%;
   color: var(--button);
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
+
   height: 3rem;
   width: 3rem;
   display: flex;
@@ -114,10 +108,9 @@
   align-items: center;
 }
 
-.search-closeBtn:hover,
 .reply-closeBtn:hover,
 .newPost-closeBtn:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+  color: var(--hashtag);
 }
 
 .replyBtn-modal,
@@ -229,6 +222,15 @@
     padding: 0 1rem;
   }
 
+  .home-content > .posts,
+  .explore-content > .trends,
+  .search-content > .results,
+  .trends-content > .results,
+  .bookmarks-content > .posts,
+  .mentions-content > .posts {
+    margin-bottom: 7vh;
+  }
+
   .search-closeBtn,
   .reply-closeBtn,
   .newPost-closeBtn,
@@ -241,7 +243,6 @@
   }
 
   .post-back {
-    left: 20%;
-    top: 1.3rem;
+    right: 45vw;
   }
 }

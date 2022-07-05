@@ -1,5 +1,5 @@
 .main-container {
-  height: 100vh;
+  height: 100%;
   justify-self: center;
   background-color: var(--content-background);
   color: var(--text-bright);
@@ -10,6 +10,6 @@
 @media only screen and (max-width: 768px) {
   .main-container {
     width: 100vw;
-    grid-template-columns: 15% 85%;
+    grid-template-columns: 100%;
   }
 }

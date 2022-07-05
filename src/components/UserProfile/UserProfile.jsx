@@ -227,7 +227,7 @@ function UserProfile({ handleSetIsReplyModalActive }) {
                 onKeyDown={() => {
                   setActiveView('postsAndReplies');
                 }}>
-                Posts & Replies
+                Replies
               </div>
               <div
                 className={`media ${activeView === 'media' ? 'active' : ''}`}

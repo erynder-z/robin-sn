@@ -54,7 +54,7 @@
 }
 
 .accountDeleteBtn {
-  height: 5vh;
+  height: 3rem;
   width: 95%;
   background-color: crimson;
   color: #f8f8f2;
@@ -68,7 +68,7 @@
 }
 
 .accountNoDeleteBtn {
-  height: 5vh;
+  height: 3rem;
   width: 95%;
   background-color: #ff79c6;
   color: #f8f8f2;
@@ -80,6 +80,20 @@
 
 .accountNoDeleteBtn:hover {
   background-color: #f78eca;
+}
+
+.stats-closeBtn {
+  height: 3rem;
+  width: 95%;
+  background-color: #ff79c6;
+  color: #f8f8f2;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media only screen and (max-width: 768px) {

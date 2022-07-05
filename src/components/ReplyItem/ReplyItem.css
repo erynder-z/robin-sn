@@ -10,6 +10,7 @@
 
 .reply-left-wrapper {
   width: 15%;
+  display: flex;
 }
 
 .reply-right-wrapper {
@@ -28,6 +29,15 @@
   font-weight: bold;
 }
 
+.reply-userDetails-separator {
+  color: var(--text-grey);
+  padding: 0 0.5rem;
+}
+
+.reply-date {
+  color: var(--text-grey);
+}
+
 .reply-content {
   text-align: justify;
   padding: 1rem;
@@ -41,4 +51,17 @@
   min-width: 50px;
   height: 50px;
   width: 50px;
+}
+
+@media only screen and (max-width: 768px) {
+  .reply-body {
+    padding: 1rem 0.5rem;
+  }
+
+  .reply-usrpic {
+    min-height: 40px;
+    min-width: 40px;
+    height: 40px;
+    width: 40px;
+  }
 }

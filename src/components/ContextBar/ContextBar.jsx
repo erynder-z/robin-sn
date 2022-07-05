@@ -54,7 +54,7 @@ function ContextBar({
     <div className={`contextbar ${showContextbar ? 'active' : 'inactive'}`}>
       <div className="contextbar-toggle">
         <TbLayoutSidebarRightCollapse
-          size="1.5rem"
+          size="2rem"
           onClick={() => {
             toggleContextbar();
           }}

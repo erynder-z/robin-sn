@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
+import { BsBookmarkPlus, BsFillBookmarkDashFill } from 'react-icons/bs';
 import './PostDetailsOther.css';
 
 function PostDetailsOther({ bookmarkPost, isPostBookmarked }) {
@@ -15,9 +15,8 @@ function PostDetailsOther({ bookmarkPost, isPostBookmarked }) {
       <div className="otherPost">Post options</div>
       <div className="bookmarkPost">
         {bookmarkCheck && (
-          <FaBookmark
+          <div
             className="post-bookmark"
-            size="2rem"
             role="button"
             tabIndex={0}
             onClick={() => {
@@ -27,13 +26,14 @@ function PostDetailsOther({ bookmarkPost, isPostBookmarked }) {
             onKeyDown={() => {
               bookmarkPost();
               setBookmarkCheck(!bookmarkCheck);
-            }}
-          />
+            }}>
+            <BsFillBookmarkDashFill size="2rem" className="post-bookmark-icon" /> Remove bookmark
+          </div>
         )}
+
         {!bookmarkCheck && (
-          <FaRegBookmark
+          <div
             className="post-bookmark"
-            size="2rem"
             role="button"
             tabIndex={0}
             onClick={() => {
@@ -43,8 +43,10 @@ function PostDetailsOther({ bookmarkPost, isPostBookmarked }) {
             onKeyDown={() => {
               bookmarkPost();
               setBookmarkCheck(!bookmarkCheck);
-            }}
-          />
+            }}>
+            <BsBookmarkPlus size="2rem" className="post-bookmark-icon" />
+            Bookmark post
+          </div>
         )}
       </div>
     </div>

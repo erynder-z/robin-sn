@@ -47,7 +47,8 @@
 .replyModal-upper {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
+  align-items: center;
+  padding: 0 0 0 0.5rem;
 }
 
 .reply-userpic {
@@ -117,8 +118,15 @@
   resize: none;
   outline: none;
   border: none;
+  height: 2.5rem;
   background-color: var(--card-background);
   color: var(--text-bright);
+  transition: all 200ms linear;
+}
+
+.reply-append-textarea:focus {
+  height: 7rem;
+  transition: all 200ms linear;
 }
 
 .replyAppend-post,

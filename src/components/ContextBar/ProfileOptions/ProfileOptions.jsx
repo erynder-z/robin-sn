@@ -35,25 +35,25 @@ function ProfileOptions({ deleteAccount }) {
 
   const StatsModal = (
     <div className="statsModal-overlay">
-      <div
-        className="stats-closeBtn"
-        role="button"
-        tabIndex={0}
-        onClick={() => {
-          setFadeModal(true);
-          setTimeout(() => setShowStatsModal(false), 100);
-        }}
-        onKeyDown={() => {
-          setFadeModal(true);
-          setTimeout(() => setShowStatsModal(false), 100);
-        }}>
-        &times;
-      </div>
       <div className="statsModal">
         <h4>Total posts: {userData.posts.length}</h4>
         <h4>Total replies: {userData.replies.length}</h4>
         <h4>Total reposts: {userData.reposts.length}</h4>
         <h4>Total likes: {userData.likes.length}</h4>
+        <div
+          className="stats-closeBtn"
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            setFadeModal(true);
+            setTimeout(() => setShowStatsModal(false), 100);
+          }}
+          onKeyDown={() => {
+            setFadeModal(true);
+            setTimeout(() => setShowStatsModal(false), 100);
+          }}>
+          Close stats
+        </div>
       </div>
     </div>
   );

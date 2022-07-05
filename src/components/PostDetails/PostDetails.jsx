@@ -46,6 +46,8 @@ function PostDetails({ changeActiveTab, handlePostInfo, handleSetIsReplyModalAct
   return (
     <div className="post-details-container fadein">
       <div className="post-header">
+        {' '}
+        Post
         <div className="backPost">
           <BiArrowBack
             className="post-back"
@@ -60,7 +62,6 @@ function PostDetails({ changeActiveTab, handlePostInfo, handleSetIsReplyModalAct
             }}
           />
         </div>
-        <span>Post</span>
       </div>
       <PostItem
         key={location.state.postID}

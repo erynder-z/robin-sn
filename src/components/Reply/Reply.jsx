@@ -67,22 +67,6 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
   const ReplyModal = (
     <div className={`replyModal-overlay ${fadeModal ? 'fadeout' : 'fadein'}`}>
       <div
-        className="reply-closeBtn"
-        role="button"
-        tabIndex={0}
-        onClick={(e) => {
-          setFadeModal(true);
-          setTimeout(() => toggleReplyModal(), 100);
-          e.stopPropagation();
-        }}
-        onKeyDown={(e) => {
-          setFadeModal(true);
-          setTimeout(() => toggleReplyModal(), 100);
-          e.stopPropagation();
-        }}>
-        &times;
-      </div>
-      <div
         role="textbox"
         tabIndex={0}
         className="replyModal-body"
@@ -106,7 +90,23 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
           </div>
           <div className="replyModal-right">
             <div className="replyModal-upper">
-              <div className="replyTo"> Replying to @{replyUserName.username}</div>
+              <div className="replyTo"> Replying to @{replyUserName.username}</div>{' '}
+              <div
+                className="reply-closeBtn"
+                role="button"
+                tabIndex={0}
+                onClick={(e) => {
+                  setFadeModal(true);
+                  setTimeout(() => toggleReplyModal(), 100);
+                  e.stopPropagation();
+                }}
+                onKeyDown={(e) => {
+                  setFadeModal(true);
+                  setTimeout(() => toggleReplyModal(), 100);
+                  e.stopPropagation();
+                }}>
+                &times;
+              </div>
             </div>
             <textarea
               className="reply-modal-textarea"
@@ -165,8 +165,6 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
         <img className="reply-userpic-append" src={userData.userPic} alt="user avatar" />
         <textarea
           className="reply-append-textarea"
-          cols="30"
-          rows="5"
           placeholder="write your reply"
           value={text}
           onChange={(e) => {

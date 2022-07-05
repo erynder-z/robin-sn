@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './UserInfo.css';
-import { BiLogOut } from 'react-icons/bi';
+import { TbLogout } from 'react-icons/tb';
 import { GetUserContext } from '../../contexts/UserContext';
 
 function UserInfo({ logout }) {
@@ -20,7 +20,7 @@ function UserInfo({ logout }) {
             onKeyDown={() => {
               logout();
             }}>
-            <BiLogOut size="2rem" />
+            <TbLogout size="2rem" />
           </button>{' '}
           <span> @{userData.username}</span>
         </div>

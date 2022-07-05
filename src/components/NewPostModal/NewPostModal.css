@@ -13,9 +13,6 @@
   align-items: center;
   z-index: 5;
 }
-/* .emoji-picker-overlay {
-  background-color: black;
-} */
 
 .newPostModal-upper {
   display: flex;
@@ -40,8 +37,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-  height: 35vh;
-  width: 40vh;
+  height: 20rem;
+  width: 25rem;
   padding: 0 1rem;
   border-radius: 10px;
 }
@@ -53,7 +50,6 @@
   outline: none;
   border: none;
   background-color: var(--card-background);
-  /*   background-color: rgba(255, 255, 255, 0.1); */
   color: var(--text-bright);
   height: 100%;
 }
@@ -131,7 +127,7 @@ aside.emoji-picker-react {
 
 @media only screen and (max-width: 768px) {
   .newPostModal-body {
-    width: 80vw;
-    height: 45vh;
+    width: 85vw;
+    height: 20rem;
   }
 }
