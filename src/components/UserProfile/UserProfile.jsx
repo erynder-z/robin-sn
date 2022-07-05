@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
-import { BiMeh } from 'react-icons/bi';
+import { BiMeh, BiArrowBack } from 'react-icons/bi';
 import './UserProfile.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 
 function UserProfile({ handleSetIsReplyModalActive }) {
+  const navigate = useNavigate();
   const { userData } = GetUserContext();
   const location = useLocation();
   // from PostItem component
@@ -194,7 +195,24 @@ function UserProfile({ handleSetIsReplyModalActive }) {
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat'
             }}>
-            <div className="profile-header">{user.username}&apos;s Profile</div>
+            <div className="profile-header">
+              {' '}
+              <div className="backPost">
+                <BiArrowBack
+                  className="post-back"
+                  size="1.5rem"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => {
+                    navigate(-1);
+                  }}
+                  onKeyDown={() => {
+                    navigate(-1);
+                  }}
+                />
+              </div>
+              {user.username}&apos;s Profile
+            </div>
             <div className="profile-card">
               <div className="card-wrapper">
                 <img className="profile-usrpic" src={user.userPic} alt="user avatar" />
