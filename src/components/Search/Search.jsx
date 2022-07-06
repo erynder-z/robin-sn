@@ -8,7 +8,7 @@ import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
 import { GetUserContext } from '../../contexts/UserContext';
 
-function Search({ searchQuery, changeActiveTab }) {
+function Search({ searchQuery, changeActiveTab, handleSetIsReplyModalActive }) {
   const { userData } = GetUserContext();
   const navigate = useNavigate();
   const [userResults, setUserResults] = useState([]);
@@ -129,6 +129,7 @@ function Search({ searchQuery, changeActiveTab }) {
                     postID={p.postID}
                     userID={userData.userID}
                     userPic={userData.userPic}
+                    handleSetIsReplyModalActive={handleSetIsReplyModalActive}
                   />
                 ))}
               </div>
@@ -144,5 +145,6 @@ export default Search;
 
 Search.propTypes = {
   searchQuery: PropTypes.string.isRequired,
-  changeActiveTab: PropTypes.func.isRequired
+  changeActiveTab: PropTypes.func.isRequired,
+  handleSetIsReplyModalActive: PropTypes.func.isRequired
 };
