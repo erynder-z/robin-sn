@@ -11,7 +11,6 @@ function FollowUserList() {
   const [userList, setUserList] = useState([]);
 
   // get all list of all users in the datababse
-  // TODO: limit number of users
   const getUserList = async () => {
     const querySnapshot = await getDocs(collection(database, 'users'));
 
@@ -34,7 +33,20 @@ function FollowUserList() {
           following: checkIfAlreadyFollowing(userData, document.data().userID)
         });
       }
-      setUserList(list);
+
+      // return only 25 random users
+      const createLimitedUserlist = (userlist) => {
+        if (userlist.length > 25) {
+          while (userlist.length > 25) {
+            const random = Math.floor(Math.random() * userlist.length);
+            // eslint-disable-next-line no-unused-expressions
+            userlist.splice(random, 1)[0];
+          }
+        }
+        return userlist;
+      };
+
+      setUserList(createLimitedUserlist(list));
     });
   };
 
