@@ -8,6 +8,7 @@ import { collection, doc, getDoc, getDocs, limit, orderBy, query, where } from '
 import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
 import { GetUserContext } from '../../contexts/UserContext';
+import limitNumberOfPosts from '../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
 
 function UserProfile({ handleSetIsReplyModalActive }) {
   const navigate = useNavigate();
@@ -24,13 +25,6 @@ function UserProfile({ handleSetIsReplyModalActive }) {
     try {
       const userRef = doc(database, 'users', usr);
       const docSnap = await getDoc(userRef);
-
-      const limitNumberOfPosts = (postsArray) => {
-        while (postsArray.length > 25) {
-          postsArray.shift();
-        }
-        return postsArray;
-      };
 
       setUser({
         userPic: docSnap.data().userPic,

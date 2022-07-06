@@ -6,6 +6,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
 import { GetUserContext } from '../../contexts/UserContext';
+import limitNumberOfPosts from '../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
 
 function Home({ changeActiveTab, handleSetIsReplyModalActive }) {
   const { userData } = GetUserContext();
@@ -24,13 +25,6 @@ function Home({ changeActiveTab, handleSetIsReplyModalActive }) {
     const docSnap = await getDoc(docRef);
 
     // return only the 25 most recent posts
-    const limitNumberOfPosts = (postsArray) => {
-      while (postsArray.length > 25) {
-        postsArray.shift();
-      }
-      return postsArray;
-    };
-
     return limitNumberOfPosts(docSnap.data().posts);
     /*   return docSnap.data().posts; */
   };

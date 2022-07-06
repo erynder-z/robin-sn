@@ -4,13 +4,13 @@ import { doc } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useNavigate } from 'react-router-dom';
-
 import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
 import Reply from '../Reply/Reply';
 import ReplyItem from '../ReplyItem/ReplyItem';
 import './PostDetails.css';
 import { GetUserContext } from '../../contexts/UserContext';
+import limitNumberOfPosts from '../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
 
 function PostDetails({ changeActiveTab, handlePostInfo, handleSetIsReplyModalActive }) {
   const { userData } = GetUserContext();
@@ -23,13 +23,6 @@ function PostDetails({ changeActiveTab, handlePostInfo, handleSetIsReplyModalAct
 
   // dummy function to prevent passing null.parameter to Reply component
   const dummyModal = () => {};
-
-  const limitNumberOfPosts = (postsArray) => {
-    while (postsArray.length > 25) {
-      postsArray.shift();
-    }
-    return postsArray;
-  };
 
   useEffect(() => {
     // get a limted number of  replies of a post
