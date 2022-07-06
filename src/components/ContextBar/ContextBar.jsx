@@ -60,13 +60,13 @@ function ContextBar({
           }}
         />
       </div>
-      {activeTab === 'home' && <FollowUserList />}
-      {activeTab === 'explore' && <FollowUserList />}
-      {activeTab === 'bookmarks' && <FollowUserList />}
+      {(activeTab === 'home' && <FollowUserList />) ||
+        (activeTab === 'explore' && <FollowUserList />) ||
+        (activeTab === 'bookmarks' && <FollowUserList />) ||
+        (activeTab === 'search' && <FollowUserList />) ||
+        (activeTab === 'trends' && <FollowUserList />) ||
+        (activeTab === 'mentions' && <FollowUserList />)}
       {activeTab === 'myprofile' && <ProfileOptions deleteAccount={deleteAccount} />}
-      {activeTab === 'search' && <FollowUserList />}
-      {activeTab === 'trends' && <FollowUserList />}
-      {activeTab === 'mentions' && <FollowUserList />}
       {activeTab === 'postdetailsown' && (
         <PostDetailsOwn
           deletePost={deletePost}
