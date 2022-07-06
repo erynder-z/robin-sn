@@ -22,7 +22,17 @@ function Home({ changeActiveTab, handleSetIsReplyModalActive }) {
   const getUserPosts = async (ownerID) => {
     const docRef = doc(database, 'users', ownerID);
     const docSnap = await getDoc(docRef);
-    return docSnap.data().posts;
+
+    // return only the 25 most recent posts
+    const limitNumberOfPosts = (postsArray) => {
+      while (postsArray.length > 25) {
+        postsArray.shift();
+      }
+      return postsArray;
+    };
+
+    return limitNumberOfPosts(docSnap.data().posts);
+    /*   return docSnap.data().posts; */
   };
 
   // create a array with all postIDs sorted by creation date
