@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BiMeh } from 'react-icons/bi';
 import './Mentions.css';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import PostItem from '../PostItem/PostItem';
 import { GetUserContext } from '../../contexts/UserContext';
 import { database } from '../Firebase/Firebase';
@@ -23,7 +23,12 @@ function Mentions({ changeActiveTab, handleSetIsReplyModalActive }) {
   const getMentions = async () => {
     const postsWithMentions = [];
     const mentionsRef = collection(database, 'posts');
-    const q = query(mentionsRef, where('mentions', 'array-contains', userData.username));
+    const q = query(
+      mentionsRef,
+      where('mentions', 'array-contains', userData.username),
+      orderBy('created', 'desc'),
+      limit(25)
+    );
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
