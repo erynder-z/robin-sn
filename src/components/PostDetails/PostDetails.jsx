@@ -24,10 +24,17 @@ function PostDetails({ changeActiveTab, handlePostInfo, handleSetIsReplyModalAct
   // dummy function to prevent passing null.parameter to Reply component
   const dummyModal = () => {};
 
+  const limitNumberOfPosts = (postsArray) => {
+    while (postsArray.length > 25) {
+      postsArray.shift();
+    }
+    return postsArray;
+  };
+
   useEffect(() => {
-    // get all replies of a post
+    // get a limted number of  replies of a post
     if (post) {
-      setReplies(post.replies);
+      setReplies(limitNumberOfPosts(post.replies));
     }
   }, [post]);
 
@@ -46,8 +53,6 @@ function PostDetails({ changeActiveTab, handlePostInfo, handleSetIsReplyModalAct
   return (
     <div className="post-details-container fadein">
       <div className="post-header">
-        {' '}
-        Post
         <div className="backPost">
           <BiArrowBack
             className="post-back"
@@ -62,6 +67,7 @@ function PostDetails({ changeActiveTab, handlePostInfo, handleSetIsReplyModalAct
             }}
           />
         </div>
+        Post
       </div>
       <PostItem
         key={location.state.postID}
