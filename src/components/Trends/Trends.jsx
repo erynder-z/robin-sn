@@ -22,7 +22,7 @@ function Trends({ searchQuery, changeActiveTab, handleSetIsReplyModalActive }) {
         postsRef,
         where('hashtags', 'array-contains', s.toLowerCase()),
         orderBy('created', 'desc'),
-        limit(25)
+        limit(20)
       );
 
       const querySnapshot = await getDocs(q);
