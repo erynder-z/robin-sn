@@ -61,6 +61,12 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .userlist-item,
+  .userlist-header {
+    padding: 1rem 1.5rem;
+    background-color: var(--sidebar-background-mobile);
+  }
+
   .userlist-follow,
   .userlist-unfollow {
     width: 33vw;

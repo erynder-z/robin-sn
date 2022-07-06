@@ -52,30 +52,6 @@
 
 @media only screen and (max-width: 768px) {
   .usr-container {
-    margin: 0;
-  }
-
-  .usr-container .head {
-    padding: 0;
-  }
-
-  .usrpic {
     display: none;
-  }
-
-  .usrname {
-    padding: 0;
-  }
-
-  .usrname > span {
-    display: none;
-  }
-  .logoutBtn {
-    background-color: var(--sidebar-background-mobile);
-  }
-
-  .logoutBtn > svg {
-    height: 2rem;
-    width: 2rem;
   }
 }

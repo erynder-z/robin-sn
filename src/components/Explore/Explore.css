@@ -8,9 +8,11 @@
   cursor: pointer;
   color: var(--hashtag);
   width: 100%;
+  padding-top: 0.5rem;
+  line-height: normal;
+  max-height: 10%;
   display: flex;
   flex-direction: column;
-  padding-top: 0.5rem;
 }
 
 .trend-item > span {

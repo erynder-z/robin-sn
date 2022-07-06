@@ -4,6 +4,7 @@
   --sidebar-background: #282a36;
   --sidebar-background-mobile: #44475a;
   --contextbar-background: #282a36;
+  --contextbar-background-transparent: rgba(40, 42, 54, 0.8);
   --content-background: #282a36;
   --card-background: #282a36;
   --card-hover: rgba(255, 121, 197, 0.1);

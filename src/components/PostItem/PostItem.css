@@ -47,6 +47,7 @@
 
 .post-content {
   padding: 1rem;
+  line-height: 1.5rem;
   height: auto;
   word-wrap: break-word;
   white-space: pre-wrap;
@@ -90,10 +91,6 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .post-container {
-    padding: 1rem 0;
-  }
-
   .post-details-container > .post-container {
     padding: 1rem 0.5rem;
   }

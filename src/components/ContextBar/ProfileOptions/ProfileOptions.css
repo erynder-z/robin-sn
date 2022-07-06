@@ -1,5 +1,5 @@
 .profileOptions-container {
-  background-color: rgba(245, 245, 245, 0.1);
+  background-color: var(--sidebar-background-mobile);
   color: var(--text-bright);
   padding: 0.5rem;
   display: flex;
@@ -100,9 +100,26 @@
   align-items: center;
 }
 
+.logoutContextbar {
+  display: none;
+}
+
 @media only screen and (max-width: 768px) {
   .accountDeleteBtn,
   .accountNoDeleteBtn {
     font-size: 1rem;
+  }
+
+  .logoutContextbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5rem;
+    width: 100%;
+  }
+
+  .logoutContextbar-icon {
+    padding-right: 0.5rem;
   }
 }

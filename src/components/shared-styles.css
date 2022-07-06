@@ -34,7 +34,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
+  height: 2rem;
   font-size: 1.2rem;
   font-weight: bolder;
   background-color: var(--header-background);
@@ -92,7 +92,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  right: 12.5vw;
+  right: 2rem;
   cursor: pointer;
 }
 
@@ -220,7 +220,6 @@
   .bookmarks-content > .posts,
   .mentions-content > .posts {
     margin-bottom: 7vh;
-    padding: 0 1rem;
   }
 
   .search-closeBtn,
@@ -234,7 +233,8 @@
     left: 30%;
   }
 
-  .post-back {
-    right: 45vw;
+  .empty {
+    padding: 0 1rem;
+    text-align: center;
   }
 }

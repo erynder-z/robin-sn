@@ -26,14 +26,14 @@ function Explore({ handleSearchQuery, changeActiveTab }) {
     <div className="explore-container fadein">
       <div className="explore-header">Trending hashtags</div>
       <div className="explore-content">
-        {trends && trends.length <= 0 && (
-          <div className="empty">
-            <BiMeh size="3rem" />
-            <h4> empty...</h4>
-            <h5> trends will show up here</h5>
-          </div>
-        )}
         <div className="trends">
+          {trends && trends.length <= 0 && (
+            <div className="empty">
+              <BiMeh size="3rem" />
+              <h4> empty...</h4>
+              <h5> trends will show up here</h5>
+            </div>
+          )}
           {trends &&
             trends.map((trend) => (
               <div
@@ -47,7 +47,7 @@ function Explore({ handleSearchQuery, changeActiveTab }) {
                 onKeyDown={() => {
                   handleClick(trend.hashtag);
                 }}>
-                {trends.indexOf(trend) < 10 && <span>{trends.indexOf(trend) + 1}</span>}
+                {trends.indexOf(trend) < 10 && <span>{trends.indexOf(trend) + 1} </span>}
                 {trends.indexOf(trend) === 10 && (
                   <div
                     className="other-trends"
