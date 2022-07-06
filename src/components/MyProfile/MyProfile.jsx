@@ -36,7 +36,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
 
   // get all of the users posts and posts the user has replied to
   const getPostsAndReplies = async () => {
-    const list = [...posts];
+    const list = [];
     const userReplies = [...replies];
 
     userReplies.forEach(async (reply) => {

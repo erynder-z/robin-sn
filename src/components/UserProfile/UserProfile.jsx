@@ -52,7 +52,7 @@ function UserProfile({ handleSetIsReplyModalActive }) {
 
   // get all of the users posts and posts the user has replied to
   const getPostsAndReplies = async () => {
-    const list = [...user.posts];
+    const list = [];
     const userReplies = [...user.replies];
 
     userReplies.forEach(async (reply) => {
