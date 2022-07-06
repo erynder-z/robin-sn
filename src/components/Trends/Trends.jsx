@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BiArrowBack } from 'react-icons/bi';
 import './Trends.css';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
@@ -18,7 +18,12 @@ function Trends({ searchQuery, changeActiveTab, handleSetIsReplyModalActive }) {
     const getPostResults = async (s) => {
       const foundPosts = [];
       const postsRef = collection(database, 'posts');
-      const q = query(postsRef, where('hashtags', 'array-contains', s.toLowerCase()));
+      const q = query(
+        postsRef,
+        where('hashtags', 'array-contains', s.toLowerCase()),
+        orderBy('created', 'desc'),
+        limit(25)
+      );
 
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
