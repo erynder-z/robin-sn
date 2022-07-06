@@ -17,7 +17,8 @@ function ContextBar({
   deletePost,
   isPostBookmarked,
   showContextbar,
-  toggleContextbar
+  toggleContextbar,
+  logout
 }) {
   const { userData } = GetUserContext();
   const { post } = postInfo;
@@ -66,7 +67,9 @@ function ContextBar({
         (activeTab === 'search' && <FollowUserList />) ||
         (activeTab === 'trends' && <FollowUserList />) ||
         (activeTab === 'mentions' && <FollowUserList />)}
-      {activeTab === 'myprofile' && <ProfileOptions deleteAccount={deleteAccount} />}
+      {activeTab === 'myprofile' && (
+        <ProfileOptions deleteAccount={deleteAccount} logout={logout} />
+      )}
       {activeTab === 'postdetailsown' && (
         <PostDetailsOwn
           deletePost={deletePost}
@@ -110,7 +113,8 @@ ContextBar.propTypes = {
   deletePost: PropTypes.func.isRequired,
   isPostBookmarked: PropTypes.bool.isRequired,
   showContextbar: PropTypes.bool.isRequired,
-  toggleContextbar: PropTypes.func.isRequired
+  toggleContextbar: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired
 };
 
 ContextBar.defaultProps = {

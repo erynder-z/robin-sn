@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { MdOutlineDangerous } from 'react-icons/md';
-import { BiImageAdd, BiBarChart, BiLandscape, BiWindowClose } from 'react-icons/bi';
+import { BiImageAdd, BiBarChart, BiLandscape, BiWindowClose, BiLogOut } from 'react-icons/bi';
 import './ProfileOptions.css';
 import { doc, updateDoc } from 'firebase/firestore';
 import resizeFile from '../../../helpers/ImageResizer/ImageResizer';
 import { database } from '../../Firebase/Firebase';
 import { GetUserContext } from '../../../contexts/UserContext';
 
-function ProfileOptions({ deleteAccount }) {
+function ProfileOptions({ deleteAccount, logout }) {
   const { userData } = GetUserContext();
   const [fadeModal, setFadeModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -190,6 +190,20 @@ function ProfileOptions({ deleteAccount }) {
         show account stats
       </div>
 
+      <div
+        className="logoutContextbar"
+        role="button"
+        tabIndex={0}
+        onClick={() => {
+          logout();
+        }}
+        onKeyDown={() => {
+          logout();
+        }}>
+        <BiLogOut className="logoutContextbar-icon" size="2rem" />
+        Logout
+      </div>
+
       {showDeleteModal && DeleteModal}
       {showStatsModal && StatsModal}
     </div>
@@ -199,5 +213,6 @@ function ProfileOptions({ deleteAccount }) {
 export default ProfileOptions;
 
 ProfileOptions.propTypes = {
-  deleteAccount: PropTypes.func.isRequired
+  deleteAccount: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired
 };

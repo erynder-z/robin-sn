@@ -4,7 +4,7 @@ import { deleteObject, ref } from 'firebase/storage';
 import { arrayRemove, deleteDoc, doc, getDoc, increment, updateDoc } from 'firebase/firestore';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { deleteUser } from 'firebase/auth';
+import { deleteUser, signOut } from 'firebase/auth';
 import { auth, database, storage } from '../Firebase/Firebase';
 import './Main.css';
 import SetupUserAccount from '../SetupUserAccount/SetupUserAccount';
@@ -38,6 +38,10 @@ function Main({ userCredentials }) {
   const [newPostEffect, setNewPostEffect] = useState(false);
   const [showContextbar, setShowContextbar] = useState(false);
   const [isReplyModalActive, setIsReplyModalActive] = useState(false);
+
+  const logout = async () => {
+    await signOut(auth);
+  };
 
   const handleSetIsReplyModalActive = () => {
     setIsReplyModalActive(!isReplyModalActive);
@@ -203,7 +207,7 @@ function Main({ userCredentials }) {
 
   return (
     <div className="main-container">
-      {isUserSetup && <Sidebar activeTab={activeTab} />}
+      {isUserSetup && <Sidebar activeTab={activeTab} logout={logout} />}
       <Routes>
         <Route
           path="/"
@@ -327,6 +331,7 @@ function Main({ userCredentials }) {
           isPostBookmarked={isPostBookmarked}
           showContextbar={showContextbar}
           toggleContextbar={toggleContextbar}
+          logout={logout}
         />
       )}
       {isUserSetup && !showSearchModal && !showNewPostModal && !isReplyModalActive && (

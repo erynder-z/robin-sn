@@ -2,17 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Sidebar.css';
 import { TbHome2, TbHash, TbSpeakerphone, TbBookmarks, TbUser } from 'react-icons/tb';
-import { signOut } from 'firebase/auth';
 import { Link } from 'react-router-dom';
-import { auth } from '../Firebase/Firebase';
 import UserInfo from '../UserInfo/UserInfo';
 import { GetUserContext } from '../../contexts/UserContext';
 
-function Sidebar({ activeTab }) {
+function Sidebar({ activeTab, logout }) {
   const { userData } = GetUserContext();
-  const logout = async () => {
-    await signOut(auth);
-  };
 
   return (
     <div className="sidebar">
@@ -56,5 +51,6 @@ function Sidebar({ activeTab }) {
 export default Sidebar;
 
 Sidebar.propTypes = {
-  activeTab: PropTypes.string.isRequired
+  activeTab: PropTypes.string.isRequired,
+  logout: PropTypes.func.isRequired
 };
