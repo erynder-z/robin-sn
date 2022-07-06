@@ -4,7 +4,7 @@ import { format, fromUnixTime } from 'date-fns';
 import { BiMeh, BiArrowBack } from 'react-icons/bi';
 import './UserProfile.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
 import { GetUserContext } from '../../contexts/UserContext';
@@ -25,6 +25,13 @@ function UserProfile({ handleSetIsReplyModalActive }) {
       const userRef = doc(database, 'users', usr);
       const docSnap = await getDoc(userRef);
 
+      const limitNumberOfPosts = (postsArray) => {
+        while (postsArray.length > 25) {
+          postsArray.shift();
+        }
+        return postsArray;
+      };
+
       setUser({
         userPic: docSnap.data().userPic,
         username: docSnap.data().username,
@@ -32,9 +39,9 @@ function UserProfile({ handleSetIsReplyModalActive }) {
         joined: docSnap.data().joined,
         following: docSnap.data().following,
         followers: docSnap.data().followers,
-        likes: docSnap.data().likes,
-        posts: docSnap.data().posts,
-        replies: docSnap.data().replies,
+        likes: limitNumberOfPosts(docSnap.data().likes),
+        posts: limitNumberOfPosts(docSnap.data().posts),
+        replies: limitNumberOfPosts(docSnap.data().replies),
         description: docSnap.data().description,
         userID: docSnap.data().userID
       });
@@ -72,7 +79,10 @@ function UserProfile({ handleSetIsReplyModalActive }) {
     const q = query(
       collection(database, 'posts'),
       where('ownerID', '==', user.userID),
-      where('image.imageRef', '!=', 'null')
+      where('image.imageRef', '!=', 'null'),
+      orderBy('image.imageRef', 'desc'),
+      orderBy('created', 'desc'),
+      limit(25)
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((d) => {
@@ -109,7 +119,7 @@ function UserProfile({ handleSetIsReplyModalActive }) {
         </div>
       )}
       {user &&
-        user.posts.map((post) => (
+        sortPosts(user.posts).map((post) => (
           <PostItem
             key={post.postID}
             postID={post.postID}
@@ -171,7 +181,7 @@ function UserProfile({ handleSetIsReplyModalActive }) {
         </div>
       )}
       {user &&
-        user.likes.map((post) => (
+        sortPosts(user.likes).map((post) => (
           <PostItem
             key={post.postID}
             postID={post.postID}
