@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
 import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
 import { BiMeh } from 'react-icons/bi';
@@ -23,9 +23,11 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
     likes
   } = userData;
   const [activeView, setActiveView] = useState('posts');
+  const [usrPosts, setUsrPosts] = useState([]);
   const joinedDateFormatted = format(fromUnixTime(joined.seconds), 'dd LLLL yyy');
   const [postsAndReplies, setPostsAndReplies] = useState([]);
   const [media, setMedia] = useState([]);
+  const [usrLikes, setUsrLikes] = useState([]);
 
   const sortPosts = (lst) => {
     const unsorted = [];
@@ -34,13 +36,26 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
     return sorted;
   };
 
+  const getUserPosts = () => {
+    const limitedPosts = [...posts];
+    while (limitedPosts.length > 25) {
+      limitedPosts.shift();
+    }
+    setUsrPosts(limitedPosts);
+  };
+
   // get all of the users posts and posts the user has replied to
   const getPostsAndReplies = async () => {
     const list = [];
     const userReplies = [...replies];
 
     userReplies.forEach(async (reply) => {
-      const q = query(collection(database, 'posts'), where('postID', '==', reply.postID));
+      const q = query(
+        collection(database, 'posts'),
+        where('postID', '==', reply.postID),
+        orderBy('created', 'desc'),
+        limit(25)
+      );
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((doc) => {
@@ -56,7 +71,10 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
     const q = query(
       collection(database, 'posts'),
       where('ownerID', '==', userID),
-      where('image.imageRef', '!=', 'null')
+      where('image.imageRef', '!=', 'null'),
+      orderBy('image.imageRef', 'desc'),
+      orderBy('created', 'desc'),
+      limit(25)
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -65,6 +83,18 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
 
     setMedia(sortPosts(list));
   };
+
+  const getUserLikes = () => {
+    const limitedPosts = [...likes];
+    while (limitedPosts.length > 25) {
+      limitedPosts.shift();
+    }
+    setUsrLikes(limitedPosts);
+  };
+
+  useEffect(() => {
+    getUserPosts();
+  }, [activeView === 'posts']);
 
   useEffect(() => {
     getPostsAndReplies();
@@ -75,20 +105,24 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
   }, [activeView === 'media']);
 
   useEffect(() => {
+    getUserLikes();
+  }, [activeView === 'likes']);
+
+  useEffect(() => {
     changeActiveTab('myprofile');
   }, []);
 
   // lists all the posts made by the user
   const Posts = (
     <div className="posts fadein">
-      {posts && posts.length <= 0 && (
+      {usrPosts && usrPosts.length <= 0 && (
         <div className="empty">
           <BiMeh size="3rem" />
           <h4> empty...</h4>
           <h5> all your posts will show up here</h5>
         </div>
       )}
-      {sortPosts(posts).map((post) => (
+      {sortPosts(usrPosts).map((post) => (
         <PostItem
           key={post.postID}
           postID={post.postID}
@@ -144,14 +178,14 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
 
   const Likes = (
     <div className="likes fadein">
-      {likes && likes.length <= 0 && (
+      {usrLikes && usrLikes.length <= 0 && (
         <div className="empty">
           <BiMeh size="3rem" />
           <h4> empty...</h4>
           <h5> all posts you liked will show up here</h5>
         </div>
       )}
-      {likes.map((post) => (
+      {usrLikes.map((post) => (
         <PostItem
           key={post.postID}
           postID={post.postID}
