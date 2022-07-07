@@ -4,16 +4,18 @@ import { BiImageAdd } from 'react-icons/bi';
 import './SetupUserAccount.css';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import resizeFile from '../../helpers/ImageResizer/ImageResizer';
 import { database } from '../Firebase/Firebase';
 import placeholder from '../../assets/placeholder.png';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
+import AvatarCreator from '../../helpers/AvatarCreator/AvatarCreator';
+import resizeFile from '../../helpers/ImageResizer/ImageResizer';
 
 function CreateUserAccount({ userCredentials }) {
   const navigate = useNavigate();
   const { uid, email } = userCredentials;
   const [isFinished, setIsFinished] = useState(false);
   const [showLoading, setShowLoading] = useState(true);
+  const [showCropper, setShowCropper] = useState(false);
   const [userObject, setUserObject] = useState({
     userID: uid,
     isSetup: false,
@@ -45,6 +47,7 @@ function CreateUserAccount({ userCredentials }) {
           userPic: base64data
         }));
       };
+      setShowCropper(true);
     } catch (err) {
       console.log(err);
     }
@@ -103,6 +106,7 @@ function CreateUserAccount({ userCredentials }) {
     <LoadingScreen />
   ) : (
     <div className="setup-user-account fadein">
+      <h3>Set up your user account</h3>
       <div className="setup-user-container">
         <img src={userObject.userPic} alt="avatar" />
         <label htmlFor="picture" className="custom-file-upload-label">
@@ -118,6 +122,7 @@ function CreateUserAccount({ userCredentials }) {
             }}
           />
         </label>
+
         <form>
           <div className="user-input-container">
             <label htmlFor="uname" className="unameinput-label">
@@ -154,20 +159,29 @@ function CreateUserAccount({ userCredentials }) {
             />
           </label>
         </form>
+        <button
+          type="submit"
+          className="createBtn"
+          onClick={(e) => {
+            handleSubmit(e);
+          }}
+          onKeyDown={(e) => {
+            handleSubmit(e);
+          }}
+          tabIndex={0}>
+          Let&apos;s go!
+        </button>
       </div>
 
-      <button
-        type="submit"
-        className="createBtn"
-        onClick={(e) => {
-          handleSubmit(e);
-        }}
-        onKeyDown={(e) => {
-          handleSubmit(e);
-        }}
-        tabIndex={0}>
-        Let&apos;s go!
-      </button>
+      {showCropper && (
+        <div className="avatarCreator-overlay">
+          <AvatarCreator
+            image={userObject.userPic}
+            setUserObject={setUserObject}
+            setShowCropper={setShowCropper}
+          />
+        </div>
+      )}
     </div>
   );
 }

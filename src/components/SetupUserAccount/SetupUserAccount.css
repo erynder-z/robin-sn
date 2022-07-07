@@ -17,13 +17,13 @@
   height: 100%;
   width: 100%;
   background-color: var(--card-background);
-  border: solid 1px var(--border);
-  margin: 2rem;
+  border: solid 2px var(--border);
+  padding: 2rem;
 }
 
 .setup-user-container img {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
 }
 
@@ -43,10 +43,10 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin: 1rem;
+
   position: relative;
-  top: -45px;
-  right: -35px;
+  top: -30px;
+  right: -60px;
 }
 
 .custom-file-upload {
@@ -100,18 +100,50 @@ input[type='file'] {
 }
 
 .createBtn {
-  height: 5vh;
-  width: 8rem;
+  height: 3rem;
+  width: 100%;
   font-size: 1.2rem;
   font-weight: bold;
   background-color: var(--button);
   color: var(--text-bright);
-  border-radius: 20px;
   border: none;
 }
 
-.createBtn:hover {
+.saveAvatarBtn {
+  height: 3rem;
+  width: 10rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: var(--button);
+  color: var(--text-bright);
+  border: none;
+  margin-top: 2rem;
+}
+
+.createBtn:hover,
+.saveAvatarBtn:hover {
   background-color: var(--button-hover);
+}
+
+.avatarCreator-overlay {
+  height: 100%;
+  width: 100vw;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatarEditor-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @media only screen and (max-width: 768px) {
@@ -120,13 +152,39 @@ input[type='file'] {
     grid-column: 1/-1;
   }
   .setup-user-container {
-    width: 90%;
+    width: 95%;
+    padding: 0;
   }
+
+  .setup-user-container img {
+    width: 100px;
+    height: 100px;
+    margin-top: 1rem;
+  }
+
+  .setup-user-container form {
+    padding: 0;
+    position: relative;
+    top: -30px;
+  }
+
+  .unameinput-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .descinput-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .username-input {
-    width: 60%;
+    width: 85%;
   }
 
   .description-input {
-    width: 60%;
+    width: 85%;
   }
 }
