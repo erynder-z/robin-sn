@@ -5,6 +5,7 @@ import Picker from 'emoji-picker-react';
 import './Reply.css';
 import { MdOutlineEmojiEmotions } from 'react-icons/md';
 import { arrayUnion, doc, Timestamp, updateDoc } from 'firebase/firestore';
+import { LinearProgress } from '@mui/material';
 import { database } from '../Firebase/Firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import EmptyMessageWarning from '../EmptyMessageWarning/EmptyMessageWarning';
@@ -126,10 +127,20 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
             </div>
             <textarea
               className="reply-modal-textarea"
+              maxLength="100"
               cols="30"
               rows="5"
               placeholder="write your reply"
-            />
+            />{' '}
+            <div className="progress">
+              <span className="charLeft"> {100 - text.length} characters left</span>
+              <LinearProgress
+                className="charProgress"
+                variant="determinate"
+                value={text.length}
+                color="inherit"
+              />
+            </div>
             <div className="replyModal-post">
               <MdOutlineEmojiEmotions
                 size="2rem"
@@ -180,6 +191,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
       <div className="replyAppend-wrapper">
         <img className="reply-userpic-append" src={userData.userPic} alt="user avatar" />
         <textarea
+          maxLength="100"
           className="reply-append-textarea"
           placeholder="write your reply"
           value={text}
@@ -192,6 +204,15 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
           onBlur={() => {
             setShowReplyUserName(false);
           }}
+        />
+      </div>{' '}
+      <div className="progress">
+        <span className="charLeft"> {100 - text.length} characters left</span>
+        <LinearProgress
+          className="charProgress"
+          variant="determinate"
+          value={text.length}
+          color="inherit"
         />
       </div>
       <div className="replyAppend-post">

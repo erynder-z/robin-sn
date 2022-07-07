@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import uniqid from 'uniqid';
 import Picker from 'emoji-picker-react';
 import { BiImage } from 'react-icons/bi';
+import LinearProgress from '@mui/material/LinearProgress';
+
 import { MdOutlineEmojiEmotions } from 'react-icons/md';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import {
@@ -173,6 +175,7 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect, showEmptyMessageW
         </div>
         <textarea
           className="newPost-textarea"
+          maxLength="100"
           cols="30"
           rows="5"
           placeholder="enter your message"
@@ -186,8 +189,16 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect, showEmptyMessageW
           onKeyDown={(e) => {
             e.stopPropagation();
           }}
-        />
-
+        />{' '}
+        <div className="progress">
+          <span className="charLeft"> {100 - text.length} characters left</span>
+          <LinearProgress
+            className="charProgress"
+            variant="determinate"
+            value={text.length}
+            color="inherit"
+          />
+        </div>
         {imagePreview && (
           <div className="picture-upload-container">
             <div
@@ -207,7 +218,6 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect, showEmptyMessageW
             <img className="picture-upload" src={imagePreview} alt="uploaded content" />{' '}
           </div>
         )}
-
         <div className="post-options-container">
           <div className="upload-options">
             <label htmlFor="pictureUpload" className="picture-upload-label">
