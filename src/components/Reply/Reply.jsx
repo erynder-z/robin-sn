@@ -15,7 +15,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
   const [mode, setMode] = useState('');
   const [text, setText] = useState('');
   const [replyUserName, setReplyUserName] = useState('');
-  const [showReplyUserName, setShowReplyUserName] = useState(false);
+  const [showReplyUI, setShowReplyUserName] = useState(false);
   const [fadeModal, setFadeModal] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [emptyMessageWarning, setEmptyMessageWarning] = useState(false);
@@ -185,7 +185,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
   // append a textbox in order to reply
   const ReplyAppend = (
     <div className="replyAppend-body">
-      <div className={`replyTo-append ${!showReplyUserName ? 'hidden' : ''}`}>
+      <div className={`replyTo-append ${!showReplyUI ? 'hidden' : ''}`}>
         replying to: @{replyUserName.username}
       </div>
       <div className="replyAppend-wrapper">
@@ -206,7 +206,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
           }}
         />
       </div>{' '}
-      <div className="progress">
+      <div className={`progress ${!showReplyUI ? 'hidden' : ''}`}>
         <span className="charLeft"> {100 - text.length} characters left</span>
         <LinearProgress
           className="charProgress"
