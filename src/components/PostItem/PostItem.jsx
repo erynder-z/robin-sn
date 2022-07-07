@@ -66,7 +66,8 @@ function PostItem({ postID, handleSetIsReplyModalActive }) {
         reposts: [],
         likes: [],
         replies: [],
-        image: { imageURL: postImage.imageURL, imageRef: postImage.imageRef }
+        image: { imageURL: postImage.imageURL, imageRef: postImage.imageRef },
+        isRepost: true
       });
 
       const addPostToUserObject = async (pID) => {

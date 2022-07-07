@@ -100,7 +100,8 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect, showEmptyMessageW
           reposts: [],
           likes: [],
           replies: [],
-          image: { imageURL: null, imageRef: null }
+          image: { imageURL: null, imageRef: null },
+          isRepost: false
         });
 
         uploadPicture(postID);
@@ -190,15 +191,6 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect, showEmptyMessageW
             e.stopPropagation();
           }}
         />{' '}
-        <div className="progress">
-          <span className="charLeft"> {100 - text.length} characters left</span>
-          <LinearProgress
-            className="charProgress"
-            variant="determinate"
-            value={text.length}
-            color="inherit"
-          />
-        </div>
         {imagePreview && (
           <div className="picture-upload-container">
             <div
@@ -218,6 +210,15 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect, showEmptyMessageW
             <img className="picture-upload" src={imagePreview} alt="uploaded content" />{' '}
           </div>
         )}
+        <div className="progress">
+          <span className="charLeft"> {100 - text.length} characters left</span>
+          <LinearProgress
+            className="charProgress"
+            variant="determinate"
+            value={text.length}
+            color="inherit"
+          />
+        </div>
         <div className="post-options-container">
           <div className="upload-options">
             <label htmlFor="pictureUpload" className="picture-upload-label">

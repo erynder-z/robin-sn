@@ -106,7 +106,7 @@ function Main({ userCredentials }) {
     try {
       const handleDeleteDoc = async () => {
         await deleteDoc(docRef);
-        if (post.image.imageRef !== null) {
+        if (post.image.imageRef !== null && post.isRepost === false) {
           const getImageRef = post.image.imageRef.split('appspot.com/').pop();
           const imageRef = ref(storage, getImageRef);
           await deleteObject(imageRef);
