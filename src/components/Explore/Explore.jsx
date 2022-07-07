@@ -34,37 +34,48 @@ function Explore({ handleSearchQuery, changeActiveTab }) {
               <h5> trends will show up here</h5>
             </div>
           )}
-          {trends &&
-            trends.map((trend) => (
-              <div
-                key={trend.hashtag.toString()}
-                className={`trend-item trend${trends.indexOf(trend)}`}
-                role="link"
-                tabIndex={0}
-                onClick={() => {
-                  handleClick(trend.hashtag);
-                }}
-                onKeyDown={() => {
-                  handleClick(trend.hashtag);
-                }}>
-                {trends.indexOf(trend) < 10 && <span>{trends.indexOf(trend) + 1} </span>}
-                {trends.indexOf(trend) === 10 && (
+          <div className="topTrends-container">
+            {trends &&
+              trends.map((trend) =>
+                trends.indexOf(trend) < 10 ? (
                   <div
-                    className="other-trends"
+                    key={trend.hashtag.toString()}
+                    className={`trend-item trend${trends.indexOf(trend)}`}
                     role="link"
                     tabIndex={0}
-                    onClick={(e) => {
-                      e.stopPropagation();
+                    onClick={() => {
+                      handleClick(trend.hashtag);
                     }}
-                    onKeyDown={(e) => {
-                      e.stopPropagation();
+                    onKeyDown={() => {
+                      handleClick(trend.hashtag);
                     }}>
-                    other trends:
+                    {trends.indexOf(trend) < 10 && <span>{trends.indexOf(trend) + 1} </span>}#
+                    {trend.hashtag}
                   </div>
-                )}
-                #{trend.hashtag}
-              </div>
-            ))}
+                ) : null
+              )}
+          </div>
+          <div className="other-trends"> Other trends:</div>
+          <div className="otherTrends-container">
+            {trends &&
+              trends.map((trend) =>
+                trends.indexOf(trend) > 10 ? (
+                  <div
+                    key={trend.hashtag.toString()}
+                    className={`trend-item trend${trends.indexOf(trend)}`}
+                    role="link"
+                    tabIndex={0}
+                    onClick={() => {
+                      handleClick(trend.hashtag);
+                    }}
+                    onKeyDown={() => {
+                      handleClick(trend.hashtag);
+                    }}>
+                    #{trend.hashtag}
+                  </div>
+                ) : null
+              )}
+          </div>
         </div>
       </div>
     </div>

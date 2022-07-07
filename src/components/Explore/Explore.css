@@ -2,6 +2,17 @@
   width: 100%;
 }
 
+.topTrends-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.otherTrends-container {
+  display: grid;
+  grid-template-columns: minmax(auto, 33%) minmax(auto, 33%) minmax(auto, 33%);
+  gap: 0.5rem;
+}
+
 .trend-item {
   font-size: 1.2rem;
   font-weight: bold;
