@@ -7,6 +7,7 @@ import { MdOutlineEmojiEmotions } from 'react-icons/md';
 import { arrayUnion, doc, Timestamp, updateDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
 import { GetUserContext } from '../../contexts/UserContext';
+import EmptyMessageWarning from '../EmptyMessageWarning/EmptyMessageWarning';
 
 function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
   const { userData } = GetUserContext();
@@ -16,6 +17,11 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
   const [showReplyUserName, setShowReplyUserName] = useState(false);
   const [fadeModal, setFadeModal] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [emptyMessageWarning, setEmptyMessageWarning] = useState(false);
+
+  const showEmptyMessageWarning = () => {
+    setEmptyMessageWarning(true);
+  };
 
   // add replied post's ID to user object
   const addPostToUserObject = async () => {
@@ -32,23 +38,27 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
 
   // adds reply to the post object
   const reply = async (pID) => {
-    try {
-      const replyID = uniqid();
-      const docRef = doc(database, 'posts', pID);
-      await updateDoc(docRef, {
-        replies: arrayUnion({
-          replyID,
-          replyUserID: userData.userID,
-          replyContent: text,
-          replyDate: Timestamp.now()
-        })
-      });
+    if (text !== '') {
+      try {
+        const replyID = uniqid();
+        const docRef = doc(database, 'posts', pID);
+        await updateDoc(docRef, {
+          replies: arrayUnion({
+            replyID,
+            replyUserID: userData.userID,
+            replyContent: text,
+            replyDate: Timestamp.now()
+          })
+        });
 
-      addPostToUserObject(pID);
-      toggleReplyModal();
-      setText('');
-    } catch (err) {
-      console.log(err);
+        addPostToUserObject(pID);
+        toggleReplyModal();
+        setText('');
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      showEmptyMessageWarning();
     }
   };
 
@@ -57,6 +67,12 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
     setShowEmojiPicker(false);
     setText(text + emojiObject.emoji);
   };
+
+  useEffect(() => {
+    if (emptyMessageWarning) {
+      setTimeout(() => setEmptyMessageWarning(false), 2000);
+    }
+  }, [emptyMessageWarning]);
 
   useEffect(() => {
     setMode(replyMode);
@@ -221,6 +237,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
     <div className="reply-container">
       {mode === 'modal' && ReplyModal}
       {mode === 'append' && ReplyAppend}
+      {emptyMessageWarning && <EmptyMessageWarning />}
     </div>
   );
 }

@@ -21,7 +21,7 @@ import parseHashtag from '../../helpers/HashtagCreator/HashtagCreator';
 import { GetUserContext } from '../../contexts/UserContext';
 import parseMention from '../../helpers/MentionCreator/MentionCreator';
 
-function NewPostModal({ toggleNewPostModal, showNewPostEffect }) {
+function NewPostModal({ toggleNewPostModal, showNewPostEffect, showEmptyMessageWarning }) {
   const { userData } = GetUserContext();
   const { userID, userPic, username } = userData;
   const [text, setText] = useState('');
@@ -82,32 +82,36 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect }) {
 
   // creates the post in the database
   const submitPost = async () => {
-    const hashtagArray = await parseHashtag(text);
-    const mentionArray = await parseMention(text);
+    if (text !== '') {
+      const hashtagArray = await parseHashtag(text);
+      const mentionArray = await parseMention(text);
 
-    try {
-      const postID = uniqid();
-      await setDoc(doc(database, 'posts', postID), {
-        created: serverTimestamp(),
-        postID,
-        ownerID: userID,
-        content: text,
-        hashtags: hashtagArray,
-        mentions: mentionArray,
-        reposts: [],
-        likes: [],
-        replies: [],
-        image: { imageURL: null, imageRef: null }
-      });
+      try {
+        const postID = uniqid();
+        await setDoc(doc(database, 'posts', postID), {
+          created: serverTimestamp(),
+          postID,
+          ownerID: userID,
+          content: text,
+          hashtags: hashtagArray,
+          mentions: mentionArray,
+          reposts: [],
+          likes: [],
+          replies: [],
+          image: { imageURL: null, imageRef: null }
+        });
 
-      uploadPicture(postID);
-      addPostToUserObject(postID);
-      addHashtag(hashtagArray);
-      toggleNewPostModal();
-    } catch (err) {
-      console.log(err);
+        uploadPicture(postID);
+        addPostToUserObject(postID);
+        addHashtag(hashtagArray);
+        toggleNewPostModal();
+      } catch (err) {
+        console.log(err);
+      }
+      showNewPostEffect();
+    } else {
+      showEmptyMessageWarning();
     }
-    showNewPostEffect();
   };
 
   // Load image into state to preview
@@ -262,6 +266,6 @@ export default NewPostModal;
 
 NewPostModal.propTypes = {
   toggleNewPostModal: PropTypes.func.isRequired,
-
-  showNewPostEffect: PropTypes.func.isRequired
+  showNewPostEffect: PropTypes.func.isRequired,
+  showEmptyMessageWarning: PropTypes.func.isRequired
 };

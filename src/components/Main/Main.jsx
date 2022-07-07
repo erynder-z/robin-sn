@@ -23,6 +23,7 @@ import Search from '../Search/Search';
 import Trends from '../Trends/Trends';
 import NewPostEffect from '../NewPostEffect/NewPostEffect';
 import Mentions from '../Mentions/Mentions';
+import EmptyMessageWarning from '../EmptyMessageWarning/EmptyMessageWarning';
 
 function Main({ userCredentials }) {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ function Main({ userCredentials }) {
   const [isPostBookmarked, setIsPostBookmarked] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [newPostEffect, setNewPostEffect] = useState(false);
+  const [emptyMessageWarning, setEmptyMessageWarning] = useState(false);
   const [showContextbar, setShowContextbar] = useState(false);
   const [isReplyModalActive, setIsReplyModalActive] = useState(false);
 
@@ -53,6 +55,10 @@ function Main({ userCredentials }) {
 
   const showNewPostEffect = () => {
     setNewPostEffect(true);
+  };
+
+  const showEmptyMessageWarning = () => {
+    setEmptyMessageWarning(true);
   };
 
   // save post info so it can be passed down to the contextbar
@@ -205,6 +211,12 @@ function Main({ userCredentials }) {
     }
   }, [newPostEffect]);
 
+  useEffect(() => {
+    if (emptyMessageWarning) {
+      setTimeout(() => setEmptyMessageWarning(false), 2000);
+    }
+  }, [emptyMessageWarning]);
+
   return (
     <div className="main-container">
       {isUserSetup && <Sidebar activeTab={activeTab} logout={logout} />}
@@ -346,12 +358,18 @@ function Main({ userCredentials }) {
         <NewPostModal
           toggleNewPostModal={toggleNewPostModal}
           showNewPostEffect={showNewPostEffect}
+          showEmptyMessageWarning={showEmptyMessageWarning}
         />
       )}
       {isUserSetup && showSearchModal && (
-        <SearchModal handleSearchQuery={handleSearchQuery} toggleSearchModal={toggleSearchModal} />
+        <SearchModal
+          handleSearchQuery={handleSearchQuery}
+          toggleSearchModal={toggleSearchModal}
+          showEmptyMessageWarning={showEmptyMessageWarning}
+        />
       )}
       {newPostEffect && <NewPostEffect />}
+      {emptyMessageWarning && <EmptyMessageWarning />}
     </div>
   );
 }

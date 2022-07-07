@@ -4,14 +4,20 @@ import { BiSearch } from 'react-icons/bi';
 import './SearchModal.css';
 import { useNavigate } from 'react-router-dom';
 
-function SearchModal({ handleSearchQuery, toggleSearchModal }) {
+function SearchModal({ handleSearchQuery, toggleSearchModal, showEmptyMessageWarning }) {
   const navigate = useNavigate();
   const [text, setText] = useState('');
   const [fadeModal, setFadeModal] = useState(false);
 
   const search = () => {
-    handleSearchQuery(text);
-    navigate('/main/search');
+    if (text !== '') {
+      handleSearchQuery(text);
+      setFadeModal(true);
+      setTimeout(() => toggleSearchModal(), 100);
+      navigate('/main/search');
+    } else {
+      showEmptyMessageWarning();
+    }
   };
 
   return (
@@ -55,13 +61,9 @@ function SearchModal({ handleSearchQuery, toggleSearchModal }) {
           <button
             type="button"
             onClick={() => {
-              setFadeModal(true);
-              setTimeout(() => toggleSearchModal(), 100);
               search();
             }}
             onKeyDown={() => {
-              setFadeModal(true);
-              setTimeout(() => toggleSearchModal(), 100);
               search();
             }}>
             {' '}
@@ -77,5 +79,6 @@ export default SearchModal;
 
 SearchModal.propTypes = {
   handleSearchQuery: PropTypes.func.isRequired,
-  toggleSearchModal: PropTypes.func.isRequired
+  toggleSearchModal: PropTypes.func.isRequired,
+  showEmptyMessageWarning: PropTypes.func.isRequired
 };
