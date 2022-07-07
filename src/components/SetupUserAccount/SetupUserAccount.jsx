@@ -72,7 +72,7 @@ function CreateUserAccount({ userCredentials }) {
       await setDoc(doc(database, 'users', uid), {
         userID: userObject.userID,
         isSetup: userObject.isSetup,
-        username: userObject.username,
+        username: userObject.username.replace(/ /g, '_'),
         description: userObject.description,
         userPic: userObject.userPic,
         userBackground: userObject.userBackground,
