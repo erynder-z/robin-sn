@@ -119,7 +119,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
         <div className="empty">
           <BiMeh size="3rem" />
           <h4> empty...</h4>
-          <h5> all your posts will show up here</h5>
+          <h5> your recent posts will show up here</h5>
         </div>
       )}
       {sortPosts(usrPosts).map((post) => (
@@ -140,7 +140,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
         <div className="empty">
           <BiMeh size="3rem" />
           <h4> empty...</h4>
-          <h5> all posts you replied to will show up here</h5>
+          <h5> all recent posts you replied to will show up here</h5>
         </div>
       )}
       {postsAndReplies.map((post) => (
@@ -161,7 +161,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
         <div className="empty">
           <BiMeh size="3rem" />
           <h4> empty...</h4>
-          <h5> all your posts with uploaded pictures will how up here</h5>
+          <h5> all your recent posts with uploaded pictures will how up here</h5>
         </div>
       )}
       {media.map((post) => (
@@ -182,7 +182,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
         <div className="empty">
           <BiMeh size="3rem" />
           <h4> empty...</h4>
-          <h5> all posts you liked will show up here</h5>
+          <h5> all recent posts you liked will show up here</h5>
         </div>
       )}
       {usrLikes.map((post) => (

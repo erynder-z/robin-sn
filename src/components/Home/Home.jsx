@@ -76,7 +76,7 @@ function Home({ changeActiveTab, handleSetIsReplyModalActive }) {
             <div className="empty">
               <BiMeh size="3rem" />
               <h4> empty...</h4>
-              <h5> your own posts and posts of users you follow will show up here</h5>
+              <h5> your own recent posts and recent posts of users you follow will show up here</h5>
             </div>
           )}
           {followedUsersPosts.map((p) => (

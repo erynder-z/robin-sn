@@ -55,7 +55,7 @@ function Explore({ handleSearchQuery, changeActiveTab }) {
                 ) : null
               )}
           </div>
-          <div className="other-trends"> Other trends:</div>
+          {trends && trends.length > 10 && <div className="other-trends"> Other trends:</div>}
           <div className="otherTrends-container">
             {trends &&
               trends.map((trend) =>

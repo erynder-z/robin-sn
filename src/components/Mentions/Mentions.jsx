@@ -54,7 +54,7 @@ function Mentions({ changeActiveTab, handleSetIsReplyModalActive }) {
             <div className="empty">
               <BiMeh size="3rem" />
               <h4> empty...</h4>
-              <h5> posts you were mentioned in will show up here</h5>
+              <h5> recent posts you were mentioned in will show up here</h5>
             </div>
           )}
           {mentions &&
