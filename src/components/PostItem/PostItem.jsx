@@ -93,7 +93,6 @@ function PostItem({ postID, handleSetIsReplyModalActive }) {
 
   const like = async (pID) => {
     try {
-      const docSnap = await getDoc(userDocRef);
       const found = pID;
 
       const likePost = async () => {
@@ -116,7 +115,7 @@ function PostItem({ postID, handleSetIsReplyModalActive }) {
         });
       };
       // like a post if not already liked or unlike if already liked
-      if (docSnap.data().likes.some((item) => item.postID === found)) {
+      if (userData.likes.some((item) => item.postID === found)) {
         unLikePost();
       } else {
         likePost();
