@@ -26,6 +26,7 @@ function PostItem({ postID, handleSetIsReplyModalActive }) {
   const [post] = useDocumentData(doc(database, 'posts', postID));
   const [postOwner, setPostOwner] = useState('');
   const [showReplyModal, setShowReplyModal] = useState(false);
+  const [clickEffect, setClickEffect] = useState({ reply: false, repost: false, like: false });
   const postDocRef = doc(database, 'posts', postID);
   const userDocRef = doc(database, 'users', userData.userID);
 
@@ -144,6 +145,12 @@ function PostItem({ postID, handleSetIsReplyModalActive }) {
     }
   }, [post]);
 
+  useEffect(() => {
+    if (clickEffect) {
+      setTimeout(() => setClickEffect({ reply: false, repost: false, like: false }), 200);
+    }
+  }, [clickEffect.reply || clickEffect.repost || clickEffect.like]);
+
   return (
     post && (
       <div
@@ -195,45 +202,52 @@ function PostItem({ postID, handleSetIsReplyModalActive }) {
           )}
           <div className="post-options">
             <div
-              className="optionItem"
+              className={`optionItem ${clickEffect.reply ? 'clicked' : ''}`}
               role="button"
               tabIndex={0}
               onClick={(e) => {
                 toggleReplyModal();
+                setClickEffect({ reply: true });
                 e.stopPropagation();
               }}
               onKeyDown={(e) => {
                 toggleReplyModal();
+                setClickEffect({ reply: true });
                 e.stopPropagation();
               }}>
               <BiMessageRounded size="1.5rem" />
               {post.replies.length}
             </div>
             <div
-              className="optionItem"
+              className={`optionItem ${clickEffect.repost ? 'clicked' : ''}`}
               role="button"
               tabIndex={0}
               onClick={(e) => {
                 repost(postOwner.username, post.content, post.image);
+                setClickEffect({ repost: true });
+
                 e.stopPropagation();
               }}
               onKeyDown={(e) => {
                 repost(postOwner.username, post.content, post.image);
+                setClickEffect({ repost: true });
                 e.stopPropagation();
               }}>
               <BiRepost size="1.5rem" />
               {post.reposts.length}
             </div>
             <div
-              className="optionItem"
+              className={`optionItem ${clickEffect.like ? 'clicked' : ''}`}
               role="button"
               tabIndex={0}
               onClick={(e) => {
                 like(postID);
+                setClickEffect({ like: true });
                 e.stopPropagation();
               }}
               onKeyDown={(e) => {
                 like(postID);
+                setClickEffect({ like: true });
                 e.stopPropagation();
               }}>
               <BiLike size="1.5rem" />

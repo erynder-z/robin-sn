@@ -90,6 +90,10 @@
   color: var(--mention);
 }
 
+.clicked {
+  animation: click 150ms ease-in-out both;
+}
+
 @media only screen and (max-width: 768px) {
   .post-details-container > .post-container {
     padding: 1rem 0.5rem;
