@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
 import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
-import { BiMeh } from 'react-icons/bi';
+import { BiSpaceBar } from 'react-icons/bi';
 import './MyProfile.css';
 import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
@@ -117,7 +117,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
     <div className="posts fadein">
       {usrPosts && usrPosts.length <= 0 && (
         <div className="empty">
-          <BiMeh size="3rem" />
+          <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
           <h5> your recent posts will show up here</h5>
         </div>
@@ -138,7 +138,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
     <div className="postsAndReplies fadein">
       {postsAndReplies && postsAndReplies.length <= 0 && (
         <div className="empty">
-          <BiMeh size="3rem" />
+          <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
           <h5> all recent posts you replied to will show up here</h5>
         </div>
@@ -159,7 +159,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
     <div className="media fadein">
       {media && media.length <= 0 && (
         <div className="empty">
-          <BiMeh size="3rem" />
+          <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
           <h5> all your recent posts with uploaded pictures will how up here</h5>
         </div>
@@ -180,7 +180,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
     <div className="likes fadein">
       {usrLikes && usrLikes.length <= 0 && (
         <div className="empty">
-          <BiMeh size="3rem" />
+          <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
           <h5> all recent posts you liked will show up here</h5>
         </div>

@@ -7,6 +7,10 @@
   align-items: center;
 }
 
+.signin-email > form {
+  width: 25vw;
+}
+
 .signin-email {
   display: flex;
   flex-direction: column;
@@ -43,7 +47,9 @@ input:focus[type='password'] {
 }
 
 .loginError {
-  color: red;
+  color: var(--hashtag);
+  height: 1rem;
+  padding-top: 1rem;
 }
 
 .input-container {
@@ -56,6 +62,7 @@ input:focus[type='password'] {
 .input-container label {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .input-container label input {
@@ -116,4 +123,10 @@ input:focus[type='password'] {
 
 .signupBtn:hover {
   background-color: #c3a3ef;
+}
+
+@media only screen and (max-width: 768px) {
+  .signin-email > form {
+    width: 95vw;
+  }
 }

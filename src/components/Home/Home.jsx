@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { BiMeh } from 'react-icons/bi';
+import { BiSpaceBar } from 'react-icons/bi';
 import './Home.css';
 import { doc, getDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
@@ -74,7 +74,7 @@ function Home({ changeActiveTab, handleSetIsReplyModalActive }) {
         <div className="posts">
           {followedUsersPosts && followedUsersPosts.length <= 0 && (
             <div className="empty">
-              <BiMeh size="3rem" />
+              <BiSpaceBar size="3rem" />
               <h4> empty...</h4>
               <h5> your own recent posts and recent posts of users you follow will show up here</h5>
             </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
-import { BiMeh, BiArrowBack } from 'react-icons/bi';
+import { BiSpaceBar, BiArrowBack } from 'react-icons/bi';
 import './UserProfile.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { collection, doc, getDoc, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
@@ -107,9 +107,9 @@ function UserProfile({ handleSetIsReplyModalActive }) {
     <div className="posts fadein">
       {user && user.posts.length <= 0 && (
         <div className="empty">
-          <BiMeh size="3rem" />
+          <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
-          <h5> all of {user.username}&apos;s posts will show up here</h5>
+          <h5> all of {user.username}&apos;s recent posts will show up here</h5>
         </div>
       )}
       {user &&
@@ -128,9 +128,9 @@ function UserProfile({ handleSetIsReplyModalActive }) {
     <div className="postsAndReplies fadein">
       {user && postsAndReplies.length <= 0 && (
         <div className="empty">
-          <BiMeh size="3rem" />
+          <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
-          <h5> all of {user.username}&apos;s replies will show up here</h5>
+          <h5> all of {user.username}&apos;s recent replies will show up here</h5>
         </div>
       )}
       {postsAndReplies.map((post) => (
@@ -149,9 +149,9 @@ function UserProfile({ handleSetIsReplyModalActive }) {
     <div className="media fadein">
       {user && media.length <= 0 && (
         <div className="empty">
-          <BiMeh size="3rem" />
+          <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
-          <h5> all of {user.username}&apos;s posts with images will show up here</h5>
+          <h5> all of {user.username}&apos;s recent posts with images will show up here</h5>
         </div>
       )}
       {media.map((post) => (
@@ -169,9 +169,9 @@ function UserProfile({ handleSetIsReplyModalActive }) {
     <div className="likes fadein">
       {user && user.likes.length <= 0 && (
         <div className="empty">
-          <BiMeh size="3rem" />
+          <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
-          <h5> all posts {user.username} liked will show up here</h5>
+          <h5> all recent posts {user.username} liked will show up here</h5>
         </div>
       )}
       {user &&

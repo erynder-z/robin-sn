@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { BiMeh } from 'react-icons/bi';
+import { BiSpaceBar } from 'react-icons/bi';
 import './Mentions.css';
 import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import PostItem from '../PostItem/PostItem';
@@ -52,7 +52,7 @@ function Mentions({ changeActiveTab, handleSetIsReplyModalActive }) {
         <div className="posts">
           {mentions && mentions.length <= 0 && (
             <div className="empty">
-              <BiMeh size="3rem" />
+              <BiSpaceBar size="3rem" />
               <h4> empty...</h4>
               <h5> recent posts you were mentioned in will show up here</h5>
             </div>
