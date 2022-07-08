@@ -2,9 +2,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import AvatarEditor from 'react-avatar-editor';
 
-function AvatarCreator({ image, setUserObject, setShowCropper }) {
+function AvatarCreator({
+  image,
+  setUserObject,
+  uploadUserpic,
+  setShowCropper,
+  functionCallOrigin
+}) {
   const editor = useRef(null);
   const [avatarDimensions, setAvatarDimensions] = useState({ height: 0, width: 0 });
+
+  let button;
 
   useEffect(() => {
     if (window.innerWidth < 768) {
@@ -13,6 +21,44 @@ function AvatarCreator({ image, setUserObject, setShowCropper }) {
       setAvatarDimensions({ height: 250, width: 250 });
     }
   }, []);
+
+  // check which component rendered the cropper and change the button functionallity accordingly
+  if (functionCallOrigin === 'createAccount') {
+    button = (
+      <button
+        className="saveAvatarBtn"
+        type="button"
+        onClick={() => {
+          if (editor) {
+            const canvas = editor.current.getImage();
+
+            setUserObject((prevState) => ({
+              ...prevState,
+              userPic: canvas.toDataURL()
+            }));
+            setShowCropper(false);
+          }
+        }}>
+        Save
+      </button>
+    );
+  } else if (functionCallOrigin === 'changeProfile') {
+    button = (
+      <button
+        className="saveAvatarBtn"
+        type="button"
+        onClick={() => {
+          if (editor) {
+            const canvas = editor.current.getImage();
+
+            uploadUserpic(canvas.toDataURL());
+            setShowCropper(false);
+          }
+        }}>
+        Save
+      </button>
+    );
+  }
 
   return (
     <div className="avatarEditor-container">
@@ -28,23 +74,7 @@ function AvatarCreator({ image, setUserObject, setShowCropper }) {
         scale={1}
         rotate={0}
       />
-      <button
-        className="saveAvatarBtn"
-        type="button"
-        onClick={() => {
-          if (editor) {
-            const canvas = editor.current.getImage();
-            /*    const canvasScaled = editor.current.getImageScaledToCanvas(); */
-
-            setUserObject((prevState) => ({
-              ...prevState,
-              userPic: canvas.toDataURL()
-            }));
-            setShowCropper(false);
-          }
-        }}>
-        Save
-      </button>
+      {button}
     </div>
   );
 }
@@ -53,6 +83,13 @@ export default AvatarCreator;
 
 AvatarCreator.propTypes = {
   image: PropTypes.string.isRequired,
-  setUserObject: PropTypes.func.isRequired,
-  setShowCropper: PropTypes.func.isRequired
+  setUserObject: PropTypes.func,
+  uploadUserpic: PropTypes.func,
+  setShowCropper: PropTypes.func.isRequired,
+  functionCallOrigin: PropTypes.string.isRequired
+};
+
+AvatarCreator.defaultProps = {
+  setUserObject: null,
+  uploadUserpic: null
 };

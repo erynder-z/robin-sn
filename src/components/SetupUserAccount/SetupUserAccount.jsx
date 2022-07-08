@@ -179,6 +179,7 @@ function CreateUserAccount({ userCredentials }) {
             image={userObject.userPic}
             setUserObject={setUserObject}
             setShowCropper={setShowCropper}
+            functionCallOrigin="createAccount"
           />
         </div>
       )}
