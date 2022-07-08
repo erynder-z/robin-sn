@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { MdOutlineDangerous } from 'react-icons/md';
 import { BiImageAdd, BiBarChart, BiLandscape, BiWindowClose, BiLogOut } from 'react-icons/bi';
@@ -7,15 +7,17 @@ import { doc, updateDoc } from 'firebase/firestore';
 import resizeFile from '../../../helpers/ImageResizer/ImageResizer';
 import { database } from '../../Firebase/Firebase';
 import { GetUserContext } from '../../../contexts/UserContext';
+import AvatarCreator from '../../../helpers/AvatarCreator/AvatarCreator';
 
 function ProfileOptions({ deleteAccount, logout }) {
   const { userData } = GetUserContext();
   const [fadeModal, setFadeModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
+  const [showCropper, setShowCropper] = useState(false);
+  const [picture, setPicture] = useState();
 
   const changeUserpic = async (e) => {
-    const userRef = doc(database, 'users', userData.userID);
     try {
       const file = e.target.files[0];
       const image = await resizeFile(file);
@@ -23,9 +25,7 @@ function ProfileOptions({ deleteAccount, logout }) {
       reader.readAsDataURL(image);
       reader.onloadend = async () => {
         const base64data = reader.result;
-        await updateDoc(userRef, {
-          userPic: base64data
-        });
+        setPicture(base64data);
       };
     } catch (err) {
       console.log(err);
@@ -51,6 +51,13 @@ function ProfileOptions({ deleteAccount, logout }) {
     }
   };
 
+  const uploadUserpic = async (pic) => {
+    const userRef = doc(database, 'users', userData.userID);
+    await updateDoc(userRef, {
+      userPic: pic
+    });
+  };
+
   const removeProfileBackground = async () => {
     const userRef = doc(database, 'users', userData.userID);
 
@@ -62,6 +69,12 @@ function ProfileOptions({ deleteAccount, logout }) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (picture) {
+      setShowCropper(true);
+    }
+  }, [picture]);
 
   const StatsModal = (
     <div className="statsModal-overlay">
@@ -206,6 +219,16 @@ function ProfileOptions({ deleteAccount, logout }) {
 
       {showDeleteModal && DeleteModal}
       {showStatsModal && StatsModal}
+      {showCropper && (
+        <div className="avatarCreator-overlay">
+          <AvatarCreator
+            image={picture}
+            setShowCropper={setShowCropper}
+            uploadUserpic={uploadUserpic}
+            functionCallOrigin="changeProfile"
+          />
+        </div>
+      )}
     </div>
   );
 }
