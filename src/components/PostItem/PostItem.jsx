@@ -46,44 +46,48 @@ function PostItem({ postID, handleSetIsReplyModalActive }) {
   };
 
   const repost = async (ownerName, postContent, postImage) => {
-    try {
-      // copy userID to post document
-      await updateDoc(postDocRef, {
-        reposts: arrayUnion({ userID: userData.userID })
-      });
-      // copy postID to user document
-      await updateDoc(userDocRef, {
-        reposts: arrayUnion({ postID })
-      });
-      // create a new post in the user document with the repost as content
-      const newPostID = uniqid();
-      const repostContent = `reposting @${ownerName}:\n\n &laquo; ${postContent} &raquo;`;
-      await setDoc(doc(database, 'posts', newPostID), {
-        created: serverTimestamp(),
-        postID: newPostID,
-        ownerID: userData.userID,
-        content: repostContent,
-        hashtags: [],
-        reposts: [],
-        likes: [],
-        replies: [],
-        image: { imageURL: postImage.imageURL, imageRef: postImage.imageRef },
-        isRepost: true
-      });
-
-      const addPostToUserObject = async (pID) => {
-        const userRef = doc(database, 'users', userData.userID);
-        const docRef = doc(database, 'posts', pID);
-        const docSnap = await getDoc(docRef);
-
-        await updateDoc(userRef, {
-          posts: arrayUnion({ postID: pID, created: docSnap.data().created })
+    const found = postID;
+    // repost only if not already reposted
+    if (userData.reposts.some((item) => item.postID === found) === false) {
+      try {
+        // copy userID to post document
+        await updateDoc(postDocRef, {
+          reposts: arrayUnion({ userID: userData.userID })
         });
-      };
+        // copy postID to user document
+        await updateDoc(userDocRef, {
+          reposts: arrayUnion({ postID })
+        });
+        // create a new post in the user document with the repost as content
+        const newPostID = uniqid();
+        const repostContent = `reposting @${ownerName}:\n\n &laquo; ${postContent} &raquo;`;
+        await setDoc(doc(database, 'posts', newPostID), {
+          created: serverTimestamp(),
+          postID: newPostID,
+          ownerID: userData.userID,
+          content: repostContent,
+          hashtags: [],
+          reposts: [],
+          likes: [],
+          replies: [],
+          image: { imageURL: postImage.imageURL, imageRef: postImage.imageRef },
+          isRepost: true
+        });
 
-      addPostToUserObject(newPostID);
-    } catch (err) {
-      console.log(err);
+        const addPostToUserObject = async (pID) => {
+          const userRef = doc(database, 'users', userData.userID);
+          const docRef = doc(database, 'posts', pID);
+          const docSnap = await getDoc(docRef);
+
+          await updateDoc(userRef, {
+            posts: arrayUnion({ postID: pID, created: docSnap.data().created })
+          });
+        };
+
+        addPostToUserObject(newPostID);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
