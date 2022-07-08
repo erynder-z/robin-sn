@@ -14,7 +14,7 @@ function Login() {
   const [emailFormValue, setEmailFormValue] = useState('');
   const [passwordFormValue, setPasswordFormValue] = useState('');
   const [confirmPasswordFormValue, setConfirmPasswordFormValue] = useState('');
-  const [loginError, setLoginError] = useState('');
+  const [loginError, setLoginError] = useState(null);
   const navigate = useNavigate();
   const user = auth.currentUser;
 
@@ -32,11 +32,10 @@ function Login() {
       try {
         await createUserWithEmailAndPassword(auth, emailFormValue, passwordFormValue);
       } catch (error) {
-        console.log(error.message);
         showLoginError(error);
       }
     } else {
-      alert('enter a valid email and password');
+      showLoginError('enter a valid email and password');
     }
   };
 
@@ -45,7 +44,6 @@ function Login() {
     try {
       await signInWithEmailAndPassword(auth, emailFormValue, passwordFormValue);
     } catch (error) {
-      console.log(error.message);
       showLoginError(error);
     }
   };
@@ -60,7 +58,7 @@ function Login() {
     if (confirmPasswordFormValue !== passwordFormValue) {
       setLoginError('passwords do not match');
     } else {
-      setLoginError('');
+      setLoginError(null);
     }
   }, [confirmPasswordFormValue]);
 
@@ -74,9 +72,11 @@ function Login() {
           tabIndex={0}
           onClick={() => {
             setNewAccount(false);
+            setLoginError(null);
           }}
           onKeyDown={() => {
             setNewAccount(false);
+            setLoginError(null);
           }}
         />
       </div>
@@ -175,6 +175,7 @@ function Login() {
                 Login
               </button>
             </div>
+            <div className="loginError">{loginError}</div>
             <h2 className="createNewAccount-header">Or create a new account</h2>
             <div className="button-container">
               <button
@@ -182,14 +183,15 @@ function Login() {
                 type="button"
                 onClick={() => {
                   setNewAccount(true);
+                  setLoginError(null);
                 }}>
                 Create New Account
               </button>
             </div>
           </form>
-          <div className="loginError">{loginError}</div>
         </div>
       </div>
+
       {newAccount && CreateNewAccount}
     </div>
   );

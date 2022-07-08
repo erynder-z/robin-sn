@@ -1,53 +1,57 @@
 import { arrayRemove, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore';
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { BiUserPlus, BiUserMinus } from 'react-icons/bi';
 import { GetUserContext } from '../../../contexts/UserContext';
 import { database } from '../../Firebase/Firebase';
 import './FollowUserList.css';
 
-function FollowUserList() {
+function FollowUserList({ showWarning }) {
   const { userData } = GetUserContext();
   const { userID, following } = userData;
   const [userList, setUserList] = useState([]);
 
   // get all list of all users in the datababse
   const getUserList = async () => {
-    const querySnapshot = await getDocs(collection(database, 'users'));
+    try {
+      const querySnapshot = await getDocs(collection(database, 'users'));
+      const list = [];
+      querySnapshot.forEach((document) => {
+        // for each user: check if we are already following that user
+        const checkIfAlreadyFollowing = (usr, followUsr) => {
+          const followingList = usr.following;
 
-    const list = [];
-    querySnapshot.forEach((document) => {
-      // for each user: check if we are already following that user
-      const checkIfAlreadyFollowing = (usr, followUsr) => {
-        const followingList = usr.following;
-
-        if (followingList.some((e) => e.userID === followUsr)) {
-          return true;
-        }
-        return false;
-      };
-      if (document.data().userID !== userData.userID) {
-        list.push({
-          userID: document.data().userID,
-          username: document.data().username,
-          userPic: document.data().userPic,
-          following: checkIfAlreadyFollowing(userData, document.data().userID)
-        });
-      }
-
-      // return only 25 random users
-      const createLimitedUserlist = (userlist) => {
-        if (userlist.length > 25) {
-          while (userlist.length > 25) {
-            const random = Math.floor(Math.random() * userlist.length);
-            // eslint-disable-next-line no-unused-expressions
-            userlist.splice(random, 1)[0];
+          if (followingList.some((e) => e.userID === followUsr)) {
+            return true;
           }
+          return false;
+        };
+        if (document.data().userID !== userData.userID) {
+          list.push({
+            userID: document.data().userID,
+            username: document.data().username,
+            userPic: document.data().userPic,
+            following: checkIfAlreadyFollowing(userData, document.data().userID)
+          });
         }
-        return userlist;
-      };
 
-      setUserList(createLimitedUserlist(list));
-    });
+        // return only 25 random users
+        const createLimitedUserlist = (userlist) => {
+          if (userlist.length > 25) {
+            while (userlist.length > 25) {
+              const random = Math.floor(Math.random() * userlist.length);
+              // eslint-disable-next-line no-unused-expressions
+              userlist.splice(random, 1)[0];
+            }
+          }
+          return userlist;
+        };
+
+        setUserList(createLimitedUserlist(list));
+      });
+    } catch (err) {
+      showWarning(err);
+    }
   };
 
   useEffect(() => {
@@ -55,27 +59,35 @@ function FollowUserList() {
   }, [following]);
 
   const follow = async (followUserID) => {
-    const userToFollowRef = doc(database, 'users', followUserID);
-    const userThatFollowsRef = doc(database, 'users', userID);
+    try {
+      const userToFollowRef = doc(database, 'users', followUserID);
+      const userThatFollowsRef = doc(database, 'users', userID);
 
-    await updateDoc(userToFollowRef, {
-      followers: arrayUnion({ userID })
-    });
-    await updateDoc(userThatFollowsRef, {
-      following: arrayUnion({ userID: followUserID })
-    });
+      await updateDoc(userToFollowRef, {
+        followers: arrayUnion({ userID })
+      });
+      await updateDoc(userThatFollowsRef, {
+        following: arrayUnion({ userID: followUserID })
+      });
+    } catch (err) {
+      showWarning(err);
+    }
   };
 
   const unFollow = async (followUserID) => {
-    const userToFollowRef = doc(database, 'users', followUserID);
-    const userThatFollowsRef = doc(database, 'users', userID);
+    try {
+      const userToFollowRef = doc(database, 'users', followUserID);
+      const userThatFollowsRef = doc(database, 'users', userID);
 
-    await updateDoc(userToFollowRef, {
-      followers: arrayRemove({ userID })
-    });
-    await updateDoc(userThatFollowsRef, {
-      following: arrayRemove({ userID: followUserID })
-    });
+      await updateDoc(userToFollowRef, {
+        followers: arrayRemove({ userID })
+      });
+      await updateDoc(userThatFollowsRef, {
+        following: arrayRemove({ userID: followUserID })
+      });
+    } catch (err) {
+      showWarning(err);
+    }
   };
 
   const userItem = (usr) => (
@@ -122,3 +134,7 @@ function FollowUserList() {
 }
 
 export default FollowUserList;
+
+FollowUserList.propTypes = {
+  showWarning: PropTypes.func.isRequired
+};

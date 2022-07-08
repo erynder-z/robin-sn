@@ -23,7 +23,7 @@ import parseHashtag from '../../helpers/HashtagCreator/HashtagCreator';
 import { GetUserContext } from '../../contexts/UserContext';
 import parseMention from '../../helpers/MentionCreator/MentionCreator';
 
-function NewPostModal({ toggleNewPostModal, showNewPostEffect, showEmptyMessageWarning }) {
+function NewPostModal({ toggleNewPostModal, showNewPostEffect, showWarning }) {
   const { userData } = GetUserContext();
   const { userID, userPic, username } = userData;
   const [text, setText] = useState('');
@@ -113,7 +113,7 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect, showEmptyMessageW
       }
       showNewPostEffect();
     } else {
-      showEmptyMessageWarning();
+      showWarning('Enter a message!');
     }
   };
 
@@ -278,5 +278,5 @@ export default NewPostModal;
 NewPostModal.propTypes = {
   toggleNewPostModal: PropTypes.func.isRequired,
   showNewPostEffect: PropTypes.func.isRequired,
-  showEmptyMessageWarning: PropTypes.func.isRequired
+  showWarning: PropTypes.func.isRequired
 };

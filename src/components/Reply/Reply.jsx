@@ -8,7 +8,7 @@ import { arrayUnion, doc, Timestamp, updateDoc } from 'firebase/firestore';
 import { LinearProgress } from '@mui/material';
 import { database } from '../Firebase/Firebase';
 import { GetUserContext } from '../../contexts/UserContext';
-import EmptyMessageWarning from '../EmptyMessageWarning/EmptyMessageWarning';
+import WarningModal from '../WarningModal/WarningModal';
 
 function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
   const { userData } = GetUserContext();
@@ -258,7 +258,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
     <div className="reply-container">
       {mode === 'modal' && ReplyModal}
       {mode === 'append' && ReplyAppend}
-      {emptyMessageWarning && <EmptyMessageWarning />}
+      {emptyMessageWarning && <WarningModal errorMessage="reply field is empty!" />}
     </div>
   );
 }

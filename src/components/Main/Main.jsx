@@ -344,6 +344,7 @@ function Main({ userCredentials }) {
           showContextbar={showContextbar}
           toggleContextbar={toggleContextbar}
           logout={logout}
+          showWarning={showWarning}
         />
       )}
       {isUserSetup && !showSearchModal && !showNewPostModal && !isReplyModalActive && (

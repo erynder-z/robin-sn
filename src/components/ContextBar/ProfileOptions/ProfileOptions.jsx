@@ -9,7 +9,7 @@ import { database } from '../../Firebase/Firebase';
 import { GetUserContext } from '../../../contexts/UserContext';
 import AvatarCreator from '../../../helpers/AvatarCreator/AvatarCreator';
 
-function ProfileOptions({ deleteAccount, logout }) {
+function ProfileOptions({ deleteAccount, logout, showWarning }) {
   const { userData } = GetUserContext();
   const [fadeModal, setFadeModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -28,7 +28,7 @@ function ProfileOptions({ deleteAccount, logout }) {
         setPicture(base64data);
       };
     } catch (err) {
-      console.log(err);
+      showWarning(err);
     }
   };
 
@@ -47,7 +47,7 @@ function ProfileOptions({ deleteAccount, logout }) {
         });
       };
     } catch (err) {
-      console.log(err);
+      showWarning(err);
     }
   };
 
@@ -66,7 +66,7 @@ function ProfileOptions({ deleteAccount, logout }) {
         userBackground: null
       });
     } catch (err) {
-      console.log(err);
+      showWarning(err);
     }
   };
 
@@ -157,7 +157,7 @@ function ProfileOptions({ deleteAccount, logout }) {
             changeUserpic(e);
           }}
         />
-        change user picure
+        change user picture
       </label>
 
       <label htmlFor="background" className="changeProfileBackground">
@@ -237,5 +237,6 @@ export default ProfileOptions;
 
 ProfileOptions.propTypes = {
   deleteAccount: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired
+  logout: PropTypes.func.isRequired,
+  showWarning: PropTypes.func.isRequired
 };

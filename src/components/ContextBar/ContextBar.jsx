@@ -18,36 +18,41 @@ function ContextBar({
   isPostBookmarked,
   showContextbar,
   toggleContextbar,
-  logout
+  logout,
+  showWarning
 }) {
   const { userData } = GetUserContext();
   const { post } = postInfo;
 
   const bookmarkPost = async () => {
-    const userRef = doc(database, 'users', userData.userID);
     try {
-      const docSnap = await getDoc(userRef);
-      const found = post.postID;
+      const userRef = doc(database, 'users', userData.userID);
+      try {
+        const docSnap = await getDoc(userRef);
+        const found = post.postID;
 
-      const addBookmark = async () => {
-        await updateDoc(userRef, {
-          bookmarks: arrayUnion({ postID: post.postID, created: post.created })
-        });
-      };
+        const addBookmark = async () => {
+          await updateDoc(userRef, {
+            bookmarks: arrayUnion({ postID: post.postID, created: post.created })
+          });
+        };
 
-      const removeBookmark = async () => {
-        await updateDoc(userRef, {
-          bookmarks: arrayRemove({ postID: post.postID, created: post.created })
-        });
-      };
-      // like a post if not already liked or unlike if already liked
-      if (docSnap.data().bookmarks.some((item) => item.postID === found)) {
-        removeBookmark();
-      } else {
-        addBookmark();
+        const removeBookmark = async () => {
+          await updateDoc(userRef, {
+            bookmarks: arrayRemove({ postID: post.postID, created: post.created })
+          });
+        };
+        // like a post if not already liked or unlike if already liked
+        if (docSnap.data().bookmarks.some((item) => item.postID === found)) {
+          removeBookmark();
+        } else {
+          addBookmark();
+        }
+      } catch (err) {
+        console.log(err);
       }
     } catch (err) {
-      console.log(err);
+      showWarning(err);
     }
   };
 
@@ -61,14 +66,14 @@ function ContextBar({
           }}
         />
       </div>
-      {(activeTab === 'home' && <FollowUserList />) ||
-        (activeTab === 'explore' && <FollowUserList />) ||
-        (activeTab === 'bookmarks' && <FollowUserList />) ||
-        (activeTab === 'search' && <FollowUserList />) ||
-        (activeTab === 'trends' && <FollowUserList />) ||
-        (activeTab === 'mentions' && <FollowUserList />)}
+      {(activeTab === 'home' && <FollowUserList showWarning={showWarning} />) ||
+        (activeTab === 'explore' && <FollowUserList showWarning={showWarning} />) ||
+        (activeTab === 'bookmarks' && <FollowUserList showWarning={showWarning} />) ||
+        (activeTab === 'search' && <FollowUserList showWarning={showWarning} />) ||
+        (activeTab === 'trends' && <FollowUserList showWarning={showWarning} />) ||
+        (activeTab === 'mentions' && <FollowUserList showWarning={showWarning} />)}
       {activeTab === 'myprofile' && (
-        <ProfileOptions deleteAccount={deleteAccount} logout={logout} />
+        <ProfileOptions deleteAccount={deleteAccount} logout={logout} showWarning={showWarning} />
       )}
       {activeTab === 'postdetailsown' && (
         <PostDetailsOwn
@@ -114,7 +119,8 @@ ContextBar.propTypes = {
   isPostBookmarked: PropTypes.bool.isRequired,
   showContextbar: PropTypes.bool.isRequired,
   toggleContextbar: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired
+  logout: PropTypes.func.isRequired,
+  showWarning: PropTypes.func.isRequired
 };
 
 ContextBar.defaultProps = {

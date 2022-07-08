@@ -4,7 +4,7 @@ import { BiSearch } from 'react-icons/bi';
 import './SearchModal.css';
 import { useNavigate } from 'react-router-dom';
 
-function SearchModal({ handleSearchQuery, toggleSearchModal, showEmptyMessageWarning }) {
+function SearchModal({ handleSearchQuery, toggleSearchModal, showWarning }) {
   const navigate = useNavigate();
   const [text, setText] = useState('');
   const [fadeModal, setFadeModal] = useState(false);
@@ -16,7 +16,7 @@ function SearchModal({ handleSearchQuery, toggleSearchModal, showEmptyMessageWar
       setTimeout(() => toggleSearchModal(), 100);
       navigate('/main/search');
     } else {
-      showEmptyMessageWarning();
+      showWarning('search field is empty!');
     }
   };
 
@@ -80,5 +80,5 @@ export default SearchModal;
 SearchModal.propTypes = {
   handleSearchQuery: PropTypes.func.isRequired,
   toggleSearchModal: PropTypes.func.isRequired,
-  showEmptyMessageWarning: PropTypes.func.isRequired
+  showWarning: PropTypes.func.isRequired
 };

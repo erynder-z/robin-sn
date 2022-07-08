@@ -9,12 +9,14 @@ import placeholder from '../../assets/placeholder.png';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import AvatarCreator from '../../helpers/AvatarCreator/AvatarCreator';
 import resizeFile from '../../helpers/ImageResizer/ImageResizer';
+import WarningModal from '../WarningModal/WarningModal';
 
 function CreateUserAccount({ userCredentials }) {
   const navigate = useNavigate();
   const { uid, email } = userCredentials;
   const [isFinished, setIsFinished] = useState(false);
   const [showLoading, setShowLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [showCropper, setShowCropper] = useState(false);
   const [userObject, setUserObject] = useState({
     userID: uid,
@@ -49,7 +51,7 @@ function CreateUserAccount({ userCredentials }) {
       };
       setShowCropper(true);
     } catch (err) {
-      console.log(err);
+      setErrorMessage(err);
     }
   };
 
@@ -63,7 +65,7 @@ function CreateUserAccount({ userCredentials }) {
       }));
       setIsFinished(true);
     } else {
-      alert('enter a username!');
+      setErrorMessage('enter a username!');
     }
   };
 
@@ -87,7 +89,7 @@ function CreateUserAccount({ userCredentials }) {
         bookmarks: userObject.bookmarks
       });
     } catch (err) {
-      console.log(err);
+      setErrorMessage(err);
     }
   };
 
@@ -99,7 +101,13 @@ function CreateUserAccount({ userCredentials }) {
   }, [isFinished]);
 
   useEffect(() => {
-    setTimeout(() => setShowLoading(false), 2000);
+    if (errorMessage) {
+      setTimeout(() => setErrorMessage(null), 2000);
+    }
+  }, [errorMessage]);
+
+  useEffect(() => {
+    setTimeout(() => setShowLoading(null), 2000);
   }, []);
 
   return showLoading ? (
@@ -183,6 +191,7 @@ function CreateUserAccount({ userCredentials }) {
           />
         </div>
       )}
+      {errorMessage && <WarningModal errorMessage={errorMessage} />}
     </div>
   );
 }
