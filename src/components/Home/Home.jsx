@@ -75,7 +75,7 @@ function Home({ changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
       <div className="home-header">Home</div>
       <div className="home-content">
         <div className="posts">
-          {followedUsersPosts && followedUsersPosts.length <= 0 && (
+          {followedUsersPosts?.length <= 0 && (
             <div className="empty">
               <BiSpaceBar size="3rem" />
               <h4> empty...</h4>

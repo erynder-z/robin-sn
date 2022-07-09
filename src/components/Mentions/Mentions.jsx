@@ -54,7 +54,7 @@ function Mentions({ changeActiveTab, handleSetIsReplyModalActive, showWarning })
       <div className="mentions-header">Mentions</div>
       <div className="mentions-content">
         <div className="posts">
-          {mentions && mentions.length <= 0 && (
+          {mentions?.length <= 0 && (
             <div className="empty">
               <BiSpaceBar size="3rem" />
               <h4> empty...</h4>

@@ -28,7 +28,7 @@ function Bookmarks({ changeActiveTab, handleSetIsReplyModalActive }) {
       <div className="bookmarks-header">Bookmarked posts</div>
       <div className="bookmarks-content">
         <div className="posts">
-          {bookmarks && bookmarks.length <= 0 && (
+          {bookmarks?.length <= 0 && (
             <div className="empty">
               <BiSpaceBar size="3rem" />
               <h4> empty...</h4>

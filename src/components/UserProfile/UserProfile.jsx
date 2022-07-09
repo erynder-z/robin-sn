@@ -113,7 +113,7 @@ function UserProfile({ handleSetIsReplyModalActive, showWarning }) {
   // lists all the posts made by the user
   const Posts = (
     <div className="posts fadein">
-      {user && user.posts.length <= 0 && (
+      {user?.posts.length <= 0 && (
         <div className="empty">
           <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
@@ -134,7 +134,7 @@ function UserProfile({ handleSetIsReplyModalActive, showWarning }) {
   );
   const PostsAndReplies = (
     <div className="postsAndReplies fadein">
-      {user && postsAndReplies.length <= 0 && (
+      {postsAndReplies?.length <= 0 && (
         <div className="empty">
           <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
@@ -155,7 +155,7 @@ function UserProfile({ handleSetIsReplyModalActive, showWarning }) {
 
   const Media = (
     <div className="media fadein">
-      {user && media.length <= 0 && (
+      {media?.length <= 0 && (
         <div className="empty">
           <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
@@ -175,7 +175,7 @@ function UserProfile({ handleSetIsReplyModalActive, showWarning }) {
   );
   const Likes = (
     <div className="likes fadein">
-      {user && user.likes.length <= 0 && (
+      {user?.likes.length <= 0 && (
         <div className="empty">
           <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
