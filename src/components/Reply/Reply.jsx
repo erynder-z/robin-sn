@@ -241,7 +241,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
         <button
           className="replyBtn-append"
           type="submit"
-          onClick={() => {
+          onMouseDown={() => {
             reply(postID);
           }}>
           Reply
