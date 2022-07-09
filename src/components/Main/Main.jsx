@@ -133,7 +133,7 @@ function Main({ userCredentials }) {
               count: increment(-1)
             });
           } catch (err) {
-            console.log(err);
+            setErrorMessage(err);
           }
 
           const hashtagSnap = await getDoc(hashtagRef);
@@ -150,7 +150,7 @@ function Main({ userCredentials }) {
 
       navigate(-1);
     } catch (err) {
-      console.log(err);
+      setErrorMessage(err);
     }
   };
 
@@ -167,7 +167,7 @@ function Main({ userCredentials }) {
           const p = docSnap.data();
           deletePost(p);
         } else {
-          console.log('No such document!');
+          setErrorMessage('no such document!');
         }
       });
     };
@@ -176,10 +176,10 @@ function Main({ userCredentials }) {
       const user = auth.currentUser;
       deleteUser(user)
         .then(() => {
-          console.log('user deleted');
+          setErrorMessage('user deleted');
         })
         .catch((error) => {
-          console.log(`an error occurred: ${error}`);
+          setErrorMessage(`an error occurred: ${error}`);
         });
     };
 
@@ -228,6 +228,7 @@ function Main({ userCredentials }) {
               <Home
                 changeActiveTab={changeActiveTab}
                 handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                showWarning={showWarning}
               />
             ) : (
               <SetupUserAccount userCredentials={userCredentials} />
@@ -242,6 +243,7 @@ function Main({ userCredentials }) {
               <Home
                 changeActiveTab={changeActiveTab}
                 handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                showWarning={showWarning}
               />
             ) : null
           }
@@ -272,6 +274,7 @@ function Main({ userCredentials }) {
               <MyProfile
                 changeActiveTab={changeActiveTab}
                 handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                showWarning={showWarning}
               />
             ) : null
           }
@@ -280,7 +283,10 @@ function Main({ userCredentials }) {
           path="userprofile/:id"
           element={
             isUserSetup ? (
-              <UserProfile handleSetIsReplyModalActive={handleSetIsReplyModalActive} />
+              <UserProfile
+                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                showWarning={showWarning}
+              />
             ) : null
           }
         />
@@ -292,6 +298,7 @@ function Main({ userCredentials }) {
                 searchQuery={searchQuery}
                 changeActiveTab={changeActiveTab}
                 handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                showWarning={showWarning}
               />
             ) : null
           }
@@ -304,6 +311,7 @@ function Main({ userCredentials }) {
                 searchQuery={searchQuery}
                 changeActiveTab={changeActiveTab}
                 handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                showWarning={showWarning}
               />
             ) : null
           }
@@ -315,6 +323,7 @@ function Main({ userCredentials }) {
               <Mentions
                 changeActiveTab={changeActiveTab}
                 handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                showWarning={showWarning}
               />
             ) : null
           }

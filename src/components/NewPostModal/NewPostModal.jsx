@@ -44,7 +44,7 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect, showWarning }) {
           { merge: true }
         );
       } catch (err) {
-        console.log(err);
+        showWarning(err);
       }
     });
   };
@@ -63,7 +63,7 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect, showWarning }) {
         });
       });
     } catch (err) {
-      console.log(err);
+      showWarning(err);
     }
   };
 
@@ -78,7 +78,7 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect, showWarning }) {
         posts: arrayUnion({ postID, created: docSnap.data().created })
       });
     } catch (err) {
-      console.log(err);
+      showWarning(err);
     }
   };
 
@@ -109,7 +109,7 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect, showWarning }) {
         addHashtag(hashtagArray);
         toggleNewPostModal();
       } catch (err) {
-        console.log(err);
+        showWarning(err);
       }
       showNewPostEffect();
     } else {
@@ -132,7 +132,7 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect, showWarning }) {
         setImagePreview(base64data);
       };
     } catch (err) {
-      console.log(err);
+      showWarning(err);
     }
   };
 

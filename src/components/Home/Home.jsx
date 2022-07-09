@@ -8,7 +8,7 @@ import PostItem from '../PostItem/PostItem';
 import { GetUserContext } from '../../contexts/UserContext';
 import limitNumberOfPosts from '../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
 
-function Home({ changeActiveTab, handleSetIsReplyModalActive }) {
+function Home({ changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
   const { userData } = GetUserContext();
   const [followedUsersPosts, setFollowingPosts] = useState([]);
 
@@ -48,15 +48,18 @@ function Home({ changeActiveTab, handleSetIsReplyModalActive }) {
   const getPostsList = async () => {
     const list = [];
     const idList = await getUserIdList();
+    try {
+      await Promise.all(
+        idList.map(async (user) => {
+          const postList = await getUserPosts(user.userID);
 
-    await Promise.all(
-      idList.map(async (user) => {
-        const postList = await getUserPosts(user.userID);
-
-        list.push({ userID: user.userID, postIDs: [postList] });
-      })
-    );
-    setFollowingPosts(sortPosts(list));
+          list.push({ userID: user.userID, postIDs: [postList] });
+        })
+      );
+      setFollowingPosts(sortPosts(list));
+    } catch (err) {
+      showWarning(err);
+    }
   };
 
   useEffect(() => {
@@ -98,5 +101,6 @@ export default Home;
 
 Home.propTypes = {
   changeActiveTab: PropTypes.func.isRequired,
-  handleSetIsReplyModalActive: PropTypes.func.isRequired
+  handleSetIsReplyModalActive: PropTypes.func.isRequired,
+  showWarning: PropTypes.func.isRequired
 };

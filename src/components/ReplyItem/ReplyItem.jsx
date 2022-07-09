@@ -9,26 +9,36 @@ import placeholder from '../../assets/placeholder.png';
 
 function ReplyItem({ reply }) {
   const [replyUser, setReplyUser] = useState();
+  const [errorMessage, setErrorMessage] = useState(null);
 
   // get the details of the replying user
   const getReplyUserData = async () => {
     const { replyUserID } = reply;
-
-    const docRef = doc(database, 'users', replyUserID);
-    const docSnap = await getDoc(docRef);
-    if (!docSnap.data()) {
+    try {
+      const docRef = doc(database, 'users', replyUserID);
+      const docSnap = await getDoc(docRef);
+      if (!docSnap.data()) {
+        setReplyUser({
+          username: 'deleted user',
+          userpic: placeholder,
+          replyDate: format(fromUnixTime(reply.replyDate.seconds), 'PPP')
+        });
+      }
       setReplyUser({
-        username: 'deleted user',
-        userpic: placeholder,
+        username: docSnap.data().username,
+        userpic: docSnap.data().userPic,
         replyDate: format(fromUnixTime(reply.replyDate.seconds), 'PPP')
       });
+    } catch (err) {
+      setErrorMessage(err);
     }
-    setReplyUser({
-      username: docSnap.data().username,
-      userpic: docSnap.data().userPic,
-      replyDate: format(fromUnixTime(reply.replyDate.seconds), 'PPP')
-    });
   };
+
+  useEffect(() => {
+    if (errorMessage) {
+      setTimeout(() => setErrorMessage(null), 2000);
+    }
+  }, [errorMessage]);
 
   useEffect(() => {
     getReplyUserData();

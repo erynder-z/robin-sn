@@ -8,31 +8,35 @@ import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
 import { GetUserContext } from '../../contexts/UserContext';
 
-function Trends({ searchQuery, changeActiveTab, handleSetIsReplyModalActive }) {
+function Trends({ searchQuery, changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
   const { userData } = GetUserContext();
   const navigate = useNavigate();
   const [postResults, setPostResults] = useState([]);
   const [search, setSearch] = useState('');
 
   const getSearchResults = async (string) => {
-    const getPostResults = async (s) => {
-      const foundPosts = [];
-      const postsRef = collection(database, 'posts');
-      const q = query(
-        postsRef,
-        where('hashtags', 'array-contains', s.toLowerCase()),
-        orderBy('created', 'desc'),
-        limit(20)
-      );
+    try {
+      const getPostResults = async (s) => {
+        const foundPosts = [];
+        const postsRef = collection(database, 'posts');
+        const q = query(
+          postsRef,
+          where('hashtags', 'array-contains', s.toLowerCase()),
+          orderBy('created', 'desc'),
+          limit(20)
+        );
 
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        foundPosts.push(doc.data());
-      });
-      setPostResults(foundPosts);
-    };
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          foundPosts.push(doc.data());
+        });
+        setPostResults(foundPosts);
+      };
 
-    getPostResults(string);
+      getPostResults(string);
+    } catch (err) {
+      showWarning(err);
+    }
   };
 
   useEffect(() => {
@@ -94,5 +98,6 @@ export default Trends;
 Trends.propTypes = {
   searchQuery: PropTypes.string.isRequired,
   changeActiveTab: PropTypes.func.isRequired,
-  handleSetIsReplyModalActive: PropTypes.func.isRequired
+  handleSetIsReplyModalActive: PropTypes.func.isRequired,
+  showWarning: PropTypes.func.isRequired
 };

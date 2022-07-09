@@ -49,7 +49,7 @@ function ContextBar({
           addBookmark();
         }
       } catch (err) {
-        console.log(err);
+        showWarning(err);
       }
     } catch (err) {
       showWarning(err);

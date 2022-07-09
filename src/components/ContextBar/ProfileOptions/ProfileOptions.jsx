@@ -52,10 +52,14 @@ function ProfileOptions({ deleteAccount, logout, showWarning }) {
   };
 
   const uploadUserpic = async (pic) => {
-    const userRef = doc(database, 'users', userData.userID);
-    await updateDoc(userRef, {
-      userPic: pic
-    });
+    try {
+      const userRef = doc(database, 'users', userData.userID);
+      await updateDoc(userRef, {
+        userPic: pic
+      });
+    } catch (err) {
+      showWarning(err);
+    }
   };
 
   const removeProfileBackground = async () => {

@@ -5,10 +5,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .signin-email > form {
-  width: 25vw;
+  width: 20vw;
 }
 
 .signin-email {
@@ -110,6 +111,10 @@ input:focus[type='password'] {
   align-items: center;
   z-index: 10;
   background-color: var(--card-background);
+}
+
+.signup-email {
+  width: 25vw;
 }
 
 .signupBtn {

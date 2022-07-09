@@ -18,11 +18,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
   const [showReplyUI, setShowReplyUserName] = useState(false);
   const [fadeModal, setFadeModal] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [emptyMessageWarning, setEmptyMessageWarning] = useState(false);
-
-  const showEmptyMessageWarning = () => {
-    setEmptyMessageWarning(true);
-  };
+  const [errorMessage, setErrorMessage] = useState(null);
 
   // add replied post's ID to user object
   const addPostToUserObject = async () => {
@@ -33,7 +29,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
         replies: arrayUnion({ postID, created: Timestamp.now() })
       });
     } catch (err) {
-      console.log(err);
+      setErrorMessage(err);
     }
   };
 
@@ -56,10 +52,10 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
         toggleReplyModal();
         setText('');
       } catch (err) {
-        console.log(err);
+        setErrorMessage(err);
       }
     } else {
-      showEmptyMessageWarning();
+      setErrorMessage('enter a message!');
     }
   };
 
@@ -70,10 +66,10 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
   };
 
   useEffect(() => {
-    if (emptyMessageWarning) {
-      setTimeout(() => setEmptyMessageWarning(false), 2000);
+    if (errorMessage) {
+      setTimeout(() => setErrorMessage(null), 2000);
     }
-  }, [emptyMessageWarning]);
+  }, [errorMessage]);
 
   useEffect(() => {
     setMode(replyMode);
@@ -258,7 +254,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
     <div className="reply-container">
       {mode === 'modal' && ReplyModal}
       {mode === 'append' && ReplyAppend}
-      {emptyMessageWarning && <WarningModal errorMessage="reply field is empty!" />}
+      {errorMessage && <WarningModal errorMessage={errorMessage} />}
     </div>
   );
 }

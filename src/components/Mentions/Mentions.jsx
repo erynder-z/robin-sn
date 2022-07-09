@@ -7,7 +7,7 @@ import PostItem from '../PostItem/PostItem';
 import { GetUserContext } from '../../contexts/UserContext';
 import { database } from '../Firebase/Firebase';
 
-function Mentions({ changeActiveTab, handleSetIsReplyModalActive }) {
+function Mentions({ changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
   const { userData } = GetUserContext();
   const [mentions, setMentions] = useState(null);
 
@@ -21,23 +21,27 @@ function Mentions({ changeActiveTab, handleSetIsReplyModalActive }) {
   };
 
   const getMentions = async () => {
-    const postsWithMentions = [];
-    const mentionsRef = collection(database, 'posts');
-    const q = query(
-      mentionsRef,
-      where('mentions', 'array-contains', userData.username),
-      orderBy('created', 'desc'),
-      limit(25)
-    );
+    try {
+      const postsWithMentions = [];
+      const mentionsRef = collection(database, 'posts');
+      const q = query(
+        mentionsRef,
+        where('mentions', 'array-contains', userData.username),
+        orderBy('created', 'desc'),
+        limit(25)
+      );
 
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      postsWithMentions.push({
-        postID: doc.data().postID,
-        created: doc.data().created
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        postsWithMentions.push({
+          postID: doc.data().postID,
+          created: doc.data().created
+        });
       });
-    });
-    setMentions(postsWithMentions);
+      setMentions(postsWithMentions);
+    } catch (err) {
+      showWarning(err);
+    }
   };
 
   useEffect(() => {
@@ -77,5 +81,6 @@ export default Mentions;
 
 Mentions.propTypes = {
   changeActiveTab: PropTypes.func.isRequired,
-  handleSetIsReplyModalActive: PropTypes.func.isRequired
+  handleSetIsReplyModalActive: PropTypes.func.isRequired,
+  showWarning: PropTypes.func.isRequired
 };

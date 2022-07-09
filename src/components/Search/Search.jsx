@@ -8,7 +8,7 @@ import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
 import { GetUserContext } from '../../contexts/UserContext';
 
-function Search({ searchQuery, changeActiveTab, handleSetIsReplyModalActive }) {
+function Search({ searchQuery, changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
   const { userData } = GetUserContext();
   const navigate = useNavigate();
   const [userResults, setUserResults] = useState([]);
@@ -16,46 +16,50 @@ function Search({ searchQuery, changeActiveTab, handleSetIsReplyModalActive }) {
   const [search, setSearch] = useState('');
 
   const getSearchResults = async (string) => {
-    const getUserResults = async (s) => {
-      const foundUsers = [];
-      const usersRef = collection(database, 'users');
-      const q = query(
-        usersRef,
-        where('username', '==', s.toLowerCase()),
-        orderBy('username', 'desc'),
-        limit(25)
-      );
+    try {
+      const getUserResults = async (s) => {
+        const foundUsers = [];
+        const usersRef = collection(database, 'users');
+        const q = query(
+          usersRef,
+          where('username', '==', s.toLowerCase()),
+          orderBy('username', 'desc'),
+          limit(25)
+        );
 
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        foundUsers.push({
-          username: doc.data().username,
-          userID: doc.data().userID,
-          userPic: doc.data().userPic
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          foundUsers.push({
+            username: doc.data().username,
+            userID: doc.data().userID,
+            userPic: doc.data().userPic
+          });
         });
-      });
-      setUserResults(foundUsers);
-    };
+        setUserResults(foundUsers);
+      };
 
-    const getPostResults = async (s) => {
-      const foundPosts = [];
-      const postsRef = collection(database, 'posts');
-      const q = query(
-        postsRef,
-        where('hashtags', 'array-contains', s.toLowerCase()),
-        orderBy('created', 'desc'),
-        limit(25)
-      );
+      const getPostResults = async (s) => {
+        const foundPosts = [];
+        const postsRef = collection(database, 'posts');
+        const q = query(
+          postsRef,
+          where('hashtags', 'array-contains', s.toLowerCase()),
+          orderBy('created', 'desc'),
+          limit(25)
+        );
 
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        foundPosts.push(doc.data());
-      });
-      setPostResults(foundPosts);
-    };
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          foundPosts.push(doc.data());
+        });
+        setPostResults(foundPosts);
+      };
 
-    getUserResults(string);
-    getPostResults(string);
+      getUserResults(string);
+      getPostResults(string);
+    } catch (err) {
+      showWarning(err);
+    }
   };
 
   useEffect(() => {
@@ -146,5 +150,6 @@ export default Search;
 Search.propTypes = {
   searchQuery: PropTypes.string.isRequired,
   changeActiveTab: PropTypes.func.isRequired,
-  handleSetIsReplyModalActive: PropTypes.func.isRequired
+  handleSetIsReplyModalActive: PropTypes.func.isRequired,
+  showWarning: PropTypes.func.isRequired
 };

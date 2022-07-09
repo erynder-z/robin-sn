@@ -8,7 +8,7 @@ import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 
-function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
+function MyProfile({ changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
   const { userData } = GetUserContext();
   const {
     userPic,
@@ -46,42 +46,50 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive }) {
 
   // get all of the users posts and posts the user has replied to
   const getPostsAndReplies = async () => {
-    const list = [];
-    const userReplies = [...replies];
+    try {
+      const list = [];
+      const userReplies = [...replies];
 
-    userReplies.forEach(async (reply) => {
-      const q = query(
-        collection(database, 'posts'),
-        where('postID', '==', reply.postID),
-        orderBy('created', 'desc'),
-        limit(25)
-      );
-      const querySnapshot = await getDocs(q);
+      userReplies.forEach(async (reply) => {
+        const q = query(
+          collection(database, 'posts'),
+          where('postID', '==', reply.postID),
+          orderBy('created', 'desc'),
+          limit(25)
+        );
+        const querySnapshot = await getDocs(q);
 
-      querySnapshot.forEach((doc) => {
-        list.push({ postID: doc.data().postID, created: doc.data().created });
+        querySnapshot.forEach((doc) => {
+          list.push({ postID: doc.data().postID, created: doc.data().created });
+        });
+        setPostsAndReplies(sortPosts(list));
       });
-      setPostsAndReplies(sortPosts(list));
-    });
+    } catch (err) {
+      showWarning(err);
+    }
   };
 
   // get all of the users posts with an image
   const getMediaPosts = async () => {
-    const list = [];
-    const q = query(
-      collection(database, 'posts'),
-      where('ownerID', '==', userID),
-      where('image.imageRef', '!=', 'null'),
-      orderBy('image.imageRef', 'desc'),
-      orderBy('created', 'desc'),
-      limit(25)
-    );
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      list.push({ postID: doc.data().postID, created: doc.data().created });
-    });
+    try {
+      const list = [];
+      const q = query(
+        collection(database, 'posts'),
+        where('ownerID', '==', userID),
+        where('image.imageRef', '!=', 'null'),
+        orderBy('image.imageRef', 'desc'),
+        orderBy('created', 'desc'),
+        limit(25)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        list.push({ postID: doc.data().postID, created: doc.data().created });
+      });
 
-    setMedia(sortPosts(list));
+      setMedia(sortPosts(list));
+    } catch (err) {
+      showWarning(err);
+    }
   };
 
   const getUserLikes = () => {
@@ -289,5 +297,6 @@ export default MyProfile;
 
 MyProfile.propTypes = {
   changeActiveTab: PropTypes.func.isRequired,
-  handleSetIsReplyModalActive: PropTypes.func.isRequired
+  handleSetIsReplyModalActive: PropTypes.func.isRequired,
+  showWarning: PropTypes.func.isRequired
 };

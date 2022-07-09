@@ -27,6 +27,7 @@ function PostItem({ postID, handleSetIsReplyModalActive }) {
   const [postOwner, setPostOwner] = useState('');
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [clickEffect, setClickEffect] = useState({ reply: false, repost: false, like: false });
+  const [errorMessage, setErrorMessage] = useState(null);
   const postDocRef = doc(database, 'posts', postID);
   const userDocRef = doc(database, 'users', userData.userID);
 
@@ -41,7 +42,7 @@ function PostItem({ postID, handleSetIsReplyModalActive }) {
         ownerID: docSnap.data().userID
       });
     } catch (err) {
-      console.log(err);
+      setErrorMessage(err);
     }
   };
 
@@ -86,7 +87,7 @@ function PostItem({ postID, handleSetIsReplyModalActive }) {
 
         addPostToUserObject(newPostID);
       } catch (err) {
-        console.log(err);
+        setErrorMessage(err);
       }
     }
   };
@@ -121,7 +122,7 @@ function PostItem({ postID, handleSetIsReplyModalActive }) {
         likePost();
       }
     } catch (err) {
-      console.log(err);
+      setErrorMessage(err);
     }
   };
 
@@ -153,6 +154,12 @@ function PostItem({ postID, handleSetIsReplyModalActive }) {
       setTimeout(() => setClickEffect({ reply: false, repost: false, like: false }), 200);
     }
   }, [clickEffect.reply || clickEffect.repost || clickEffect.like]);
+
+  useEffect(() => {
+    if (errorMessage) {
+      setTimeout(() => setErrorMessage(null), 2000);
+    }
+  }, [errorMessage]);
 
   return (
     post && (
