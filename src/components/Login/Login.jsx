@@ -18,6 +18,12 @@ function Login() {
   const navigate = useNavigate();
   const user = auth.currentUser;
 
+  useEffect(() => {
+    if (user) {
+      navigate('/main');
+    }
+  }, [user]);
+
   const showLoginError = (error) => {
     if (error.code === AuthErrorCodes.INVALID_PASSWORD) {
       setLoginError('Wrong password. Try again.');
@@ -49,12 +55,6 @@ function Login() {
   };
 
   useEffect(() => {
-    if (user) {
-      navigate('/main');
-    }
-  }, [user]);
-
-  useEffect(() => {
     if (confirmPasswordFormValue !== passwordFormValue) {
       setLoginError('passwords do not match');
     } else {
@@ -81,6 +81,9 @@ function Login() {
         />
       </div>
       <div className="signup-email">
+        <header>
+          <h1 className="app-header">Create your account</h1>
+        </header>
         <form>
           <div className="input-container">
             <label htmlFor="uname">
@@ -138,6 +141,9 @@ function Login() {
 
   return (
     <div className="signin-container fadein">
+      <header>
+        <h1 className="app-header">Welcome to Robin</h1>
+      </header>
       <div className="login-container">
         <h2>Login to existing account</h2>
         <div className="signin-email">
@@ -175,7 +181,7 @@ function Login() {
                 Login
               </button>
             </div>
-            <div className="loginError">{loginError}</div>
+
             <h2 className="createNewAccount-header">Or create a new account</h2>
             <div className="button-container">
               <button
@@ -191,7 +197,7 @@ function Login() {
           </form>
         </div>
       </div>
-
+      <div className="loginError">{loginError}</div>
       {newAccount && CreateNewAccount}
     </div>
   );

@@ -1,16 +1,17 @@
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { BiArrowBack } from 'react-icons/bi';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { doc } from 'firebase/firestore';
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { database } from '../Firebase/Firebase';
+import { GetUserContext } from '../../contexts/UserContext';
 import PostItem from '../PostItem/PostItem';
 import Reply from '../Reply/Reply';
 import ReplyItem from '../ReplyItem/ReplyItem';
-import './PostDetails.css';
-import { GetUserContext } from '../../contexts/UserContext';
+
 import limitNumberOfPosts from '../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
+import './PostDetails.css';
 
 function PostDetails({ changeActiveTab, handlePostInfo, handleSetIsReplyModalActive }) {
   const { userData } = GetUserContext();

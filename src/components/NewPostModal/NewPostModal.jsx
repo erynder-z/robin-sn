@@ -4,7 +4,6 @@ import uniqid from 'uniqid';
 import Picker from 'emoji-picker-react';
 import { BiImage } from 'react-icons/bi';
 import LinearProgress from '@mui/material/LinearProgress';
-
 import { MdOutlineEmojiEmotions } from 'react-icons/md';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import {
@@ -17,11 +16,11 @@ import {
   updateDoc
 } from 'firebase/firestore';
 import { database, storage } from '../Firebase/Firebase';
-import resizeFile from '../../helpers/ImageResizer/ImageResizer';
-import './NewPostModal.css';
-import parseHashtag from '../../helpers/HashtagCreator/HashtagCreator';
 import { GetUserContext } from '../../contexts/UserContext';
+import resizeFile from '../../helpers/ImageResizer/ImageResizer';
+import parseHashtag from '../../helpers/HashtagCreator/HashtagCreator';
 import parseMention from '../../helpers/MentionCreator/MentionCreator';
+import './NewPostModal.css';
 
 function NewPostModal({ toggleNewPostModal, showNewPostEffect, showWarning }) {
   const { userData } = GetUserContext();

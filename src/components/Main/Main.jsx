@@ -6,7 +6,6 @@ import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { deleteUser, signOut } from 'firebase/auth';
 import { auth, database, storage } from '../Firebase/Firebase';
-import './Main.css';
 import SetupUserAccount from '../SetupUserAccount/SetupUserAccount';
 import Home from '../Home/Home';
 import Sidebar from '../Sidebar/Sidebar';
@@ -24,6 +23,7 @@ import Trends from '../Trends/Trends';
 import NewPostEffect from '../NewPostEffect/NewPostEffect';
 import Mentions from '../Mentions/Mentions';
 import WarningModal from '../WarningModal/WarningModal';
+import './Main.css';
 
 function Main({ userCredentials }) {
   const navigate = useNavigate();
@@ -194,16 +194,16 @@ function Main({ userCredentials }) {
   };
 
   useEffect(() => {
-    if (postInfo.post) {
-      checkIsPostbookmarked();
-    }
-  }, [postInfo]);
-
-  useEffect(() => {
     if (usr) {
       checkUserSetup();
     }
   }, [usr]);
+
+  useEffect(() => {
+    if (postInfo.post) {
+      checkIsPostbookmarked();
+    }
+  }, [postInfo]);
 
   useEffect(() => {
     if (newPostEffect) {

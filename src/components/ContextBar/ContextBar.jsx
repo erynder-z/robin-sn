@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { TbLayoutSidebarRightCollapse } from 'react-icons/tb';
 import FollowUserList from './FollowUserList/FollowUserList';
 import ProfileOptions from './ProfileOptions/ProfileOptions';
 import PostDetailsOwn from './PostDetailsOwn/PostDetailsOwn';
 import PostDetailsOther from './PostDetailsOther/PostDetailsOther';
-import './ContextBar.css';
 import { GetUserContext } from '../../contexts/UserContext';
 import { database } from '../Firebase/Firebase';
+import './ContextBar.css';
 
 function ContextBar({
   activeTab,

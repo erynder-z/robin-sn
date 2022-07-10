@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { BiImageAdd } from 'react-icons/bi';
-import './SetupUserAccount.css';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { database } from '../Firebase/Firebase';
@@ -10,6 +9,7 @@ import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import AvatarCreator from '../../helpers/AvatarCreator/AvatarCreator';
 import resizeFile from '../../helpers/ImageResizer/ImageResizer';
 import WarningModal from '../WarningModal/WarningModal';
+import './SetupUserAccount.css';
 
 function CreateUserAccount({ userCredentials }) {
   const navigate = useNavigate();

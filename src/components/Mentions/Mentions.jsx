@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BiSpaceBar } from 'react-icons/bi';
-import './Mentions.css';
 import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
-import PostItem from '../PostItem/PostItem';
 import { GetUserContext } from '../../contexts/UserContext';
 import { database } from '../Firebase/Firebase';
+import PostItem from '../PostItem/PostItem';
 
 function Mentions({ changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
   const { userData } = GetUserContext();

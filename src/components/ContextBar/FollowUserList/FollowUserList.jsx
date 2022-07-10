@@ -1,6 +1,6 @@
-import { arrayRemove, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore';
-import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { arrayRemove, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { BiUserPlus, BiUserMinus } from 'react-icons/bi';
 import { GetUserContext } from '../../../contexts/UserContext';
 import { database } from '../../Firebase/Firebase';

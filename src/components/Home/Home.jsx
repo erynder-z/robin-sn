@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BiSpaceBar } from 'react-icons/bi';
-import './Home.css';
 import { doc, getDoc } from 'firebase/firestore';
 import { database } from '../Firebase/Firebase';
-import PostItem from '../PostItem/PostItem';
 import { GetUserContext } from '../../contexts/UserContext';
 import limitNumberOfPosts from '../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
+import PostItem from '../PostItem/PostItem';
 
 function Home({ changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
   const { userData } = GetUserContext();
   const [followedUsersPosts, setFollowingPosts] = useState([]);
+
+  useEffect(() => {
+    changeActiveTab('home');
+  }, []);
 
   // make a list with the ID of all users we are following
   const getUserIdList = async () => {
@@ -65,10 +68,6 @@ function Home({ changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
   useEffect(() => {
     getPostsList();
   }, [userData]);
-
-  useEffect(() => {
-    changeActiveTab('home');
-  }, []);
 
   return (
     <div className="home-container fadein">

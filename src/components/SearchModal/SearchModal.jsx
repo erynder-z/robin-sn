@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { BiSearch } from 'react-icons/bi';
-import './SearchModal.css';
 import { useNavigate } from 'react-router-dom';
+import './SearchModal.css';
 
 function SearchModal({ handleSearchQuery, toggleSearchModal, showWarning }) {
   const navigate = useNavigate();

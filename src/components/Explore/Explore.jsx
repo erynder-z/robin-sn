@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BiSpaceBar } from 'react-icons/bi';
-import './Explore.css';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { collection, limit, orderBy, query } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { database } from '../Firebase/Firebase';
+import './Explore.css';
 
 function Explore({ handleSearchQuery, changeActiveTab }) {
   const navigate = useNavigate();

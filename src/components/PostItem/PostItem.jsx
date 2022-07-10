@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './PostItem.css';
 import uniqid from 'uniqid';
 import { useNavigate } from 'react-router-dom';
 import { BiMessageRounded, BiRepost, BiLike } from 'react-icons/bi';
@@ -16,9 +15,11 @@ import {
 } from 'firebase/firestore';
 import { format, fromUnixTime } from 'date-fns';
 import { database } from '../Firebase/Firebase';
+import { GetUserContext } from '../../contexts/UserContext';
 import Reply from '../Reply/Reply';
 import parseText from '../../helpers/ParseText/ParseText';
-import { GetUserContext } from '../../contexts/UserContext';
+
+import './PostItem.css';
 
 function PostItem({ postID, handleSetIsReplyModalActive }) {
   const { userData } = GetUserContext();

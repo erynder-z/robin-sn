@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BiSpaceBar } from 'react-icons/bi';
-import './Bookmarks.css';
-import PostItem from '../PostItem/PostItem';
 import { GetUserContext } from '../../contexts/UserContext';
+import PostItem from '../PostItem/PostItem';
 
 function Bookmarks({ changeActiveTab, handleSetIsReplyModalActive }) {
   const { userData } = GetUserContext();
   const [bookmarks, setBookmarks] = useState(null);
+
+  useEffect(() => {
+    changeActiveTab('bookmarks');
+    setBookmarks(userData.bookmarks);
+  }, []);
 
   const sortPosts = (lst) => {
     const unsorted = [];
@@ -17,11 +21,6 @@ function Bookmarks({ changeActiveTab, handleSetIsReplyModalActive }) {
     const sorted = unsorted.sort((a, b) => (a.created.seconds < b.created.seconds ? 1 : -1));
     return sorted;
   };
-
-  useEffect(() => {
-    changeActiveTab('bookmarks');
-    setBookmarks(userData.bookmarks);
-  }, []);
 
   return (
     <div className="bookmarks-container fadein">

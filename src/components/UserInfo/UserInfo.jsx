@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './UserInfo.css';
 import { TbLogout } from 'react-icons/tb';
 import { GetUserContext } from '../../contexts/UserContext';
+import './UserInfo.css';
 
 function UserInfo({ logout }) {
   const { userData } = GetUserContext();

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './FloatingMenu.css';
 import { BiPlus, BiPencil, BiSearch } from 'react-icons/bi';
 import { TbLayoutSidebarRightExpand, TbLayoutSidebarRightCollapse } from 'react-icons/tb';
 import { Fab, Action } from 'react-tiny-fab';
@@ -9,29 +8,6 @@ import 'react-tiny-fab/dist/styles.css';
 function FloatingMenu({ toggleNewPostModal, toggleSearchModal, toggleContextbar, showContextbar }) {
   const [toggleContextbarBtnStyle, setToggleContextbarBtnStyle] = useState();
   const [fabStyle, setFabStyle] = useState();
-
-  const mainButtonStyles = {
-    color: 'var(--text-bright)',
-    backgroundColor: 'var(--button)',
-    padding: '10px',
-    fontWeight: 'bold'
-  };
-
-  const newPostActionBtn = {
-    color: 'var(--text-bright)',
-    backgroundColor: 'var(--button)',
-    padding: '10px',
-    fontWeight: 'bold'
-  };
-
-  const searchActionBtn = {
-    color: 'var(--text-bright)',
-    backgroundColor: 'var(--button)',
-    padding: '10px',
-    fontWeight: 'bold'
-  };
-
-  const toggleContextbarBtn = toggleContextbarBtnStyle;
 
   // set breakpoint for mobile devices since we cannot use inline media queries
   useEffect(() => {
@@ -56,6 +32,29 @@ function FloatingMenu({ toggleNewPostModal, toggleSearchModal, toggleContextbar,
       });
     }
   }, []);
+
+  const mainButtonStyles = {
+    color: 'var(--text-bright)',
+    backgroundColor: 'var(--button)',
+    padding: '10px',
+    fontWeight: 'bold'
+  };
+
+  const newPostActionBtn = {
+    color: 'var(--text-bright)',
+    backgroundColor: 'var(--button)',
+    padding: '10px',
+    fontWeight: 'bold'
+  };
+
+  const searchActionBtn = {
+    color: 'var(--text-bright)',
+    backgroundColor: 'var(--button)',
+    padding: '10px',
+    fontWeight: 'bold'
+  };
+
+  const toggleContextbarBtn = toggleContextbarBtnStyle;
 
   return (
     <div className="floating-menu-container">

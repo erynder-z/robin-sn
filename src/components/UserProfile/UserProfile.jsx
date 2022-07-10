@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
 import { BiSpaceBar, BiArrowBack } from 'react-icons/bi';
-import './UserProfile.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { collection, doc, getDoc, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
-import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import limitNumberOfPosts from '../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
+import PostItem from '../PostItem/PostItem';
+import './UserProfile.css';
 
 function UserProfile({ handleSetIsReplyModalActive, showWarning }) {
   const navigate = useNavigate();

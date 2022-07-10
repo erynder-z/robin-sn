@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
 import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
+import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
 import { BiSpaceBar } from 'react-icons/bi';
-import './MyProfile.css';
-import PostItem from '../PostItem/PostItem';
 import { database } from '../Firebase/Firebase';
 import { GetUserContext } from '../../contexts/UserContext';
+import PostItem from '../PostItem/PostItem';
 
 function MyProfile({ changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
   const { userData } = GetUserContext();
