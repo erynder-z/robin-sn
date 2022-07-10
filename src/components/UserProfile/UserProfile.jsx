@@ -138,7 +138,7 @@ function UserProfile({ handleSetIsReplyModalActive, showWarning }) {
         <div className="empty">
           <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
-          <h5> all of {user.username}&apos;s recent replies will show up here</h5>
+          <h5> all of {user?.username}&apos;s recent replies will show up here</h5>
         </div>
       )}
       {postsAndReplies.map((post) => (
@@ -159,7 +159,7 @@ function UserProfile({ handleSetIsReplyModalActive, showWarning }) {
         <div className="empty">
           <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
-          <h5> all of {user.username}&apos;s recent posts with images will show up here</h5>
+          <h5> all of {user?.username}&apos;s recent posts with images will show up here</h5>
         </div>
       )}
       {media.map((post) => (
@@ -179,7 +179,7 @@ function UserProfile({ handleSetIsReplyModalActive, showWarning }) {
         <div className="empty">
           <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
-          <h5> all recent posts {user.username} liked will show up here</h5>
+          <h5> all recent posts {user?.username} liked will show up here</h5>
         </div>
       )}
       {user &&
