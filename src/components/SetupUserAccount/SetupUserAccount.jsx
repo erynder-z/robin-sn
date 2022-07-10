@@ -36,6 +36,7 @@ function CreateUserAccount({ userCredentials }) {
     bookmarks: []
   });
 
+  // allow the user to upload a picture and save it in state to be accessed by the avatar-creator
   const uploadUserpic = async (e) => {
     try {
       const file = e.target.files[0];
@@ -93,6 +94,7 @@ function CreateUserAccount({ userCredentials }) {
     }
   };
 
+  // navitage to main component if setup is finished
   useEffect(() => {
     if (isFinished) {
       uploadUser();
@@ -106,6 +108,7 @@ function CreateUserAccount({ userCredentials }) {
     }
   }, [errorMessage]);
 
+  // display loading screen while component is mounted
   useEffect(() => {
     setTimeout(() => setShowLoading(null), 2000);
   }, []);

@@ -45,18 +45,22 @@ function Main({ userCredentials }) {
     await signOut(auth);
   };
 
+  // indicate if reply-modal is currently shown
   const handleSetIsReplyModalActive = () => {
     setIsReplyModalActive(!isReplyModalActive);
   };
 
+  // indicate if contextbar is currently visible (for mobile UI)
   const toggleContextbar = () => {
     setShowContextbar(!showContextbar);
   };
 
+  // show oberlay effect when posting
   const showNewPostEffect = () => {
     setNewPostEffect(true);
   };
 
+  // show overlay warning
   const showWarning = (message) => {
     setErrorMessage(message);
   };
@@ -66,20 +70,24 @@ function Main({ userCredentials }) {
     setPostInfo(post);
   };
 
+  // indicate currently active component in order to show matching contextbar-content
   const changeActiveTab = (mode) => {
     setActiveTab(mode);
   };
 
+  // close search-modal when opening new post modal
   const toggleNewPostModal = () => {
     setShowNewPostModal(!showNewPostModal);
     setShowSearchModal(false);
   };
 
+  // close new post modal when opening search modal
   const toggleSearchModal = () => {
     setShowSearchModal(!showSearchModal);
     setShowNewPostModal(false);
   };
 
+  // set search query to be accessed from child components
   const handleSearchQuery = (q) => {
     setSearchQuery(q.toLowerCase());
   };
@@ -91,6 +99,7 @@ function Main({ userCredentials }) {
     }
   };
 
+  // check if currently shown post is bookmarked
   const checkIsPostbookmarked = () => {
     if (usr.bookmarks.some((bookmark) => bookmark.postID === postInfo.post.postID)) {
       setIsPostBookmarked(true);
@@ -113,6 +122,7 @@ function Main({ userCredentials }) {
         }
       };
 
+      // relete postID from userObject
       const handleDeleteFromUserObject = async () => {
         // need to pass the exact object to delete into arrayRemove(), so we first need to retrieve the post-object from the user object.posts-array
         const userSnap = await getDoc(userRef);
@@ -124,6 +134,7 @@ function Main({ userCredentials }) {
         }
       };
 
+      // remove hashtag / decrement hashtag count associated with deleted post
       const handleRemoveHashtag = async (hashtagArray) => {
         hashtagArray.map(async (hashtag) => {
           const hashtagRef = doc(database, 'hashtags', hashtag.toLowerCase());
@@ -154,7 +165,9 @@ function Main({ userCredentials }) {
     }
   };
 
+  // delete user account
   const deleteAccount = async () => {
+    // delete all of users posts in database
     const deletePosts = async () => {
       const IDArray = [];
       usr.posts.forEach((post) => {
@@ -172,6 +185,7 @@ function Main({ userCredentials }) {
       });
     };
 
+    // delete user firebase authentication
     const deleteUserAuthentication = async () => {
       const user = auth.currentUser;
       deleteUser(user)
@@ -183,6 +197,7 @@ function Main({ userCredentials }) {
         });
     };
 
+    // remove user from database
     const deleteUserInDatabase = async () => {
       await deleteDoc(doc(database, 'users', usr.userID));
       deleteUserAuthentication();
@@ -193,24 +208,28 @@ function Main({ userCredentials }) {
     await deleteUserInDatabase();
   };
 
+  // check if the user's account setup is complete
   useEffect(() => {
     if (usr) {
       checkUserSetup();
     }
   }, [usr]);
 
+  // check if post is bookmarket whenever a new post is selected
   useEffect(() => {
     if (postInfo.post) {
       checkIsPostbookmarked();
     }
   }, [postInfo]);
 
+  // remove new post effect overlay
   useEffect(() => {
     if (newPostEffect) {
       setTimeout(() => setNewPostEffect(false), 2000);
     }
   }, [newPostEffect]);
 
+  // remove error message overlay
   useEffect(() => {
     if (errorMessage) {
       setTimeout(() => setErrorMessage(null), 2000);

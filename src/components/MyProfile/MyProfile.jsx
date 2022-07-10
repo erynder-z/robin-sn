@@ -35,6 +35,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive, showWarning }
     return sorted;
   };
 
+  // return only the last 25 posts
   const getUserPosts = () => {
     const limitedPosts = [...posts];
     while (limitedPosts.length > 25) {
@@ -91,6 +92,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive, showWarning }
     }
   };
 
+  // get only the last 25 likes
   const getUserLikes = () => {
     const limitedPosts = [...likes];
     while (limitedPosts.length > 25) {

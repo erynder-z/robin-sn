@@ -13,6 +13,7 @@ function Explore({ handleSearchQuery, changeActiveTab }) {
   const q = query(hashtagRef, orderBy('count', 'desc'), limit(25));
   const [trends] = useCollectionData(q);
 
+  // pass hashtag-string to parent in order to run a search query
   const handleClick = (hashtag) => {
     handleSearchQuery(hashtag);
     navigate('/main/trends');

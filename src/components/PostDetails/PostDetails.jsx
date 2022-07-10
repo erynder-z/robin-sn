@@ -32,6 +32,7 @@ function PostDetails({ changeActiveTab, handlePostInfo, handleSetIsReplyModalAct
     }
   }, [post]);
 
+  // determine weather post was created by the user or by another user
   useEffect(() => {
     if (location.state.postOwner.ownerID === userID) {
       changeActiveTab('postdetailsown');

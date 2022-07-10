@@ -7,6 +7,7 @@ import './PostDetailsOwn.css';
 function PostDetailsOwn({ deletePost, postInfo, bookmarkPost, isPostBookmarked }) {
   const [bookmarkCheck, setBookmarkCheck] = useState(null);
 
+  // check if post is already bookmarked
   useEffect(() => {
     setBookmarkCheck(isPostBookmarked);
   }, [isPostBookmarked]);

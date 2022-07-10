@@ -31,6 +31,7 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect, showWarning }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [fadeModal, setFadeModal] = useState(false);
 
+  // add hashtags from a post to hashtags-collection
   const addHashtag = async (hashtagArray) => {
     hashtagArray.map(async (hashtag) => {
       try {

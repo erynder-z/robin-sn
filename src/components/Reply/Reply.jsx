@@ -71,6 +71,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
     }
   }, [errorMessage]);
 
+  // determine if component should display a reply modal or append a reply-item to the parent component
   useEffect(() => {
     setMode(replyMode);
     setReplyUserName({ username: postOwner.username, userpic: postOwner.userpic });

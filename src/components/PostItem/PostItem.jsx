@@ -32,6 +32,7 @@ function PostItem({ postID, handleSetIsReplyModalActive }) {
   const postDocRef = doc(database, 'posts', postID);
   const userDocRef = doc(database, 'users', userData.userID);
 
+  // get necessary data of the current posts' owner
   // get username via getDoc rather than useDocumentData-hook to prevent exposing the whole user object to the front end
   const getOwner = async () => {
     try {
@@ -150,6 +151,7 @@ function PostItem({ postID, handleSetIsReplyModalActive }) {
     }
   }, [post]);
 
+  // use for contitional css-classes
   useEffect(() => {
     if (clickEffect) {
       setTimeout(() => setClickEffect({ reply: false, repost: false, like: false }), 200);

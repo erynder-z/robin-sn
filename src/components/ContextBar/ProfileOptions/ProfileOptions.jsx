@@ -17,6 +17,7 @@ function ProfileOptions({ deleteAccount, logout, showWarning }) {
   const [showCropper, setShowCropper] = useState(false);
   const [picture, setPicture] = useState();
 
+  // let user load a picture and saves it in state to be accessed by the avatar creator
   const changeUserpic = async (e) => {
     try {
       const file = e.target.files[0];

@@ -18,12 +18,6 @@ function Login() {
   const navigate = useNavigate();
   const user = auth.currentUser;
 
-  useEffect(() => {
-    if (user) {
-      navigate('/main');
-    }
-  }, [user]);
-
   const showLoginError = (error) => {
     if (error.code === AuthErrorCodes.INVALID_PASSWORD) {
       setLoginError('Wrong password. Try again.');
@@ -61,6 +55,13 @@ function Login() {
       setLoginError(null);
     }
   }, [confirmPasswordFormValue]);
+
+  // navitage to main-component is user is already logged in
+  useEffect(() => {
+    if (user) {
+      navigate('/main');
+    }
+  }, [user]);
 
   const CreateNewAccount = (
     <div className="newAccountContainer fadein">

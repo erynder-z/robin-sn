@@ -1,6 +1,7 @@
 /* import parse from 'html-react-parser'; */
 
 const parseHashtag = async (text) => {
+  // return an array with all strings preceeded by a "#" from passed in text
   const hashify = (txt) => {
     const hashtagArray = [];
     txt.replace(/(?<=#).*?(?=( |$))/g, (ht) => {

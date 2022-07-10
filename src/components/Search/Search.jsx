@@ -17,6 +17,7 @@ function Search({ searchQuery, changeActiveTab, handleSetIsReplyModalActive, sho
 
   const getSearchResults = async (string) => {
     try {
+      // check if query/string machtes any username in the database
       const getUserResults = async (s) => {
         const foundUsers = [];
         const usersRef = collection(database, 'users');
@@ -38,6 +39,7 @@ function Search({ searchQuery, changeActiveTab, handleSetIsReplyModalActive, sho
         setUserResults(foundUsers);
       };
 
+      // check if any post's hashtag-array contains search quers/string
       const getPostResults = async (s) => {
         const foundPosts = [];
         const postsRef = collection(database, 'posts');
@@ -62,6 +64,7 @@ function Search({ searchQuery, changeActiveTab, handleSetIsReplyModalActive, sho
     }
   };
 
+  // set search query in main component, so it can be accessed by other components
   useEffect(() => {
     setSearch(searchQuery);
   }, [searchQuery]);

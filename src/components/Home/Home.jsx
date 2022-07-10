@@ -11,10 +11,6 @@ function Home({ changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
   const { userData } = GetUserContext();
   const [followedUsersPosts, setFollowingPosts] = useState([]);
 
-  useEffect(() => {
-    changeActiveTab('home');
-  }, []);
-
   // make a list with the ID of all users we are following
   const getUserIdList = async () => {
     const userIDList = [];
@@ -64,6 +60,10 @@ function Home({ changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
       showWarning(err);
     }
   };
+
+  useEffect(() => {
+    changeActiveTab('home');
+  }, []);
 
   useEffect(() => {
     getPostsList();

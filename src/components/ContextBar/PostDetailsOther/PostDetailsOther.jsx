@@ -6,6 +6,7 @@ import './PostDetailsOther.css';
 function PostDetailsOther({ bookmarkPost, isPostBookmarked }) {
   const [bookmarkCheck, setBookmarkCheck] = useState(null);
 
+  // check if post is aleady bookmarked
   useEffect(() => {
     setBookmarkCheck(isPostBookmarked);
   }, [isPostBookmarked]);
