@@ -6,7 +6,7 @@ import { GetUserContext } from '../../contexts/UserContext';
 import { database } from '../Firebase/Firebase';
 import PostItem from '../PostItem/PostItem';
 
-function Mentions({ changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
+function Mentions({ changeActiveTab, handleSetModalActive, showWarning }) {
   const { userData } = GetUserContext();
   const [mentions, setMentions] = useState(null);
 
@@ -67,7 +67,7 @@ function Mentions({ changeActiveTab, handleSetIsReplyModalActive, showWarning })
                 postID={post.postID}
                 userID={userData.userID}
                 userPic={userData.userPic}
-                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                handleSetModalActive={handleSetModalActive}
               />
             ))}
         </div>
@@ -80,6 +80,6 @@ export default Mentions;
 
 Mentions.propTypes = {
   changeActiveTab: PropTypes.func.isRequired,
-  handleSetIsReplyModalActive: PropTypes.func.isRequired,
+  handleSetModalActive: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired
 };

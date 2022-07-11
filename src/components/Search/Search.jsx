@@ -8,7 +8,7 @@ import { GetUserContext } from '../../contexts/UserContext';
 import PostItem from '../PostItem/PostItem';
 import './Search.css';
 
-function Search({ searchQuery, changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
+function Search({ searchQuery, changeActiveTab, handleSetModalActive, showWarning }) {
   const { userData } = GetUserContext();
   const navigate = useNavigate();
   const [userResults, setUserResults] = useState([]);
@@ -136,7 +136,7 @@ function Search({ searchQuery, changeActiveTab, handleSetIsReplyModalActive, sho
                     postID={p.postID}
                     userID={userData.userID}
                     userPic={userData.userPic}
-                    handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                    handleSetModalActive={handleSetModalActive}
                   />
                 ))}
               </div>
@@ -153,6 +153,6 @@ export default Search;
 Search.propTypes = {
   searchQuery: PropTypes.string.isRequired,
   changeActiveTab: PropTypes.func.isRequired,
-  handleSetIsReplyModalActive: PropTypes.func.isRequired,
+  handleSetModalActive: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired
 };

@@ -7,7 +7,7 @@ import { database } from '../Firebase/Firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import PostItem from '../PostItem/PostItem';
 
-function MyProfile({ changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
+function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
   const { userData } = GetUserContext();
   const {
     userPic,
@@ -137,7 +137,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive, showWarning }
           postID={post.postID}
           userID={userData.userID}
           userPic={userData.userPic}
-          handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+          handleSetModalActive={handleSetModalActive}
         />
       ))}
     </div>
@@ -158,7 +158,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive, showWarning }
           postID={post.postID}
           userID={userData.userID}
           userPic={userData.userPic}
-          handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+          handleSetModalActive={handleSetModalActive}
         />
       ))}
     </div>
@@ -179,7 +179,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive, showWarning }
           postID={post.postID}
           userID={userData.userID}
           userPic={userData.userPic}
-          handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+          handleSetModalActive={handleSetModalActive}
         />
       ))}
     </div>
@@ -200,7 +200,7 @@ function MyProfile({ changeActiveTab, handleSetIsReplyModalActive, showWarning }
           postID={post.postID}
           userID={userData.userID}
           userPic={userData.userPic}
-          handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+          handleSetModalActive={handleSetModalActive}
         />
       ))}
     </div>
@@ -298,6 +298,6 @@ export default MyProfile;
 
 MyProfile.propTypes = {
   changeActiveTab: PropTypes.func.isRequired,
-  handleSetIsReplyModalActive: PropTypes.func.isRequired,
+  handleSetModalActive: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired
 };

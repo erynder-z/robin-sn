@@ -21,7 +21,7 @@ import parseText from '../../helpers/ParseText/ParseText';
 
 import './PostItem.css';
 
-function PostItem({ postID, handleSetIsReplyModalActive }) {
+function PostItem({ postID, handleSetModalActive }) {
   const { userData } = GetUserContext();
   const navigate = useNavigate();
   const [post] = useDocumentData(doc(database, 'posts', postID));
@@ -142,7 +142,7 @@ function PostItem({ postID, handleSetIsReplyModalActive }) {
 
   const toggleReplyModal = () => {
     setShowReplyModal(!showReplyModal);
-    handleSetIsReplyModalActive(false);
+    handleSetModalActive(false);
   };
 
   useEffect(() => {
@@ -285,5 +285,5 @@ export default PostItem;
 
 PostItem.propTypes = {
   postID: PropTypes.string.isRequired,
-  handleSetIsReplyModalActive: PropTypes.func.isRequired
+  handleSetModalActive: PropTypes.func.isRequired
 };

@@ -4,7 +4,7 @@ import { BiSpaceBar } from 'react-icons/bi';
 import { GetUserContext } from '../../contexts/UserContext';
 import PostItem from '../PostItem/PostItem';
 
-function Bookmarks({ changeActiveTab, handleSetIsReplyModalActive }) {
+function Bookmarks({ changeActiveTab, handleSetModalActive }) {
   const { userData } = GetUserContext();
   const [bookmarks, setBookmarks] = useState(null);
 
@@ -41,7 +41,7 @@ function Bookmarks({ changeActiveTab, handleSetIsReplyModalActive }) {
                 postID={post.postID}
                 userID={userData.userID}
                 userPic={userData.userPic}
-                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                handleSetModalActive={handleSetModalActive}
               />
             ))}
         </div>
@@ -54,5 +54,5 @@ export default Bookmarks;
 
 Bookmarks.propTypes = {
   changeActiveTab: PropTypes.func.isRequired,
-  handleSetIsReplyModalActive: PropTypes.func.isRequired
+  handleSetModalActive: PropTypes.func.isRequired
 };

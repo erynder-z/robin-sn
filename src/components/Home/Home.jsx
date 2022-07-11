@@ -7,7 +7,7 @@ import { GetUserContext } from '../../contexts/UserContext';
 import limitNumberOfPosts from '../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
 import PostItem from '../PostItem/PostItem';
 
-function Home({ changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
+function Home({ changeActiveTab, handleSetModalActive, showWarning }) {
   const { userData } = GetUserContext();
   const [followedUsersPosts, setFollowingPosts] = useState([]);
 
@@ -87,7 +87,7 @@ function Home({ changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
               postID={p.postID}
               userID={userData.userID}
               userPic={userData.userPic}
-              handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+              handleSetModalActive={handleSetModalActive}
             />
           ))}
         </div>
@@ -100,6 +100,6 @@ export default Home;
 
 Home.propTypes = {
   changeActiveTab: PropTypes.func.isRequired,
-  handleSetIsReplyModalActive: PropTypes.func.isRequired,
+  handleSetModalActive: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired
 };

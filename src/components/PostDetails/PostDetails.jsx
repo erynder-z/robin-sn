@@ -13,7 +13,7 @@ import ReplyItem from '../ReplyItem/ReplyItem';
 import limitNumberOfPosts from '../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
 import './PostDetails.css';
 
-function PostDetails({ changeActiveTab, handlePostInfo, handleSetIsReplyModalActive }) {
+function PostDetails({ changeActiveTab, handlePostInfo, handleSetModalActive }) {
   const { userData } = GetUserContext();
   const navigate = useNavigate();
   // get state from PostItem component // state: { postID, userID, postOwner }
@@ -67,7 +67,7 @@ function PostDetails({ changeActiveTab, handlePostInfo, handleSetIsReplyModalAct
       <PostItem
         key={location.state.postID}
         postID={location.state.postID}
-        handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+        handleSetModalActive={handleSetModalActive}
       />
       <Reply
         postID={location.state.postID}
@@ -89,5 +89,5 @@ export default PostDetails;
 PostDetails.propTypes = {
   changeActiveTab: PropTypes.func.isRequired,
   handlePostInfo: PropTypes.func.isRequired,
-  handleSetIsReplyModalActive: PropTypes.func.isRequired
+  handleSetModalActive: PropTypes.func.isRequired
 };

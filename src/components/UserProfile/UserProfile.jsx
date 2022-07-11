@@ -10,7 +10,7 @@ import limitNumberOfPosts from '../../helpers/LimitNumberOfPosts/limitNumberOfPo
 import PostItem from '../PostItem/PostItem';
 import './UserProfile.css';
 
-function UserProfile({ handleSetIsReplyModalActive, showWarning }) {
+function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUserInView }) {
   const navigate = useNavigate();
   const { userData } = GetUserContext();
   const location = useLocation();
@@ -94,22 +94,6 @@ function UserProfile({ handleSetIsReplyModalActive, showWarning }) {
     }
   };
 
-  useEffect(() => {
-    getUserData();
-  }, []);
-
-  useEffect(() => {
-    if (user) {
-      getPostsAndReplies();
-    }
-  }, [activeView === 'postsAndReplies']);
-
-  useEffect(() => {
-    if (user) {
-      getMediaPosts();
-    }
-  }, [activeView === 'media']);
-
   // lists all the posts made by the user
   const Posts = (
     <div className="posts fadein">
@@ -127,7 +111,7 @@ function UserProfile({ handleSetIsReplyModalActive, showWarning }) {
             postID={post.postID}
             userID={userData.userID}
             userPic={userData.userPic}
-            handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+            handleSetModalActive={handleSetModalActive}
           />
         ))}
     </div>
@@ -147,7 +131,7 @@ function UserProfile({ handleSetIsReplyModalActive, showWarning }) {
           postID={post.postID}
           userID={userData.userID}
           userPic={userData.userPic}
-          handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+          handleSetModalActive={handleSetModalActive}
         />
       ))}
     </div>
@@ -168,7 +152,7 @@ function UserProfile({ handleSetIsReplyModalActive, showWarning }) {
           postID={post.postID}
           userID={userData.userID}
           userPic={userData.userPic}
-          handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+          handleSetModalActive={handleSetModalActive}
         />
       ))}
     </div>
@@ -189,11 +173,37 @@ function UserProfile({ handleSetIsReplyModalActive, showWarning }) {
             postID={post.postID}
             userID={userData.userID}
             userPic={userData.userPic}
-            handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+            handleSetModalActive={handleSetModalActive}
           />
         ))}
     </div>
   );
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      getPostsAndReplies();
+    }
+  }, [activeView === 'postsAndReplies']);
+
+  useEffect(() => {
+    if (user) {
+      getMediaPosts();
+    }
+  }, [activeView === 'media']);
+
+  useEffect(() => {
+    if (user) {
+      setUserInView(user);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    changeActiveTab('userprofile');
+  }, []);
 
   return (
     <div className="profile-container fadein">
@@ -308,6 +318,8 @@ function UserProfile({ handleSetIsReplyModalActive, showWarning }) {
 export default UserProfile;
 
 UserProfile.propTypes = {
-  handleSetIsReplyModalActive: PropTypes.func.isRequired,
-  showWarning: PropTypes.func.isRequired
+  handleSetModalActive: PropTypes.func.isRequired,
+  changeActiveTab: PropTypes.func.isRequired,
+  showWarning: PropTypes.func.isRequired,
+  setUserInView: PropTypes.func.isRequired
 };

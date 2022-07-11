@@ -7,7 +7,7 @@ import { database } from '../Firebase/Firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import PostItem from '../PostItem/PostItem';
 
-function Trends({ searchQuery, changeActiveTab, handleSetIsReplyModalActive, showWarning }) {
+function Trends({ searchQuery, changeActiveTab, handleSetModalActive, showWarning }) {
   const { userData } = GetUserContext();
   const navigate = useNavigate();
   const [postResults, setPostResults] = useState([]);
@@ -80,7 +80,7 @@ function Trends({ searchQuery, changeActiveTab, handleSetIsReplyModalActive, sho
                     postID={p.postID}
                     userID={userData.userID}
                     userPic={userData.userPic}
-                    handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                    handleSetModalActive={handleSetModalActive}
                   />
                 ))}
               </div>
@@ -97,6 +97,6 @@ export default Trends;
 Trends.propTypes = {
   searchQuery: PropTypes.string.isRequired,
   changeActiveTab: PropTypes.func.isRequired,
-  handleSetIsReplyModalActive: PropTypes.func.isRequired,
+  handleSetModalActive: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired
 };
