@@ -33,7 +33,8 @@ function CreateUserAccount({ userCredentials }) {
     replies: [],
     reposts: [],
     likes: [],
-    bookmarks: []
+    bookmarks: [],
+    messages: []
   });
 
   // allow the user to upload a picture and save it in state to be accessed by the avatar-creator
@@ -87,7 +88,8 @@ function CreateUserAccount({ userCredentials }) {
         replies: userObject.replies,
         reposts: userObject.reposts,
         likes: userObject.likes,
-        bookmarks: userObject.bookmarks
+        bookmarks: userObject.bookmarks,
+        messages: userObject.messages
       });
     } catch (err) {
       setErrorMessage(err);
