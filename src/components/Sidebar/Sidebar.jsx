@@ -1,10 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Sidebar.css';
-import { TbHome2, TbHash, TbSpeakerphone, TbBookmarks, TbUser } from 'react-icons/tb';
+import {
+  TbHome2,
+  TbHash,
+  TbSpeakerphone,
+  TbMessageCircle,
+  TbBookmarks,
+  TbUser
+} from 'react-icons/tb';
 import { Link } from 'react-router-dom';
-import UserInfo from '../UserInfo/UserInfo';
 import { GetUserContext } from '../../contexts/UserContext';
+import UserInfo from '../UserInfo/UserInfo';
+import logo from '../../assets/logo.png';
+import './Sidebar.css';
 
 function Sidebar({ activeTab, logout }) {
   const { userData } = GetUserContext();
@@ -12,6 +20,7 @@ function Sidebar({ activeTab, logout }) {
   return (
     <div className="sidebar">
       <ul>
+        <img className="logo" src={logo} alt="app logo" />
         <Link to="/main/home">
           <li className={`sidebar-item ${activeTab === 'home' ? 'active' : 'inactive'}`}>
             <TbHome2 size="2rem" />
@@ -28,6 +37,12 @@ function Sidebar({ activeTab, logout }) {
           <li className={`sidebar-item ${activeTab === 'mentions' ? 'active' : 'inactive'}`}>
             <TbSpeakerphone size="2rem" />
             <span>Mentions</span>
+          </li>
+        </Link>
+        <Link to="/main/directmessages">
+          <li className={`sidebar-item ${activeTab === 'directmessages' ? 'active' : 'inactive'}`}>
+            <TbMessageCircle size="2rem" />
+            <span>DMs</span>
           </li>
         </Link>
         <Link to="/main/bookmarks">

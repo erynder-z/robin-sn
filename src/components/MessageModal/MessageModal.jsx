@@ -29,7 +29,8 @@ function MessageModal({ showWarning, setShowMessageModal, showNewPostEffect, use
           messages: arrayUnion({
             messageID: uniqid(),
             messageContent: text,
-            sender: userData.userID,
+            senderID: userData.userID,
+            senderUsername: userData.username,
             isRead: false,
             sendDate: Timestamp.now()
           })

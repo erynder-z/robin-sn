@@ -10,6 +10,7 @@ import ProfileOptionsOther from './ProfileOptionsOther/ProfileOptionsOther';
 import { GetUserContext } from '../../contexts/UserContext';
 import { database } from '../Firebase/Firebase';
 import './ContextBar.css';
+import DirectMessageOptions from './DirectMessageOptions/DirectMessageOptions';
 
 function ContextBar({
   activeTab,
@@ -71,6 +72,7 @@ function ContextBar({
       </div>
       {(activeTab === 'home' && <FollowUserList showWarning={showWarning} />) ||
         (activeTab === 'explore' && <FollowUserList showWarning={showWarning} />) ||
+        (activeTab === 'directmessages' && <DirectMessageOptions showWarning={showWarning} />) ||
         (activeTab === 'bookmarks' && <FollowUserList showWarning={showWarning} />) ||
         (activeTab === 'search' && <FollowUserList showWarning={showWarning} />) ||
         (activeTab === 'trends' && <FollowUserList showWarning={showWarning} />) ||
@@ -157,9 +159,10 @@ ContextBar.propTypes = {
       PropTypes.shape({
         messageID: PropTypes.string,
         messageContent: PropTypes.string,
-        sender: PropTypes.string,
+        senderID: PropTypes.string,
         isRead: PropTypes.bool,
-        sendDate: PropTypes.objectOf(PropTypes.number)
+        sendDate: PropTypes.objectOf(PropTypes.number),
+        senderUsername: PropTypes.string.isRequired
       })
     )
   })

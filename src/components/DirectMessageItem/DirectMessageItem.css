@@ -1,0 +1,64 @@
+.messageListItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 5vh;
+  width: 100%;
+  cursor: pointer;
+  transition: all 200ms linear;
+}
+
+.messageListItem-upper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  z-index: 10;
+  background-color: var(--card-background);
+}
+
+.messageListItem-upper:hover {
+  color: var(--button);
+}
+
+.messageListItem-lower {
+  max-height: 0;
+  transition: max-height 0.15s ease-out;
+  overflow: hidden;
+  width: 100%;
+  background-color: var(--sidebar-background-mobile);
+}
+
+.messageListItem-upper > svg {
+  margin-left: 1rem;
+}
+
+.messageListItem-upper > .messageListItem-date {
+  margin-right: 1rem;
+}
+
+.messageListItem-content {
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+  height: auto;
+  max-width: 100%;
+  word-wrap: break-word;
+  min-width: 0;
+  text-overflow: ellipsis;
+  padding: 0 1rem;
+}
+
+.messageListItem-reply {
+  margin-left: auto;
+}
+
+.selected {
+  background-color: var(--sidebar-background-mobile);
+}
+
+.expand {
+  max-height: 99rem;
+  transition: max-height 0.25s ease-in;
+}

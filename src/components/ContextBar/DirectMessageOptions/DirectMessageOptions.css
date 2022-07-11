@@ -1,0 +1,35 @@
+.directMessages {
+  background-color: rgba(245, 245, 245, 0.1);
+  color: var(--text-bright);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: auto;
+}
+
+.directMessages-context-header {
+  height: auto;
+  padding-bottom: 0.5rem;
+  align-self: center;
+}
+
+.something-something {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.something-something-icon {
+  padding-right: 0.5rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .directMessages {
+    background-color: var(--sidebar-background-mobile);
+  }
+}
