@@ -24,6 +24,7 @@ import NewPostEffect from '../NewPostEffect/NewPostEffect';
 import Mentions from '../Mentions/Mentions';
 import WarningModal from '../WarningModal/WarningModal';
 import './Main.css';
+import DirectMessages from '../DirectMessages/DirectMessages';
 
 function Main({ userCredentials }) {
   const navigate = useNavigate();
@@ -39,15 +40,16 @@ function Main({ userCredentials }) {
   const [newPostEffect, setNewPostEffect] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [showContextbar, setShowContextbar] = useState(false);
-  const [isReplyModalActive, setIsReplyModalActive] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(false);
+  const [userInView, setUserInView] = useState(null);
 
   const logout = async () => {
     await signOut(auth);
   };
 
   // indicate if reply-modal is currently shown
-  const handleSetIsReplyModalActive = () => {
-    setIsReplyModalActive(!isReplyModalActive);
+  const handleSetModalActive = () => {
+    setIsModalActive(!isModalActive);
   };
 
   // indicate if contextbar is currently visible (for mobile UI)
@@ -246,7 +248,7 @@ function Main({ userCredentials }) {
             isUserSetup ? (
               <Home
                 changeActiveTab={changeActiveTab}
-                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                handleSetModalActive={handleSetModalActive}
                 showWarning={showWarning}
               />
             ) : (
@@ -261,7 +263,7 @@ function Main({ userCredentials }) {
             isUserSetup ? (
               <Home
                 changeActiveTab={changeActiveTab}
-                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                handleSetModalActive={handleSetModalActive}
                 showWarning={showWarning}
               />
             ) : null
@@ -281,7 +283,7 @@ function Main({ userCredentials }) {
             isUserSetup ? (
               <Bookmarks
                 changeActiveTab={changeActiveTab}
-                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                handleSetModalActive={handleSetModalActive}
               />
             ) : null
           }
@@ -292,7 +294,7 @@ function Main({ userCredentials }) {
             isUserSetup ? (
               <MyProfile
                 changeActiveTab={changeActiveTab}
-                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                handleSetModalActive={handleSetModalActive}
                 showWarning={showWarning}
               />
             ) : null
@@ -303,8 +305,10 @@ function Main({ userCredentials }) {
           element={
             isUserSetup ? (
               <UserProfile
-                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                handleSetModalActive={handleSetModalActive}
+                changeActiveTab={changeActiveTab}
                 showWarning={showWarning}
+                setUserInView={setUserInView}
               />
             ) : null
           }
@@ -316,7 +320,7 @@ function Main({ userCredentials }) {
               <Search
                 searchQuery={searchQuery}
                 changeActiveTab={changeActiveTab}
-                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                handleSetModalActive={handleSetModalActive}
                 showWarning={showWarning}
               />
             ) : null
@@ -329,7 +333,7 @@ function Main({ userCredentials }) {
               <Trends
                 searchQuery={searchQuery}
                 changeActiveTab={changeActiveTab}
-                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                handleSetModalActive={handleSetModalActive}
                 showWarning={showWarning}
               />
             ) : null
@@ -341,9 +345,18 @@ function Main({ userCredentials }) {
             isUserSetup ? (
               <Mentions
                 changeActiveTab={changeActiveTab}
-                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                handleSetModalActive={handleSetModalActive}
                 showWarning={showWarning}
               />
+            ) : null
+          }
+        />
+
+        <Route
+          path="directmessages"
+          element={
+            isUserSetup ? (
+              <DirectMessages changeActiveTab={changeActiveTab} showWarning={showWarning} />
             ) : null
           }
         />
@@ -355,7 +368,7 @@ function Main({ userCredentials }) {
               <PostDetails
                 changeActiveTab={changeActiveTab}
                 handlePostInfo={handlePostInfo}
-                handleSetIsReplyModalActive={handleSetIsReplyModalActive}
+                handleSetModalActive={handleSetModalActive}
               />
             ) : null
           }
@@ -373,9 +386,10 @@ function Main({ userCredentials }) {
           toggleContextbar={toggleContextbar}
           logout={logout}
           showWarning={showWarning}
+          userInView={userInView}
         />
       )}
-      {isUserSetup && !showSearchModal && !showNewPostModal && !isReplyModalActive && (
+      {isUserSetup && !showSearchModal && !showNewPostModal && !isModalActive && (
         <FloatingMenu
           toggleNewPostModal={toggleNewPostModal}
           toggleSearchModal={toggleSearchModal}

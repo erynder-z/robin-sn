@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { TbLayoutSidebarRightCollapse } from 'react-icons/tb';
 import FollowUserList from './FollowUserList/FollowUserList';
-import ProfileOptions from './ProfileOptions/ProfileOptions';
 import PostDetailsOwn from './PostDetailsOwn/PostDetailsOwn';
 import PostDetailsOther from './PostDetailsOther/PostDetailsOther';
+import ProfileOptionsOwn from './ProfileOptionsOwn/ProfileOptionsOwn';
+import ProfileOptionsOther from './ProfileOptionsOther/ProfileOptionsOther';
 import { GetUserContext } from '../../contexts/UserContext';
 import { database } from '../Firebase/Firebase';
 import './ContextBar.css';
@@ -19,7 +20,8 @@ function ContextBar({
   showContextbar,
   toggleContextbar,
   logout,
-  showWarning
+  showWarning,
+  userInView
 }) {
   const { userData } = GetUserContext();
   const { post } = postInfo;
@@ -73,7 +75,14 @@ function ContextBar({
         (activeTab === 'trends' && <FollowUserList showWarning={showWarning} />) ||
         (activeTab === 'mentions' && <FollowUserList showWarning={showWarning} />)}
       {activeTab === 'myprofile' && (
-        <ProfileOptions deleteAccount={deleteAccount} logout={logout} showWarning={showWarning} />
+        <ProfileOptionsOwn
+          deleteAccount={deleteAccount}
+          logout={logout}
+          showWarning={showWarning}
+        />
+      )}
+      {activeTab === 'userprofile' && (
+        <ProfileOptionsOther showWarning={showWarning} userInView={userInView} />
       )}
       {activeTab === 'postdetailsown' && (
         <PostDetailsOwn
@@ -120,7 +129,34 @@ ContextBar.propTypes = {
   showContextbar: PropTypes.bool.isRequired,
   toggleContextbar: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
-  showWarning: PropTypes.func.isRequired
+  showWarning: PropTypes.func.isRequired,
+  userInView: PropTypes.shape({
+    userPic: PropTypes.string,
+    username: PropTypes.string,
+    userBackground: PropTypes.string,
+    joined: PropTypes.objectOf(PropTypes.number),
+    following: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+    followers: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+    likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+    posts: PropTypes.arrayOf(
+      PropTypes.shape({
+        created: PropTypes.objectOf(PropTypes.number),
+        postID: PropTypes.string
+      })
+    ),
+    replies: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+    description: PropTypes.string,
+    userID: PropTypes.string,
+    messages: PropTypes.arrayOf(
+      PropTypes.shape({
+        messageID: PropTypes.string,
+        messageContent: PropTypes.string,
+        sender: PropTypes.string,
+        isRead: PropTypes.bool,
+        sendDate: PropTypes.objectOf(PropTypes.number)
+      })
+    )
+  })
 };
 
 ContextBar.defaultProps = {
@@ -134,5 +170,19 @@ ContextBar.defaultProps = {
     postID: '',
     replies: {},
     reposts: []
+  }),
+  userInView: PropTypes.shape({
+    userPic: '',
+    username: '',
+    userBackground: '',
+    joined: [],
+    following: [],
+    followers: [],
+    likes: [],
+    posts: [],
+    replies: [],
+    description: '',
+    userID: '',
+    messages: []
   })
 };
