@@ -7,11 +7,10 @@ import resizeFile from '../../../helpers/ImageResizer/ImageResizer';
 import { database } from '../../Firebase/Firebase';
 import { GetUserContext } from '../../../contexts/UserContext';
 import AvatarCreator from '../../../helpers/AvatarCreator/AvatarCreator';
-import './ProfileOptions.css';
+import './ProfileOptionsOwn.css';
 
-function ProfileOptions({ deleteAccount, logout, showWarning }) {
+function ProfileOptionsOwn({ deleteAccount, logout, showWarning }) {
   const { userData } = GetUserContext();
-  const [fadeModal, setFadeModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
   const [showCropper, setShowCropper] = useState(false);
@@ -82,7 +81,7 @@ function ProfileOptions({ deleteAccount, logout, showWarning }) {
   }, [picture]);
 
   const StatsModal = (
-    <div className="statsModal-overlay">
+    <div className="statsModal-overlay fadein">
       <div className="statsModal">
         <h4>Total posts: {userData.posts.length}</h4>
         <h4>Total replies: {userData.replies.length}</h4>
@@ -93,12 +92,10 @@ function ProfileOptions({ deleteAccount, logout, showWarning }) {
           role="button"
           tabIndex={0}
           onClick={() => {
-            setFadeModal(true);
-            setTimeout(() => setShowStatsModal(false), 100);
+            setShowStatsModal(false);
           }}
           onKeyDown={() => {
-            setFadeModal(true);
-            setTimeout(() => setShowStatsModal(false), 100);
+            setShowStatsModal(false);
           }}>
           Close stats
         </div>
@@ -107,7 +104,7 @@ function ProfileOptions({ deleteAccount, logout, showWarning }) {
   );
 
   const DeleteModal = (
-    <div className={`deleteModal-overlay ${fadeModal ? 'fadeout' : 'fadein'}`}>
+    <div className="deleteModal-overlay">
       <div className="deleteModal">
         <h3 className="delete-warning">Are you sure?</h3>
         <h4>This action cannot be undone!</h4>
@@ -124,8 +121,7 @@ function ProfileOptions({ deleteAccount, logout, showWarning }) {
           type="button"
           className="accountNoDeleteBtn"
           onClick={() => {
-            setFadeModal(true);
-            setTimeout(() => setShowDeleteModal(false), 100);
+            setShowDeleteModal(false);
           }}>
           No, return to previous page!
         </button>
@@ -134,7 +130,7 @@ function ProfileOptions({ deleteAccount, logout, showWarning }) {
   );
 
   return (
-    <div className="profileOptions-container fadein">
+    <div className="profileOptions-container">
       <div className="profileOptions-header">Profile options</div>
       <div
         className="deleteAccount"
@@ -238,9 +234,9 @@ function ProfileOptions({ deleteAccount, logout, showWarning }) {
   );
 }
 
-export default ProfileOptions;
+export default ProfileOptionsOwn;
 
-ProfileOptions.propTypes = {
+ProfileOptionsOwn.propTypes = {
   deleteAccount: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired
