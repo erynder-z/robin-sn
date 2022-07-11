@@ -21,6 +21,7 @@ function ContextBar({
   toggleContextbar,
   logout,
   showWarning,
+  showNewPostEffect,
   userInView
 }) {
   const { userData } = GetUserContext();
@@ -82,7 +83,11 @@ function ContextBar({
         />
       )}
       {activeTab === 'userprofile' && (
-        <ProfileOptionsOther showWarning={showWarning} userInView={userInView} />
+        <ProfileOptionsOther
+          showWarning={showWarning}
+          showNewPostEffect={showNewPostEffect}
+          userInView={userInView}
+        />
       )}
       {activeTab === 'postdetailsown' && (
         <PostDetailsOwn
@@ -130,6 +135,7 @@ ContextBar.propTypes = {
   toggleContextbar: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired,
+  showNewPostEffect: PropTypes.func.isRequired,
   userInView: PropTypes.shape({
     userPic: PropTypes.string,
     username: PropTypes.string,

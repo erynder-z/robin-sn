@@ -111,7 +111,7 @@ function NewPostModal({ toggleNewPostModal, showNewPostEffect, showWarning }) {
       } catch (err) {
         showWarning(err);
       }
-      showNewPostEffect();
+      showNewPostEffect('Posting');
     } else {
       showWarning('Enter a message!');
     }

@@ -37,7 +37,7 @@ function Main({ userCredentials }) {
   const [postInfo, setPostInfo] = useState({});
   const [isPostBookmarked, setIsPostBookmarked] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [newPostEffect, setNewPostEffect] = useState(false);
+  const [newPostEffect, setNewPostEffect] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [showContextbar, setShowContextbar] = useState(false);
   const [isModalActive, setIsModalActive] = useState(false);
@@ -58,8 +58,8 @@ function Main({ userCredentials }) {
   };
 
   // show oberlay effect when posting
-  const showNewPostEffect = () => {
-    setNewPostEffect(true);
+  const showNewPostEffect = (string) => {
+    setNewPostEffect(string);
   };
 
   // show overlay warning
@@ -227,7 +227,7 @@ function Main({ userCredentials }) {
   // remove new post effect overlay
   useEffect(() => {
     if (newPostEffect) {
-      setTimeout(() => setNewPostEffect(false), 2000);
+      setTimeout(() => setNewPostEffect(null), 2000);
     }
   }, [newPostEffect]);
 
@@ -386,6 +386,7 @@ function Main({ userCredentials }) {
           toggleContextbar={toggleContextbar}
           logout={logout}
           showWarning={showWarning}
+          showNewPostEffect={showNewPostEffect}
           userInView={userInView}
         />
       )}
@@ -411,7 +412,7 @@ function Main({ userCredentials }) {
           showWarning={showWarning}
         />
       )}
-      {newPostEffect && <NewPostEffect />}
+      {newPostEffect && <NewPostEffect message={newPostEffect} />}
       {errorMessage && <WarningModal errorMessage={errorMessage} />}
     </div>
   );
