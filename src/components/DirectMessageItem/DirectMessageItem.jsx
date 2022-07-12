@@ -1,16 +1,31 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
-import { BiEnvelope, BiEnvelopeOpen, BiReply } from 'react-icons/bi';
+import { BiEnvelope, BiEnvelopeOpen, BiReply, BiTrash } from 'react-icons/bi';
 import './DirectMessageItem.css';
+import { doc, getDoc } from 'firebase/firestore';
+import MessageModal from '../MessageModal/MessageModal';
+import { database } from '../Firebase/Firebase';
 
-function DirectMessageItem({ message, handleMarkMessageAsRead }) {
+function DirectMessageItem({ message, handleMarkMessageAsRead, showWarning, showNewPostEffect }) {
   const [expandMessage, setExpandMessage] = useState(false);
+  const [showMessageModal, setShowMessageModal] = useState(false);
+  const [userInView, setUserInView] = useState(null);
 
   const showMessageDetails = () => {
     setExpandMessage(!expandMessage);
     if (!message.isRead) {
       handleMarkMessageAsRead(message);
+    }
+  };
+
+  const getUserInView = async () => {
+    try {
+      const userRef = doc(database, 'users', message.senderID);
+      const docSnap = await getDoc(userRef);
+      setUserInView(docSnap.data());
+    } catch (err) {
+      showWarning(err.message);
     }
   };
 
@@ -33,12 +48,28 @@ function DirectMessageItem({ message, handleMarkMessageAsRead }) {
         </h5>
       </div>
       <div className={`messageListItem-lower ${expandMessage ? 'expand' : null}`}>
-        <p className="messageListItem-content">
-          {message.messageContent}
-
-          <BiReply size="2rem" className="messageListItem-reply" />
-        </p>
+        <p className="messageListItem-content">{message.messageContent}</p>
+        <div className="messageListItem-options">
+          <BiTrash size="2rem" className="messageListItem-delete" />
+          <BiReply
+            size="2rem"
+            className="messageListItem-reply"
+            onClick={(e) => {
+              getUserInView();
+              setShowMessageModal(true);
+              e.stopPropagation();
+            }}
+          />
+        </div>
       </div>
+      {showMessageModal && userInView && (
+        <MessageModal
+          userInView={userInView}
+          showWarning={showWarning}
+          setShowMessageModal={setShowMessageModal}
+          showNewPostEffect={showNewPostEffect}
+        />
+      )}
     </div>
   );
 }
@@ -54,5 +85,7 @@ DirectMessageItem.propTypes = {
     sendDate: PropTypes.objectOf(PropTypes.number).isRequired,
     senderUsername: PropTypes.string.isRequired
   }).isRequired,
-  handleMarkMessageAsRead: PropTypes.func.isRequired
+  handleMarkMessageAsRead: PropTypes.func.isRequired,
+  showWarning: PropTypes.func.isRequired,
+  showNewPostEffect: PropTypes.func.isRequired
 };

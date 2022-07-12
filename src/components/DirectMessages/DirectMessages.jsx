@@ -7,7 +7,7 @@ import { GetUserContext } from '../../contexts/UserContext';
 import DirectMessageItem from '../DirectMessageItem/DirectMessageItem';
 import { database } from '../Firebase/Firebase';
 
-function DirectMessages({ changeActiveTab, showWarning }) {
+function DirectMessages({ changeActiveTab, showWarning, showNewPostEffect }) {
   const { userData } = GetUserContext();
   const [userMessages, setUserMessages] = useState([...userData.messages]);
 
@@ -60,6 +60,8 @@ function DirectMessages({ changeActiveTab, showWarning }) {
             key={message.messageID}
             message={message}
             handleMarkMessageAsRead={handleMarkMessageAsRead}
+            showWarning={showWarning}
+            showNewPostEffect={showNewPostEffect}
           />
         ))}
       </div>
@@ -71,5 +73,6 @@ export default DirectMessages;
 
 DirectMessages.propTypes = {
   changeActiveTab: PropTypes.func.isRequired,
-  showWarning: PropTypes.func.isRequired
+  showWarning: PropTypes.func.isRequired,
+  showNewPostEffect: PropTypes.func.isRequired
 };

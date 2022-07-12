@@ -356,7 +356,11 @@ function Main({ userCredentials }) {
           path="directmessages"
           element={
             isUserSetup ? (
-              <DirectMessages changeActiveTab={changeActiveTab} showWarning={showWarning} />
+              <DirectMessages
+                changeActiveTab={changeActiveTab}
+                showWarning={showWarning}
+                showNewPostEffect={showNewPostEffect}
+              />
             ) : null
           }
         />
