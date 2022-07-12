@@ -4,11 +4,14 @@ import { format, fromUnixTime } from 'date-fns';
 import { BiEnvelope, BiEnvelopeOpen, BiReply } from 'react-icons/bi';
 import './DirectMessageItem.css';
 
-function DirectMessageItem({ message }) {
+function DirectMessageItem({ message, handleMarkMessageAsRead }) {
   const [expandMessage, setExpandMessage] = useState(false);
 
   const showMessageDetails = () => {
     setExpandMessage(!expandMessage);
+    if (!message.isRead) {
+      handleMarkMessageAsRead(message);
+    }
   };
 
   return (
@@ -50,5 +53,6 @@ DirectMessageItem.propTypes = {
     isRead: PropTypes.bool.isRequired,
     sendDate: PropTypes.objectOf(PropTypes.number).isRequired,
     senderUsername: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  handleMarkMessageAsRead: PropTypes.func.isRequired
 };
