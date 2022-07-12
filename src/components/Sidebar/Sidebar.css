@@ -6,6 +6,12 @@
   border-right: solid 1px var(--border);
 }
 
+.logo {
+  height: 75px;
+  width: auto;
+  padding: 1rem 1rem 0 1rem;
+}
+
 .sidebar ul {
   list-style: none;
   margin: 0;
@@ -41,8 +47,25 @@
   transition: all 0.2s ease-out;
 }
 
+.sidebar-item-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100%;
+}
+
 .sidebar-item svg {
   padding: 0 1rem;
+}
+
+.notificationBubble {
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+  background-color: var(--button);
+  margin-left: 1rem;
+  /* animation: click 3000ms infinite; */
 }
 
 @media only screen and (max-width: 768px) {
@@ -79,5 +102,13 @@
 
   .sidebar-item span {
     display: none;
+  }
+
+  .notificationBubble {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 0.5rem;
+    margin-right: 0.2rem;
   }
 }
