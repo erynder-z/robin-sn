@@ -22,7 +22,7 @@ function DirectMessages({ changeActiveTab, showWarning, showNewPostEffect }) {
           newList.push(msg);
         }
       });
-      return newList;
+      return newList.reverse();
     };
 
     const updatedMessageList = await getMessageList();
@@ -37,7 +37,7 @@ function DirectMessages({ changeActiveTab, showWarning, showNewPostEffect }) {
   };
 
   useEffect(() => {
-    setUserMessages([...userData.messages]);
+    setUserMessages([...userData.messages].reverse());
   }, [userData.messages]);
 
   useEffect(() => {
@@ -55,6 +55,7 @@ function DirectMessages({ changeActiveTab, showWarning, showNewPostEffect }) {
             <h5> received direct messages will show up here</h5>
           </div>
         )}
+
         {userMessages?.map((message) => (
           <DirectMessageItem
             key={message.messageID}
