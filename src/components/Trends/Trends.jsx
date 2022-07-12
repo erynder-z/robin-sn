@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BiArrowBack } from 'react-icons/bi';
 import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import { database } from '../Firebase/Firebase';
+import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import PostItem from '../PostItem/PostItem';
 

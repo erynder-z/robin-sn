@@ -4,7 +4,7 @@ import { BiCheckDouble, BiXCircle } from 'react-icons/bi';
 import './DirectMessageOptions.css';
 import { doc, updateDoc } from 'firebase/firestore';
 import { GetUserContext } from '../../../contexts/UserContext';
-import { database } from '../../Firebase/Firebase';
+import { database } from '../../../data/firebase';
 
 function DirectMessageOptions({ showWarning }) {
   const { userData } = GetUserContext();

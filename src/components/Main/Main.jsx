@@ -5,7 +5,7 @@ import { arrayRemove, deleteDoc, doc, getDoc, increment, updateDoc } from 'fireb
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { deleteUser, signOut } from 'firebase/auth';
-import { auth, database, storage } from '../Firebase/Firebase';
+import { auth, database, storage } from '../../data/firebase';
 import SetupUserAccount from '../SetupUserAccount/SetupUserAccount';
 import Home from '../Home/Home';
 import Sidebar from '../Sidebar/Sidebar';

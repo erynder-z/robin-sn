@@ -4,7 +4,7 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { MdOutlineDangerous } from 'react-icons/md';
 import { BiImageAdd, BiBarChart, BiLandscape, BiWindowClose, BiLogOut } from 'react-icons/bi';
 import resizeFile from '../../../helpers/ImageResizer/ImageResizer';
-import { database } from '../../Firebase/Firebase';
+import { database } from '../../../data/firebase';
 import { GetUserContext } from '../../../contexts/UserContext';
 import AvatarCreator from '../../../helpers/AvatarCreator/AvatarCreator';
 import './ProfileOptionsOwn.css';

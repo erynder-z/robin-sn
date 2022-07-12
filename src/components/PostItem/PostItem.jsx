@@ -14,7 +14,7 @@ import {
   arrayRemove
 } from 'firebase/firestore';
 import { format, fromUnixTime } from 'date-fns';
-import { database } from '../Firebase/Firebase';
+import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import Reply from '../Reply/Reply';
 import parseText from '../../helpers/ParseText/ParseText';

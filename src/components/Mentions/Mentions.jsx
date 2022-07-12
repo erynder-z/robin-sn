@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BiSpaceBar } from 'react-icons/bi';
 import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import { GetUserContext } from '../../contexts/UserContext';
-import { database } from '../Firebase/Firebase';
+import { database } from '../../data/firebase';
 import PostItem from '../PostItem/PostItem';
 
 function Mentions({ changeActiveTab, handleSetModalActive, showWarning }) {

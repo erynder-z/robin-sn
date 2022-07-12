@@ -15,7 +15,7 @@ import {
   setDoc,
   updateDoc
 } from 'firebase/firestore';
-import { database, storage } from '../Firebase/Firebase';
+import { database, storage } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import resizeFile from '../../helpers/ImageResizer/ImageResizer';
 import parseHashtag from '../../helpers/HashtagCreator/HashtagCreator';

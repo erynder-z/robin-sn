@@ -4,7 +4,7 @@ import { format, fromUnixTime } from 'date-fns';
 import { BiSpaceBar, BiArrowBack } from 'react-icons/bi';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { collection, doc, getDoc, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
-import { database } from '../Firebase/Firebase';
+import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import limitNumberOfPosts from '../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
 import PostItem from '../PostItem/PostItem';

@@ -3,7 +3,7 @@ import './components/shared-styles.css';
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from './components/Firebase/Firebase';
+import { auth } from './data/firebase';
 import Login from './components/Login/Login';
 import Main from './components/Main/Main';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';

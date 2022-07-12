@@ -5,7 +5,7 @@ import { BiEnvelope, BiEnvelopeOpen, BiReply, BiTrash } from 'react-icons/bi';
 import './DirectMessageItem.css';
 import { arrayRemove, doc, getDoc, updateDoc } from 'firebase/firestore';
 import MessageModal from '../MessageModal/MessageModal';
-import { database } from '../Firebase/Firebase';
+import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 
 function DirectMessageItem({ message, handleMarkMessageAsRead, showWarning, showNewPostEffect }) {

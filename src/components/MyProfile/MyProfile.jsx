@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
 import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
 import { BiSpaceBar } from 'react-icons/bi';
-import { database } from '../Firebase/Firebase';
+import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import PostItem from '../PostItem/PostItem';
 

@@ -2,7 +2,7 @@ import { doc } from 'firebase/firestore';
 import React, { useContext, useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
-import { auth, database } from '../components/Firebase/Firebase';
+import { auth, database } from '../data/firebase';
 
 const UserContext = React.createContext();
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BiImageAdd } from 'react-icons/bi';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import { database } from '../Firebase/Firebase';
+import { database } from '../../data/firebase';
 import placeholder from '../../assets/placeholder.png';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import AvatarCreator from '../../helpers/AvatarCreator/AvatarCreator';

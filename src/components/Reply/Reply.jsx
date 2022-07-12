@@ -5,7 +5,7 @@ import Picker from 'emoji-picker-react';
 import { MdOutlineEmojiEmotions } from 'react-icons/md';
 import { arrayUnion, doc, Timestamp, updateDoc } from 'firebase/firestore';
 import { LinearProgress } from '@mui/material';
-import { database } from '../Firebase/Firebase';
+import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import WarningModal from '../WarningModal/WarningModal';
 import './Reply.css';

@@ -6,7 +6,7 @@ import { MdOutlineEmojiEmotions } from 'react-icons/md';
 import './MessageModal.css';
 import { arrayUnion, doc, Timestamp, updateDoc } from 'firebase/firestore';
 import { GetUserContext } from '../../contexts/UserContext';
-import { database } from '../Firebase/Firebase';
+import { database } from '../../data/firebase';
 
 function MessageModal({ showWarning, setShowMessageModal, showNewPostEffect, userInView }) {
   const { userData } = GetUserContext();

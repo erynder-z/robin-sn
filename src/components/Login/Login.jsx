@@ -6,7 +6,7 @@ import {
   signInWithEmailAndPassword
 } from 'firebase/auth';
 import { BiArrowBack } from 'react-icons/bi';
-import { auth } from '../Firebase/Firebase';
+import { auth } from '../../data/firebase';
 import './Login.css';
 
 function Login() {

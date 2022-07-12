@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BiSpaceBar } from 'react-icons/bi';
 import { doc, getDoc } from 'firebase/firestore';
-import { database } from '../Firebase/Firebase';
+import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import limitNumberOfPosts from '../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
 import PostItem from '../PostItem/PostItem';

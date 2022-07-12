@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
 import { doc, getDoc } from 'firebase/firestore';
-import { database } from '../Firebase/Firebase';
+import { database } from '../../data/firebase';
 import parseText from '../../helpers/ParseText/ParseText';
 import placeholder from '../../assets/placeholder.png';
 import './ReplyItem.css';

@@ -5,7 +5,7 @@ import './DirectMessages.css';
 import { doc, updateDoc } from 'firebase/firestore';
 import { GetUserContext } from '../../contexts/UserContext';
 import DirectMessageItem from '../DirectMessageItem/DirectMessageItem';
-import { database } from '../Firebase/Firebase';
+import { database } from '../../data/firebase';
 
 function DirectMessages({ changeActiveTab, showWarning, showNewPostEffect }) {
   const { userData } = GetUserContext();

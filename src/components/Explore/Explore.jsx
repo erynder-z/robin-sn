@@ -4,7 +4,7 @@ import { BiSpaceBar } from 'react-icons/bi';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { collection, limit, orderBy, query } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import { database } from '../Firebase/Firebase';
+import { database } from '../../data/firebase';
 import './Explore.css';
 
 function Explore({ handleSearchQuery, changeActiveTab }) {

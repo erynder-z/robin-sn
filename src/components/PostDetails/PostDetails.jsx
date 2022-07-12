@@ -4,7 +4,7 @@ import { BiArrowBack } from 'react-icons/bi';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { doc } from 'firebase/firestore';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { database } from '../Firebase/Firebase';
+import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import PostItem from '../PostItem/PostItem';
 import Reply from '../Reply/Reply';
