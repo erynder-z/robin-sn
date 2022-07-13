@@ -1,15 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { BiMessageRoundedEdit } from 'react-icons/bi';
+import { BiMessageRoundedEdit, BiUserPlus, BiUserMinus } from 'react-icons/bi';
 import './ProfileOptionsOther.css';
 import MessageModal from '../../MessageModal/MessageModal';
+import { GetUserContext } from '../../../contexts/UserContext';
 
-function ProfileOptionsOther({ showWarning, showNewPostEffect, userInView }) {
+function ProfileOptionsOther({ showWarning, showNewPostEffect, userInView, follow, unFollow }) {
+  const { userData } = GetUserContext();
   const [showMessageModal, setShowMessageModal] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(null);
+
+  const checkIfFollowing = () => {
+    const followingList = [...userData.following];
+
+    if (followingList.some((user) => user.userID === userInView.userID)) {
+      setIsFollowing(true);
+    } else {
+      setIsFollowing(false);
+    }
+  };
+
+  useEffect(() => {
+    if (userInView) {
+      checkIfFollowing();
+    }
+  }, [userInView, userData.following]);
 
   return (
     <div className="profileOptionsOther-container">
       <div className="profileOptionsOther-header">Profile options</div>
+      {!isFollowing && (
+        <div
+          className="follow"
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            follow(userInView.userID);
+          }}
+          onKeyDown={() => {
+            follow(userInView.userID);
+          }}>
+          <BiUserPlus className="follow-icon" size="2rem" />
+          follow
+        </div>
+      )}
+      {isFollowing && (
+        <div
+          className="follow"
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            unFollow(userInView.userID);
+          }}
+          onKeyDown={() => {
+            unFollow(userInView.userID);
+          }}>
+          <BiUserMinus className="follow-icon" size="2rem" />
+          unfollow
+        </div>
+      )}
       <div
         className="sendDm"
         role="button"
@@ -66,7 +115,9 @@ ProfileOptionsOther.propTypes = {
         sendDate: PropTypes.objectOf(PropTypes.number)
       })
     )
-  })
+  }),
+  follow: PropTypes.func.isRequired,
+  unFollow: PropTypes.func.isRequired
 };
 
 ProfileOptionsOther.defaultProps = {
