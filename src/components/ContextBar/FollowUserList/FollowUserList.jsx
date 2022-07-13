@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { arrayRemove, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { BiUserPlus, BiUserMinus } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { GetUserContext } from '../../../contexts/UserContext';
 import { database } from '../../../data/firebase';
 import './FollowUserList.css';
 
-function FollowUserList({ showWarning }) {
+function FollowUserList({ showWarning, follow, unFollow }) {
   const { userData } = GetUserContext();
   const navigate = useNavigate();
-  const { userID, following } = userData;
+  const { following } = userData;
   const [userList, setUserList] = useState([]);
 
   // get all list of all users in the datababse
@@ -59,38 +59,6 @@ function FollowUserList({ showWarning }) {
   useEffect(() => {
     getUserList();
   }, [following]);
-
-  const follow = async (followUserID) => {
-    try {
-      const userToFollowRef = doc(database, 'users', followUserID);
-      const userThatFollowsRef = doc(database, 'users', userID);
-
-      await updateDoc(userToFollowRef, {
-        followers: arrayUnion({ userID })
-      });
-      await updateDoc(userThatFollowsRef, {
-        following: arrayUnion({ userID: followUserID })
-      });
-    } catch (err) {
-      showWarning(err);
-    }
-  };
-
-  const unFollow = async (followUserID) => {
-    try {
-      const userToFollowRef = doc(database, 'users', followUserID);
-      const userThatFollowsRef = doc(database, 'users', userID);
-
-      await updateDoc(userToFollowRef, {
-        followers: arrayRemove({ userID })
-      });
-      await updateDoc(userThatFollowsRef, {
-        following: arrayRemove({ userID: followUserID })
-      });
-    } catch (err) {
-      showWarning(err);
-    }
-  };
 
   const linkToUserProfile = (e, usrID) => {
     e.stopPropagation();
@@ -168,5 +136,7 @@ function FollowUserList({ showWarning }) {
 export default FollowUserList;
 
 FollowUserList.propTypes = {
-  showWarning: PropTypes.func.isRequired
+  showWarning: PropTypes.func.isRequired,
+  follow: PropTypes.func.isRequired,
+  unFollow: PropTypes.func.isRequired
 };

@@ -60,6 +60,38 @@ function ContextBar({
     }
   };
 
+  const follow = async (followUserID) => {
+    try {
+      const userToFollowRef = doc(database, 'users', followUserID);
+      const userThatFollowsRef = doc(database, 'users', userData.userID);
+
+      await updateDoc(userToFollowRef, {
+        followers: arrayUnion({ userID: userData.userID })
+      });
+      await updateDoc(userThatFollowsRef, {
+        following: arrayUnion({ userID: followUserID })
+      });
+    } catch (err) {
+      showWarning(err);
+    }
+  };
+
+  const unFollow = async (followUserID) => {
+    try {
+      const userToFollowRef = doc(database, 'users', followUserID);
+      const userThatFollowsRef = doc(database, 'users', userData.userID);
+
+      await updateDoc(userToFollowRef, {
+        followers: arrayRemove({ userID: userData.userID })
+      });
+      await updateDoc(userThatFollowsRef, {
+        following: arrayRemove({ userID: followUserID })
+      });
+    } catch (err) {
+      showWarning(err);
+    }
+  };
+
   return (
     <div className={`contextbar ${showContextbar ? 'active' : 'inactive'}`}>
       <div className="contextbar-toggle">
@@ -70,13 +102,25 @@ function ContextBar({
           }}
         />
       </div>
-      {(activeTab === 'home' && <FollowUserList showWarning={showWarning} />) ||
-        (activeTab === 'explore' && <FollowUserList showWarning={showWarning} />) ||
+      {(activeTab === 'home' && (
+        <FollowUserList showWarning={showWarning} follow={follow} unFollow={unFollow} />
+      )) ||
+        (activeTab === 'explore' && (
+          <FollowUserList showWarning={showWarning} follow={follow} unFollow={unFollow} />
+        )) ||
         (activeTab === 'directmessages' && <DirectMessageOptions showWarning={showWarning} />) ||
-        (activeTab === 'bookmarks' && <FollowUserList showWarning={showWarning} />) ||
-        (activeTab === 'search' && <FollowUserList showWarning={showWarning} />) ||
-        (activeTab === 'trends' && <FollowUserList showWarning={showWarning} />) ||
-        (activeTab === 'mentions' && <FollowUserList showWarning={showWarning} />)}
+        (activeTab === 'bookmarks' && (
+          <FollowUserList showWarning={showWarning} follow={follow} unFollow={unFollow} />
+        )) ||
+        (activeTab === 'search' && (
+          <FollowUserList showWarning={showWarning} follow={follow} unFollow={unFollow} />
+        )) ||
+        (activeTab === 'trends' && (
+          <FollowUserList showWarning={showWarning} follow={follow} unFollow={unFollow} />
+        )) ||
+        (activeTab === 'mentions' && (
+          <FollowUserList showWarning={showWarning} follow={follow} unFollow={unFollow} />
+        ))}
       {activeTab === 'myprofile' && (
         <ProfileOptionsOwn
           deleteAccount={deleteAccount}
@@ -89,6 +133,8 @@ function ContextBar({
           showWarning={showWarning}
           showNewPostEffect={showNewPostEffect}
           userInView={userInView}
+          follow={follow}
+          unFollow={unFollow}
         />
       )}
       {activeTab === 'postdetailsown' && (
