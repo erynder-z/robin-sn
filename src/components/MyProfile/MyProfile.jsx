@@ -121,6 +121,10 @@ function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
     changeActiveTab('myprofile');
   }, []);
 
+  useEffect(() => {
+    getUserPosts();
+  }, [userData.posts]);
+
   // lists all the posts made by the user
   const Posts = (
     <div className="posts fadein">
