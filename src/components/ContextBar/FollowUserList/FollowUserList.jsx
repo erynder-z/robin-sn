@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { arrayRemove, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { BiUserPlus, BiUserMinus } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 import { GetUserContext } from '../../../contexts/UserContext';
 import { database } from '../../../data/firebase';
 import './FollowUserList.css';
 
 function FollowUserList({ showWarning }) {
   const { userData } = GetUserContext();
+  const navigate = useNavigate();
   const { userID, following } = userData;
   const [userList, setUserList] = useState([]);
 
@@ -90,10 +92,40 @@ function FollowUserList({ showWarning }) {
     }
   };
 
+  const linkToUserProfile = (e, usrID) => {
+    e.stopPropagation();
+    navigate(`/main/userprofile/${usrID}`, {
+      state: { usr: usrID }
+    });
+  };
+
   const userItem = (usr) => (
     <div className="userlist-item" key={usr.userID}>
-      <img className="userlist-usrpic" src={usr.userPic} alt="user avatar" />
-      <div className="userlist-username">@{usr.username}</div>
+      <input
+        type="image"
+        className="userlist-usrpic"
+        src={usr.userPic}
+        alt="user avatar"
+        tabIndex={0}
+        onClick={(e) => {
+          linkToUserProfile(e, usr.userID);
+        }}
+        onKeyDown={(e) => {
+          linkToUserProfile(e, usr.userID);
+        }}
+      />
+      <div
+        className="userlist-username"
+        role="link"
+        tabIndex={0}
+        onClick={(e) => {
+          linkToUserProfile(e, usr.userID);
+        }}
+        onKeyDown={(e) => {
+          linkToUserProfile(e, usr.userID);
+        }}>
+        @{usr.username}
+      </div>
       {!usr.following && (
         <div
           className="userlist-follow"
