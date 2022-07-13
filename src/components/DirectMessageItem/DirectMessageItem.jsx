@@ -51,9 +51,9 @@ function DirectMessageItem({ message, handleMarkMessageAsRead, showWarning, show
       }}>
       <div className={`messageListItem-upper ${expandMessage ? 'selected' : null}`}>
         {message.isRead ? <BiEnvelopeOpen size="1.5rem" /> : <BiEnvelope size="1.5rem" />}
-        <h5>from: {message.senderUsername}</h5>
+        <h5 className="message-username">from: {message.senderUsername}</h5>
         <h5 className="messageListItem-date">
-          recieved: {format(fromUnixTime(message.sendDate.seconds), 'dd. MMM uuu, HH:mm')}
+          {format(fromUnixTime(message.sendDate.seconds), 'dd. MMM uuu, HH:mm')}
         </h5>
       </div>
       <div className={`messageListItem-lower ${expandMessage ? 'expand' : null}`}>

@@ -22,9 +22,8 @@
 .userlist-username {
   padding: 0 0.5rem;
   width: 100%;
-  height: auto;
-  word-wrap: break-word;
-  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
 

@@ -27,6 +27,10 @@
 
 .reply-author {
   font-weight: bold;
+  max-width: 66%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .reply-userDetails-separator {

@@ -17,13 +17,17 @@
 .newPostModal-upper {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 1rem 0;
+  max-width: 100%;
 }
 
 .user-header {
   display: flex;
-  justify-content: center;
   align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .user-header > .post-author {
@@ -41,6 +45,7 @@
   width: 25rem;
   padding: 0 1rem;
   border-radius: 10px;
+  max-width: 33%;
 }
 
 .newPost-textarea {
@@ -127,6 +132,7 @@ aside.emoji-picker-react {
 
 @media only screen and (max-width: 768px) {
   .newPostModal-body {
+    max-width: 100%;
     width: 85vw;
     height: 20rem;
   }

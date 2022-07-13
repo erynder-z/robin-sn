@@ -3,13 +3,10 @@
   background-color: var(--content-background);
   color: var(--text-bright);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
-}
-
-.signin-email > form {
-  width: 20vw;
+  position: relative;
 }
 
 .signin-email {
@@ -17,6 +14,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.app-header-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+
+.logo-big {
+  height: 150px;
+  width: auto;
+  align-self: center;
 }
 
 input[type='email'],
@@ -51,6 +60,7 @@ input:focus[type='password'] {
   color: var(--hashtag);
   height: 1rem;
   padding-top: 1rem;
+  text-align: center;
 }
 
 .input-container {
@@ -113,10 +123,6 @@ input:focus[type='password'] {
   background-color: var(--card-background);
 }
 
-.signup-email {
-  width: 25vw;
-}
-
 .signupBtn {
   height: 5vh;
   width: 95%;
@@ -130,7 +136,20 @@ input:focus[type='password'] {
   background-color: #c3a3ef;
 }
 
+.login-back {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 768px) {
+  .login-back {
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .signin-email > form {
     width: 95vw;
   }

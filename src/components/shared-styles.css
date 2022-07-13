@@ -14,7 +14,8 @@
 .profile-container,
 .trends-container,
 .bookmarks-container,
-.mentions-container {
+.mentions-container,
+.directMessages-container {
   background-color: var(--card-background);
   color: var(--text-bright);
   height: 100vh;
@@ -30,7 +31,8 @@
 .profile-header,
 .trends-header,
 .bookmarks-header,
-.mentions-header {
+.mentions-header,
+.directMessages-header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,7 +47,8 @@
 .search-content,
 .trends-content,
 .bookmarks-content,
-.mentions-content {
+.mentions-content,
+.directMessages-content {
   width: 100%;
   max-height: 95%;
   display: flex;
@@ -97,11 +100,11 @@
 }
 
 .reply-closeBtn,
-.newPost-closeBtn {
+.newPost-closeBtn,
+.message-closeBtn {
   cursor: pointer;
   font-size: 3rem;
   color: var(--button);
-
   height: 3rem;
   width: 3rem;
   display: flex;
@@ -110,13 +113,15 @@
 }
 
 .reply-closeBtn:hover,
-.newPost-closeBtn:hover {
+.newPost-closeBtn:hover,
+.message-closeBtn:hover {
   color: var(--hashtag);
 }
 
 .replyBtn-modal,
 .replyBtn-append,
-.postBtn {
+.postBtn,
+.messageBtn {
   height: 2rem;
   width: 5rem;
   border-radius: 20px;
@@ -129,7 +134,8 @@
 
 .replyBtn-append:hover,
 .replyBtn-modal:hover,
-.postBtn:hover {
+.postBtn:hover,
+.messageBtn:hover {
   background-color: var(--button-hover);
 }
 

@@ -9,6 +9,7 @@ import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import AvatarCreator from '../../helpers/AvatarCreator/AvatarCreator';
 import resizeFile from '../../helpers/ImageResizer/ImageResizer';
 import WarningModal from '../WarningModal/WarningModal';
+import logo from '../../assets/logo.png';
 import './SetupUserAccount.css';
 
 function CreateUserAccount({ userCredentials }) {
@@ -121,7 +122,7 @@ function CreateUserAccount({ userCredentials }) {
     <div className="setup-user-account fadein">
       <h3>Set up your user account</h3>
       <div className="setup-user-container">
-        <img src={userObject.userPic} alt="avatar" />
+        <img className="setup-userpic" src={userObject.userPic} alt="avatar" />
         <label htmlFor="picture" className="custom-file-upload-label">
           <BiImageAdd size="2rem" />
           <input
@@ -182,7 +183,7 @@ function CreateUserAccount({ userCredentials }) {
             handleSubmit(e);
           }}
           tabIndex={0}>
-          Let&apos;s go!
+          Let&apos;s go! <img className="logo-mini" src={logo} alt="app logo" />
         </button>
       </div>
 

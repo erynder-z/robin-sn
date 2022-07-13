@@ -20,6 +20,15 @@
   color: var(--button);
 }
 
+.message-username {
+  overflow: hidden;
+  max-width: 55%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 0 0.5rem;
+  margin-right: auto;
+}
+
 .messageListItem-lower {
   max-height: 0;
   transition: max-height 0.15s ease-out;

@@ -34,6 +34,10 @@
 .post-author {
   font-weight: bold;
   cursor: pointer;
+  max-width: 66%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .post-userDetails-separator {

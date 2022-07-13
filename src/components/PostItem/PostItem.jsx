@@ -207,7 +207,7 @@ function PostItem({ postID, handleSetModalActive }) {
             </div>
 
             <div className="post-userDetails-separator">∙</div>
-            <div className="post-date">{format(fromUnixTime(post.created.seconds), 'PPP')}</div>
+            <div className="post-date">{format(fromUnixTime(post.created.seconds), 'MMM dd')}</div>
           </div>
           <div className="post-content"> {parseText(post.content)}</div>
           {post.image.imageURL !== null && (

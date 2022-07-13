@@ -7,9 +7,10 @@
 }
 
 .logo {
-  height: 75px;
+  height: 35px;
   width: auto;
   padding: 1rem 1rem 0 1rem;
+  /*   align-self: center; */
 }
 
 .sidebar ul {
@@ -69,6 +70,10 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .logo {
+    display: none;
+  }
+
   .sidebar {
     position: fixed;
     bottom: 0;

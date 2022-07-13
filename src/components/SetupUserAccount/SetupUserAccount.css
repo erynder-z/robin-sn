@@ -21,7 +21,7 @@
   padding: 2rem;
 }
 
-.setup-user-container img {
+.setup-userpic {
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -107,6 +107,9 @@ input[type='file'] {
   background-color: var(--button);
   color: var(--text-bright);
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .saveAvatarBtn {
@@ -144,6 +147,11 @@ input[type='file'] {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.logo-mini {
+  height: 25px;
+  width: auto;
 }
 
 @media only screen and (max-width: 768px) {

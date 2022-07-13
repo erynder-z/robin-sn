@@ -11,6 +11,8 @@ function UserInfo({ logout }) {
       <div className="head">
         <img className="usrpic" src={userData.userPic} alt="user avatar" />
         <div className="usrname">
+          {' '}
+          <span> @{userData.username}</span>
           <button
             className="logoutBtn"
             type="button"
@@ -22,7 +24,6 @@ function UserInfo({ logout }) {
             }}>
             <TbLogout size="2rem" />
           </button>{' '}
-          <span> @{userData.username}</span>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import {
 } from 'firebase/auth';
 import { BiArrowBack } from 'react-icons/bi';
 import { auth } from '../../data/firebase';
+import logo from '../../assets/logo.png';
 import './Login.css';
 
 function Login() {
@@ -67,8 +68,8 @@ function Login() {
     <div className="newAccountContainer fadein">
       <div className="backPost">
         <BiArrowBack
-          className="post-back"
-          size="1.5rem"
+          className="login-back"
+          size="3rem"
           role="button"
           tabIndex={0}
           onClick={() => {
@@ -83,7 +84,10 @@ function Login() {
       </div>
       <div className="signup-email">
         <header>
-          <h1 className="app-header">Create your account</h1>
+          <div className="app-header-container">
+            <img className="logo-big" src={logo} alt="app logo" />
+            <h1 className="app-header">Create your account</h1>
+          </div>
         </header>
         <form>
           <div className="input-container">
@@ -143,7 +147,10 @@ function Login() {
   return (
     <div className="signin-container fadein">
       <header>
-        <h1 className="app-header">Welcome to Robin</h1>
+        <div className="app-header-container">
+          <img className="logo-big" src={logo} alt="app logo" />
+          <h1 className="app-header">Welcome to Robin</h1>
+        </div>
       </header>
       <div className="login-container">
         <h2>Login to existing account</h2>

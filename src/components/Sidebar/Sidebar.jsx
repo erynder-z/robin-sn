@@ -11,7 +11,7 @@ import {
 import { Link } from 'react-router-dom';
 import { GetUserContext } from '../../contexts/UserContext';
 import UserInfo from '../UserInfo/UserInfo';
-import logo from '../../assets/logo.png';
+import logoWhite from '../../assets/logo_white.png';
 import './Sidebar.css';
 
 function Sidebar({ activeTab, logout }) {
@@ -30,7 +30,7 @@ function Sidebar({ activeTab, logout }) {
   return (
     <div className="sidebar">
       <ul>
-        <img className="logo" src={logo} alt="app logo" />
+        <img className="logo" src={logoWhite} alt="app logo" />
         <Link to="/main/home">
           <li className={`sidebar-item ${activeTab === 'home' ? 'active' : 'inactive'}`}>
             <div className="sidebar-item-wrapper">

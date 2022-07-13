@@ -15,7 +15,8 @@
   align-self: center;
 }
 
-.something-something {
+.message-markRead,
+.message-delete {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -24,8 +25,38 @@
   width: 100%;
 }
 
-.something-something-icon {
+.message-markRead-icon,
+.message-delete-icon {
   padding-right: 0.5rem;
+}
+
+.deleteAllMessagesBtn {
+  height: 3rem;
+  width: 95%;
+  background-color: crimson;
+  color: #f8f8f2;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.deleteAllMessagesBtn:hover {
+  background-color: rgb(221, 60, 92);
+}
+
+.dontDeleteMessagesBtn {
+  height: 3rem;
+  width: 95%;
+  background-color: #ff79c6;
+  color: #f8f8f2;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.dontDeleteMessagesBtn:hover {
+  background-color: #f78eca;
 }
 
 @media only screen and (max-width: 768px) {

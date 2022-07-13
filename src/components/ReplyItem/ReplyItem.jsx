@@ -21,13 +21,13 @@ function ReplyItem({ reply }) {
         setReplyUser({
           username: 'deleted user',
           userpic: placeholder,
-          replyDate: format(fromUnixTime(reply.replyDate.seconds), 'PPP')
+          replyDate: format(fromUnixTime(reply.replyDate.seconds), 'MMM dd')
         });
       }
       setReplyUser({
         username: docSnap.data().username,
         userpic: docSnap.data().userPic,
-        replyDate: format(fromUnixTime(reply.replyDate.seconds), 'PPP')
+        replyDate: format(fromUnixTime(reply.replyDate.seconds), 'MMM dd')
       });
     } catch (err) {
       setErrorMessage(err);
