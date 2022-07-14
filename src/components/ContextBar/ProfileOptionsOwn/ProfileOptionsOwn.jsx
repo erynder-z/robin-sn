@@ -2,7 +2,14 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { doc, updateDoc } from 'firebase/firestore';
 import { MdOutlineDangerous } from 'react-icons/md';
-import { BiImageAdd, BiBarChart, BiLandscape, BiWindowClose, BiLogOut } from 'react-icons/bi';
+import {
+  BiImageAdd,
+  BiBarChart,
+  BiLandscape,
+  BiWindowClose,
+  BiLogOut,
+  BiUserCircle
+} from 'react-icons/bi';
 import resizeFile from '../../../helpers/ImageResizer/ImageResizer';
 import { database } from '../../../data/firebase';
 import { GetUserContext } from '../../../contexts/UserContext';
@@ -13,8 +20,10 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning }) {
   const { userData } = GetUserContext();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
+  const [showUpdateDescModal, setShowUpdateDescModal] = useState(false);
   const [showCropper, setShowCropper] = useState(false);
   const [picture, setPicture] = useState();
+  const [descriptionText, setDescriptionText] = useState('');
 
   // let user load a picture and saves it in state to be accessed by the avatar creator
   const changeUserpic = async (e) => {
@@ -74,11 +83,71 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning }) {
     }
   };
 
+  const updateUserDescription = async () => {
+    const userRef = doc(database, 'users', userData.userID);
+
+    try {
+      await updateDoc(userRef, {
+        description: descriptionText
+      });
+    } catch (err) {
+      showWarning(err);
+    }
+    setDescriptionText('');
+  };
+
   useEffect(() => {
     if (picture) {
       setShowCropper(true);
     }
   }, [picture]);
+
+  const UpdateDescModal = (
+    <div className="updateDescModal-overlay fadein">
+      <div className="updateDescModal">
+        <label htmlFor="udescUpdate" className="descUpdateInput-label">
+          <h3>About you</h3>
+          <textarea
+            className="descriptionUpdate-input"
+            type="text"
+            maxLength="100"
+            placeholder="write a little bit about yourself (max. 100 characters)"
+            value={descriptionText}
+            onChange={(e) => {
+              setDescriptionText(e.target.value);
+            }}
+            required
+          />
+        </label>
+        <div
+          className="updateDesc-updateBtn"
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            updateUserDescription();
+            setShowUpdateDescModal(false);
+          }}
+          onKeyDown={() => {
+            updateUserDescription();
+            setShowUpdateDescModal(false);
+          }}>
+          Update
+        </div>
+        <div
+          className="updateDesc-closeBtn"
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            setShowUpdateDescModal(false);
+          }}
+          onKeyDown={() => {
+            setShowUpdateDescModal(false);
+          }}>
+          Close without updating
+        </div>
+      </div>
+    </div>
+  );
 
   const StatsModal = (
     <div className="statsModal-overlay fadein">
@@ -144,6 +213,20 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning }) {
         }}>
         <MdOutlineDangerous className="deleteAccount-icon" size="2rem" />
         delete account
+      </div>
+
+      <div
+        className="updateDescription"
+        role="button"
+        tabIndex={0}
+        onClick={() => {
+          setShowUpdateDescModal(true);
+        }}
+        onKeyDown={() => {
+          setShowUpdateDescModal(true);
+        }}>
+        <BiUserCircle className="updateDescription-icon" size="2rem" />
+        update user description
       </div>
 
       <label htmlFor="picture" className="changeUserpic">
@@ -220,6 +303,7 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning }) {
 
       {showDeleteModal && DeleteModal}
       {showStatsModal && StatsModal}
+      {showUpdateDescModal && UpdateDescModal}
       {showCropper && (
         <div className="avatarCreator-overlay">
           <AvatarCreator
