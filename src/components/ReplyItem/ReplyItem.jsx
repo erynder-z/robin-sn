@@ -30,7 +30,7 @@ function ReplyItem({ reply }) {
         replyDate: format(fromUnixTime(reply.replyDate.seconds), 'MMM dd')
       });
     } catch (err) {
-      setErrorMessage(err);
+      setErrorMessage(err.message);
     }
   };
 

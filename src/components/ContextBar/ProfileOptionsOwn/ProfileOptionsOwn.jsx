@@ -37,7 +37,7 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning }) {
         setPicture(base64data);
       };
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 
@@ -56,7 +56,7 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning }) {
         });
       };
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 
@@ -67,7 +67,7 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning }) {
         userPic: pic
       });
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 
@@ -79,7 +79,7 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning }) {
         userBackground: null
       });
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 
@@ -91,7 +91,7 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning }) {
         description: descriptionText
       });
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
     setDescriptionText('');
   };

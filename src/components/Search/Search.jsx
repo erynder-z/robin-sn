@@ -60,7 +60,7 @@ function Search({ searchQuery, changeActiveTab, handleSetModalActive, showWarnin
       getUserResults(string);
       getPostResults(string);
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 

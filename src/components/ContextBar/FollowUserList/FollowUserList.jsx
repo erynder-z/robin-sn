@@ -52,7 +52,7 @@ function FollowUserList({ showWarning, follow, unFollow }) {
         setUserList(createLimitedUserlist(list));
       });
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 

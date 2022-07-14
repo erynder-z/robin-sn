@@ -146,7 +146,7 @@ function Main({ userCredentials }) {
               count: increment(-1)
             });
           } catch (err) {
-            setErrorMessage(err);
+            setErrorMessage(err.message);
           }
 
           const hashtagSnap = await getDoc(hashtagRef);
@@ -163,7 +163,7 @@ function Main({ userCredentials }) {
 
       navigate(-1);
     } catch (err) {
-      setErrorMessage(err);
+      setErrorMessage(err.message);
     }
   };
 

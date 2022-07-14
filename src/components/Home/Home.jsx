@@ -57,7 +57,7 @@ function Home({ changeActiveTab, handleSetModalActive, showWarning }) {
       );
       setFollowingPosts(sortPosts(list));
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 

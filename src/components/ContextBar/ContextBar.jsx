@@ -53,10 +53,10 @@ function ContextBar({
           addBookmark();
         }
       } catch (err) {
-        showWarning(err);
+        showWarning(err.message);
       }
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 
@@ -72,7 +72,7 @@ function ContextBar({
         following: arrayUnion({ userID: followUserID })
       });
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 
@@ -88,7 +88,7 @@ function ContextBar({
         following: arrayRemove({ userID: followUserID })
       });
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 

@@ -65,7 +65,7 @@ function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
         setPostsAndReplies(sortPosts(list));
       });
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 
@@ -88,7 +88,7 @@ function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
 
       setMedia(sortPosts(list));
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 

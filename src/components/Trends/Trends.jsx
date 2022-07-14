@@ -34,7 +34,7 @@ function Trends({ searchQuery, changeActiveTab, handleSetModalActive, showWarnin
 
       getPostResults(string);
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 

@@ -46,7 +46,7 @@ function PostItem({ postID, handleSetModalActive }) {
         ownerID: docSnap.data().userID
       });
     } catch (err) {
-      setErrorMessage(err);
+      setErrorMessage(err.message);
     }
   };
 
@@ -91,7 +91,7 @@ function PostItem({ postID, handleSetModalActive }) {
 
         addPostToUserObject(newPostID);
       } catch (err) {
-        setErrorMessage(err);
+        setErrorMessage(err.message);
       }
     }
   };
@@ -126,7 +126,7 @@ function PostItem({ postID, handleSetModalActive }) {
         likePost();
       }
     } catch (err) {
-      setErrorMessage(err);
+      setErrorMessage(err.message);
     }
   };
 

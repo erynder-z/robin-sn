@@ -39,7 +39,7 @@ function Mentions({ changeActiveTab, handleSetModalActive, showWarning }) {
       });
       setMentions(postsWithMentions);
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 

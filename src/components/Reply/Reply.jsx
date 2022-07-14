@@ -29,7 +29,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner, setReplyEffect 
         replies: arrayUnion({ postID, created: Timestamp.now() })
       });
     } catch (err) {
-      setErrorMessage(err);
+      setErrorMessage(err.message);
     }
   };
 
@@ -53,7 +53,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner, setReplyEffect 
         setText('');
         setReplyEffect('Replying');
       } catch (err) {
-        setErrorMessage(err);
+        setErrorMessage(err.message);
       }
     } else {
       setErrorMessage('enter a message!');

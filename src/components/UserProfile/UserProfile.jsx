@@ -40,7 +40,7 @@ function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUs
         userID: docSnap.data().userID
       });
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 
@@ -67,7 +67,7 @@ function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUs
         setPostsAndReplies(sortPosts(list));
       });
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 
@@ -90,7 +90,7 @@ function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUs
 
       setMedia(sortPosts(list));
     } catch (err) {
-      showWarning(err);
+      showWarning(err.message);
     }
   };
 

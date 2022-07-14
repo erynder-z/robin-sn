@@ -32,8 +32,8 @@ function Login() {
     if (emailFormValue !== '' && passwordFormValue !== '') {
       try {
         await createUserWithEmailAndPassword(auth, emailFormValue, passwordFormValue);
-      } catch (error) {
-        showLoginError(error);
+      } catch (err) {
+        showLoginError(err.message);
       }
     } else {
       showLoginError('enter a valid email and password');
@@ -44,8 +44,8 @@ function Login() {
   const login = async () => {
     try {
       await signInWithEmailAndPassword(auth, emailFormValue, passwordFormValue);
-    } catch (error) {
-      showLoginError(error);
+    } catch (err) {
+      showLoginError(err.message);
     }
   };
 

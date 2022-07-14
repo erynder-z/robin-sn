@@ -54,7 +54,7 @@ function CreateUserAccount({ userCredentials }) {
       };
       setShowCropper(true);
     } catch (err) {
-      setErrorMessage(err);
+      setErrorMessage(err.message);
     }
   };
 
@@ -93,7 +93,7 @@ function CreateUserAccount({ userCredentials }) {
         messages: userObject.messages
       });
     } catch (err) {
-      setErrorMessage(err);
+      setErrorMessage(err.message);
     }
   };
 
