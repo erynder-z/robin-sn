@@ -10,7 +10,7 @@ import { GetUserContext } from '../../contexts/UserContext';
 import WarningModal from '../WarningModal/WarningModal';
 import './Reply.css';
 
-function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
+function Reply({ postID, replyMode, toggleReplyModal, postOwner, setReplyEffect }) {
   const { userData } = GetUserContext();
   const [mode, setMode] = useState('');
   const [text, setText] = useState('');
@@ -51,6 +51,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
         addPostToUserObject(pID);
         toggleReplyModal();
         setText('');
+        setReplyEffect('Replying');
       } catch (err) {
         setErrorMessage(err);
       }
@@ -167,7 +168,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner }) {
               <button
                 className="replyBtn-modal"
                 type="submit"
-                onClick={() => {
+                onMouseDown={() => {
                   reply(postID);
                 }}>
                 Reply
@@ -269,5 +270,6 @@ Reply.propTypes = {
   postOwner: PropTypes.shape({
     username: PropTypes.string.isRequired,
     userpic: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  setReplyEffect: PropTypes.func.isRequired
 };

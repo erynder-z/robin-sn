@@ -233,7 +233,7 @@ function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUs
                   }}
                 />
               </div>
-              {user.username}&apos;s Profile
+              <span> {user.username}&apos;s</span>&nbsp; Profile
             </div>
             <div className="profile-card">
               <div className="card-wrapper">

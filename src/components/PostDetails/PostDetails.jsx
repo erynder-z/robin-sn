@@ -9,7 +9,6 @@ import { GetUserContext } from '../../contexts/UserContext';
 import PostItem from '../PostItem/PostItem';
 import Reply from '../Reply/Reply';
 import ReplyItem from '../ReplyItem/ReplyItem';
-
 import limitNumberOfPosts from '../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
 import './PostDetails.css';
 

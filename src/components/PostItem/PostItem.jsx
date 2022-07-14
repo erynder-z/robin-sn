@@ -29,6 +29,7 @@ function PostItem({ postID, handleSetModalActive }) {
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [clickEffect, setClickEffect] = useState({ reply: false, repost: false, like: false });
   const [errorMessage, setErrorMessage] = useState(null);
+  // handle overlayEffect when replying here, because Reply-component gests unmounted before effect can be shown
   const [replyEffect, setReplyEffect] = useState(null);
   const postDocRef = doc(database, 'posts', postID);
   const userDocRef = doc(database, 'users', userData.userID);
