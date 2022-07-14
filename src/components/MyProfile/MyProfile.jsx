@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
 import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
 import { BiSpaceBar } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import PostItem from '../PostItem/PostItem';
+import './MyProfile.css';
 
 function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
   const { userData } = GetUserContext();
@@ -27,6 +29,7 @@ function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
   const [postsAndReplies, setPostsAndReplies] = useState([]);
   const [media, setMedia] = useState([]);
   const [usrLikes, setUsrLikes] = useState([]);
+  const navigate = useNavigate();
 
   const sortPosts = (lst) => {
     const unsorted = [];
@@ -99,6 +102,11 @@ function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
       limitedPosts.shift();
     }
     setUsrLikes(limitedPosts);
+  };
+
+  const linkToUserlist = (e) => {
+    e.stopPropagation();
+    navigate('/main/userlist');
   };
 
   useEffect(() => {
@@ -230,7 +238,18 @@ function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
               <h3 className="profile-username">@{username}</h3>
               <div className="profile-joined">joined {joinedDateFormatted}</div>
               <div className="profile-follow-container">
-                <div className="profile-following">following: {following.length - 1}</div>
+                <div
+                  role="link"
+                  tabIndex={0}
+                  className="myProfile-following"
+                  onClick={(e) => {
+                    linkToUserlist(e);
+                  }}
+                  onKeyDown={(e) => {
+                    linkToUserlist(e);
+                  }}>
+                  following: {following.length - 1}
+                </div>
                 <div className="profile-followers">followers: {followers.length}</div>
               </div>{' '}
             </div>

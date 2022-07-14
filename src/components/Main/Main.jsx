@@ -25,6 +25,7 @@ import Mentions from '../Mentions/Mentions';
 import WarningModal from '../WarningModal/WarningModal';
 import './Main.css';
 import DirectMessages from '../DirectMessages/DirectMessages';
+import Userlist from '../Userlist/Userlist';
 
 function Main({ userCredentials }) {
   const navigate = useNavigate();
@@ -375,6 +376,15 @@ function Main({ userCredentials }) {
                 handleSetModalActive={handleSetModalActive}
                 showOverlayEffect={showOverlayEffect}
               />
+            ) : null
+          }
+        />
+
+        <Route
+          path="userlist"
+          element={
+            isUserSetup ? (
+              <Userlist changeActiveTab={changeActiveTab} showWarning={showWarning} />
             ) : null
           }
         />

@@ -120,7 +120,11 @@ function ContextBar({
         )) ||
         (activeTab === 'mentions' && (
           <FollowUserList showWarning={showWarning} follow={follow} unFollow={unFollow} />
+        )) ||
+        (activeTab === 'userlist' && (
+          <FollowUserList showWarning={showWarning} follow={follow} unFollow={unFollow} />
         ))}
+
       {activeTab === 'myprofile' && (
         <ProfileOptionsOwn
           deleteAccount={deleteAccount}
