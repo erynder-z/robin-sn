@@ -5,7 +5,7 @@ import './ProfileOptionsOther.css';
 import MessageModal from '../../MessageModal/MessageModal';
 import { GetUserContext } from '../../../contexts/UserContext';
 
-function ProfileOptionsOther({ showWarning, showNewPostEffect, userInView, follow, unFollow }) {
+function ProfileOptionsOther({ showWarning, showOverlayEffect, userInView, follow, unFollow }) {
   const { userData } = GetUserContext();
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [isFollowing, setIsFollowing] = useState(null);
@@ -77,7 +77,7 @@ function ProfileOptionsOther({ showWarning, showNewPostEffect, userInView, follo
           userInView={userInView}
           showWarning={showWarning}
           setShowMessageModal={setShowMessageModal}
-          showNewPostEffect={showNewPostEffect}
+          showOverlayEffect={showOverlayEffect}
         />
       )}
     </div>
@@ -88,7 +88,7 @@ export default ProfileOptionsOther;
 
 ProfileOptionsOther.propTypes = {
   showWarning: PropTypes.func.isRequired,
-  showNewPostEffect: PropTypes.func.isRequired,
+  showOverlayEffect: PropTypes.func.isRequired,
   userInView: PropTypes.shape({
     userPic: PropTypes.string,
     username: PropTypes.string,

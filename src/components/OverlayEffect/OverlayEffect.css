@@ -1,4 +1,4 @@
-.newPostEffect-overlay {
+.overlayEffect-overlay {
   height: 100%;
   width: 100vw;
   position: fixed;
@@ -12,8 +12,9 @@
   align-items: center;
   animation-name: custom-fadein;
   animation-duration: 0.1s;
+  z-index: 999;
 }
 
-.newPostEffect-icon {
+.overlayEffect-icon {
   animation: spin 0.5s ease-in-out both;
 }

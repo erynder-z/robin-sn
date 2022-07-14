@@ -8,7 +8,7 @@ import { arrayUnion, doc, Timestamp, updateDoc } from 'firebase/firestore';
 import { GetUserContext } from '../../contexts/UserContext';
 import { database } from '../../data/firebase';
 
-function MessageModal({ showWarning, setShowMessageModal, showNewPostEffect, userInView }) {
+function MessageModal({ showWarning, setShowMessageModal, showOverlayEffect, userInView }) {
   const { userData } = GetUserContext();
   const [text, setText] = useState('');
   const [fadeModal, setFadeModal] = useState(false);
@@ -41,7 +41,7 @@ function MessageModal({ showWarning, setShowMessageModal, showNewPostEffect, use
       } catch (err) {
         showWarning(err.message);
       }
-      showNewPostEffect('sending message');
+      showOverlayEffect('sending message');
     } else {
       showWarning('Enter a message!');
     }
@@ -144,7 +144,7 @@ export default MessageModal;
 MessageModal.propTypes = {
   setShowMessageModal: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired,
-  showNewPostEffect: PropTypes.func.isRequired,
+  showOverlayEffect: PropTypes.func.isRequired,
   userInView: PropTypes.shape({
     userPic: PropTypes.string,
     username: PropTypes.string,

@@ -8,7 +8,7 @@ import MessageModal from '../MessageModal/MessageModal';
 import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 
-function DirectMessageItem({ message, handleMarkMessageAsRead, showWarning, showNewPostEffect }) {
+function DirectMessageItem({ message, handleMarkMessageAsRead, showWarning, showOverlayEffect }) {
   const { userData } = GetUserContext();
   const [expandMessage, setExpandMessage] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
@@ -83,7 +83,7 @@ function DirectMessageItem({ message, handleMarkMessageAsRead, showWarning, show
           userInView={userInView}
           showWarning={showWarning}
           setShowMessageModal={setShowMessageModal}
-          showNewPostEffect={showNewPostEffect}
+          showOverlayEffect={showOverlayEffect}
         />
       )}
     </div>
@@ -103,5 +103,5 @@ DirectMessageItem.propTypes = {
   }).isRequired,
   handleMarkMessageAsRead: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired,
-  showNewPostEffect: PropTypes.func.isRequired
+  showOverlayEffect: PropTypes.func.isRequired
 };

@@ -13,7 +13,7 @@ import ReplyItem from '../ReplyItem/ReplyItem';
 import limitNumberOfPosts from '../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
 import './PostDetails.css';
 
-function PostDetails({ changeActiveTab, handlePostInfo, handleSetModalActive }) {
+function PostDetails({ changeActiveTab, handlePostInfo, handleSetModalActive, showOverlayEffect }) {
   const { userData } = GetUserContext();
   const navigate = useNavigate();
   // get state from PostItem component // state: { postID, userID, postOwner }
@@ -76,6 +76,7 @@ function PostDetails({ changeActiveTab, handlePostInfo, handleSetModalActive }) 
         postOwner={location.state.postOwner}
         replyMode="append"
         toggleReplyModal={dummyModal}
+        setReplyEffect={showOverlayEffect}
       />
       {replies.map((reply) => (
         <ReplyItem key={reply.replyID} postID={location.state.postID} reply={reply} />
@@ -89,5 +90,6 @@ export default PostDetails;
 PostDetails.propTypes = {
   changeActiveTab: PropTypes.func.isRequired,
   handlePostInfo: PropTypes.func.isRequired,
-  handleSetModalActive: PropTypes.func.isRequired
+  handleSetModalActive: PropTypes.func.isRequired,
+  showOverlayEffect: PropTypes.func.isRequired
 };

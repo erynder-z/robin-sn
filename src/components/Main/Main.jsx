@@ -20,7 +20,7 @@ import Explore from '../Explore/Explore';
 import SearchModal from '../SearchModal/SearchModal';
 import Search from '../Search/Search';
 import Trends from '../Trends/Trends';
-import NewPostEffect from '../NewPostEffect/NewPostEffect';
+import OverlayEffect from '../OverlayEffect/OverlayEffect';
 import Mentions from '../Mentions/Mentions';
 import WarningModal from '../WarningModal/WarningModal';
 import './Main.css';
@@ -37,7 +37,7 @@ function Main({ userCredentials }) {
   const [postInfo, setPostInfo] = useState({});
   const [isPostBookmarked, setIsPostBookmarked] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [newPostEffect, setNewPostEffect] = useState(null);
+  const [overlayEffect, setOverlayEffect] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [showContextbar, setShowContextbar] = useState(false);
   const [isModalActive, setIsModalActive] = useState(false);
@@ -58,8 +58,8 @@ function Main({ userCredentials }) {
   };
 
   // show oberlay effect when posting
-  const showNewPostEffect = (string) => {
-    setNewPostEffect(string);
+  const showOverlayEffect = (string) => {
+    setOverlayEffect(string);
   };
 
   // show overlay warning
@@ -226,10 +226,10 @@ function Main({ userCredentials }) {
 
   // remove new post effect overlay
   useEffect(() => {
-    if (newPostEffect) {
-      setTimeout(() => setNewPostEffect(null), 2000);
+    if (overlayEffect) {
+      setTimeout(() => setOverlayEffect(null), 2000);
     }
-  }, [newPostEffect]);
+  }, [overlayEffect]);
 
   // remove error message overlay
   useEffect(() => {
@@ -359,7 +359,7 @@ function Main({ userCredentials }) {
               <DirectMessages
                 changeActiveTab={changeActiveTab}
                 showWarning={showWarning}
-                showNewPostEffect={showNewPostEffect}
+                showOverlayEffect={showOverlayEffect}
               />
             ) : null
           }
@@ -373,6 +373,7 @@ function Main({ userCredentials }) {
                 changeActiveTab={changeActiveTab}
                 handlePostInfo={handlePostInfo}
                 handleSetModalActive={handleSetModalActive}
+                showOverlayEffect={showOverlayEffect}
               />
             ) : null
           }
@@ -390,7 +391,7 @@ function Main({ userCredentials }) {
           toggleContextbar={toggleContextbar}
           logout={logout}
           showWarning={showWarning}
-          showNewPostEffect={showNewPostEffect}
+          showOverlayEffect={showOverlayEffect}
           userInView={userInView}
         />
       )}
@@ -405,7 +406,7 @@ function Main({ userCredentials }) {
       {isUserSetup && showNewPostModal && (
         <NewPostModal
           toggleNewPostModal={toggleNewPostModal}
-          showNewPostEffect={showNewPostEffect}
+          showOverlayEffect={showOverlayEffect}
           showWarning={showWarning}
         />
       )}
@@ -416,7 +417,7 @@ function Main({ userCredentials }) {
           showWarning={showWarning}
         />
       )}
-      {newPostEffect && <NewPostEffect message={newPostEffect} />}
+      {overlayEffect && <OverlayEffect message={overlayEffect} />}
       {errorMessage && <WarningModal errorMessage={errorMessage} />}
     </div>
   );

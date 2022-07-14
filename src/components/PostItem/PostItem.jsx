@@ -17,8 +17,8 @@ import { format, fromUnixTime } from 'date-fns';
 import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import Reply from '../Reply/Reply';
+import OverlayEffect from '../OverlayEffect/OverlayEffect';
 import parseText from '../../helpers/ParseText/ParseText';
-
 import './PostItem.css';
 
 function PostItem({ postID, handleSetModalActive }) {
@@ -29,6 +29,7 @@ function PostItem({ postID, handleSetModalActive }) {
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [clickEffect, setClickEffect] = useState({ reply: false, repost: false, like: false });
   const [errorMessage, setErrorMessage] = useState(null);
+  const [replyEffect, setReplyEffect] = useState(null);
   const postDocRef = doc(database, 'posts', postID);
   const userDocRef = doc(database, 'users', userData.userID);
 
@@ -164,6 +165,12 @@ function PostItem({ postID, handleSetModalActive }) {
     }
   }, [errorMessage]);
 
+  useEffect(() => {
+    if (replyEffect) {
+      setTimeout(() => setReplyEffect(null), 2000);
+    }
+  }, [replyEffect]);
+
   return (
     post && (
       <div
@@ -274,8 +281,10 @@ function PostItem({ postID, handleSetModalActive }) {
             postOwner={postOwner}
             replyMode="modal"
             toggleReplyModal={toggleReplyModal}
+            setReplyEffect={setReplyEffect}
           />
         )}
+        {replyEffect && <OverlayEffect message={replyEffect} />}
       </div>
     )
   );
