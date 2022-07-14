@@ -17,7 +17,8 @@
 .changeUserpic,
 .changeProfileBackground,
 .removeBackground,
-.accountStats {
+.accountStats,
+.updateDescription {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -30,12 +31,14 @@
 .changePicture-icon,
 .changeProfileBackground-icon,
 .removeBackground-icon,
-.accountStats-icon {
+.accountStats-icon,
+.updateDescription-icon {
   padding-right: 0.5rem;
 }
 
 .deleteModal-overlay,
-.statsModal-overlay {
+.statsModal-overlay,
+.updateDescModal-overlay {
   height: 100%;
   width: 100vw;
   position: fixed;
@@ -51,7 +54,8 @@
 }
 
 .deleteModal,
-.statsModal {
+.statsModal,
+.updateDescModal {
   width: 30vh;
   display: flex;
   flex-direction: column;
@@ -82,13 +86,17 @@
   margin-top: 1rem;
 }
 
-.accountNoDeleteBtn:hover {
+.accountNoDeleteBtn:hover,
+.stats-closeBtn:hover,
+.updateDesc-closeBtn:hover {
   background-color: #f78eca;
 }
 
-.stats-closeBtn {
+.stats-closeBtn,
+.updateDesc-closeBtn,
+.updateDesc-updateBtn {
   height: 3rem;
-  width: 95%;
+  /*   width: 95%; */
   background-color: #ff79c6;
   color: #f8f8f2;
   font-size: 1.2rem;
@@ -100,8 +108,49 @@
   align-items: center;
 }
 
+.updateDesc-updateBtn {
+  background-color: #bd93f9;
+}
+
+.updateDesc-updateBtn:hover {
+  background-color: #bfa0eb;
+}
+
 .logoutContextbar {
   display: none;
+}
+
+.descUpdateInput-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.descUpdateInput-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.descriptionUpdate-input {
+  height: 10rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-bright);
+  resize: none;
+  outline: none;
+  border: none;
+  padding: 0.5rem;
+  width: 100%;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.descriptionUpdate-input:focus {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 @media only screen and (max-width: 768px) {

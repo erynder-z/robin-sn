@@ -8,6 +8,7 @@
   justify-content: space-between;
   height: auto;
 }
+
 .userlist-header {
   justify-content: center;
 }
@@ -25,6 +26,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  cursor: pointer;
 }
 
 .userlist-follow {

@@ -13,7 +13,8 @@
   padding-bottom: 0.5rem;
 }
 
-.sendDm {
+.sendDm,
+.follow {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -22,6 +23,7 @@
   width: 100%;
 }
 
-.sendDm-icon {
+.sendDm-icon,
+.follow-icon {
   padding-right: 0.5rem;
 }

@@ -108,6 +108,10 @@
   width: 100%;
   text-align: center;
   color: var(--text-grey);
+  height: 2rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .replyAppend-body {
@@ -129,6 +133,7 @@
   color: var(--text-bright);
   transition: all 200ms linear;
   width: 100%;
+  padding-bottom: 2rem;
 }
 
 .reply-append-textarea:focus {
