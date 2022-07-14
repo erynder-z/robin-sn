@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import uniqid from 'uniqid';
-import Picker from 'emoji-picker-react';
 import { MdOutlineEmojiEmotions } from 'react-icons/md';
 import { arrayUnion, doc, Timestamp, updateDoc } from 'firebase/firestore';
 import { LinearProgress } from '@mui/material';
@@ -9,6 +8,7 @@ import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import WarningModal from '../WarningModal/WarningModal';
 import './Reply.css';
+import EmojiPicker from '../EmojiPicker/EmojiPicker';
 
 function Reply({ postID, replyMode, toggleReplyModal, postOwner, setReplyEffect }) {
   const { userData } = GetUserContext();
@@ -148,22 +148,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner, setReplyEffect 
                 }}
               />
               {showEmojiPicker && (
-                <div className="emoji-picker-overlay">
-                  <div
-                    className="emoji-picker-close"
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => {
-                      setShowEmojiPicker(false);
-                    }}
-                    onKeyDown={() => {
-                      setShowEmojiPicker(false);
-                    }}>
-                    {' '}
-                    &times;
-                  </div>
-                  <Picker onEmojiClick={onEmojiClick} disableSearchBar />
-                </div>
+                <EmojiPicker setShowEmojiPicker={setShowEmojiPicker} onEmojiClick={onEmojiClick} />
               )}
               <button
                 className="replyBtn-modal"
@@ -222,22 +207,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner, setReplyEffect 
           }}
         />
         {showEmojiPicker && (
-          <div className="emoji-picker-overlay">
-            <div
-              className="emoji-picker-close"
-              role="button"
-              tabIndex={0}
-              onClick={() => {
-                setShowEmojiPicker(false);
-              }}
-              onKeyDown={() => {
-                setShowEmojiPicker(false);
-              }}>
-              {' '}
-              &times;
-            </div>
-            <Picker onEmojiClick={onEmojiClick} disableSearchBar />
-          </div>
+          <EmojiPicker setShowEmojiPicker={setShowEmojiPicker} onEmojiClick={onEmojiClick} />
         )}
 
         <button

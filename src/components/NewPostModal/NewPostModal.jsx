@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import uniqid from 'uniqid';
-import Picker from 'emoji-picker-react';
 import { BiImage } from 'react-icons/bi';
 import LinearProgress from '@mui/material/LinearProgress';
 import { MdOutlineEmojiEmotions } from 'react-icons/md';
@@ -21,6 +20,7 @@ import resizeFile from '../../helpers/ImageResizer/ImageResizer';
 import parseHashtag from '../../helpers/HashtagCreator/HashtagCreator';
 import parseMention from '../../helpers/MentionCreator/MentionCreator';
 import './NewPostModal.css';
+import EmojiPicker from '../EmojiPicker/EmojiPicker';
 
 function NewPostModal({ toggleNewPostModal, showOverlayEffect, showWarning }) {
   const { userData } = GetUserContext();
@@ -241,22 +241,7 @@ function NewPostModal({ toggleNewPostModal, showOverlayEffect, showWarning }) {
               }}
             />
             {showEmojiPicker && (
-              <div className="emoji-picker-overlay">
-                <div
-                  className="emoji-picker-close"
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => {
-                    setShowEmojiPicker(false);
-                  }}
-                  onKeyDown={() => {
-                    setShowEmojiPicker(false);
-                  }}>
-                  {' '}
-                  &times;
-                </div>
-                <Picker onEmojiClick={onEmojiClick} disableSearchBar />
-              </div>
+              <EmojiPicker setShowEmojiPicker={setShowEmojiPicker} onEmojiClick={onEmojiClick} />
             )}
             <button
               className="postBtn"

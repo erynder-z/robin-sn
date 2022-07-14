@@ -20,7 +20,8 @@ function SearchResultUser({ user }) {
           state: { usr: user.userID }
         });
       }}>
-      <img className="profile-usrpic" src={user.userPic} alt="user avatar" />@{user.username}
+      <img className="profile-usrpic" src={user.userPic} alt="user avatar" />
+      <span>@{user.username}</span>
     </div>
   );
 }
