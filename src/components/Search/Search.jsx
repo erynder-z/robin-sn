@@ -7,6 +7,7 @@ import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import PostItem from '../PostItem/PostItem';
 import './Search.css';
+import SearchResultUser from '../SearchResultUser/SearchResultUser';
 
 function Search({ searchQuery, changeActiveTab, handleSetModalActive, showWarning }) {
   const { userData } = GetUserContext();
@@ -102,24 +103,7 @@ function Search({ searchQuery, changeActiveTab, handleSetModalActive, showWarnin
               <div className="found-container">
                 <h3 className="found">Found users:</h3>
                 {userResults.map((user) => (
-                  <div
-                    key={user.toString()}
-                    className="userResult-item"
-                    role="link"
-                    tabIndex={0}
-                    onClick={() => {
-                      navigate(`/main/userprofile/${user.userID}`, {
-                        state: { usr: user.userID }
-                      });
-                    }}
-                    onKeyDown={() => {
-                      navigate(`/main/userprofile/${user.userID}`, {
-                        state: { usr: user.userID }
-                      });
-                    }}>
-                    <img className="profile-usrpic" src={user.userPic} alt="user avatar" />@
-                    {user.username}
-                  </div>
+                  <SearchResultUser key={user.username.toString()} user={user} />
                 ))}
               </div>
             )}

@@ -1,24 +1,5 @@
-.user-results h3,
 .post-results h3 {
   padding: 1rem;
   text-align: center;
   border-bottom: solid 1px var(--border);
-}
-
-.userResult-item {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  font-size: 1.2rem;
-  padding: 1rem;
-  cursor: pointer;
-  color: aqua;
-}
-
-.userResult-item > img {
-  height: 50px;
-  width: 50px;
-  min-height: 50px;
-  min-width: 50px;
-  padding-right: 1rem;
 }
