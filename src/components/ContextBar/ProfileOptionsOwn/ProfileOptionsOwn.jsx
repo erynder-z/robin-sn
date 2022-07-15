@@ -111,7 +111,7 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning }) {
             className="descriptionUpdate-input"
             type="text"
             maxLength="100"
-            placeholder="write a little bit about yourself (max. 100 characters)"
+            placeholder="max. 100 characters"
             value={descriptionText}
             onChange={(e) => {
               setDescriptionText(e.target.value);

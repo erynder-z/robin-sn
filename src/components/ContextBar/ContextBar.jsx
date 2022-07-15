@@ -202,7 +202,9 @@ ContextBar.propTypes = {
         postID: PropTypes.string
       })
     ),
-    replies: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+    replies: PropTypes.arrayOf(
+      PropTypes.shape({ created: PropTypes.objectOf(PropTypes.number), postID: PropTypes.string })
+    ),
     description: PropTypes.string,
     userID: PropTypes.string,
     messages: PropTypes.arrayOf(
