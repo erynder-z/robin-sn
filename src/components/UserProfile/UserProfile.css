@@ -123,7 +123,6 @@
 }
 
 .profile-content-header > .active {
-  /*   background-color: var(--button); */
   color: var(--text-bright);
   border-bottom: solid 0.5vh var(--button);
 }

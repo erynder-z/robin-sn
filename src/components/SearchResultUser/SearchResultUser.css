@@ -1,0 +1,33 @@
+.user-results h3 {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: solid 1px var(--border);
+}
+
+.userResult-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.2rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.userResult-item:hover {
+  background-color: var(--card-hover);
+}
+
+.userResult-item > img {
+  height: 50px;
+  width: 50px;
+  min-height: 50px;
+  min-width: 50px;
+}
+
+.userResult-item > span {
+  max-width: 75%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-left: 1rem;
+}

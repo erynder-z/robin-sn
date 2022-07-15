@@ -162,7 +162,7 @@ function CreateUserAccount({ userCredentials }) {
               className="description-input"
               type="text"
               maxLength="100"
-              placeholder="write a little bit about yourself (max. 100 characters)"
+              placeholder="max. 100 characters"
               value={userObject.description}
               onChange={(e) => {
                 setUserObject((prevState) => ({

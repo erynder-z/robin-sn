@@ -27,7 +27,7 @@
 .sidebar ul a {
   color: var(--text-bright);
   text-decoration: none;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .sidebar-item {
@@ -35,13 +35,22 @@
   justify-content: flex-start;
   align-items: center;
   cursor: pointer;
-  padding: 1rem 0;
-  width: 100%;
+  padding: 1rem 2rem 1rem 0;
+  /*   width: 100%; */
+}
+
+.sidebar-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
 }
 
 .sidebar-item.active {
-  background-color: rgba(255, 255, 255, 0.1);
+  /*   background-color: rgba(255, 255, 255, 0.1); */
   transition: all 0.2s ease-out;
+  font-weight: bolder;
+  font-size: larger;
+  color: var(--button);
+  /* border-radius: 50px; */
 }
 
 .sidebar-item.inactive {
@@ -81,6 +90,7 @@
     width: 100vw;
     background-color: var(--sidebar-background-mobile);
     opacity: 0.8;
+    z-index: 1;
   }
 
   .sidebar ul {
@@ -91,6 +101,7 @@
 
   .sidebar ul a {
     height: 100%;
+    width: 100%;
   }
 
   .sidebar-item {
@@ -99,10 +110,16 @@
     height: 100%;
   }
 
+  .sidebar-item.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+  }
+
   .sidebar-item svg {
     margin-right: 0;
     height: 2rem;
     width: 2rem;
+    padding: 0;
   }
 
   .sidebar-item span {
@@ -111,8 +128,8 @@
 
   .notificationBubble {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: -0.1rem;
+    right: -1rem;
     margin-top: 0.5rem;
     margin-right: 0.2rem;
   }

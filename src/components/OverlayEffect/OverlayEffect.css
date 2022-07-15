@@ -12,7 +12,7 @@
   align-items: center;
   animation-name: custom-fadein;
   animation-duration: 0.1s;
-  z-index: 999;
+  z-index: 99999;
 }
 
 .overlayEffect-icon {

@@ -5,3 +5,9 @@
   width: 100%;
   height: calc(100% - 2rem);
 }
+
+@media only screen and (max-width: 768px) {
+  .fetching {
+    height: calc(100% - 2rem - 7vh);
+  }
+}

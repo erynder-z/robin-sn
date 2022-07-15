@@ -96,7 +96,6 @@
 .updateDesc-closeBtn,
 .updateDesc-updateBtn {
   height: 3rem;
-  /*   width: 95%; */
   background-color: #ff79c6;
   color: #f8f8f2;
   font-size: 1.2rem;
@@ -147,6 +146,7 @@
   width: 100%;
   font-size: 1rem;
   box-sizing: border-box;
+  font: inherit;
 }
 
 .descriptionUpdate-input:focus {
@@ -170,5 +170,9 @@
 
   .logoutContextbar-icon {
     padding-right: 0.5rem;
+  }
+
+  .updateDescModal {
+    width: 85%;
   }
 }

@@ -130,6 +130,7 @@ input:focus[type='password'] {
   color: #f8f8f2;
   font-size: 1.2rem;
   border: none;
+  cursor: pointer;
 }
 
 .signupBtn:hover {
