@@ -104,9 +104,14 @@ function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
     setUsrLikes(limitedPosts);
   };
 
-  const linkToUserlist = (e) => {
+  const linkToUserlistFollowing = (e) => {
     e.stopPropagation();
-    navigate('/main/userlist');
+    navigate('/main/userlist_following');
+  };
+
+  const linkToUserlistFollowers = (e) => {
+    e.stopPropagation();
+    navigate('/main/userlist_followers');
   };
 
   useEffect(() => {
@@ -243,14 +248,25 @@ function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
                   tabIndex={0}
                   className="myProfile-following"
                   onClick={(e) => {
-                    linkToUserlist(e);
+                    linkToUserlistFollowing(e);
                   }}
                   onKeyDown={(e) => {
-                    linkToUserlist(e);
+                    linkToUserlistFollowing(e);
                   }}>
                   following: {following.length - 1}
                 </div>
-                <div className="profile-followers">followers: {followers.length}</div>
+                <div
+                  role="link"
+                  tabIndex={0}
+                  className="myProfile-followers"
+                  onClick={(e) => {
+                    linkToUserlistFollowers(e);
+                  }}
+                  onKeyDown={(e) => {
+                    linkToUserlistFollowers(e);
+                  }}>
+                  followers: {followers.length}
+                </div>
               </div>{' '}
             </div>
             <div className="profile-description">{description}</div>

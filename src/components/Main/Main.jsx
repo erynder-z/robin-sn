@@ -25,7 +25,8 @@ import Mentions from '../Mentions/Mentions';
 import WarningModal from '../WarningModal/WarningModal';
 import './Main.css';
 import DirectMessages from '../DirectMessages/DirectMessages';
-import Userlist from '../Userlist/Userlist';
+import UserlistFollowing from '../UserlistFollowing/UserlistFollowing';
+import UserlistFollowers from '../UserlistFollowers/UserlistFollowers';
 
 function Main({ userCredentials }) {
   const navigate = useNavigate();
@@ -381,10 +382,19 @@ function Main({ userCredentials }) {
         />
 
         <Route
-          path="userlist"
+          path="userlist_following"
           element={
             isUserSetup ? (
-              <Userlist changeActiveTab={changeActiveTab} showWarning={showWarning} />
+              <UserlistFollowing changeActiveTab={changeActiveTab} showWarning={showWarning} />
+            ) : null
+          }
+        />
+
+        <Route
+          path="userlist_followers"
+          element={
+            isUserSetup ? (
+              <UserlistFollowers changeActiveTab={changeActiveTab} showWarning={showWarning} />
             ) : null
           }
         />
