@@ -6,12 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import PostItem from '../PostItem/PostItem';
+import FetchingIcon from '../FetchingIcon/FetchingIcon';
 
 function Trends({ searchQuery, changeActiveTab, handleSetModalActive, showWarning }) {
   const { userData } = GetUserContext();
   const navigate = useNavigate();
   const [postResults, setPostResults] = useState([]);
   const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const getSearchResults = async (string) => {
     try {
@@ -36,6 +38,7 @@ function Trends({ searchQuery, changeActiveTab, handleSetModalActive, showWarnin
     } catch (err) {
       showWarning(err.message);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -66,28 +69,32 @@ function Trends({ searchQuery, changeActiveTab, handleSetModalActive, showWarnin
         </div>
         <span>#{search}</span>
       </div>
-      <div className="trends-content">
-        <div className="results">
-          <div className="post-results">
-            {postResults.length <= 0 ? (
-              <h3 className="notFound">No posts found...</h3>
-            ) : (
-              <div className="found-container">
-                <h3 className="found">Found posts:</h3>
-                {postResults.map((p) => (
-                  <PostItem
-                    key={p.postID}
-                    postID={p.postID}
-                    userID={userData.userID}
-                    userPic={userData.userPic}
-                    handleSetModalActive={handleSetModalActive}
-                  />
-                ))}
-              </div>
-            )}
+      {loading ? (
+        <FetchingIcon />
+      ) : (
+        <div className="trends-content">
+          <div className="results">
+            <div className="post-results">
+              {postResults.length <= 0 ? (
+                <h3 className="notFound">No posts found...</h3>
+              ) : (
+                <div className="found-container">
+                  <h3 className="found">Found posts:</h3>
+                  {postResults.map((p) => (
+                    <PostItem
+                      key={p.postID}
+                      postID={p.postID}
+                      userID={userData.userID}
+                      userPic={userData.userPic}
+                      handleSetModalActive={handleSetModalActive}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

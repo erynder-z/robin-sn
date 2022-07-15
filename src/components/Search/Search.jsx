@@ -8,6 +8,7 @@ import { GetUserContext } from '../../contexts/UserContext';
 import PostItem from '../PostItem/PostItem';
 import './Search.css';
 import SearchResultUser from '../SearchResultUser/SearchResultUser';
+import FetchingIcon from '../FetchingIcon/FetchingIcon';
 
 function Search({ searchQuery, changeActiveTab, handleSetModalActive, showWarning }) {
   const { userData } = GetUserContext();
@@ -15,6 +16,7 @@ function Search({ searchQuery, changeActiveTab, handleSetModalActive, showWarnin
   const [userResults, setUserResults] = useState([]);
   const [postResults, setPostResults] = useState([]);
   const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const getSearchResults = async (string) => {
     try {
@@ -38,6 +40,7 @@ function Search({ searchQuery, changeActiveTab, handleSetModalActive, showWarnin
           });
         });
         setUserResults(foundUsers);
+        setLoading(false);
       };
 
       // check if any post's hashtag-array contains search quers/string
@@ -56,6 +59,7 @@ function Search({ searchQuery, changeActiveTab, handleSetModalActive, showWarnin
           foundPosts.push(doc.data());
         });
         setPostResults(foundPosts);
+        setLoading(false);
       };
 
       getUserResults(string);
@@ -67,6 +71,7 @@ function Search({ searchQuery, changeActiveTab, handleSetModalActive, showWarnin
 
   // set search query in main component, so it can be accessed by other components
   useEffect(() => {
+    setLoading(true);
     setSearch(searchQuery);
   }, [searchQuery]);
 
@@ -94,40 +99,44 @@ function Search({ searchQuery, changeActiveTab, handleSetModalActive, showWarnin
         </div>
         <span>Search</span>
       </div>
-      <div className="search-content">
-        <div className="results">
-          <div className="user-results">
-            {userResults.length <= 0 ? (
-              <h3 className="notFound">No users found...</h3>
-            ) : (
-              <div className="found-container">
-                <h3 className="found">Found users:</h3>
-                {userResults.map((user) => (
-                  <SearchResultUser key={user.username.toString()} user={user} />
-                ))}
-              </div>
-            )}
-          </div>
-          <div className="post-results">
-            {postResults.length <= 0 ? (
-              <h3 className="notFound">No posts found...</h3>
-            ) : (
-              <div className="found-container">
-                <h3 className="found">Found posts:</h3>
-                {postResults.map((p) => (
-                  <PostItem
-                    key={p.postID}
-                    postID={p.postID}
-                    userID={userData.userID}
-                    userPic={userData.userPic}
-                    handleSetModalActive={handleSetModalActive}
-                  />
-                ))}
-              </div>
-            )}
+      {loading ? (
+        <FetchingIcon />
+      ) : (
+        <div className="search-content">
+          <div className="results">
+            <div className="user-results">
+              {userResults.length <= 0 ? (
+                <h3 className="notFound">No users found...</h3>
+              ) : (
+                <div className="found-container">
+                  <h3 className="found">Found users:</h3>
+                  {userResults.map((user) => (
+                    <SearchResultUser key={user.username.toString()} user={user} />
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="post-results">
+              {postResults.length <= 0 ? (
+                <h3 className="notFound">No posts found...</h3>
+              ) : (
+                <div className="found-container">
+                  <h3 className="found">Found posts:</h3>
+                  {postResults.map((p) => (
+                    <PostItem
+                      key={p.postID}
+                      postID={p.postID}
+                      userID={userData.userID}
+                      userPic={userData.userPic}
+                      handleSetModalActive={handleSetModalActive}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

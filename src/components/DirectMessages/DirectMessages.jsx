@@ -6,10 +6,12 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { GetUserContext } from '../../contexts/UserContext';
 import DirectMessageItem from '../DirectMessageItem/DirectMessageItem';
 import { database } from '../../data/firebase';
+import FetchingIcon from '../FetchingIcon/FetchingIcon';
 
 function DirectMessages({ changeActiveTab, showWarning, showOverlayEffect }) {
   const { userData } = GetUserContext();
   const [userMessages, setUserMessages] = useState([...userData.messages]);
+  const [loading, setLoading] = useState(true);
 
   const handleMarkMessageAsRead = async (message) => {
     const getMessageList = async () => {
@@ -38,6 +40,7 @@ function DirectMessages({ changeActiveTab, showWarning, showOverlayEffect }) {
 
   useEffect(() => {
     setUserMessages([...userData.messages].reverse());
+    setLoading(false);
   }, [userData.messages]);
 
   useEffect(() => {
@@ -47,25 +50,31 @@ function DirectMessages({ changeActiveTab, showWarning, showOverlayEffect }) {
   return (
     <div className="directMessages-container fadein">
       <div className="directMessages-header">Direct messages</div>
-      <div className="directMessages-content">
-        {userMessages?.length <= 0 && (
-          <div className="empty">
-            <BiSpaceBar size="3rem" />
-            <h4> empty...</h4>
-            <h5> received direct messages will show up here</h5>
-          </div>
-        )}
+      {loading ? (
+        <FetchingIcon />
+      ) : (
+        <div className="directMessages-content">
+          <div className="messages">
+            {userMessages?.length <= 0 && (
+              <div className="empty">
+                <BiSpaceBar size="3rem" />
+                <h4> empty...</h4>
+                <h5> received direct messages will show up here</h5>
+              </div>
+            )}
 
-        {userMessages?.map((message) => (
-          <DirectMessageItem
-            key={message.messageID}
-            message={message}
-            handleMarkMessageAsRead={handleMarkMessageAsRead}
-            showWarning={showWarning}
-            showOverlayEffect={showOverlayEffect}
-          />
-        ))}
-      </div>
+            {userMessages?.map((message) => (
+              <DirectMessageItem
+                key={message.messageID}
+                message={message}
+                handleMarkMessageAsRead={handleMarkMessageAsRead}
+                showWarning={showWarning}
+                showOverlayEffect={showOverlayEffect}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

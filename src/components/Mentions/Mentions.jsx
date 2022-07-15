@@ -5,10 +5,12 @@ import { collection, getDocs, limit, orderBy, query, where } from 'firebase/fire
 import { GetUserContext } from '../../contexts/UserContext';
 import { database } from '../../data/firebase';
 import PostItem from '../PostItem/PostItem';
+import FetchingIcon from '../FetchingIcon/FetchingIcon';
 
 function Mentions({ changeActiveTab, handleSetModalActive, showWarning }) {
   const { userData } = GetUserContext();
   const [mentions, setMentions] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const sortPosts = (lst) => {
     const unsorted = [];
@@ -41,6 +43,7 @@ function Mentions({ changeActiveTab, handleSetModalActive, showWarning }) {
     } catch (err) {
       showWarning(err.message);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -51,27 +54,31 @@ function Mentions({ changeActiveTab, handleSetModalActive, showWarning }) {
   return (
     <div className="mentions-container fadein">
       <div className="mentions-header">Mentions</div>
-      <div className="mentions-content">
-        <div className="posts">
-          {mentions?.length <= 0 && (
-            <div className="empty">
-              <BiSpaceBar size="3rem" />
-              <h4> empty...</h4>
-              <h5> recent posts you were mentioned in will show up here</h5>
-            </div>
-          )}
-          {mentions &&
-            sortPosts(mentions).map((post) => (
-              <PostItem
-                key={post.postID}
-                postID={post.postID}
-                userID={userData.userID}
-                userPic={userData.userPic}
-                handleSetModalActive={handleSetModalActive}
-              />
-            ))}
+      {loading ? (
+        <FetchingIcon />
+      ) : (
+        <div className="mentions-content">
+          <div className="posts">
+            {mentions?.length <= 0 && (
+              <div className="empty">
+                <BiSpaceBar size="3rem" />
+                <h4> empty...</h4>
+                <h5> recent posts you were mentioned in will show up here</h5>
+              </div>
+            )}
+            {mentions &&
+              sortPosts(mentions).map((post) => (
+                <PostItem
+                  key={post.postID}
+                  postID={post.postID}
+                  userID={userData.userID}
+                  userPic={userData.userPic}
+                  handleSetModalActive={handleSetModalActive}
+                />
+              ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

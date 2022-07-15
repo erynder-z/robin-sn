@@ -6,10 +6,12 @@ import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 import limitNumberOfPosts from '../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
 import PostItem from '../PostItem/PostItem';
+import FetchingIcon from '../FetchingIcon/FetchingIcon';
 
 function Home({ changeActiveTab, handleSetModalActive, showWarning }) {
   const { userData } = GetUserContext();
-  const [followedUsersPosts, setFollowingPosts] = useState([]);
+  const [followedUsersPosts, setFollowingPosts] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // make a list with the ID of all users we are following
   const getUserIdList = async () => {
@@ -59,6 +61,7 @@ function Home({ changeActiveTab, handleSetModalActive, showWarning }) {
     } catch (err) {
       showWarning(err.message);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -72,26 +75,34 @@ function Home({ changeActiveTab, handleSetModalActive, showWarning }) {
   return (
     <div className="home-container fadein">
       <div className="home-header">Home</div>
-      <div className="home-content">
-        <div className="posts">
-          {followedUsersPosts?.length <= 0 && (
-            <div className="empty">
-              <BiSpaceBar size="3rem" />
-              <h4> empty...</h4>
-              <h5> your own recent posts and recent posts of users you follow will show up here</h5>
-            </div>
-          )}
-          {followedUsersPosts.map((p) => (
-            <PostItem
-              key={p.postID}
-              postID={p.postID}
-              userID={userData.userID}
-              userPic={userData.userPic}
-              handleSetModalActive={handleSetModalActive}
-            />
-          ))}
+
+      {loading ? (
+        <FetchingIcon />
+      ) : (
+        <div className="home-content">
+          <div className="posts">
+            {followedUsersPosts?.length <= 0 && (
+              <div className="empty">
+                <BiSpaceBar size="3rem" />
+                <h4> empty...</h4>
+                <h5>
+                  {' '}
+                  your own recent posts and recent posts of users you follow will show up here
+                </h5>
+              </div>
+            )}
+            {followedUsersPosts?.map((p) => (
+              <PostItem
+                key={p.postID}
+                postID={p.postID}
+                userID={userData.userID}
+                userPic={userData.userPic}
+                handleSetModalActive={handleSetModalActive}
+              />
+            ))}
+          </div>{' '}
         </div>
-      </div>
+      )}
     </div>
   );
 }
