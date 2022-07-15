@@ -5,10 +5,9 @@ import { BiSpaceBar, BiArrowBack } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { GetUserContext } from '../../contexts/UserContext';
 import { database } from '../../data/firebase';
-import './Userlist.css';
 import SearchResultUser from '../SearchResultUser/SearchResultUser';
 
-function Userlist({ changeActiveTab, showWarning }) {
+function UserlistFollowing({ changeActiveTab, showWarning }) {
   const { userData } = GetUserContext();
   const [userList, setUserList] = useState([]);
   const navigate = useNavigate();
@@ -81,9 +80,9 @@ function Userlist({ changeActiveTab, showWarning }) {
   );
 }
 
-export default Userlist;
+export default UserlistFollowing;
 
-Userlist.propTypes = {
+UserlistFollowing.propTypes = {
   changeActiveTab: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired
 };
