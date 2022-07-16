@@ -12,7 +12,8 @@ function DirectMessages({
   changeActiveTab,
   showWarning,
   toggleMessageModal,
-  handleSetModalActive
+  handleSetModalActive,
+  setUserInView
 }) {
   const { userData } = GetUserContext();
   const [userMessages, setUserMessages] = useState([...userData.messages]);
@@ -75,6 +76,8 @@ function DirectMessages({
                 handleMarkMessageAsRead={handleMarkMessageAsRead}
                 toggleMessageModal={toggleMessageModal}
                 handleSetModalActive={handleSetModalActive}
+                showWarning={showWarning}
+                setUserInView={setUserInView}
               />
             ))}
           </div>
@@ -90,5 +93,6 @@ DirectMessages.propTypes = {
   changeActiveTab: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired,
   toggleMessageModal: PropTypes.func.isRequired,
-  handleSetModalActive: PropTypes.func.isRequired
+  handleSetModalActive: PropTypes.func.isRequired,
+  setUserInView: PropTypes.func.isRequired
 };

@@ -375,6 +375,7 @@ function Main({ userCredentials }) {
                 showOverlayEffect={showOverlayEffect}
                 toggleMessageModal={toggleMessageModal}
                 handleSetModalActive={handleSetModalActive}
+                setUserInView={setUserInView}
               />
             ) : null
           }
