@@ -27,6 +27,7 @@ import './Main.css';
 import DirectMessages from '../DirectMessages/DirectMessages';
 import UserlistFollowing from '../UserlistFollowing/UserlistFollowing';
 import UserlistFollowers from '../UserlistFollowers/UserlistFollowers';
+import MessageModal from '../MessageModal/MessageModal';
 
 function Main({ userCredentials }) {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ function Main({ userCredentials }) {
   const [usr] = useDocumentData(doc(database, 'users', uid));
   const [showNewPostModal, setShowNewPostModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
+  const [showMessageModal, setShowMessageModal] = useState(false);
   const [isUserSetup, setIsUserSetup] = useState(false);
   const [activeTab, setActiveTab] = useState('');
   const [postInfo, setPostInfo] = useState({});
@@ -79,16 +81,25 @@ function Main({ userCredentials }) {
     setActiveTab(mode);
   };
 
-  // close search-modal when opening new post modal
+  // close search and new post-modal when opening new post modal
   const toggleNewPostModal = () => {
     setShowNewPostModal(!showNewPostModal);
     setShowSearchModal(false);
+    setShowMessageModal(false);
   };
 
-  // close new post modal when opening search modal
+  // close new post and message modal when opening search modal
   const toggleSearchModal = () => {
     setShowSearchModal(!showSearchModal);
     setShowNewPostModal(false);
+    setShowMessageModal(false);
+  };
+
+  // close new post and search modal when opening search modal
+  const toggleMessageModal = () => {
+    setShowMessageModal(!showMessageModal);
+    setShowNewPostModal(false);
+    setShowSearchModal(false);
   };
 
   // set search query to be accessed from child components
@@ -362,6 +373,8 @@ function Main({ userCredentials }) {
                 changeActiveTab={changeActiveTab}
                 showWarning={showWarning}
                 showOverlayEffect={showOverlayEffect}
+                toggleMessageModal={toggleMessageModal}
+                handleSetModalActive={handleSetModalActive}
               />
             ) : null
           }
@@ -413,6 +426,8 @@ function Main({ userCredentials }) {
           showWarning={showWarning}
           showOverlayEffect={showOverlayEffect}
           userInView={userInView}
+          toggleMessageModal={toggleMessageModal}
+          handleSetModalActive={handleSetModalActive}
         />
       )}
       {isUserSetup && !showSearchModal && !showNewPostModal && !isModalActive && (
@@ -435,6 +450,16 @@ function Main({ userCredentials }) {
           handleSearchQuery={handleSearchQuery}
           toggleSearchModal={toggleSearchModal}
           showWarning={showWarning}
+        />
+      )}
+
+      {isUserSetup && showMessageModal && (
+        <MessageModal
+          userInView={userInView}
+          showWarning={showWarning}
+          showOverlayEffect={showOverlayEffect}
+          toggleMessageModal={toggleMessageModal}
+          handleSetModalActive={handleSetModalActive}
         />
       )}
       {overlayEffect && <OverlayEffect message={overlayEffect} />}

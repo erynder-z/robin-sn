@@ -8,7 +8,13 @@ import { GetUserContext } from '../../contexts/UserContext';
 import { database } from '../../data/firebase';
 import EmojiPicker from '../EmojiPicker/EmojiPicker';
 
-function MessageModal({ showWarning, setShowMessageModal, showOverlayEffect, userInView }) {
+function MessageModal({
+  showWarning,
+  showOverlayEffect,
+  userInView,
+  toggleMessageModal,
+  handleSetModalActive
+}) {
   const { userData } = GetUserContext();
   const [text, setText] = useState('');
   const [fadeModal, setFadeModal] = useState(false);
@@ -37,7 +43,7 @@ function MessageModal({ showWarning, setShowMessageModal, showOverlayEffect, use
         });
 
         setFadeModal(true);
-        setTimeout(() => setShowMessageModal(false), 100);
+        setTimeout(() => toggleMessageModal(), 100);
       } catch (err) {
         showWarning(err.message);
       }
@@ -45,6 +51,7 @@ function MessageModal({ showWarning, setShowMessageModal, showOverlayEffect, use
     } else {
       showWarning('Enter a message!');
     }
+    handleSetModalActive(false);
   };
 
   return (
@@ -80,12 +87,14 @@ function MessageModal({ showWarning, setShowMessageModal, showOverlayEffect, use
                 tabIndex={0}
                 onClick={(e) => {
                   setFadeModal(true);
-                  setTimeout(() => setShowMessageModal(false), 100);
+                  setTimeout(() => toggleMessageModal(), 100);
+                  handleSetModalActive(false);
                   e.stopPropagation();
                 }}
                 onKeyDown={(e) => {
                   setFadeModal(true);
-                  setTimeout(() => setShowMessageModal(false), 100);
+                  setTimeout(() => toggleMessageModal(), 100);
+                  handleSetModalActive(false);
                   e.stopPropagation();
                 }}>
                 &times;
@@ -127,7 +136,6 @@ function MessageModal({ showWarning, setShowMessageModal, showOverlayEffect, use
 export default MessageModal;
 
 MessageModal.propTypes = {
-  setShowMessageModal: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired,
   showOverlayEffect: PropTypes.func.isRequired,
   userInView: PropTypes.shape({
@@ -158,7 +166,9 @@ MessageModal.propTypes = {
         sendDate: PropTypes.objectOf(PropTypes.number)
       })
     )
-  })
+  }),
+  toggleMessageModal: PropTypes.func.isRequired,
+  handleSetModalActive: PropTypes.func.isRequired
 };
 
 MessageModal.defaultProps = {

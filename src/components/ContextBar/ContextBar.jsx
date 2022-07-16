@@ -23,7 +23,9 @@ function ContextBar({
   logout,
   showWarning,
   showOverlayEffect,
-  userInView
+  userInView,
+  toggleMessageModal,
+  handleSetModalActive
 }) {
   const { userData } = GetUserContext();
   const { post } = postInfo;
@@ -139,6 +141,8 @@ function ContextBar({
           userInView={userInView}
           follow={follow}
           unFollow={unFollow}
+          toggleMessageModal={toggleMessageModal}
+          handleSetModalActive={handleSetModalActive}
         />
       )}
       {activeTab === 'postdetailsown' && (
@@ -217,7 +221,9 @@ ContextBar.propTypes = {
         senderUsername: PropTypes.string.isRequired
       })
     )
-  })
+  }),
+  toggleMessageModal: PropTypes.func.isRequired,
+  handleSetModalActive: PropTypes.func.isRequired
 };
 
 ContextBar.defaultProps = {

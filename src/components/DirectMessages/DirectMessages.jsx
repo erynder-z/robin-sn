@@ -8,7 +8,12 @@ import DirectMessageItem from '../DirectMessageItem/DirectMessageItem';
 import { database } from '../../data/firebase';
 import FetchingIcon from '../FetchingIcon/FetchingIcon';
 
-function DirectMessages({ changeActiveTab, showWarning, showOverlayEffect }) {
+function DirectMessages({
+  changeActiveTab,
+  showWarning,
+  toggleMessageModal,
+  handleSetModalActive
+}) {
   const { userData } = GetUserContext();
   const [userMessages, setUserMessages] = useState([...userData.messages]);
   const [loading, setLoading] = useState(true);
@@ -68,8 +73,8 @@ function DirectMessages({ changeActiveTab, showWarning, showOverlayEffect }) {
                 key={message.messageID}
                 message={message}
                 handleMarkMessageAsRead={handleMarkMessageAsRead}
-                showWarning={showWarning}
-                showOverlayEffect={showOverlayEffect}
+                toggleMessageModal={toggleMessageModal}
+                handleSetModalActive={handleSetModalActive}
               />
             ))}
           </div>
@@ -84,5 +89,6 @@ export default DirectMessages;
 DirectMessages.propTypes = {
   changeActiveTab: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired,
-  showOverlayEffect: PropTypes.func.isRequired
+  toggleMessageModal: PropTypes.func.isRequired,
+  handleSetModalActive: PropTypes.func.isRequired
 };

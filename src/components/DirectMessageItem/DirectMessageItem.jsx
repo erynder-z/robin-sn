@@ -3,31 +3,23 @@ import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
 import { BiEnvelope, BiEnvelopeOpen, BiReply, BiTrash } from 'react-icons/bi';
 import './DirectMessageItem.css';
-import { arrayRemove, doc, getDoc, updateDoc } from 'firebase/firestore';
-import MessageModal from '../MessageModal/MessageModal';
+import { arrayRemove, doc, updateDoc } from 'firebase/firestore';
 import { database } from '../../data/firebase';
 import { GetUserContext } from '../../contexts/UserContext';
 
-function DirectMessageItem({ message, handleMarkMessageAsRead, showWarning, showOverlayEffect }) {
+function DirectMessageItem({
+  message,
+  handleMarkMessageAsRead,
+  toggleMessageModal,
+  handleSetModalActive
+}) {
   const { userData } = GetUserContext();
   const [expandMessage, setExpandMessage] = useState(false);
-  const [showMessageModal, setShowMessageModal] = useState(false);
-  const [userInView, setUserInView] = useState(null);
 
   const showMessageDetails = () => {
     setExpandMessage(!expandMessage);
     if (!message.isRead) {
       handleMarkMessageAsRead(message);
-    }
-  };
-
-  const getUserInView = async () => {
-    try {
-      const userRef = doc(database, 'users', message.senderID);
-      const docSnap = await getDoc(userRef);
-      setUserInView(docSnap.data());
-    } catch (err) {
-      showWarning(err.message);
     }
   };
 
@@ -71,21 +63,13 @@ function DirectMessageItem({ message, handleMarkMessageAsRead, showWarning, show
             size="2rem"
             className="messageListItem-reply"
             onClick={(e) => {
-              getUserInView();
-              setShowMessageModal(true);
+              toggleMessageModal();
+              handleSetModalActive(true);
               e.stopPropagation();
             }}
           />
         </div>
       </div>
-      {showMessageModal && userInView && (
-        <MessageModal
-          userInView={userInView}
-          showWarning={showWarning}
-          setShowMessageModal={setShowMessageModal}
-          showOverlayEffect={showOverlayEffect}
-        />
-      )}
     </div>
   );
 }
@@ -102,6 +86,6 @@ DirectMessageItem.propTypes = {
     senderUsername: PropTypes.string.isRequired
   }).isRequired,
   handleMarkMessageAsRead: PropTypes.func.isRequired,
-  showWarning: PropTypes.func.isRequired,
-  showOverlayEffect: PropTypes.func.isRequired
+  toggleMessageModal: PropTypes.func.isRequired,
+  handleSetModalActive: PropTypes.func.isRequired
 };

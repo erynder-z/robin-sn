@@ -2,12 +2,17 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BiMessageRoundedEdit, BiUserPlus, BiUserMinus } from 'react-icons/bi';
 import './ProfileOptionsOther.css';
-import MessageModal from '../../MessageModal/MessageModal';
 import { GetUserContext } from '../../../contexts/UserContext';
 
-function ProfileOptionsOther({ showWarning, showOverlayEffect, userInView, follow, unFollow }) {
+function ProfileOptionsOther({
+  userInView,
+  follow,
+  unFollow,
+  toggleMessageModal,
+  handleSetModalActive
+}) {
   const { userData } = GetUserContext();
-  const [showMessageModal, setShowMessageModal] = useState(false);
+
   const [isFollowing, setIsFollowing] = useState(null);
 
   const checkIfFollowing = () => {
@@ -64,22 +69,16 @@ function ProfileOptionsOther({ showWarning, showOverlayEffect, userInView, follo
         role="button"
         tabIndex={0}
         onClick={() => {
-          setShowMessageModal(true);
+          toggleMessageModal();
+          handleSetModalActive(true);
         }}
         onKeyDown={() => {
-          setShowMessageModal(true);
+          toggleMessageModal();
+          handleSetModalActive(true);
         }}>
         <BiMessageRoundedEdit className="sendDm-icon" size="2rem" />
         send DM
       </div>
-      {showMessageModal && (
-        <MessageModal
-          userInView={userInView}
-          showWarning={showWarning}
-          setShowMessageModal={setShowMessageModal}
-          showOverlayEffect={showOverlayEffect}
-        />
-      )}
     </div>
   );
 }
@@ -87,8 +86,6 @@ function ProfileOptionsOther({ showWarning, showOverlayEffect, userInView, follo
 export default ProfileOptionsOther;
 
 ProfileOptionsOther.propTypes = {
-  showWarning: PropTypes.func.isRequired,
-  showOverlayEffect: PropTypes.func.isRequired,
   userInView: PropTypes.shape({
     userPic: PropTypes.string,
     username: PropTypes.string,
@@ -119,7 +116,9 @@ ProfileOptionsOther.propTypes = {
     )
   }),
   follow: PropTypes.func.isRequired,
-  unFollow: PropTypes.func.isRequired
+  unFollow: PropTypes.func.isRequired,
+  toggleMessageModal: PropTypes.func.isRequired,
+  handleSetModalActive: PropTypes.func.isRequired
 };
 
 ProfileOptionsOther.defaultProps = {
