@@ -135,7 +135,7 @@ function Login() {
 
           <div className="button-container">
             <button className="signupBtn" type="button" onClick={register}>
-              Create Account
+              Create account
             </button>
           </div>
         </form>
@@ -199,7 +199,7 @@ function Login() {
                   setNewAccount(true);
                   setLoginError(null);
                 }}>
-                Create New Account
+                Create new account
               </button>
             </div>
           </form>

@@ -56,6 +56,11 @@
   text-overflow: ellipsis;
 }
 
+.profile-joined,
+.profile-follow-container {
+  color: var(--text-grey);
+}
+
 .profile-description {
   grid-area: description;
   place-self: center;

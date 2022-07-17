@@ -27,7 +27,7 @@
 .sidebar ul a {
   color: var(--text-bright);
   text-decoration: none;
-  /* width: 100%; */
+  width: 100%;
 }
 
 .sidebar-item {
@@ -36,19 +36,19 @@
   align-items: center;
   cursor: pointer;
   padding: 1rem 2rem 1rem 0;
-  /*   width: 100%; */
+  /* width: 100%; */
 }
 
 .sidebar-item:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 50px;
+  /*   border-radius: 50px; */
 }
 
 .sidebar-item.active {
   /*   background-color: rgba(255, 255, 255, 0.1); */
   transition: all 0.2s ease-out;
   font-weight: bolder;
-  font-size: larger;
+  font-size: large;
   color: var(--button);
   /* border-radius: 50px; */
 }

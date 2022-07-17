@@ -64,6 +64,8 @@
   padding-top: 1rem;
   justify-content: space-evenly;
   color: var(--text-grey);
+  position: relative;
+  left: -10%;
 }
 
 .post-options > div {

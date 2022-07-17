@@ -156,6 +156,20 @@ input[type='file'] {
   width: auto;
 }
 
+.overlayEffect-overlay {
+  height: 100%;
+  width: 100vw;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 @media only screen and (max-width: 768px) {
   .setup-user-account {
     height: unset;
