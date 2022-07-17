@@ -29,7 +29,7 @@ import UserlistFollowing from '../UserlistFollowing/UserlistFollowing';
 import UserlistFollowers from '../UserlistFollowers/UserlistFollowers';
 import MessageModal from '../MessageModal/MessageModal';
 
-function Main({ userCredentials }) {
+function Main({ userCredentials, setShowGoodbyleOverlay }) {
   const navigate = useNavigate();
   const { uid } = userCredentials;
   const [usr] = useDocumentData(doc(database, 'users', uid));
@@ -48,6 +48,7 @@ function Main({ userCredentials }) {
   const [userInView, setUserInView] = useState(null);
 
   const logout = async () => {
+    setShowGoodbyleOverlay(true);
     await signOut(auth);
   };
 
@@ -474,5 +475,6 @@ export default Main;
 Main.propTypes = {
   userCredentials: PropTypes.shape({
     uid: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  setShowGoodbyleOverlay: PropTypes.func.isRequired
 };

@@ -8,10 +8,19 @@ import Login from './components/Login/Login';
 import Main from './components/Main/Main';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import { UserProvider } from './contexts/UserContext';
+import GoodbyeOverlay from './components/GoodbyeOverlay/GoodbyeOverlay';
 
 function App() {
   const [userCredentials] = useAuthState(auth);
   const [showLoading, setShowLoading] = useState(true);
+  const [showGoodbyeOverlay, setShowGoodbyleOverlay] = useState(false);
+
+  // remove goodbye overlay
+  useEffect(() => {
+    if (showGoodbyeOverlay) {
+      setTimeout(() => setShowGoodbyleOverlay(false), 2000);
+    }
+  }, [showGoodbyeOverlay]);
 
   useEffect(() => {
     setTimeout(() => setShowLoading(false), 1000);
@@ -43,13 +52,17 @@ function App() {
                 <Navigate replace to="/login" />
               ) : (
                 <UserProvider>
-                  <Main userCredentials={userCredentials} />
+                  <Main
+                    userCredentials={userCredentials}
+                    setShowGoodbyleOverlay={setShowGoodbyleOverlay}
+                  />
                 </UserProvider>
               )
             }
           />
         </Routes>
       )}
+      {showGoodbyeOverlay && <GoodbyeOverlay />}
     </div>
   );
 }
