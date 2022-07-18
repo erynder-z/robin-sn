@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TbLogout } from 'react-icons/tb';
+import { BiLogOutCircle } from 'react-icons/bi';
 import { GetUserContext } from '../../contexts/UserContext';
 import './UserInfo.css';
 
@@ -14,6 +14,7 @@ function UserInfo({ logout }) {
           {' '}
           <span> @{userData.username}</span>
           <button
+            title="logout"
             className="logoutBtn"
             type="button"
             onClick={() => {
@@ -22,7 +23,7 @@ function UserInfo({ logout }) {
             onKeyDown={() => {
               logout();
             }}>
-            <TbLogout size="2rem" />
+            <BiLogOutCircle size="2rem" />
           </button>{' '}
         </div>
       </div>

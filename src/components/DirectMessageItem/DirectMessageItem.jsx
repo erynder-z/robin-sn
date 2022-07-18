@@ -63,6 +63,7 @@ function DirectMessageItem({
 
   return (
     <div
+      title={expandMessage ? 'Collapse' : 'Expand'}
       className="messageListItem"
       role="link"
       tabIndex={0}
@@ -83,6 +84,7 @@ function DirectMessageItem({
         <p className="messageListItem-content">{message.messageContent}</p>
         <div className="messageListItem-options">
           <BiTrash
+            title="Delete this message"
             size="2rem"
             className="messageListItem-delete"
             onClick={(e) => {
@@ -91,6 +93,7 @@ function DirectMessageItem({
             }}
           />
           <BiReply
+            title="Reply to this user"
             size="2rem"
             className="messageListItem-reply"
             onClick={(e) => {

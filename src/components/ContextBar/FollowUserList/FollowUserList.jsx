@@ -70,6 +70,7 @@ function FollowUserList({ showWarning, follow, unFollow }) {
   const userItem = (usr) => (
     <div className="userlist-item" key={usr.userID}>
       <input
+        title={`Goto ${usr.username}'s profile`}
         type="image"
         className="userlist-usrpic"
         src={usr.userPic}
@@ -83,6 +84,7 @@ function FollowUserList({ showWarning, follow, unFollow }) {
         }}
       />
       <div
+        title={`Goto ${usr.username}'s profile`}
         className="userlist-username"
         role="link"
         tabIndex={0}
@@ -96,6 +98,7 @@ function FollowUserList({ showWarning, follow, unFollow }) {
       </div>
       {!usr.following && (
         <div
+          title="Follow"
           className="userlist-follow"
           role="button"
           tabIndex={0}
@@ -110,6 +113,7 @@ function FollowUserList({ showWarning, follow, unFollow }) {
       )}
       {usr.following && (
         <div
+          title="Unfollow"
           className="userlist-unfollow"
           role="button"
           tabIndex={0}

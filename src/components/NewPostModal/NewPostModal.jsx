@@ -221,7 +221,7 @@ function NewPostModal({ toggleNewPostModal, showOverlayEffect, showWarning }) {
         </div>
         <div className="post-options-container">
           <div className="upload-options">
-            <label htmlFor="pictureUpload" className="picture-upload-label">
+            <label htmlFor="pictureUpload" className="picture-upload-label" title="Upload image">
               <BiImage size="2rem" />
               <input
                 className="picture-upload"
@@ -234,6 +234,7 @@ function NewPostModal({ toggleNewPostModal, showOverlayEffect, showWarning }) {
               />
             </label>
             <MdOutlineEmojiEmotions
+              title="Add emoji"
               size="2rem"
               className="show-emoji-picker"
               onClick={() => {

@@ -7,6 +7,7 @@ function SearchResultUser({ user }) {
   const navigate = useNavigate();
   return (
     <div
+      title={`Goto ${user.username}'s profile`}
       className="userResult-item"
       role="link"
       tabIndex={0}

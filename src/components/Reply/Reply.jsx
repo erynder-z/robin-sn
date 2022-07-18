@@ -141,6 +141,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner, setReplyEffect 
             </div>
             <div className="replyModal-post">
               <MdOutlineEmojiEmotions
+                title="Add emoji"
                 size="2rem"
                 className="show-emoji-picker"
                 onClick={() => {
@@ -200,9 +201,10 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner, setReplyEffect 
       </div>
       <div className="replyAppend-post">
         <MdOutlineEmojiEmotions
+          title="Add emoji"
           size="2rem"
           className="show-emoji-picker"
-          onClick={() => {
+          onMouseDown={() => {
             setShowEmojiPicker(true);
           }}
         />

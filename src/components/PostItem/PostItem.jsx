@@ -175,6 +175,7 @@ function PostItem({ postID, handleSetModalActive }) {
   return (
     post && (
       <div
+        title={`Goto ${postOwner.username}'s profile`}
         className="post-container fadein"
         role="link"
         tabIndex={0}
@@ -223,6 +224,7 @@ function PostItem({ postID, handleSetModalActive }) {
           )}
           <div className="post-options">
             <div
+              title="Reply"
               className={`optionItem ${clickEffect.reply ? 'clicked' : ''}`}
               role="button"
               tabIndex={0}
@@ -240,6 +242,7 @@ function PostItem({ postID, handleSetModalActive }) {
               {post.replies.length}
             </div>
             <div
+              title="Repost"
               className={`optionItem ${clickEffect.repost ? 'clicked' : ''}`}
               role="button"
               tabIndex={0}
@@ -258,6 +261,7 @@ function PostItem({ postID, handleSetModalActive }) {
               {post.reposts.length}
             </div>
             <div
+              title="Like / Unlike"
               className={`optionItem ${clickEffect.like ? 'clicked' : ''}`}
               role="button"
               tabIndex={0}
