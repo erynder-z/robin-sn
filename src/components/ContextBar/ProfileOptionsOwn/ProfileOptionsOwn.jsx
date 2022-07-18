@@ -16,12 +16,16 @@ import { GetUserContext } from '../../../contexts/UserContext';
 import AvatarCreator from '../../../helpers/AvatarCreator/AvatarCreator';
 import './ProfileOptionsOwn.css';
 
-function ProfileOptionsOwn({ logout, showWarning, setShowStatsModal, setShowDeleteUserModal }) {
+function ProfileOptionsOwn({
+  logout,
+  showWarning,
+  setShowStatsModal,
+  setShowDeleteUserModal,
+  setShowUpdateUserDescModal
+}) {
   const { userData } = GetUserContext();
-  const [showUpdateDescModal, setShowUpdateDescModal] = useState(false);
   const [showCropper, setShowCropper] = useState(false);
   const [picture, setPicture] = useState();
-  const [descriptionText, setDescriptionText] = useState('');
 
   // let user load a picture and saves it in state to be accessed by the avatar creator
   const changeUserpic = async (e) => {
@@ -81,71 +85,11 @@ function ProfileOptionsOwn({ logout, showWarning, setShowStatsModal, setShowDele
     }
   };
 
-  const updateUserDescription = async () => {
-    const userRef = doc(database, 'users', userData.userID);
-
-    try {
-      await updateDoc(userRef, {
-        description: descriptionText
-      });
-    } catch (err) {
-      showWarning(err.message);
-    }
-    setDescriptionText('');
-  };
-
   useEffect(() => {
     if (picture) {
       setShowCropper(true);
     }
   }, [picture]);
-
-  const UpdateDescModal = (
-    <div className="updateDescModal-overlay fadein">
-      <div className="updateDescModal">
-        <label htmlFor="udescUpdate" className="descUpdateInput-label">
-          <h3>About you</h3>
-          <textarea
-            className="descriptionUpdate-input"
-            type="text"
-            maxLength="100"
-            placeholder="max. 100 characters"
-            value={descriptionText}
-            onChange={(e) => {
-              setDescriptionText(e.target.value);
-            }}
-            required
-          />
-        </label>
-        <div
-          className="updateDesc-updateBtn"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            updateUserDescription();
-            setShowUpdateDescModal(false);
-          }}
-          onKeyDown={() => {
-            updateUserDescription();
-            setShowUpdateDescModal(false);
-          }}>
-          Update
-        </div>
-        <div
-          className="updateDesc-closeBtn"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            setShowUpdateDescModal(false);
-          }}
-          onKeyDown={() => {
-            setShowUpdateDescModal(false);
-          }}>
-          Close without updating
-        </div>
-      </div>
-    </div>
-  );
 
   return (
     <div className="profileOptions-container">
@@ -169,10 +113,10 @@ function ProfileOptionsOwn({ logout, showWarning, setShowStatsModal, setShowDele
         role="button"
         tabIndex={0}
         onClick={() => {
-          setShowUpdateDescModal(true);
+          setShowUpdateUserDescModal(true);
         }}
         onKeyDown={() => {
-          setShowUpdateDescModal(true);
+          setShowUpdateUserDescModal(true);
         }}>
         <BiUserCircle className="updateDescription-icon" size="2rem" />
         update user description
@@ -250,7 +194,6 @@ function ProfileOptionsOwn({ logout, showWarning, setShowStatsModal, setShowDele
         Logout
       </div>
 
-      {showUpdateDescModal && UpdateDescModal}
       {showCropper && (
         <div className="avatarCreator-overlay">
           <AvatarCreator
@@ -271,5 +214,6 @@ ProfileOptionsOwn.propTypes = {
   logout: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired,
   setShowStatsModal: PropTypes.func.isRequired,
-  setShowDeleteUserModal: PropTypes.func.isRequired
+  setShowDeleteUserModal: PropTypes.func.isRequired,
+  setShowUpdateUserDescModal: PropTypes.func.isRequired
 };

@@ -30,6 +30,7 @@ import UserlistFollowers from '../UserlistFollowers/UserlistFollowers';
 import MessageModal from '../MessageModal/MessageModal';
 import StatsModal from '../Modals/StatsModal/StatsModal';
 import DeleteUserModal from '../Modals/DeleteUserModal/DeleteUserModal';
+import UpdateUserDescModal from '../Modals/UpdateUserDescModal/UpdateUserDescModal';
 
 function Main({ userCredentials, setShowGoodbyleOverlay }) {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
   const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
+  const [showUpdateUserDescModal, setShowUpdateUserDescModal] = useState(false);
   const [isUserSetup, setIsUserSetup] = useState(false);
   const [activeTab, setActiveTab] = useState('');
   const [postInfo, setPostInfo] = useState({});
@@ -436,6 +438,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
           handleSetModalActive={handleSetModalActive}
           setShowStatsModal={setShowStatsModal}
           setShowDeleteUserModal={setShowDeleteUserModal}
+          setShowUpdateUserDescModal={setShowUpdateUserDescModal}
         />
       )}
       {isUserSetup && !showSearchModal && !showNewPostModal && !isModalActive && (
@@ -477,6 +480,12 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
         <DeleteUserModal
           setShowDeleteUserModal={setShowDeleteUserModal}
           deleteAccount={deleteAccount}
+        />
+      )}
+      {showUpdateUserDescModal && (
+        <UpdateUserDescModal
+          setShowUpdateUserDescModal={setShowUpdateUserDescModal}
+          showWarning={showWarning}
         />
       )}
     </div>
