@@ -7,7 +7,7 @@ import {
   BiBarChart,
   BiLandscape,
   BiWindowClose,
-  BiLogOut,
+  BiLogOutCircle,
   BiUserCircle
 } from 'react-icons/bi';
 import resizeFile from '../../../helpers/ImageResizer/ImageResizer';
@@ -16,10 +16,9 @@ import { GetUserContext } from '../../../contexts/UserContext';
 import AvatarCreator from '../../../helpers/AvatarCreator/AvatarCreator';
 import './ProfileOptionsOwn.css';
 
-function ProfileOptionsOwn({ deleteAccount, logout, showWarning }) {
+function ProfileOptionsOwn({ deleteAccount, logout, showWarning, setShowStatsModal }) {
   const { userData } = GetUserContext();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showStatsModal, setShowStatsModal] = useState(false);
   const [showUpdateDescModal, setShowUpdateDescModal] = useState(false);
   const [showCropper, setShowCropper] = useState(false);
   const [picture, setPicture] = useState();
@@ -144,29 +143,6 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning }) {
             setShowUpdateDescModal(false);
           }}>
           Close without updating
-        </div>
-      </div>
-    </div>
-  );
-
-  const StatsModal = (
-    <div className="statsModal-overlay fadein">
-      <div className="statsModal">
-        <h4>Total posts: {userData.posts.length}</h4>
-        <h4>Total replies: {userData.replies.length}</h4>
-        <h4>Total reposts: {userData.reposts.length}</h4>
-        <h4>Total likes: {userData.likes.length}</h4>
-        <div
-          className="stats-closeBtn"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            setShowStatsModal(false);
-          }}
-          onKeyDown={() => {
-            setShowStatsModal(false);
-          }}>
-          Close stats
         </div>
       </div>
     </div>
@@ -297,12 +273,11 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning }) {
         onKeyDown={() => {
           logout();
         }}>
-        <BiLogOut className="logoutContextbar-icon" size="2rem" />
+        <BiLogOutCircle className="logoutContextbar-icon" size="2rem" />
         Logout
       </div>
 
       {showDeleteModal && DeleteModal}
-      {showStatsModal && StatsModal}
       {showUpdateDescModal && UpdateDescModal}
       {showCropper && (
         <div className="avatarCreator-overlay">
@@ -323,5 +298,6 @@ export default ProfileOptionsOwn;
 ProfileOptionsOwn.propTypes = {
   deleteAccount: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
-  showWarning: PropTypes.func.isRequired
+  showWarning: PropTypes.func.isRequired,
+  setShowStatsModal: PropTypes.func.isRequired
 };

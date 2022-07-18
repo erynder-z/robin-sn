@@ -25,7 +25,8 @@ function ContextBar({
   showOverlayEffect,
   userInView,
   toggleMessageModal,
-  handleSetModalActive
+  handleSetModalActive,
+  setShowStatsModal
 }) {
   const { userData } = GetUserContext();
   const { post } = postInfo;
@@ -132,6 +133,7 @@ function ContextBar({
           deleteAccount={deleteAccount}
           logout={logout}
           showWarning={showWarning}
+          setShowStatsModal={setShowStatsModal}
         />
       )}
       {activeTab === 'userprofile' && (
@@ -223,7 +225,8 @@ ContextBar.propTypes = {
     )
   }),
   toggleMessageModal: PropTypes.func.isRequired,
-  handleSetModalActive: PropTypes.func.isRequired
+  handleSetModalActive: PropTypes.func.isRequired,
+  setShowStatsModal: PropTypes.func.isRequired
 };
 
 ContextBar.defaultProps = {

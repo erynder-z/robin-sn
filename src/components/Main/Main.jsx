@@ -28,6 +28,7 @@ import DirectMessages from '../DirectMessages/DirectMessages';
 import UserlistFollowing from '../UserlistFollowing/UserlistFollowing';
 import UserlistFollowers from '../UserlistFollowers/UserlistFollowers';
 import MessageModal from '../MessageModal/MessageModal';
+import StatsModal from '../Modals/StatsModal/StatsModal';
 
 function Main({ userCredentials, setShowGoodbyleOverlay }) {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
   const [showNewPostModal, setShowNewPostModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
+  const [showStatsModal, setShowStatsModal] = useState(false);
   const [isUserSetup, setIsUserSetup] = useState(false);
   const [activeTab, setActiveTab] = useState('');
   const [postInfo, setPostInfo] = useState({});
@@ -430,6 +432,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
           userInView={userInView}
           toggleMessageModal={toggleMessageModal}
           handleSetModalActive={handleSetModalActive}
+          setShowStatsModal={setShowStatsModal}
         />
       )}
       {isUserSetup && !showSearchModal && !showNewPostModal && !isModalActive && (
@@ -466,6 +469,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
       )}
       {overlayEffect && <OverlayEffect message={overlayEffect} />}
       {errorMessage && <WarningModal errorMessage={errorMessage} />}
+      {showStatsModal && <StatsModal setShowStatsModal={setShowStatsModal} />}
     </div>
   );
 }
