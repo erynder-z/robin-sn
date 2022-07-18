@@ -15,7 +15,6 @@ import DirectMessageOptions from './DirectMessageOptions/DirectMessageOptions';
 function ContextBar({
   activeTab,
   postInfo,
-  deleteAccount,
   deletePost,
   isPostBookmarked,
   showContextbar,
@@ -26,7 +25,8 @@ function ContextBar({
   userInView,
   toggleMessageModal,
   handleSetModalActive,
-  setShowStatsModal
+  setShowStatsModal,
+  setShowDeleteUserModal
 }) {
   const { userData } = GetUserContext();
   const { post } = postInfo;
@@ -130,10 +130,10 @@ function ContextBar({
 
       {activeTab === 'myprofile' && (
         <ProfileOptionsOwn
-          deleteAccount={deleteAccount}
           logout={logout}
           showWarning={showWarning}
           setShowStatsModal={setShowStatsModal}
+          setShowDeleteUserModal={setShowDeleteUserModal}
         />
       )}
       {activeTab === 'userprofile' && (
@@ -186,7 +186,6 @@ ContextBar.propTypes = {
     })
   }),
   activeTab: PropTypes.string.isRequired,
-  deleteAccount: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   isPostBookmarked: PropTypes.bool.isRequired,
   showContextbar: PropTypes.bool.isRequired,
@@ -226,7 +225,8 @@ ContextBar.propTypes = {
   }),
   toggleMessageModal: PropTypes.func.isRequired,
   handleSetModalActive: PropTypes.func.isRequired,
-  setShowStatsModal: PropTypes.func.isRequired
+  setShowStatsModal: PropTypes.func.isRequired,
+  setShowDeleteUserModal: PropTypes.func.isRequired
 };
 
 ContextBar.defaultProps = {

@@ -16,9 +16,8 @@ import { GetUserContext } from '../../../contexts/UserContext';
 import AvatarCreator from '../../../helpers/AvatarCreator/AvatarCreator';
 import './ProfileOptionsOwn.css';
 
-function ProfileOptionsOwn({ deleteAccount, logout, showWarning, setShowStatsModal }) {
+function ProfileOptionsOwn({ logout, showWarning, setShowStatsModal, setShowDeleteUserModal }) {
   const { userData } = GetUserContext();
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showUpdateDescModal, setShowUpdateDescModal] = useState(false);
   const [showCropper, setShowCropper] = useState(false);
   const [picture, setPicture] = useState();
@@ -148,32 +147,6 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning, setShowStatsMod
     </div>
   );
 
-  const DeleteModal = (
-    <div className="deleteModal-overlay">
-      <div className="deleteModal">
-        <h3 className="delete-warning">Are you sure?</h3>
-        <h4>This action cannot be undone!</h4>
-        <h5>All of your posts, hashtags and uploaded pictures will be deleted!</h5>
-        <button
-          type="button"
-          className="accountDeleteBtn"
-          onClick={() => {
-            deleteAccount();
-          }}>
-          Yes, delete my account!
-        </button>
-        <button
-          type="button"
-          className="accountNoDeleteBtn"
-          onClick={() => {
-            setShowDeleteModal(false);
-          }}>
-          No, return to previous page!
-        </button>
-      </div>
-    </div>
-  );
-
   return (
     <div className="profileOptions-container">
       <div className="profileOptions-header">Profile options</div>
@@ -182,10 +155,10 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning, setShowStatsMod
         role="button"
         tabIndex={0}
         onClick={() => {
-          setShowDeleteModal(true);
+          setShowDeleteUserModal(true);
         }}
         onKeyDown={() => {
-          setShowDeleteModal(true);
+          setShowDeleteUserModal(true);
         }}>
         <MdOutlineDangerous className="deleteAccount-icon" size="2rem" />
         delete account
@@ -277,7 +250,6 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning, setShowStatsMod
         Logout
       </div>
 
-      {showDeleteModal && DeleteModal}
       {showUpdateDescModal && UpdateDescModal}
       {showCropper && (
         <div className="avatarCreator-overlay">
@@ -296,8 +268,8 @@ function ProfileOptionsOwn({ deleteAccount, logout, showWarning, setShowStatsMod
 export default ProfileOptionsOwn;
 
 ProfileOptionsOwn.propTypes = {
-  deleteAccount: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired,
-  setShowStatsModal: PropTypes.func.isRequired
+  setShowStatsModal: PropTypes.func.isRequired,
+  setShowDeleteUserModal: PropTypes.func.isRequired
 };

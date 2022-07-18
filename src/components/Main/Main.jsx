@@ -29,6 +29,7 @@ import UserlistFollowing from '../UserlistFollowing/UserlistFollowing';
 import UserlistFollowers from '../UserlistFollowers/UserlistFollowers';
 import MessageModal from '../MessageModal/MessageModal';
 import StatsModal from '../Modals/StatsModal/StatsModal';
+import DeleteUserModal from '../Modals/DeleteUserModal/DeleteUserModal';
 
 function Main({ userCredentials, setShowGoodbyleOverlay }) {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
+  const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
   const [isUserSetup, setIsUserSetup] = useState(false);
   const [activeTab, setActiveTab] = useState('');
   const [postInfo, setPostInfo] = useState({});
@@ -421,7 +423,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
         <ContextBar
           activeTab={activeTab}
           postInfo={postInfo}
-          deleteAccount={deleteAccount}
+          /*  deleteAccount={deleteAccount} */
           deletePost={deletePost}
           isPostBookmarked={isPostBookmarked}
           showContextbar={showContextbar}
@@ -433,6 +435,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
           toggleMessageModal={toggleMessageModal}
           handleSetModalActive={handleSetModalActive}
           setShowStatsModal={setShowStatsModal}
+          setShowDeleteUserModal={setShowDeleteUserModal}
         />
       )}
       {isUserSetup && !showSearchModal && !showNewPostModal && !isModalActive && (
@@ -470,6 +473,12 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
       {overlayEffect && <OverlayEffect message={overlayEffect} />}
       {errorMessage && <WarningModal errorMessage={errorMessage} />}
       {showStatsModal && <StatsModal setShowStatsModal={setShowStatsModal} />}
+      {showDeleteUserModal && (
+        <DeleteUserModal
+          setShowDeleteUserModal={setShowDeleteUserModal}
+          deleteAccount={deleteAccount}
+        />
+      )}
     </div>
   );
 }
