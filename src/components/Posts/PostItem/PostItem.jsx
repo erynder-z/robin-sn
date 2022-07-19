@@ -175,7 +175,7 @@ function PostItem({ postID, handleSetModalActive }) {
   return (
     post && (
       <div
-        title={`Goto ${postOwner.username}'s profile`}
+        title="View post details"
         className="post-container fadein"
         role="link"
         tabIndex={0}
@@ -187,6 +187,7 @@ function PostItem({ postID, handleSetModalActive }) {
         }}>
         <div className="post-left-wrapper">
           <input
+            title={`Goto ${postOwner.username}'s profile`}
             type="image"
             className="post-usrpic"
             src={postOwner.userpic}
@@ -203,6 +204,7 @@ function PostItem({ postID, handleSetModalActive }) {
         <div className="post-right-wrapper">
           <div className="post-userDetails">
             <div
+              title={`Goto ${postOwner.username}'s profile`}
               className="post-author"
               role="link"
               tabIndex={0}
