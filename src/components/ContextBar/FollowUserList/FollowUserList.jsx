@@ -28,7 +28,7 @@ function FollowUserList({ showWarning, follow, unFollow }) {
           }
           return false;
         };
-        if (document.data().userID !== userData.userID) {
+        if (document.data().userID !== userData.userID && document.data().active) {
           list.push({
             userID: document.data().userID,
             username: document.data().username,
