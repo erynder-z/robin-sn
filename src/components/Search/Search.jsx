@@ -27,6 +27,7 @@ function Search({ searchQuery, changeActiveTab, handleSetModalActive, showWarnin
         const q = query(
           usersRef,
           where('username', '==', s.toLowerCase()),
+          where('active', '==', true),
           orderBy('username', 'desc'),
           limit(25)
         );
