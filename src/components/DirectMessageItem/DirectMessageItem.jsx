@@ -36,7 +36,8 @@ function DirectMessageItem({
         posts: limitNumberOfPosts(docSnap.data().posts),
         replies: limitNumberOfPosts(docSnap.data().replies),
         description: docSnap.data().description,
-        userID: docSnap.data().userID
+        userID: docSnap.data().userID,
+        active: docSnap.data().active
       });
     } catch (err) {
       showWarning(err.message);
@@ -92,17 +93,19 @@ function DirectMessageItem({
               e.stopPropagation();
             }}
           />
-          <BiReply
-            title="Reply to this user"
-            size="2rem"
-            className="messageListItem-reply"
-            onClick={(e) => {
-              setUserInView(user);
-              toggleMessageModal();
-              handleSetModalActive(true);
-              e.stopPropagation();
-            }}
-          />
+          {user.active && (
+            <BiReply
+              title="Reply to this user"
+              size="2rem"
+              className="messageListItem-reply"
+              onClick={(e) => {
+                setUserInView(user);
+                toggleMessageModal();
+                handleSetModalActive(true);
+                e.stopPropagation();
+              }}
+            />
+          )}
         </div>
       </div>
     </div>

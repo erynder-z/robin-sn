@@ -64,21 +64,23 @@ function ProfileOptionsOther({
           unfollow
         </div>
       )}
-      <div
-        className="sendDm"
-        role="button"
-        tabIndex={0}
-        onClick={() => {
-          toggleMessageModal();
-          handleSetModalActive(true);
-        }}
-        onKeyDown={() => {
-          toggleMessageModal();
-          handleSetModalActive(true);
-        }}>
-        <BiMessageRoundedEdit className="sendDm-icon" size="2rem" />
-        send DM
-      </div>
+      {userInView.active ?? (
+        <div
+          className="sendDm"
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            toggleMessageModal();
+            handleSetModalActive(true);
+          }}
+          onKeyDown={() => {
+            toggleMessageModal();
+            handleSetModalActive(true);
+          }}>
+          <BiMessageRoundedEdit className="sendDm-icon" size="2rem" />
+          send DM
+        </div>
+      )}
     </div>
   );
 }
@@ -113,7 +115,8 @@ ProfileOptionsOther.propTypes = {
         isRead: PropTypes.bool,
         sendDate: PropTypes.objectOf(PropTypes.number)
       })
-    )
+    ),
+    active: PropTypes.bool.isRequired
   }),
   follow: PropTypes.func.isRequired,
   unFollow: PropTypes.func.isRequired,

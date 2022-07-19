@@ -37,7 +37,8 @@ function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUs
         posts: limitNumberOfPosts(docSnap.data().posts),
         replies: limitNumberOfPosts(docSnap.data().replies),
         description: docSnap.data().description,
-        userID: docSnap.data().userID
+        userID: docSnap.data().userID,
+        active: docSnap.data().active
       });
     } catch (err) {
       showWarning(err.message);
