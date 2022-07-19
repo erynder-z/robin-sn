@@ -189,22 +189,21 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
 
   // delete user account
   const deleteAccount = async () => {
-    // delete all of users posts in database
-    const deletePosts = async () => {
-      const IDArray = [];
-      usr.posts.forEach((post) => {
-        IDArray.push(post.postID);
-      });
-      IDArray.forEach(async (id) => {
-        const docRef = doc(database, 'posts', id);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const p = docSnap.data();
-          deletePost(p);
-        } else {
-          setErrorMessage('no such document!');
-        }
-      });
+    // create residue profile
+    const parseUserProfile = () => {
+      const userRef = doc(database, 'users', uid);
+
+      try {
+        updateDoc(userRef, {
+          description: 'This account has been deactivated',
+          useremail: null,
+          followers: [],
+          following: [{ userID: null }],
+          active: false
+        });
+      } catch (err) {
+        showWarning(err.message);
+      }
     };
 
     // delete user firebase authentication
@@ -219,15 +218,10 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
         });
     };
 
-    // remove user from database
-    const deleteUserInDatabase = async () => {
-      await deleteDoc(doc(database, 'users', usr.userID));
-      deleteUserAuthentication();
-    };
-
+    setShowGoodbyleOverlay(true);
     navigate('/login');
-    await deletePosts();
-    await deleteUserInDatabase();
+    parseUserProfile();
+    deleteUserAuthentication();
   };
 
   // check if the user's account setup is complete

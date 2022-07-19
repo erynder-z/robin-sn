@@ -8,7 +8,6 @@ function DeleteUserModal({ setShowDeleteUserModal, deleteAccount }) {
       <div className="deleteModal">
         <h3 className="delete-warning">Are you sure?</h3>
         <h4>This action cannot be undone!</h4>
-        <h5>All of your posts, hashtags and uploaded pictures will be deleted!</h5>
         <button
           type="button"
           className="accountDeleteBtn"
