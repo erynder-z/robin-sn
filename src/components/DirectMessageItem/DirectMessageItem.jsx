@@ -93,7 +93,7 @@ function DirectMessageItem({
               e.stopPropagation();
             }}
           />
-          {user.active && (
+          {user?.active && (
             <BiReply
               title="Reply to this user"
               size="2rem"
