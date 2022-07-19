@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { BiCheckDouble, BiXCircle } from 'react-icons/bi';
-import './DirectMessageOptions.css';
 import { doc, updateDoc } from 'firebase/firestore';
 import { GetUserContext } from '../../../contexts/UserContext';
 import { database } from '../../../data/firebase';
+import './DirectMessageOptions.css';
 
 function DirectMessageOptions({ showWarning }) {
   const { userData } = GetUserContext();

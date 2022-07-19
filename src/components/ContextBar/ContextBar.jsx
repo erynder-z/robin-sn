@@ -9,8 +9,8 @@ import ProfileOptionsOwn from './ProfileOptionsOwn/ProfileOptionsOwn';
 import ProfileOptionsOther from './ProfileOptionsOther/ProfileOptionsOther';
 import { GetUserContext } from '../../contexts/UserContext';
 import { database } from '../../data/firebase';
-import './ContextBar.css';
 import DirectMessageOptions from './DirectMessageOptions/DirectMessageOptions';
+import './ContextBar.css';
 
 function ContextBar({
   activeTab,

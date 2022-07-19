@@ -5,10 +5,10 @@ import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { database } from '../../data/firebase';
 import placeholder from '../../assets/placeholder.png';
-import LoadingScreen from '../LoadingScreen/LoadingScreen';
+import LoadingScreen from '../Overlays/LoadingScreen/LoadingScreen';
 import AvatarCreator from '../../helpers/AvatarCreator/AvatarCreator';
 import resizeFile from '../../helpers/ImageResizer/ImageResizer';
-import WarningModal from '../WarningModal/WarningModal';
+import WarningModal from '../Modals/WarningModal/WarningModal';
 import logo from '../../assets/logo.png';
 import './SetupUserAccount.css';
 

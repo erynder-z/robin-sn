@@ -6,9 +6,9 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './data/firebase';
 import Login from './components/Login/Login';
 import Main from './components/Main/Main';
-import LoadingScreen from './components/LoadingScreen/LoadingScreen';
+import LoadingScreen from './components/Overlays/LoadingScreen/LoadingScreen';
 import { UserProvider } from './contexts/UserContext';
-import GoodbyeOverlay from './components/GoodbyeOverlay/GoodbyeOverlay';
+import GoodbyeOverlay from './components/Overlays/GoodbyeOverlay/GoodbyeOverlay';
 
 function App() {
   const [userCredentials] = useAuthState(auth);

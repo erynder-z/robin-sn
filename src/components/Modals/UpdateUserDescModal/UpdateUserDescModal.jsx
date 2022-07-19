@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import '../Modals.css';
 import { doc, updateDoc } from 'firebase/firestore';
 import { database } from '../../../data/firebase';
 import { GetUserContext } from '../../../contexts/UserContext';
+import '../Modals.css';
 
 function UpdateUserDescModal({ setShowUpdateUserDescModal, showWarning }) {
   const { userData } = GetUserContext();

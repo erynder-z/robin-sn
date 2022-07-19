@@ -1,0 +1,176 @@
+.replyModal-overlay {
+  height: 100%;
+  width: 100vw;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.replyModal-body {
+  background-color: var(--card-background);
+  color: var(--text-bright);
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  border-radius: 10px;
+  padding: 1rem;
+  max-width: 33%;
+}
+
+.replyModal-container {
+  display: flex;
+  max-width: 100%;
+}
+.replyAppend-wrapper {
+  display: flex;
+  border-bottom: solid 2px var(--border);
+}
+
+.replyModal-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 15%;
+}
+
+.replyModal-right {
+  width: 85%;
+}
+
+.replyModal-upper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 0 0.5rem;
+  max-width: 100%;
+}
+
+.reply-userpic {
+  border-radius: 75%;
+  min-height: 50px;
+  min-width: 50px;
+  height: 50px;
+  width: 50px;
+}
+
+.reply-userpic-divider {
+  height: 100%;
+  border-left: solid 2px var(--border);
+}
+
+.reply-userpic-append {
+  border-radius: 75%;
+  min-height: 50px;
+  min-width: 50px;
+  height: 50px;
+  width: 50px;
+}
+
+.reply-modal-textarea {
+  padding: 0.5rem;
+  font-size: 1rem;
+  resize: none;
+  outline: none;
+  border: none;
+  background-color: var(--card-background);
+  color: var(--text-bright);
+  max-width: 100%;
+}
+
+.reply-modal-textarea::-webkit-scrollbar,
+.reply-append-textarea::-webkit-scrollbar {
+  width: 10px;
+  background-color: var(--card-background);
+}
+
+.reply-modal-textarea::-webkit-scrollbar-thumb,
+.reply-append-textarea::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 10px var(--button);
+}
+
+.replyTo {
+  font-weight: bolder;
+  max-width: 75%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.replyTo-append {
+  width: 100%;
+  text-align: center;
+  color: var(--text-grey);
+  height: 2rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.replyAppend-body {
+  background-color: var(--card-background);
+  color: var(--text-bright);
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.reply-append-textarea {
+  padding: 0.5rem;
+  font-size: 1rem;
+  resize: none;
+  outline: none;
+  border: none;
+  height: 2.5rem;
+  background-color: var(--card-background);
+  color: var(--text-bright);
+  transition: all 200ms linear;
+  width: 100%;
+  padding-bottom: 2rem;
+}
+
+.reply-append-textarea:focus {
+  height: 7rem;
+  transition: all 200ms linear;
+}
+
+.replyAppend-post,
+.replyModal-post {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0;
+}
+
+.replyAppend-post > .show-emoji-picker {
+  padding: 0;
+}
+
+.replyBtn-modal {
+  margin-left: auto;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+aside.emoji-picker-react {
+  border-radius: 0;
+  box-shadow: none;
+  height: 40vh;
+  width: 40vh;
+}
+
+@media only screen and (max-width: 768px) {
+  .replyModal-body {
+    max-width: 100%;
+    width: 85%;
+  }
+}

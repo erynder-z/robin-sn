@@ -10,7 +10,7 @@ import {
 } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 import { GetUserContext } from '../../contexts/UserContext';
-import UserInfo from '../UserInfo/UserInfo';
+import UserInfo from './UserInfo/UserInfo';
 import logoWhite from '../../assets/logo_white.png';
 import './Sidebar.css';
 

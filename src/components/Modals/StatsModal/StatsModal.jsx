@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../Modals.css';
 import { GetUserContext } from '../../../contexts/UserContext';
+import '../Modals.css';
 
 function StatsModal({ setShowStatsModal }) {
   const { userData } = GetUserContext();

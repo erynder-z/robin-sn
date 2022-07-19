@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BiMessageRoundedEdit, BiUserPlus, BiUserMinus } from 'react-icons/bi';
-import './ProfileOptionsOther.css';
 import { GetUserContext } from '../../../contexts/UserContext';
+import './ProfileOptionsOther.css';
 
 function ProfileOptionsOther({
   userInView,
