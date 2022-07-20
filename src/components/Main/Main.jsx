@@ -31,11 +31,12 @@ import StatsModal from '../Modals/StatsModal/StatsModal';
 import DeleteUserModal from '../Modals/DeleteUserModal/DeleteUserModal';
 import UpdateUserDescModal from '../Modals/UpdateUserDescModal/UpdateUserDescModal';
 import './Main.css';
+import LoadingScreen from '../Overlays/LoadingScreen/LoadingScreen';
 
 function Main({ userCredentials, setShowGoodbyleOverlay }) {
   const navigate = useNavigate();
   const { uid } = userCredentials;
-  const [usr] = useDocumentData(doc(database, 'users', uid));
+  const [usr, loading] = useDocumentData(doc(database, 'users', uid));
   const [showNewPostModal, setShowNewPostModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
@@ -52,6 +53,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
   const [showContextbar, setShowContextbar] = useState(false);
   const [isModalActive, setIsModalActive] = useState(false);
   const [userInView, setUserInView] = useState(null);
+  const [showLoading, setShowLoading] = useState(true);
 
   const logout = async () => {
     setShowGoodbyleOverlay(true);
@@ -195,7 +197,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
 
       try {
         updateDoc(userRef, {
-          description: 'This account has been deactivated',
+          description: 'This account is no longer active',
           useremail: null,
           followers: [],
           following: [{ userID: null }],
@@ -252,168 +254,192 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
     }
   }, [errorMessage]);
 
+  // remove loading screen when user data was fetchend from backend
+  useEffect(() => {
+    if (loading === false) {
+      setShowLoading(false);
+    }
+  }, [loading]);
+
   return (
     <div className="main-container">
-      {isUserSetup && <Sidebar activeTab={activeTab} logout={logout} />}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            isUserSetup ? (
-              <Home
-                changeActiveTab={changeActiveTab}
-                handleSetModalActive={handleSetModalActive}
-                showWarning={showWarning}
+      {showLoading ? (
+        <LoadingScreen />
+      ) : (
+        isUserSetup && (
+          <>
+            <Sidebar activeTab={activeTab} logout={logout} />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  isUserSetup ? (
+                    <Home
+                      changeActiveTab={changeActiveTab}
+                      handleSetModalActive={handleSetModalActive}
+                      showWarning={showWarning}
+                    />
+                  ) : (
+                    <SetupUserAccount userCredentials={userCredentials} />
+                  )
+                }
               />
-            ) : (
-              <SetupUserAccount userCredentials={userCredentials} />
-            )
-          }
-        />
-        {/* make nested route so UI elements like the sidebar don't have to be re-rendered on component change.  */}
-        <Route
-          path="home"
-          element={
-            isUserSetup ? (
-              <Home
-                changeActiveTab={changeActiveTab}
-                handleSetModalActive={handleSetModalActive}
-                showWarning={showWarning}
+              {/* make nested route so UI elements like the sidebar don't have to be re-rendered on component change.  */}
+              <Route
+                path="home"
+                element={
+                  isUserSetup ? (
+                    <Home
+                      changeActiveTab={changeActiveTab}
+                      handleSetModalActive={handleSetModalActive}
+                      showWarning={showWarning}
+                    />
+                  ) : null
+                }
               />
-            ) : null
-          }
-        />
-        <Route
-          path="explore"
-          element={
-            isUserSetup ? (
-              <Explore handleSearchQuery={handleSearchQuery} changeActiveTab={changeActiveTab} />
-            ) : null
-          }
-        />
-        <Route
-          path="bookmarks"
-          element={
-            isUserSetup ? (
-              <Bookmarks
-                changeActiveTab={changeActiveTab}
-                handleSetModalActive={handleSetModalActive}
+              <Route
+                path="explore"
+                element={
+                  isUserSetup ? (
+                    <Explore
+                      handleSearchQuery={handleSearchQuery}
+                      changeActiveTab={changeActiveTab}
+                    />
+                  ) : null
+                }
               />
-            ) : null
-          }
-        />
-        <Route
-          path="myprofile"
-          element={
-            isUserSetup ? (
-              <MyProfile
-                changeActiveTab={changeActiveTab}
-                handleSetModalActive={handleSetModalActive}
-                showWarning={showWarning}
+              <Route
+                path="bookmarks"
+                element={
+                  isUserSetup ? (
+                    <Bookmarks
+                      changeActiveTab={changeActiveTab}
+                      handleSetModalActive={handleSetModalActive}
+                    />
+                  ) : null
+                }
               />
-            ) : null
-          }
-        />
-        <Route
-          path="userprofile/:id"
-          element={
-            isUserSetup ? (
-              <UserProfile
-                handleSetModalActive={handleSetModalActive}
-                changeActiveTab={changeActiveTab}
-                showWarning={showWarning}
-                setUserInView={setUserInView}
+              <Route
+                path="myprofile"
+                element={
+                  isUserSetup ? (
+                    <MyProfile
+                      changeActiveTab={changeActiveTab}
+                      handleSetModalActive={handleSetModalActive}
+                      showWarning={showWarning}
+                    />
+                  ) : null
+                }
               />
-            ) : null
-          }
-        />
-        <Route
-          path="search"
-          element={
-            isUserSetup ? (
-              <Search
-                searchQuery={searchQuery}
-                changeActiveTab={changeActiveTab}
-                handleSetModalActive={handleSetModalActive}
-                showWarning={showWarning}
+              <Route
+                path="userprofile/:id"
+                element={
+                  isUserSetup ? (
+                    <UserProfile
+                      handleSetModalActive={handleSetModalActive}
+                      changeActiveTab={changeActiveTab}
+                      showWarning={showWarning}
+                      setUserInView={setUserInView}
+                    />
+                  ) : null
+                }
               />
-            ) : null
-          }
-        />
-        <Route
-          path="trends"
-          element={
-            isUserSetup ? (
-              <Trends
-                searchQuery={searchQuery}
-                changeActiveTab={changeActiveTab}
-                handleSetModalActive={handleSetModalActive}
-                showWarning={showWarning}
+              <Route
+                path="search"
+                element={
+                  isUserSetup ? (
+                    <Search
+                      searchQuery={searchQuery}
+                      changeActiveTab={changeActiveTab}
+                      handleSetModalActive={handleSetModalActive}
+                      showWarning={showWarning}
+                    />
+                  ) : null
+                }
               />
-            ) : null
-          }
-        />
-        <Route
-          path="mentions"
-          element={
-            isUserSetup ? (
-              <Mentions
-                changeActiveTab={changeActiveTab}
-                handleSetModalActive={handleSetModalActive}
-                showWarning={showWarning}
+              <Route
+                path="trends"
+                element={
+                  isUserSetup ? (
+                    <Trends
+                      searchQuery={searchQuery}
+                      changeActiveTab={changeActiveTab}
+                      handleSetModalActive={handleSetModalActive}
+                      showWarning={showWarning}
+                    />
+                  ) : null
+                }
               />
-            ) : null
-          }
-        />
+              <Route
+                path="mentions"
+                element={
+                  isUserSetup ? (
+                    <Mentions
+                      changeActiveTab={changeActiveTab}
+                      handleSetModalActive={handleSetModalActive}
+                      showWarning={showWarning}
+                    />
+                  ) : null
+                }
+              />
 
-        <Route
-          path="directmessages"
-          element={
-            isUserSetup ? (
-              <DirectMessages
-                changeActiveTab={changeActiveTab}
-                showWarning={showWarning}
-                showOverlayEffect={showOverlayEffect}
-                toggleMessageModal={toggleMessageModal}
-                handleSetModalActive={handleSetModalActive}
-                setUserInView={setUserInView}
+              <Route
+                path="directmessages"
+                element={
+                  isUserSetup ? (
+                    <DirectMessages
+                      changeActiveTab={changeActiveTab}
+                      showWarning={showWarning}
+                      showOverlayEffect={showOverlayEffect}
+                      toggleMessageModal={toggleMessageModal}
+                      handleSetModalActive={handleSetModalActive}
+                      setUserInView={setUserInView}
+                    />
+                  ) : null
+                }
               />
-            ) : null
-          }
-        />
 
-        <Route
-          path="postDetails"
-          element={
-            isUserSetup ? (
-              <PostDetails
-                changeActiveTab={changeActiveTab}
-                handlePostInfo={handlePostInfo}
-                handleSetModalActive={handleSetModalActive}
-                showOverlayEffect={showOverlayEffect}
+              <Route
+                path="postDetails"
+                element={
+                  isUserSetup ? (
+                    <PostDetails
+                      changeActiveTab={changeActiveTab}
+                      handlePostInfo={handlePostInfo}
+                      handleSetModalActive={handleSetModalActive}
+                      showOverlayEffect={showOverlayEffect}
+                    />
+                  ) : null
+                }
               />
-            ) : null
-          }
-        />
 
-        <Route
-          path="userlist_following"
-          element={
-            isUserSetup ? (
-              <UserlistFollowing changeActiveTab={changeActiveTab} showWarning={showWarning} />
-            ) : null
-          }
-        />
+              <Route
+                path="userlist_following"
+                element={
+                  isUserSetup ? (
+                    <UserlistFollowing
+                      changeActiveTab={changeActiveTab}
+                      showWarning={showWarning}
+                    />
+                  ) : null
+                }
+              />
 
-        <Route
-          path="userlist_followers"
-          element={
-            isUserSetup ? (
-              <UserlistFollowers changeActiveTab={changeActiveTab} showWarning={showWarning} />
-            ) : null
-          }
-        />
-      </Routes>
+              <Route
+                path="userlist_followers"
+                element={
+                  isUserSetup ? (
+                    <UserlistFollowers
+                      changeActiveTab={changeActiveTab}
+                      showWarning={showWarning}
+                    />
+                  ) : null
+                }
+              />
+            </Routes>
+          </>
+        )
+      )}
 
       {isUserSetup && (
         <ContextBar
