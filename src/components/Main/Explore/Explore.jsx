@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BiSpaceBar } from 'react-icons/bi';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
@@ -12,8 +12,7 @@ function Explore({ handleSearchQuery, changeActiveTab }) {
   const navigate = useNavigate();
   const hashtagRef = collection(database, 'hashtags');
   const q = query(hashtagRef, orderBy('count', 'desc'), limit(25));
-  const [trends] = useCollectionData(q);
-  const [loading, setLoading] = useState(true);
+  const [trends, loading] = useCollectionData(q);
 
   // pass hashtag-string to parent in order to run a search query
   const handleClick = (hashtag) => {
@@ -23,7 +22,6 @@ function Explore({ handleSearchQuery, changeActiveTab }) {
 
   useEffect(() => {
     changeActiveTab('explore');
-    setLoading(false);
   }, []);
 
   return (
