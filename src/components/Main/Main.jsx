@@ -264,7 +264,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
   return (
     <div className="main-container">
       {showLoading ? (
-        <LoadingScreen />
+        <LoadingScreen message="getting user info" />
       ) : (
         isUserSetup && (
           <>

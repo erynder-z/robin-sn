@@ -31,7 +31,7 @@ function App() {
   return (
     <div className="App">
       {showLoading ? (
-        <LoadingScreen />
+        <LoadingScreen message="initializing app" />
       ) : (
         <Routes>
           <Route
