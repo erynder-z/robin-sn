@@ -64,7 +64,7 @@ function ProfileOptionsOther({
           unfollow
         </div>
       )}
-      {userInView.active ?? (
+      {userInView?.active ?? (
         <div
           className="sendDm"
           role="button"
