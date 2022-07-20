@@ -11,7 +11,7 @@ import { UserProvider } from './contexts/UserContext';
 import GoodbyeOverlay from './components/Overlays/GoodbyeOverlay/GoodbyeOverlay';
 
 function App() {
-  const [userCredentials] = useAuthState(auth);
+  const [userCredentials, loading] = useAuthState(auth);
   const [showLoading, setShowLoading] = useState(true);
   const [showGoodbyeOverlay, setShowGoodbyleOverlay] = useState(false);
 
@@ -23,8 +23,10 @@ function App() {
   }, [showGoodbyeOverlay]);
 
   useEffect(() => {
-    setTimeout(() => setShowLoading(false), 1000);
-  }, []);
+    if (loading === false) {
+      setShowLoading(false);
+    }
+  }, [loading]);
 
   return (
     <div className="App">
