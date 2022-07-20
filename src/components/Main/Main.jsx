@@ -30,8 +30,8 @@ import MessageModal from '../Modals/MessageModal/MessageModal';
 import StatsModal from '../Modals/StatsModal/StatsModal';
 import DeleteUserModal from '../Modals/DeleteUserModal/DeleteUserModal';
 import UpdateUserDescModal from '../Modals/UpdateUserDescModal/UpdateUserDescModal';
-import './Main.css';
 import LoadingScreen from '../Overlays/LoadingScreen/LoadingScreen';
+import './Main.css';
 
 function Main({ userCredentials, setShowGoodbyleOverlay }) {
   const navigate = useNavigate();
@@ -506,6 +506,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
         <UpdateUserDescModal
           setShowUpdateUserDescModal={setShowUpdateUserDescModal}
           showWarning={showWarning}
+          showOverlayEffect={showOverlayEffect}
         />
       )}
     </div>

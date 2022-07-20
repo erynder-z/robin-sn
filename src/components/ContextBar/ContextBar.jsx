@@ -136,6 +136,7 @@ function ContextBar({
           setShowStatsModal={setShowStatsModal}
           setShowDeleteUserModal={setShowDeleteUserModal}
           setShowUpdateUserDescModal={setShowUpdateUserDescModal}
+          showOverlayEffect={showOverlayEffect}
         />
       )}
       {activeTab === 'userprofile' && (

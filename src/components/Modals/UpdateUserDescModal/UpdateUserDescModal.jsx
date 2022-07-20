@@ -5,7 +5,7 @@ import { database } from '../../../data/firebase';
 import { GetUserContext } from '../../../contexts/UserContext';
 import '../Modals.css';
 
-function UpdateUserDescModal({ setShowUpdateUserDescModal, showWarning }) {
+function UpdateUserDescModal({ setShowUpdateUserDescModal, showWarning, showOverlayEffect }) {
   const { userData } = GetUserContext();
   const [descriptionText, setDescriptionText] = useState('');
 
@@ -16,6 +16,7 @@ function UpdateUserDescModal({ setShowUpdateUserDescModal, showWarning }) {
       updateDoc(userRef, {
         description: descriptionText
       });
+      showOverlayEffect('updating description');
     } catch (err) {
       showWarning(err.message);
     }
@@ -74,5 +75,6 @@ export default UpdateUserDescModal;
 
 UpdateUserDescModal.propTypes = {
   setShowUpdateUserDescModal: PropTypes.func.isRequired,
-  showWarning: PropTypes.func.isRequired
+  showWarning: PropTypes.func.isRequired,
+  showOverlayEffect: PropTypes.func.isRequired
 };
