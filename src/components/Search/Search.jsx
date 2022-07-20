@@ -98,7 +98,7 @@ function Search({ searchQuery, changeActiveTab, handleSetModalActive, showWarnin
             }}
           />
         </div>
-        <span>Search</span>
+        <span title={`Searching ${searchQuery}`}>Searching {searchQuery}</span>
       </div>
       {loading ? (
         <FetchingIcon />

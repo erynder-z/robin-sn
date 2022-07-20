@@ -9,7 +9,7 @@ import LoadingScreen from '../Overlays/LoadingScreen/LoadingScreen';
 import AvatarCreator from '../../helpers/AvatarCreator/AvatarCreator';
 import resizeFile from '../../helpers/ImageResizer/ImageResizer';
 import WarningModal from '../Modals/WarningModal/WarningModal';
-import logo from '../../assets/logo.png';
+import logoOutline from '../../assets/logo_outline.png';
 import './SetupUserAccount.css';
 
 function CreateUserAccount({ userCredentials }) {
@@ -186,7 +186,7 @@ function CreateUserAccount({ userCredentials }) {
             handleSubmit(e);
           }}
           tabIndex={0}>
-          Let&apos;s go! <img className="logo-mini" src={logo} alt="app logo" />
+          Let&apos;s go! <img className="logo-mini" src={logoOutline} alt="app logo" />
         </button>
       </div>
 

@@ -11,6 +11,7 @@ import Reply from '../Reply/Reply';
 import ReplyItem from '../ReplyItem/ReplyItem';
 import limitNumberOfPosts from '../../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
 import './PostDetails.css';
+import FetchingIcon from '../../Main/FetchingIcon/FetchingIcon';
 
 function PostDetails({ changeActiveTab, handlePostInfo, handleSetModalActive, showOverlayEffect }) {
   const { userData } = GetUserContext();
@@ -19,7 +20,7 @@ function PostDetails({ changeActiveTab, handlePostInfo, handleSetModalActive, sh
   const location = useLocation();
   const { userID, userPic } = userData;
   const [replies, setReplies] = useState([]);
-  const [post] = useDocumentData(doc(database, 'posts', location.state.postID));
+  const [post, loading] = useDocumentData(doc(database, 'posts', location.state.postID));
 
   // dummy function to prevent passing null.parameter to Reply component
   const dummyModal = () => {};
@@ -63,6 +64,7 @@ function PostDetails({ changeActiveTab, handlePostInfo, handleSetModalActive, sh
         </div>
         Post
       </div>
+      {loading && <FetchingIcon />}
       <PostItem
         key={location.state.postID}
         postID={location.state.postID}

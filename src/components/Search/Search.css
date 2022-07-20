@@ -1,3 +1,10 @@
+.search-header > span {
+  max-width: 70%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .post-results h3 {
   padding: 1rem;
   text-align: center;

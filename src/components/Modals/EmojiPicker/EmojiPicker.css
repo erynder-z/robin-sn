@@ -17,3 +17,7 @@
   left: 15%;
   bottom: 2%;
 }
+
+.emoji-picker-close:hover {
+  color: var(--hashtag);
+}

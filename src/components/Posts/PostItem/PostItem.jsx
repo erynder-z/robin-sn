@@ -175,7 +175,6 @@ function PostItem({ postID, handleSetModalActive }) {
   return (
     post && (
       <div
-        title="View post details"
         className="post-container fadein"
         role="link"
         tabIndex={0}
