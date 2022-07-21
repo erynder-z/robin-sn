@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { BiMessageRoundedEdit, BiUserPlus, BiUserMinus } from 'react-icons/bi';
 import { GetUserContext } from '../../../contexts/UserContext';
+import UnfollowOption from './UnfollowOption/UnfollowOption';
+import FollowOption from './FollowOption/FollowOption';
+import SendDmOption from './SendDmOption/SendDmOption';
 import './ProfileOptionsOther.css';
 
 function ProfileOptionsOther({
@@ -25,6 +27,14 @@ function ProfileOptionsOther({
     }
   };
 
+  const handleFollow = () => {
+    follow(userInView.userID);
+  };
+
+  const handleUnfollow = () => {
+    unFollow(userInView.userID);
+  };
+
   useEffect(() => {
     if (userInView) {
       checkIfFollowing();
@@ -34,52 +44,13 @@ function ProfileOptionsOther({
   return (
     <div className="profileOptionsOther-container">
       <div className="profileOptionsOther-header">Profile options</div>
-      {!isFollowing && (
-        <div
-          className="follow"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            follow(userInView.userID);
-          }}
-          onKeyDown={() => {
-            follow(userInView.userID);
-          }}>
-          <BiUserPlus className="follow-icon" size="2rem" />
-          follow
-        </div>
-      )}
-      {isFollowing && (
-        <div
-          className="follow"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            unFollow(userInView.userID);
-          }}
-          onKeyDown={() => {
-            unFollow(userInView.userID);
-          }}>
-          <BiUserMinus className="follow-icon" size="2rem" />
-          unfollow
-        </div>
-      )}
-      {userInView?.active ?? (
-        <div
-          className="sendDm"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            toggleMessageModal();
-            handleSetModalActive(true);
-          }}
-          onKeyDown={() => {
-            toggleMessageModal();
-            handleSetModalActive(true);
-          }}>
-          <BiMessageRoundedEdit className="sendDm-icon" size="2rem" />
-          send DM
-        </div>
+      {!isFollowing && <FollowOption handleFollow={handleFollow} />}
+      {isFollowing && <UnfollowOption handleUnfollow={handleUnfollow} />}
+      {userInView?.active && (
+        <SendDmOption
+          toggleMessageModal={toggleMessageModal}
+          handleSetModalActive={handleSetModalActive}
+        />
       )}
     </div>
   );

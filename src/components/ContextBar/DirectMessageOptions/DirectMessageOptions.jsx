@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { BiCheckDouble, BiXCircle } from 'react-icons/bi';
 import { doc, updateDoc } from 'firebase/firestore';
 import { GetUserContext } from '../../../contexts/UserContext';
 import { database } from '../../../data/firebase';
+import MarkMessagesReadOption from './MarkMessagesReadOption/MarkMessagesReadOption';
+import DeleteMessagesOption from './DeleteMessagesOption/DeleteMessagesOption';
 import './DirectMessageOptions.css';
 
 function DirectMessageOptions({ showWarning }) {
@@ -17,7 +18,7 @@ function DirectMessageOptions({ showWarning }) {
       list.forEach((msg) => {
         newList.push({ ...msg, isRead: true });
       });
-      return newList();
+      return newList;
     };
 
     const updatedMessageList = await getMessageList();
@@ -70,36 +71,8 @@ function DirectMessageOptions({ showWarning }) {
   return (
     <div className="directMessages fadein">
       <div className="directMessages-context-header">Options</div>
-      <div className="markMessagesRead">
-        <div
-          className="message-markRead"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            markMessagesAsRead();
-          }}
-          onKeyDown={() => {
-            markMessagesAsRead();
-          }}>
-          <BiCheckDouble size="2rem" className="message-markRead-icon" />
-          Mark all as read
-        </div>
-      </div>
-      <div className="deleteMessages">
-        <div
-          className="message-delete"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            setShowDeleteMsgModal(true);
-          }}
-          onKeyDown={() => {
-            setShowDeleteMsgModal(true);
-          }}>
-          <BiXCircle size="2rem" className="message-delete-icon" />
-          Delete all messages
-        </div>
-      </div>
+      <MarkMessagesReadOption markMessagesAsRead={markMessagesAsRead} />
+      <DeleteMessagesOption setShowDeleteMsgModal={setShowDeleteMsgModal} />
       {showDeleteMsgModal && DeleteMessagesModal}
     </div>
   );

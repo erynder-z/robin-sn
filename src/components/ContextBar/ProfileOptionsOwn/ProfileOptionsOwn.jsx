@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { doc, updateDoc } from 'firebase/firestore';
-import { MdOutlineDangerous } from 'react-icons/md';
-import {
-  BiImageAdd,
-  BiBarChart,
-  BiLandscape,
-  BiWindowClose,
-  BiLogOutCircle,
-  BiUserCircle
-} from 'react-icons/bi';
 import resizeFile from '../../../helpers/ImageResizer/ImageResizer';
 import { database } from '../../../data/firebase';
 import { GetUserContext } from '../../../contexts/UserContext';
 import AvatarCreator from '../../../helpers/AvatarCreator/AvatarCreator';
+import DeleteAccountOption from './DeleteAccountOption/DeleteAccountOption';
+import UpdateUserDescriptionOption from './UpdateUserDescriptionOption/UpdateUserDescriptionOption';
+import ChangeUserpicOption from './ChangeUserpicOption/ChageUserpicOption';
+import ChangeUserBackgroundOption from './ChangeProfileBackgroundOption/ChangeProfileBackgroundOption';
+import RemoveProfileBackgroundOption from './RemoveProfileBackgroundOption/RemoveProfileBackgroundOption';
+import ShowAccountStatsOption from './ShowAccountStatsOption/ShowAccountStatsOption';
+import LogoutOption from './LogoutOption/LogoutOption';
 import './ProfileOptionsOwn.css';
 
 function ProfileOptionsOwn({
@@ -94,106 +92,13 @@ function ProfileOptionsOwn({
   return (
     <div className="profileOptions-container">
       <div className="profileOptions-header">Profile options</div>
-      <div
-        className="deleteAccount"
-        role="button"
-        tabIndex={0}
-        onClick={() => {
-          setShowDeleteUserModal(true);
-        }}
-        onKeyDown={() => {
-          setShowDeleteUserModal(true);
-        }}>
-        <MdOutlineDangerous className="deleteAccount-icon" size="2rem" />
-        delete account
-      </div>
-
-      <div
-        className="updateDescription"
-        role="button"
-        tabIndex={0}
-        onClick={() => {
-          setShowUpdateUserDescModal(true);
-        }}
-        onKeyDown={() => {
-          setShowUpdateUserDescModal(true);
-        }}>
-        <BiUserCircle className="updateDescription-icon" size="2rem" />
-        update user description
-      </div>
-
-      <label htmlFor="picture" className="changeUserpic">
-        <BiImageAdd className="changePicture-icon" size="2rem" />
-        <input
-          className="custom-file-upload"
-          type="file"
-          id="picture"
-          name="picture"
-          accept="image/png, image/jpeg"
-          onChange={(e) => {
-            changeUserpic(e);
-          }}
-        />
-        change user picture
-      </label>
-
-      <label htmlFor="background" className="changeProfileBackground">
-        <BiLandscape className="changeProfileBackground-icon" size="2rem" />
-        <input
-          className="custom-file-upload"
-          type="file"
-          id="background"
-          name="background"
-          accept="image/png, image/jpeg"
-          onChange={(e) => {
-            changeProfileBackground(e);
-          }}
-        />
-        change profile background
-      </label>
-
-      <div
-        className="removeBackground"
-        role="button"
-        tabIndex={0}
-        onClick={() => {
-          removeProfileBackground();
-        }}
-        onKeyDown={() => {
-          removeProfileBackground();
-        }}>
-        <BiWindowClose className="removeBackground-icon" size="2rem" />
-        remove profile background
-      </div>
-
-      <div
-        className="accountStats"
-        role="button"
-        tabIndex={0}
-        onClick={() => {
-          setShowStatsModal(true);
-        }}
-        onKeyDown={() => {
-          setShowStatsModal(true);
-        }}>
-        <BiBarChart className="accountStats-icon" size="2rem" />
-        show account stats
-      </div>
-
-      <div
-        className="logoutContextbar"
-        role="button"
-        tabIndex={0}
-        onClick={() => {
-          logout();
-        }}
-        onKeyDown={() => {
-          logout();
-        }}>
-        <BiLogOutCircle className="logoutContextbar-icon" size="2rem" />
-        Logout
-      </div>
-
+      <DeleteAccountOption setShowDeleteUserModal={setShowDeleteUserModal} />
+      <UpdateUserDescriptionOption setShowUpdateUserDescModal={setShowUpdateUserDescModal} />
+      <ChangeUserpicOption changeUserpic={changeUserpic} />
+      <ChangeUserBackgroundOption changeProfileBackground={changeProfileBackground} />
+      <RemoveProfileBackgroundOption removeProfileBackground={removeProfileBackground} />
+      <ShowAccountStatsOption setShowStatsModal={setShowStatsModal} />
+      <LogoutOption logout={logout} />
       {showCropper && (
         <div className="avatarCreator-overlay">
           <AvatarCreator

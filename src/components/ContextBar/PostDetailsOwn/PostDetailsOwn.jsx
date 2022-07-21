@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { BiTrash } from 'react-icons/bi';
-import { BsFillBookmarkDashFill, BsBookmarkPlus } from 'react-icons/bs';
+import BookmarkOption from '../BookmarkOption/BookmarkOption';
+import RemoveBookmarkOption from '../RemoveBookmarkOption/RemoveBookmarkOption';
+import DeletePostOption from './DeletePostOption/DeletePostOption';
 import './PostDetailsOwn.css';
 
 function PostDetailsOwn({ deletePost, postInfo, bookmarkPost, isPostBookmarked }) {
   const [bookmarkCheck, setBookmarkCheck] = useState(null);
+
+  const handleDeletePost = () => {
+    deletePost(postInfo.post);
+  };
+
+  const handleBookmark = () => {
+    bookmarkPost();
+    setBookmarkCheck(!bookmarkCheck);
+  };
 
   // check if post is already bookmarked
   useEffect(() => {
@@ -15,58 +25,11 @@ function PostDetailsOwn({ deletePost, postInfo, bookmarkPost, isPostBookmarked }
   return (
     <div className="postDetails-own fadein">
       <div className="myPost">My post</div>
-      <div className="deletePost">
-        {' '}
-        <div
-          className="post-delete"
-          size="2rem"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            deletePost(postInfo.post);
-          }}
-          onKeyDown={() => {
-            deletePost(postInfo.post);
-          }}>
-          <BiTrash size="2rem" className="post-delete-icon" />
-          Remove Post
-        </div>
-      </div>
+      <DeletePostOption handleDeletePost={handleDeletePost} />
 
       <div className="bookmarkPost">
-        {bookmarkCheck && (
-          <div
-            className="post-bookmark"
-            role="button"
-            tabIndex={0}
-            onClick={() => {
-              bookmarkPost();
-              setBookmarkCheck(!bookmarkCheck);
-            }}
-            onKeyDown={() => {
-              bookmarkPost();
-              setBookmarkCheck(!bookmarkCheck);
-            }}>
-            <BsFillBookmarkDashFill size="2rem" className="post-bookmark-icon" /> Remove bookmark
-          </div>
-        )}
-        {!bookmarkCheck && (
-          <div
-            className="post-bookmark"
-            role="button"
-            tabIndex={0}
-            onClick={() => {
-              bookmarkPost();
-              setBookmarkCheck(!bookmarkCheck);
-            }}
-            onKeyDown={() => {
-              bookmarkPost();
-              setBookmarkCheck(!bookmarkCheck);
-            }}>
-            <BsBookmarkPlus size="2rem" className="post-bookmark-icon" />
-            Bookmark post
-          </div>
-        )}
+        {bookmarkCheck && <BookmarkOption handleBookmark={handleBookmark} />}
+        {!bookmarkCheck && <RemoveBookmarkOption handleBookmark={handleBookmark} />}
       </div>
     </div>
   );
