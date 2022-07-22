@@ -303,6 +303,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
               <Bookmarks
                 changeActiveTab={changeActiveTab}
                 handleSetModalActive={handleSetModalActive}
+                showWarning={showWarning}
               />
             ) : null
           }
