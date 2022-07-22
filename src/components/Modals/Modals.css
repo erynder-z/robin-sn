@@ -1,6 +1,7 @@
 .deleteModal-overlay,
 .statsModal-overlay,
-.updateDescModal-overlay {
+.updateDescModal-overlay,
+.changePasswordModal-overlay {
   height: 100%;
   width: 100vw;
   position: fixed;
@@ -21,6 +22,12 @@
   width: 30vh;
   display: flex;
   flex-direction: column;
+}
+
+.changePasswordModal {
+  display: flex;
+  flex-direction: column;
+  width: 40vh;
 }
 
 .accountDeleteBtn {
@@ -50,14 +57,19 @@
 
 .accountNoDeleteBtn:hover,
 .stats-closeBtn:hover,
-.updateDesc-closeBtn:hover {
+.updateDesc-closeBtn:hover,
+.changePasswordBtn:hover,
+.noChangePasswordBtn:hover {
   background-color: #f78eca;
 }
 
 .stats-closeBtn,
 .updateDesc-closeBtn,
-.updateDesc-updateBtn {
+.updateDesc-updateBtn,
+.changePasswordBtn,
+.noChangePasswordBtn {
   height: 3rem;
+  width: 100%;
   background-color: #ff79c6;
   color: #f8f8f2;
   font-size: 1.2rem;
@@ -69,11 +81,13 @@
   align-items: center;
 }
 
-.updateDesc-updateBtn {
+.updateDesc-updateBtn,
+.changePasswordBtn {
   background-color: #bd93f9;
 }
 
-.updateDesc-updateBtn:hover {
+.updateDesc-updateBtn:hover,
+.changePasswordBtn:hover {
   background-color: #bfa0eb;
 }
 
@@ -115,6 +129,19 @@
   .accountDeleteBtn,
   .accountNoDeleteBtn {
     font-size: 1rem;
+  }
+
+  .changePasswordModal {
+    width: 85%;
+  }
+  .changePasswordModal > form > .input-container > label {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .changePasswordModal > form > .input-container > label > input {
+    width: 100%;
+    margin: 0;
   }
 
   .updateDescModal {

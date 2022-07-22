@@ -32,6 +32,7 @@ import DeleteUserModal from '../Modals/DeleteUserModal/DeleteUserModal';
 import UpdateUserDescModal from '../Modals/UpdateUserDescModal/UpdateUserDescModal';
 import LoadingScreen from '../Overlays/LoadingScreen/LoadingScreen';
 import './Main.css';
+import ChangePasswordModal from '../Modals/ChangePasswordModal/ChangePasswordModal';
 
 function Main({ userCredentials, setShowGoodbyleOverlay }) {
   const navigate = useNavigate();
@@ -43,6 +44,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
   const [showStatsModal, setShowStatsModal] = useState(false);
   const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
   const [showUpdateUserDescModal, setShowUpdateUserDescModal] = useState(false);
+  const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [isUserSetup, setIsUserSetup] = useState(false);
   const [activeTab, setActiveTab] = useState('');
   const [postInfo, setPostInfo] = useState({});
@@ -435,6 +437,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
           setShowStatsModal={setShowStatsModal}
           setShowDeleteUserModal={setShowDeleteUserModal}
           setShowUpdateUserDescModal={setShowUpdateUserDescModal}
+          setShowChangePasswordModal={setShowChangePasswordModal}
         />
       )}
       {isUserSetup && !showSearchModal && !showNewPostModal && !isModalActive && (
@@ -480,6 +483,13 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
       {showUpdateUserDescModal && (
         <UpdateUserDescModal
           setShowUpdateUserDescModal={setShowUpdateUserDescModal}
+          showWarning={showWarning}
+          showOverlayEffect={showOverlayEffect}
+        />
+      )}
+      {showChangePasswordModal && (
+        <ChangePasswordModal
+          setShowChangePasswordModal={setShowChangePasswordModal}
           showWarning={showWarning}
           showOverlayEffect={showOverlayEffect}
         />

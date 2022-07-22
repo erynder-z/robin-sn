@@ -27,7 +27,8 @@ function ContextBar({
   handleSetModalActive,
   setShowStatsModal,
   setShowDeleteUserModal,
-  setShowUpdateUserDescModal
+  setShowUpdateUserDescModal,
+  setShowChangePasswordModal
 }) {
   const { userData } = GetUserContext();
   const { post } = postInfo;
@@ -137,6 +138,7 @@ function ContextBar({
           setShowDeleteUserModal={setShowDeleteUserModal}
           setShowUpdateUserDescModal={setShowUpdateUserDescModal}
           showOverlayEffect={showOverlayEffect}
+          setShowChangePasswordModal={setShowChangePasswordModal}
         />
       )}
       {activeTab === 'userprofile' && (
@@ -230,7 +232,8 @@ ContextBar.propTypes = {
   handleSetModalActive: PropTypes.func.isRequired,
   setShowStatsModal: PropTypes.func.isRequired,
   setShowDeleteUserModal: PropTypes.func.isRequired,
-  setShowUpdateUserDescModal: PropTypes.func.isRequired
+  setShowUpdateUserDescModal: PropTypes.func.isRequired,
+  setShowChangePasswordModal: PropTypes.func.isRequired
 };
 
 ContextBar.defaultProps = {

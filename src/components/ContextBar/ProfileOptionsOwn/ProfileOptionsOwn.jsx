@@ -13,13 +13,15 @@ import RemoveProfileBackgroundOption from './RemoveProfileBackgroundOption/Remov
 import ShowAccountStatsOption from './ShowAccountStatsOption/ShowAccountStatsOption';
 import LogoutOption from './LogoutOption/LogoutOption';
 import './ProfileOptionsOwn.css';
+import ChangePasswordOption from './ChangePasswordOption/ChangePasswordOption';
 
 function ProfileOptionsOwn({
   logout,
   showWarning,
   setShowStatsModal,
   setShowDeleteUserModal,
-  setShowUpdateUserDescModal
+  setShowUpdateUserDescModal,
+  setShowChangePasswordModal
 }) {
   const { userData } = GetUserContext();
   const [showCropper, setShowCropper] = useState(false);
@@ -93,6 +95,7 @@ function ProfileOptionsOwn({
     <div className="profileOptions-container">
       <div className="profileOptions-header">Profile options</div>
       <DeleteAccountOption setShowDeleteUserModal={setShowDeleteUserModal} />
+      <ChangePasswordOption setShowChangePasswordModal={setShowChangePasswordModal} />
       <UpdateUserDescriptionOption setShowUpdateUserDescModal={setShowUpdateUserDescModal} />
       <ChangeUserpicOption changeUserpic={changeUserpic} />
       <ChangeUserBackgroundOption changeProfileBackground={changeProfileBackground} />
@@ -120,5 +123,6 @@ ProfileOptionsOwn.propTypes = {
   showWarning: PropTypes.func.isRequired,
   setShowStatsModal: PropTypes.func.isRequired,
   setShowDeleteUserModal: PropTypes.func.isRequired,
-  setShowUpdateUserDescModal: PropTypes.func.isRequired
+  setShowUpdateUserDescModal: PropTypes.func.isRequired,
+  setShowChangePasswordModal: PropTypes.func.isRequired
 };
