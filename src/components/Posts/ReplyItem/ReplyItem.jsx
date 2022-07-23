@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { format, fromUnixTime } from 'date-fns';
 import { doc, getDoc } from 'firebase/firestore';
 import { database } from '../../../data/firebase';
 import parseText from '../../../helpers/ParseText/ParseText';
 import placeholder from '../../../assets/placeholder.png';
+import convertDate from '../../../helpers/ConvertDate/ConvertDate';
 import './ReplyItem.css';
 
 function ReplyItem({ reply }) {
@@ -21,13 +21,13 @@ function ReplyItem({ reply }) {
         setReplyUser({
           username: 'deleted user',
           userpic: placeholder,
-          replyDate: format(fromUnixTime(reply.replyDate.seconds), 'MMM dd')
+          replyDate: reply.replyDate.seconds
         });
       }
       setReplyUser({
         username: docSnap.data().username,
         userpic: docSnap.data().userPic,
-        replyDate: format(fromUnixTime(reply.replyDate.seconds), 'MMM dd')
+        replyDate: reply.replyDate.seconds
       });
     } catch (err) {
       setErrorMessage(err.message);
@@ -55,7 +55,7 @@ function ReplyItem({ reply }) {
           <div className="reply-header">
             <div className="reply-author">@{replyUser.username} </div>
             <div className="reply-userDetails-separator">∙</div>
-            <div className="reply-date"> {replyUser.replyDate}</div>
+            <div className="reply-date"> {convertDate(replyUser.replyDate)}</div>
           </div>
           <div className="post-content">{parseText(reply.replyContent)}</div>
         </div>
