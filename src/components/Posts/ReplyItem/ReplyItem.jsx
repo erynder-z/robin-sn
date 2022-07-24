@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { doc, getDoc } from 'firebase/firestore';
 import { database } from '../../../data/firebase';
-import parseText from '../../../helpers/ParseText/ParseText';
+import parseReplyText from '../../../helpers/ParseReplyText/ParseReplyText';
 import placeholder from '../../../assets/placeholder.png';
 import convertDate from '../../../helpers/ConvertDate/ConvertDate';
 import './ReplyItem.css';
@@ -57,7 +57,7 @@ function ReplyItem({ reply }) {
             <div className="reply-userDetails-separator">∙</div>
             <div className="reply-date"> {convertDate(replyUser.replyDate)}</div>
           </div>
-          <div className="post-content">{parseText(reply.replyContent)}</div>
+          <div className="post-content">{parseReplyText(reply.replyContent)}</div>
         </div>
       </div>
     )

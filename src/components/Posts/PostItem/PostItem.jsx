@@ -17,7 +17,7 @@ import { database } from '../../../data/firebase';
 import { GetUserContext } from '../../../contexts/UserContext';
 import Reply from '../Reply/Reply';
 import OverlayEffect from '../../Overlays/OverlayEffect/OverlayEffect';
-import parseText from '../../../helpers/ParseText/ParseText';
+import parsePostText from '../../../helpers/ParsePostText/ParsePostText';
 import convertDate from '../../../helpers/ConvertDate/ConvertDate';
 import './PostItem.css';
 
@@ -219,7 +219,7 @@ function PostItem({ postID, handleSetModalActive }) {
             <div className="post-userDetails-separator">∙</div>
             <div className="post-date">{convertDate(post.created.seconds)}</div>
           </div>
-          <div className="post-content"> {parseText(post.content)}</div>
+          <div className="post-content"> {parsePostText(post.content)}</div>
           {post.image.imageURL !== null && (
             <img className="post-image" src={post.image.imageURL} alt="uploaded content" />
           )}

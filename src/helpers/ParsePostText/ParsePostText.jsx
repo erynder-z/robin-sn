@@ -1,10 +1,10 @@
 import parse from 'html-react-parser';
 
-const parseText = (text) => {
+const parsePostText = (text) => {
   // return JSX-elements for url's, hashtags and mentions
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   const hashtagRegex = /(?=#).*?(?=( |$))/g;
-  const mentionRegex = /(?=@).*?(?=( |$))/g;
+  const mentionRegex = /@\S([^\s]+)/g;
   return parse(
     text
       .replace(urlRegex, (url) => `<a href="${url}" target="_blank">${url}</a>`)
@@ -13,4 +13,4 @@ const parseText = (text) => {
   );
 };
 
-export default parseText;
+export default parsePostText;
