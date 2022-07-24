@@ -163,8 +163,8 @@ function CreateUserAccount({ userCredentials }) {
             <textarea
               className="description-input"
               type="text"
-              maxLength="100"
-              placeholder="max. 100 characters"
+              maxLength="120"
+              placeholder="max. 120 characters"
               value={userObject.description}
               onChange={(e) => {
                 setUserObject((prevState) => ({

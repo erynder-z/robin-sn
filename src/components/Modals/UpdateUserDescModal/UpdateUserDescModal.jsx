@@ -31,8 +31,8 @@ function UpdateUserDescModal({ setShowUpdateUserDescModal, showWarning, showOver
           <textarea
             className="descriptionUpdate-input"
             type="text"
-            maxLength="100"
-            placeholder="max. 100 characters"
+            maxLength="120"
+            placeholder="max. 120 characters"
             value={descriptionText}
             onChange={(e) => {
               setDescriptionText(e.target.value);

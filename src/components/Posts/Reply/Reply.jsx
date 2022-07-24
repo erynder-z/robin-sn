@@ -20,6 +20,8 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner, setReplyEffect 
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
+  const normaliseProgressbar = (value) => ((value - 0) * 100) / (120 - 0);
+
   // add replied post's ID to user object
   const addPostToUserObject = async () => {
     try {
@@ -125,17 +127,17 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner, setReplyEffect 
             </div>
             <textarea
               className="reply-modal-textarea"
-              maxLength="100"
+              maxLength="120"
               cols="30"
               rows="5"
               placeholder="write your reply"
             />{' '}
             <div className="progress">
-              <span className="charLeft"> {100 - text.length} characters left</span>
+              <span className="charLeft"> {120 - text.length} characters left</span>
               <LinearProgress
                 className="charProgress"
                 variant="determinate"
-                value={text.length}
+                value={normaliseProgressbar(text.length)}
                 color="inherit"
               />
             </div>
@@ -175,7 +177,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner, setReplyEffect 
       <div className="replyAppend-wrapper">
         <img className="reply-userpic-append" src={userData.userPic} alt="user avatar" />
         <textarea
-          maxLength="100"
+          maxLength="120"
           className="reply-append-textarea"
           placeholder="write your reply"
           value={text}
@@ -191,11 +193,11 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner, setReplyEffect 
         />
       </div>{' '}
       <div className={`progress ${!showReplyUI ? 'hidden' : ''}`}>
-        <span className="charLeft"> {100 - text.length} characters left</span>
+        <span className="charLeft"> {120 - text.length} characters left</span>
         <LinearProgress
           className="charProgress"
           variant="determinate"
-          value={text.length}
+          value={normaliseProgressbar(text.length)}
           color="inherit"
         />
       </div>

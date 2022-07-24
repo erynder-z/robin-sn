@@ -31,6 +31,8 @@ function NewPostModal({ toggleNewPostModal, showOverlayEffect, showWarning }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [fadeModal, setFadeModal] = useState(false);
 
+  const normaliseProgressbar = (value) => ((value - 0) * 100) / (120 - 0);
+
   // add hashtags from a post to hashtags-collection
   const addHashtag = async (hashtagArray) => {
     hashtagArray.map(async (hashtag) => {
@@ -176,7 +178,7 @@ function NewPostModal({ toggleNewPostModal, showOverlayEffect, showWarning }) {
         </div>
         <textarea
           className="newPost-textarea"
-          maxLength="100"
+          maxLength="120"
           cols="30"
           rows="5"
           placeholder="enter your message"
@@ -211,11 +213,11 @@ function NewPostModal({ toggleNewPostModal, showOverlayEffect, showWarning }) {
           </div>
         )}
         <div className="progress">
-          <span className="charLeft"> {100 - text.length} characters left</span>
+          <span className="charLeft"> {120 - text.length} characters left</span>
           <LinearProgress
             className="charProgress"
             variant="determinate"
-            value={text.length}
+            value={normaliseProgressbar(text.length)}
             color="inherit"
           />
         </div>
