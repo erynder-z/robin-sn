@@ -149,7 +149,7 @@ function Login() {
       <header>
         <div className="app-header-container">
           <img className="logo-big" src={logo} alt="app logo" />
-          <h1 className="app-header">Welcome to Robin</h1>
+          <h1 className="app-header">Welcome to Robin - A social network</h1>
         </div>
       </header>
       <div className="login-container">

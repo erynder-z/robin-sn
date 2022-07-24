@@ -10,9 +10,7 @@ const convertDate = (dateInSeconds) => {
   }
   // change return format depending on the post time
   if (isToday(toDateTime(dateInSeconds))) {
-    return formatDistanceToNowStrict(toDateTime(dateInSeconds), {
-      addSuffix: true
-    });
+    return formatDistanceToNowStrict(toDateTime(dateInSeconds));
   }
   return format(fromUnixTime(dateInSeconds), 'MMM dd');
 };

@@ -7,7 +7,7 @@ function WarningModal({ errorMessage }) {
   return (
     <div className="emptyMessageWarning-overlay">
       <BiMessageX className="emptyMessageWarning-icon" size="5rem" />
-      {errorMessage}
+      <p className="errorMessage">{errorMessage}</p>
     </div>
   );
 }

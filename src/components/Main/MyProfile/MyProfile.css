@@ -2,3 +2,14 @@
 .myProfile-followers {
   cursor: pointer;
 }
+
+.myProfile-following:hover,
+.myProfile-followers:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--button);
+}
+
+.myProfile-following > span,
+.myProfile-followers > span {
+  color: var(--button);
+}

@@ -29,12 +29,13 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  padding-left: 1rem;
 }
 
 .post-author {
   font-weight: bold;
   cursor: pointer;
-  max-width: 66%;
+  max-width: 60%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -54,7 +55,6 @@
   line-height: 1.5rem;
   height: auto;
   word-wrap: break-word;
-  white-space: pre-wrap;
   text-align: left;
 }
 
@@ -107,5 +107,9 @@
 
   .post-userDetails {
     padding-left: 1rem;
+  }
+
+  .post-author {
+    max-width: 55%;
   }
 }

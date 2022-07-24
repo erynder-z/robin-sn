@@ -61,7 +61,7 @@ function UserlistFollowers({ changeActiveTab, showWarning }) {
             }}
           />
         </div>
-        Users you follow
+        Users following you
       </div>
       <div className="userlistFollow-content">
         <div className="userlistFollow">

@@ -253,7 +253,7 @@ function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
                   onKeyDown={(e) => {
                     linkToUserlistFollowing(e);
                   }}>
-                  following: {following.length - 1}
+                  <span>{following.length - 1}</span> Following
                 </div>
                 <div
                   role="link"
@@ -265,7 +265,7 @@ function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
                   onKeyDown={(e) => {
                     linkToUserlistFollowers(e);
                   }}>
-                  followers: {followers.length}
+                  <span>{followers.length}</span> Followers
                 </div>
               </div>{' '}
             </div>

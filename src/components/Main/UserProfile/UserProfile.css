@@ -61,6 +61,11 @@
   color: var(--text-grey);
 }
 
+.profile-following > span,
+.profile-followers > span {
+  color: var(--button);
+}
+
 .profile-description {
   grid-area: description;
   place-self: center;

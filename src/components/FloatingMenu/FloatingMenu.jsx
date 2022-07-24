@@ -19,7 +19,7 @@ function FloatingMenu({ toggleNewPostModal, toggleSearchModal, toggleContextbar,
         fontWeight: 'bold'
       });
       setFabStyle({
-        bottom: 40,
+        bottom: 45,
         right: 1
       });
     } else {

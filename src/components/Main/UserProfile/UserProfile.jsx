@@ -247,8 +247,12 @@ function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUs
                     joined {format(fromUnixTime(user.joined.seconds), 'dd LLLL yyy')}
                   </div>
                   <div className="profile-follow-container">
-                    <div className="profile-following">following: {user.following.length - 1}</div>
-                    <div className="profile-followers">followers: {user.followers.length}</div>
+                    <div className="profile-following">
+                      <span>{user.following.length - 1}</span> Following
+                    </div>
+                    <div className="profile-followers">
+                      <span>{user.followers.length}</span> Followers
+                    </div>
                   </div>{' '}
                 </div>
                 <div className="profile-description">{user.description}</div>

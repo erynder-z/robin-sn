@@ -16,7 +16,7 @@ function ChangeUserBackgroundOption({ changeProfileBackground }) {
           changeProfileBackground(e);
         }}
       />
-      change profile background
+      change profile background image
     </label>
   );
 }

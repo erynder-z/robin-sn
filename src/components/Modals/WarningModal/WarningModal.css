@@ -18,3 +18,7 @@
 .emptyMessageWarning-icon {
   animation: pop 0.2s ease-in both;
 }
+.errorMessage {
+  text-align: center;
+  width: 85%;
+}
