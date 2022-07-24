@@ -61,7 +61,8 @@ function CreateUserAccount({ userCredentials }) {
 
   // update userObject to that the user-setup screen will not be shown
   const handleSubmit = (e) => {
-    if (userObject.username) {
+    const onlyAlphanumeric = /^([a-zA-Z0-9 _-]+)$/;
+    if (onlyAlphanumeric.test(userObject.username)) {
       e.preventDefault();
       setUserObject((prevState) => ({
         ...prevState,
@@ -69,7 +70,7 @@ function CreateUserAccount({ userCredentials }) {
       }));
       setIsFinished(true);
     } else {
-      setErrorMessage('enter a username!');
+      setErrorMessage('username cannot be blank and cannot contain any special characters');
     }
   };
 
@@ -155,6 +156,7 @@ function CreateUserAccount({ userCredentials }) {
                   }));
                 }}
                 required
+                pattern="[^()/><\][\\\x22,;|]+"
               />
             </label>
           </div>
