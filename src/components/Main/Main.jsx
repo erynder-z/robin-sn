@@ -286,7 +286,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
     if (usr) {
       checkUserSetup();
     }
-  }, [usr]);
+  }, [usr && !usr.isSetup]);
 
   // check if the user's account setup is complete
   useEffect(() => {
