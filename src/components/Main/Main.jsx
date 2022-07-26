@@ -56,56 +56,9 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
   const [isModalActive, setIsModalActive] = useState(false);
   const [userInView, setUserInView] = useState(null);
 
-  const checkForDeletedPosts = async () => {
-    const userRef = doc(database, 'users', uid);
-    const userSnap = await getDoc(userRef);
-    // checks for any deleted likes inside the user object and purges them is necessary
-    const checkIfLikeExists = async (postID) => {
-      const docRef = doc(database, 'posts', postID);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        return null;
-      }
-
-      if (userSnap.data()) {
-        const likeToDelete = userSnap.data().likes.find((l) => l.postID === postID);
-        await updateDoc(userRef, {
-          likes: arrayRemove(likeToDelete)
-        });
-      }
-      return null;
-    };
-    // checks for any deleted replies inside the user object and purges them is necessary
-    const checkIfReplyExists = async (postID) => {
-      const docRef = doc(database, 'posts', postID);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        return null;
-      }
-
-      if (userSnap.data()) {
-        const replyToDelete = userSnap.data().replies.find((r) => r.postID === postID);
-        await updateDoc(userRef, {
-          replies: arrayRemove(replyToDelete)
-        });
-      }
-      return null;
-    };
-
-    usr?.likes.forEach((like) => {
-      checkIfLikeExists(like.postID);
-    });
-
-    usr?.replies.forEach((reply) => {
-      checkIfReplyExists(reply.postID);
-    });
-  };
-
   const logout = async () => {
     setShowGoodbyleOverlay(true);
-    checkForDeletedPosts().then(await signOut(auth));
+    await signOut(auth);
   };
 
   // indicate if reply-modal is currently shown
@@ -274,12 +227,73 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
     deleteUserAuthentication();
   };
 
-  // check if the user's account setup is complete
+  // check for any references to deleted posts in user object and purge them
+  const checkForDeletedPosts = async () => {
+    const userRef = doc(database, 'users', uid);
+    const userSnap = await getDoc(userRef);
+
+    const purgeDeadLikes = async () => {
+      const checkIfLikeExists = async (postID) => {
+        const docRef = doc(database, 'posts', postID);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          return null;
+        }
+
+        if (userSnap.data()) {
+          const likeToDelete = userSnap.data().likes.find((l) => l.postID === postID);
+          await updateDoc(userRef, {
+            likes: arrayRemove(likeToDelete)
+          });
+        }
+        return null;
+      };
+
+      usr?.likes.forEach((like) => {
+        checkIfLikeExists(like.postID);
+      });
+    };
+
+    const purgeDeadReplies = async () => {
+      const checkIfReplyExists = async (postID) => {
+        const docRef = doc(database, 'posts', postID);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          return null;
+        }
+
+        if (userSnap.data()) {
+          const replyToDelete = userSnap.data().replies.find((r) => r.postID === postID);
+          await updateDoc(userRef, {
+            replies: arrayRemove(replyToDelete)
+          });
+        }
+        return null;
+      };
+
+      usr?.replies.forEach((reply) => {
+        checkIfReplyExists(reply.postID);
+      });
+    };
+
+    purgeDeadLikes();
+    purgeDeadReplies();
+  };
+
   useEffect(() => {
     if (usr) {
       checkUserSetup();
     }
   }, [usr]);
+
+  // check if the user's account setup is complete
+  useEffect(() => {
+    if (usr) {
+      checkForDeletedPosts();
+    }
+  }, [!loading]);
 
   // check if post is bookmarket whenever a new post is selected
   useEffect(() => {
