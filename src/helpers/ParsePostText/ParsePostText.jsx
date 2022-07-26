@@ -3,7 +3,7 @@ import parse from 'html-react-parser';
 const parsePostText = (text) => {
   // return JSX-elements for url's, hashtags and mentions
   const urlRegex = /(https?:\/\/[^\s]+)/g;
-  const hashtagRegex = /(?=#).*?(?=( |$))/g;
+  const hashtagRegex = /(?=#)\S+\b/g;
   const mentionRegex = /@\S([^\s]+)/g;
   return parse(
     text
