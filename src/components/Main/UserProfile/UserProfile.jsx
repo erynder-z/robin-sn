@@ -95,6 +95,16 @@ function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUs
     }
   };
 
+  const linkToUserlistFollowingOther = (e) => {
+    e.stopPropagation();
+    navigate('/main/userlist_following_other');
+  };
+
+  const linkToUserlistFollowersOther = (e) => {
+    e.stopPropagation();
+    navigate('/main/userlist_followers_other');
+  };
+
   // lists all the posts made by the user
   const Posts = (
     <div className="posts fadein">
@@ -247,10 +257,28 @@ function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUs
                     joined {format(fromUnixTime(user.joined.seconds), 'dd LLLL yyy')}
                   </div>
                   <div className="profile-follow-container">
-                    <div className="profile-following">
+                    <div
+                      className="profile-following"
+                      role="link"
+                      tabIndex={0}
+                      onClick={(e) => {
+                        linkToUserlistFollowingOther(e);
+                      }}
+                      onKeyDown={(e) => {
+                        linkToUserlistFollowingOther(e);
+                      }}>
                       <span>{user.following.length - 1}</span> Following
                     </div>
-                    <div className="profile-followers">
+                    <div
+                      className="profile-followers"
+                      role="link"
+                      tabIndex={0}
+                      onClick={(e) => {
+                        linkToUserlistFollowersOther(e);
+                      }}
+                      onKeyDown={(e) => {
+                        linkToUserlistFollowersOther(e);
+                      }}>
                       <span>{user.followers.length}</span> Followers
                     </div>
                   </div>{' '}

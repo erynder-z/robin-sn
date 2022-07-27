@@ -31,8 +31,10 @@ import StatsModal from '../Modals/StatsModal/StatsModal';
 import DeleteUserModal from '../Modals/DeleteUserModal/DeleteUserModal';
 import UpdateUserDescModal from '../Modals/UpdateUserDescModal/UpdateUserDescModal';
 import LoadingScreen from '../Overlays/LoadingScreen/LoadingScreen';
-import './Main.css';
 import ChangePasswordModal from '../Modals/ChangePasswordModal/ChangePasswordModal';
+import UserlistFollowersOther from './UserlistFollowersOther/UserlistFollowersOther';
+import UserlistFollowingOther from './UserlistFollowingOther/UserlistFollowingOther';
+import './Main.css';
 
 function Main({ userCredentials, setShowGoodbyleOverlay }) {
   const navigate = useNavigate();
@@ -477,6 +479,30 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
           element={
             isUserSetup ? (
               <UserlistFollowers changeActiveTab={changeActiveTab} showWarning={showWarning} />
+            ) : null
+          }
+        />
+        <Route
+          path="userlist_following_other"
+          element={
+            isUserSetup ? (
+              <UserlistFollowingOther
+                changeActiveTab={changeActiveTab}
+                showWarning={showWarning}
+                userInView={userInView}
+              />
+            ) : null
+          }
+        />
+        <Route
+          path="userlist_followers_other"
+          element={
+            isUserSetup ? (
+              <UserlistFollowersOther
+                changeActiveTab={changeActiveTab}
+                showWarning={showWarning}
+                userInView={userInView}
+              />
             ) : null
           }
         />
