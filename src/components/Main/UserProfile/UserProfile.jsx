@@ -178,7 +178,7 @@ function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUs
         </div>
       )}
       {user &&
-        sortPosts(user.likes).map((post) => (
+        user.likes.map((post) => (
           <PostItem
             key={post.postID}
             postID={post.postID}
