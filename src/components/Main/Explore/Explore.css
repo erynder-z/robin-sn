@@ -9,7 +9,7 @@
 
 .otherTrends-container {
   display: grid;
-  grid-template-columns: minmax(auto, 33%) minmax(auto, 33%) minmax(auto, 33%);
+  grid-template-columns: minmax(0, auto) minmax(0, auto) minmax(0, auto);
   gap: 0.5rem;
 }
 
@@ -28,6 +28,10 @@
 
 .trend-item > span {
   color: var(--text-bright);
+}
+
+.otherTrends-container > .trend-item {
+  font-size: 1rem;
 }
 
 .other-trends {

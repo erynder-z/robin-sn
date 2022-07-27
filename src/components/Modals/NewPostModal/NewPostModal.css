@@ -15,8 +15,8 @@
 }
 
 .newPostModal-upper {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 10fr 1fr;
   padding: 1rem 0;
   max-width: 100%;
 }

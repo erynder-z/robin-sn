@@ -61,6 +61,17 @@
   color: var(--text-grey);
 }
 
+.profile-following,
+.profile-followers {
+  cursor: pointer;
+}
+
+.profile-following:hover,
+.profile-followers:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--button);
+}
+
 .profile-following > span,
 .profile-followers > span {
   color: var(--button);
