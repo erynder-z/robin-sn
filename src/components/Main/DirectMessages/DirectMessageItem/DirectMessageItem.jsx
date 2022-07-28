@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
-import { BiEnvelope, BiEnvelopeOpen, BiReply, BiTrash } from 'react-icons/bi';
+import { BiEnvelope, BiEnvelopeOpen, BiUserCircle, BiReply, BiTrash } from 'react-icons/bi';
 import { arrayRemove, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import { database } from '../../../../data/firebase';
 import { GetUserContext } from '../../../../contexts/UserContext';
 import limitNumberOfPosts from '../../../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
@@ -19,6 +20,7 @@ function DirectMessageItem({
   const { userData } = GetUserContext();
   const [expandMessage, setExpandMessage] = useState(false);
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   const getUserData = async () => {
     try {
@@ -58,6 +60,12 @@ function DirectMessageItem({
     });
   };
 
+  const gotoProfile = () => {
+    navigate(`/main/userprofile/${user.userID}`, {
+      state: { usr: user.userID }
+    });
+  };
+
   useEffect(() => {
     getUserData();
   }, []);
@@ -84,6 +92,16 @@ function DirectMessageItem({
       <div className={`messageListItem-lower ${expandMessage ? 'expand' : null}`}>
         <p className="messageListItem-content">{message.messageContent}</p>
         <div className="messageListItem-options">
+          <BiUserCircle
+            title="Visit profile"
+            size="2rem"
+            className="messageListItem-gotoProfile"
+            onClick={(e) => {
+              gotoProfile();
+              e.stopPropagation();
+            }}
+          />
+
           <BiTrash
             title="Delete this message"
             size="2rem"
