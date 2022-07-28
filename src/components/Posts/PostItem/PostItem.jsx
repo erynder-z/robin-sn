@@ -137,9 +137,13 @@ function PostItem({ postID, handleSetModalActive }) {
 
   const linkToUserProfile = (e) => {
     e.stopPropagation();
-    navigate(`/main/userprofile/${postOwner.ownerID}`, {
-      state: { usr: postOwner.ownerID }
-    });
+    if (postOwner.ownerID === userData.userID) {
+      navigate('/main/myProfile');
+    } else {
+      navigate(`/main/userprofile/${postOwner.ownerID}`, {
+        state: { usr: postOwner.ownerID }
+      });
+    }
   };
 
   const toggleReplyModal = () => {
