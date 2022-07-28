@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { BiImageAdd } from 'react-icons/bi';
-import { doc, serverTimestamp, Timestamp, setDoc } from 'firebase/firestore';
+import { doc, serverTimestamp, Timestamp, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { database } from '../../data/firebase';
 import placeholder from '../../assets/placeholder.png';
@@ -29,7 +29,7 @@ function CreateUserAccount({ userCredentials }) {
     useremail: email,
     joined: serverTimestamp(),
     followers: [],
-    following: [{ userID: uid }], // so the user can see it's own posts in the home component
+    following: [{ userID: uid }, { userID: 'rDQkZcxpSdTH8L1Oq7vIrwM1aUz2' }], // The users own ID + a default follow
     posts: [],
     replies: [],
     reposts: [],
@@ -39,7 +39,7 @@ function CreateUserAccount({ userCredentials }) {
       {
         messageID: 'robin1',
         messageContent:
-          "Hello, I'm Stefan, creator of Robin. Thank you so much for trying this app! I hope you like it!",
+          "Hello, I'm Stefan, the creator of Robin. Thank you so much for trying this app! I hope you like it!",
         senderID: 'LXpgyqXRl6SVzxlXpPQCcDArkdE2',
         isRead: false,
         sendDate: Timestamp.now(),
@@ -110,9 +110,18 @@ function CreateUserAccount({ userCredentials }) {
     }
   };
 
+  // update the dummy "Robin" profile with the newly signed up users ID
+  const updateUserRobin = async () => {
+    const robinRef = doc(database, 'users', 'rDQkZcxpSdTH8L1Oq7vIrwM1aUz2');
+    await updateDoc(robinRef, {
+      followers: arrayUnion({ userID: uid })
+    });
+  };
+
   // navitage to main component if setup is finished
   useEffect(() => {
     if (isFinished) {
+      updateUserRobin();
       uploadUser();
       navigate('/main');
     }
