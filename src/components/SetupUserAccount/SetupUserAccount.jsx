@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { BiImageAdd } from 'react-icons/bi';
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { doc, serverTimestamp, Timestamp, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { database } from '../../data/firebase';
 import placeholder from '../../assets/placeholder.png';
@@ -35,7 +35,17 @@ function CreateUserAccount({ userCredentials }) {
     reposts: [],
     likes: [],
     bookmarks: [],
-    messages: [],
+    messages: [
+      {
+        messageID: 'robin1',
+        messageContent:
+          "Hello, I'm Stefan, creator of Robin. Thank you so much for trying this app! I hope you like it!",
+        senderID: 'LXpgyqXRl6SVzxlXpPQCcDArkdE2',
+        isRead: false,
+        sendDate: Timestamp.now(),
+        senderUsername: 'erynder-z'
+      }
+    ],
     active: false
   });
 
