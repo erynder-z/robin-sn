@@ -13,6 +13,7 @@
   height: auto;
   padding-bottom: 0.5rem;
   align-self: center;
+  color: var(--button);
 }
 
 .message-markRead,
@@ -23,6 +24,11 @@
   cursor: pointer;
   padding: 0.5rem;
   width: 100%;
+}
+
+.message-markRead:hover,
+.message-delete:hover {
+  color: var(--button);
 }
 
 .message-markRead-icon,

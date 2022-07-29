@@ -11,6 +11,7 @@
 
 .userlist-header {
   justify-content: center;
+  color: var(--button);
 }
 
 .userlist-usrpic {

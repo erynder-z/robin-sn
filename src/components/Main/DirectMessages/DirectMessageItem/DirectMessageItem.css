@@ -67,6 +67,10 @@
   padding: 1rem;
 }
 
+.messageListItem-gotoProfile {
+  margin-right: auto;
+}
+
 .selected {
   background-color: var(--sidebar-background-mobile);
 }

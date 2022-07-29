@@ -9,10 +9,11 @@
   height: auto;
 }
 
-.myPost {
+.myPost-header {
   height: auto;
   padding-bottom: 0.5rem;
   align-self: center;
+  color: var(--button);
 }
 
 .post-delete {
@@ -22,6 +23,10 @@
   cursor: pointer;
   padding: 0.5rem;
   width: 100%;
+}
+
+.post-delete:hover {
+  color: var(--button);
 }
 
 .deletePost {

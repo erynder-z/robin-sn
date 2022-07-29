@@ -11,6 +11,7 @@
 .profileOptionsOther-header {
   height: auto;
   padding-bottom: 0.5rem;
+  color: var(--button);
 }
 
 .sendDm,
@@ -21,6 +22,11 @@
   cursor: pointer;
   padding: 0.5rem;
   width: 100%;
+}
+
+.sendDm:hover,
+.follow:hover {
+  color: var(--button);
 }
 
 .sendDm-icon,

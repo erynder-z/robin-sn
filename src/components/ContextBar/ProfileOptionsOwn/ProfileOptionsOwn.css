@@ -11,6 +11,7 @@
 .profileOptions-header {
   height: auto;
   padding-bottom: 0.5rem;
+  color: var(--button);
 }
 
 .deleteAccount,
@@ -26,6 +27,16 @@
   cursor: pointer;
   padding: 0.5rem;
   width: 100%;
+}
+
+.deleteAccount:hover,
+.changeUserpic:hover,
+.changeProfileBackground:hover,
+.removeBackground:hover,
+.accountStats:hover,
+.updateDescription:hover,
+.changePassword:hover {
+  color: var(--button);
 }
 
 .deleteAccount-icon,

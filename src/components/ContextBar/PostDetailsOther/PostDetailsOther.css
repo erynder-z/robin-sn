@@ -9,10 +9,11 @@
   height: auto;
 }
 
-.otherPost {
+.otherPost-header {
   height: auto;
   padding-bottom: 0.5rem;
   align-self: center;
+  color: var(--button);
 }
 
 .post-bookmark {
@@ -22,6 +23,10 @@
   cursor: pointer;
   padding: 0.5rem;
   width: 100%;
+}
+
+.post-bookmark:hover {
+  color: var(--button);
 }
 
 .post-bookmark-icon {

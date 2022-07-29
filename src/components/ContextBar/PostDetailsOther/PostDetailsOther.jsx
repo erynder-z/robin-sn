@@ -19,7 +19,7 @@ function PostDetailsOther({ bookmarkPost, isPostBookmarked }) {
 
   return (
     <div className="postDetails-other fadein">
-      <div className="otherPost">Post options</div>
+      <div className="otherPost-header">Post options</div>
       <div className="bookmarkPost">
         {bookmarkCheck && <BookmarkOption handleBookmark={handleBookmark} />}
         {!bookmarkCheck && <RemoveBookmarkOption handleBookmark={handleBookmark} />}

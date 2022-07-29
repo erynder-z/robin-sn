@@ -24,7 +24,7 @@ function PostDetailsOwn({ deletePost, postInfo, bookmarkPost, isPostBookmarked }
 
   return (
     <div className="postDetails-own fadein">
-      <div className="myPost">My post</div>
+      <div className="myPost-header">My post</div>
       <DeletePostOption handleDeletePost={handleDeletePost} />
 
       <div className="bookmarkPost">
