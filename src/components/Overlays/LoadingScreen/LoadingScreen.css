@@ -4,20 +4,26 @@
   left: 0;
   height: 100vh;
   width: 100vw;
-  background-color: var(--card-background);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: var(--text-bright);
+  background-image: url('../../../assets/logo.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  animation-name: custom-fadein;
+  animation-duration: 2s;
 }
 
 .loading-icon {
   animation: spin 1s infinite;
-  color: var(--button);
+  color: var(--content-background);
 }
 
 .loading > span {
   margin-top: 1rem;
-  color: var(--button);
+  color: var(--content-background);
 }

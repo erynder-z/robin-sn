@@ -141,87 +141,89 @@ function CreateUserAccount({ userCredentials }) {
   return showLoading ? (
     <LoadingScreen />
   ) : (
-    <div className="setup-user-account fadein">
-      <h3>Set up your user account</h3>
-      <div className="setup-user-container">
-        <img className="setup-userpic" src={userObject.userPic} alt="avatar" />
-        <label htmlFor="picture" className="custom-file-upload-label">
-          <BiImageAdd size="2rem" />
-          <input
-            className="custom-file-upload"
-            type="file"
-            id="picture"
-            name="picture"
-            accept="image/png, image/jpeg"
-            onChange={(e) => {
-              uploadUserpic(e);
-            }}
-          />
-        </label>
+    <div className="setup-background-overlay">
+      <div className="setup-user-account fadein">
+        <h3 className="setup-header">Set up your user account</h3>
+        <div className="setup-user-container">
+          <img className="setup-userpic" src={userObject.userPic} alt="avatar" />
+          <label htmlFor="picture" className="custom-file-upload-label">
+            <BiImageAdd size="2rem" />
+            <input
+              className="custom-file-upload"
+              type="file"
+              id="picture"
+              name="picture"
+              accept="image/png, image/jpeg"
+              onChange={(e) => {
+                uploadUserpic(e);
+              }}
+            />
+          </label>
 
-        <form>
-          <div className="user-input-container">
-            <label htmlFor="uname" className="unameinput-label">
-              <h3>Username</h3>
-              <input
-                className="username-input"
+          <form>
+            <div className="user-input-container">
+              <label htmlFor="uname" className="unameinput-label">
+                <h3>Username</h3>
+                <input
+                  className="username-input"
+                  type="text"
+                  placeholder="enter user name"
+                  value={userObject.username}
+                  onChange={(e) => {
+                    setUserObject((prevState) => ({
+                      ...prevState,
+                      username: e.target.value
+                    }));
+                  }}
+                  required
+                  pattern="[^()/><\][\\\x22,;|]+"
+                />
+              </label>
+            </div>
+            <label htmlFor="udesc" className="descinput-label">
+              <h3>About you</h3>
+              <textarea
+                className="description-input"
                 type="text"
-                placeholder="enter user name"
-                value={userObject.username}
+                maxLength="120"
+                placeholder="max. 120 characters"
+                value={userObject.description}
                 onChange={(e) => {
                   setUserObject((prevState) => ({
                     ...prevState,
-                    username: e.target.value
+                    description: e.target.value
                   }));
                 }}
                 required
-                pattern="[^()/><\][\\\x22,;|]+"
               />
             </label>
-          </div>
-          <label htmlFor="udesc" className="descinput-label">
-            <h3>About you</h3>
-            <textarea
-              className="description-input"
-              type="text"
-              maxLength="120"
-              placeholder="max. 120 characters"
-              value={userObject.description}
-              onChange={(e) => {
-                setUserObject((prevState) => ({
-                  ...prevState,
-                  description: e.target.value
-                }));
-              }}
-              required
-            />
-          </label>
-        </form>
-        <button
-          type="submit"
-          className="createBtn"
-          onClick={(e) => {
-            handleSubmit(e);
-          }}
-          onKeyDown={(e) => {
-            handleSubmit(e);
-          }}
-          tabIndex={0}>
-          Let&apos;s go! <img className="logo-mini" src={logoOutline} alt="app logo" />
-        </button>
-      </div>
-
-      {showCropper && (
-        <div className="avatarCreator-overlay">
-          <AvatarCreator
-            image={userObject.userPic}
-            setUserObject={setUserObject}
-            setShowCropper={setShowCropper}
-            functionCallOrigin="createAccount"
-          />
+          </form>
+          <button
+            type="submit"
+            className="createBtn"
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
+            onKeyDown={(e) => {
+              handleSubmit(e);
+            }}
+            tabIndex={0}>
+            Let&apos;s go! <img className="logo-mini" src={logoOutline} alt="app logo" />
+          </button>
         </div>
-      )}
-      {errorMessage && <WarningModal errorMessage={errorMessage} />}
+
+        {showCropper && (
+          <div className="avatarCreator-overlay">
+            <AvatarCreator
+              image={userObject.userPic}
+              setUserObject={setUserObject}
+              setShowCropper={setShowCropper}
+              functionCallOrigin="createAccount"
+            />
+          </div>
+        )}
+        {errorMessage && <WarningModal errorMessage={errorMessage} />}
+      </div>
     </div>
   );
 }
