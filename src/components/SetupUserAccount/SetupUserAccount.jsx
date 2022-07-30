@@ -12,7 +12,7 @@ import WarningModal from '../Modals/WarningModal/WarningModal';
 import logoOutline from '../../assets/logo_outline.png';
 import './SetupUserAccount.css';
 
-function CreateUserAccount({ userCredentials }) {
+function SetupUserAccount({ userCredentials }) {
   const navigate = useNavigate();
   const { uid, email } = userCredentials;
   const [isFinished, setIsFinished] = useState(false);
@@ -228,9 +228,9 @@ function CreateUserAccount({ userCredentials }) {
   );
 }
 
-export default CreateUserAccount;
+export default SetupUserAccount;
 
-CreateUserAccount.propTypes = {
+SetupUserAccount.propTypes = {
   userCredentials: PropTypes.shape({
     uid: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired
