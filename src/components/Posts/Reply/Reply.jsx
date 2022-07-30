@@ -20,6 +20,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner, setReplyEffect 
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
+  // normalize progessbar values so it correctly works with values !== 100
   const normaliseProgressbar = (value) => ((value - 0) * 100) / (120 - 0);
 
   // add replied post's ID to user object

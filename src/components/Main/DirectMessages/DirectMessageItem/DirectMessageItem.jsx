@@ -133,6 +133,11 @@ function DirectMessageItem({
 export default DirectMessageItem;
 
 DirectMessageItem.propTypes = {
+  handleMarkMessageAsRead: PropTypes.func.isRequired,
+  toggleMessageModal: PropTypes.func.isRequired,
+  handleSetModalActive: PropTypes.func.isRequired,
+  showWarning: PropTypes.func.isRequired,
+  setUserInView: PropTypes.func.isRequired,
   message: PropTypes.shape({
     messageID: PropTypes.string.isRequired,
     messageContent: PropTypes.string.isRequired,
@@ -140,10 +145,5 @@ DirectMessageItem.propTypes = {
     isRead: PropTypes.bool.isRequired,
     sendDate: PropTypes.objectOf(PropTypes.number).isRequired,
     senderUsername: PropTypes.string.isRequired
-  }).isRequired,
-  handleMarkMessageAsRead: PropTypes.func.isRequired,
-  toggleMessageModal: PropTypes.func.isRequired,
-  handleSetModalActive: PropTypes.func.isRequired,
-  showWarning: PropTypes.func.isRequired,
-  setUserInView: PropTypes.func.isRequired
+  }).isRequired
 };

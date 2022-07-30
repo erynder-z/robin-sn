@@ -12,6 +12,7 @@ function Bookmarks({ changeActiveTab, handleSetModalActive, showWarning }) {
   const [bookmarks, setBookmarks] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // check and purge bookmarks of posts that have been deleted
   const checkBookmarks = () => {
     const checkIfBookmarkExists = async (postID) => {
       const docRef = doc(database, 'posts', postID);

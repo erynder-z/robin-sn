@@ -170,6 +170,21 @@ function ContextBar({
 export default ContextBar;
 
 ContextBar.propTypes = {
+  toggleMessageModal: PropTypes.func.isRequired,
+  handleSetModalActive: PropTypes.func.isRequired,
+  setShowStatsModal: PropTypes.func.isRequired,
+  setShowDeleteUserModal: PropTypes.func.isRequired,
+  setShowUpdateUserDescModal: PropTypes.func.isRequired,
+  setShowChangePasswordModal: PropTypes.func.isRequired,
+  activeTab: PropTypes.string.isRequired,
+  deletePost: PropTypes.func.isRequired,
+  isPostBookmarked: PropTypes.bool.isRequired,
+  showContextbar: PropTypes.bool.isRequired,
+  toggleContextbar: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
+  showWarning: PropTypes.func.isRequired,
+  showOverlayEffect: PropTypes.func.isRequired,
+
   postInfo: PropTypes.shape({
     post: PropTypes.shape({
       content: PropTypes.string,
@@ -190,14 +205,7 @@ ContextBar.propTypes = {
       reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string))
     })
   }),
-  activeTab: PropTypes.string.isRequired,
-  deletePost: PropTypes.func.isRequired,
-  isPostBookmarked: PropTypes.bool.isRequired,
-  showContextbar: PropTypes.bool.isRequired,
-  toggleContextbar: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
-  showWarning: PropTypes.func.isRequired,
-  showOverlayEffect: PropTypes.func.isRequired,
+
   userInView: PropTypes.shape({
     userPic: PropTypes.string,
     username: PropTypes.string,
@@ -227,13 +235,7 @@ ContextBar.propTypes = {
         senderUsername: PropTypes.string.isRequired
       })
     )
-  }),
-  toggleMessageModal: PropTypes.func.isRequired,
-  handleSetModalActive: PropTypes.func.isRequired,
-  setShowStatsModal: PropTypes.func.isRequired,
-  setShowDeleteUserModal: PropTypes.func.isRequired,
-  setShowUpdateUserDescModal: PropTypes.func.isRequired,
-  setShowChangePasswordModal: PropTypes.func.isRequired
+  })
 };
 
 ContextBar.defaultProps = {
@@ -248,6 +250,7 @@ ContextBar.defaultProps = {
     replies: {},
     reposts: []
   }),
+
   userInView: PropTypes.shape({
     userPic: '',
     username: '',

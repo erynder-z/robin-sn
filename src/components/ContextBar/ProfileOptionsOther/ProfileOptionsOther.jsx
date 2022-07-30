@@ -14,7 +14,6 @@ function ProfileOptionsOther({
   handleSetModalActive
 }) {
   const { userData } = GetUserContext();
-
   const [isFollowing, setIsFollowing] = useState(null);
 
   const checkIfFollowing = () => {
@@ -59,6 +58,11 @@ function ProfileOptionsOther({
 export default ProfileOptionsOther;
 
 ProfileOptionsOther.propTypes = {
+  follow: PropTypes.func.isRequired,
+  unFollow: PropTypes.func.isRequired,
+  toggleMessageModal: PropTypes.func.isRequired,
+  handleSetModalActive: PropTypes.func.isRequired,
+
   userInView: PropTypes.shape({
     userPic: PropTypes.string,
     username: PropTypes.string,
@@ -88,11 +92,7 @@ ProfileOptionsOther.propTypes = {
       })
     ),
     active: PropTypes.bool.isRequired
-  }),
-  follow: PropTypes.func.isRequired,
-  unFollow: PropTypes.func.isRequired,
-  toggleMessageModal: PropTypes.func.isRequired,
-  handleSetModalActive: PropTypes.func.isRequired
+  })
 };
 
 ProfileOptionsOther.defaultProps = {

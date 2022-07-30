@@ -138,6 +138,9 @@ export default MessageModal;
 MessageModal.propTypes = {
   showWarning: PropTypes.func.isRequired,
   showOverlayEffect: PropTypes.func.isRequired,
+  toggleMessageModal: PropTypes.func.isRequired,
+  handleSetModalActive: PropTypes.func.isRequired,
+
   userInView: PropTypes.shape({
     userPic: PropTypes.string,
     username: PropTypes.string,
@@ -166,9 +169,7 @@ MessageModal.propTypes = {
         sendDate: PropTypes.objectOf(PropTypes.number)
       })
     )
-  }),
-  toggleMessageModal: PropTypes.func.isRequired,
-  handleSetModalActive: PropTypes.func.isRequired
+  })
 };
 
 MessageModal.defaultProps = {

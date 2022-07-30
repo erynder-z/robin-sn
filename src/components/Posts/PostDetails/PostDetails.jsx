@@ -10,8 +10,8 @@ import PostItem from '../PostItem/PostItem';
 import Reply from '../Reply/Reply';
 import ReplyItem from '../ReplyItem/ReplyItem';
 import limitNumberOfPosts from '../../../helpers/LimitNumberOfPosts/limitNumberOfPosts';
-import './PostDetails.css';
 import FetchingIcon from '../../Main/FetchingIcon/FetchingIcon';
+import './PostDetails.css';
 
 function PostDetails({ changeActiveTab, handlePostInfo, handleSetModalActive, showOverlayEffect }) {
   const { userData } = GetUserContext();

@@ -38,6 +38,10 @@ function PostDetailsOwn({ deletePost, postInfo, bookmarkPost, isPostBookmarked }
 export default PostDetailsOwn;
 
 PostDetailsOwn.propTypes = {
+  deletePost: PropTypes.func.isRequired,
+  bookmarkPost: PropTypes.func.isRequired,
+  isPostBookmarked: PropTypes.bool.isRequired,
+
   postInfo: PropTypes.shape({
     post: PropTypes.shape({
       content: PropTypes.string,
@@ -57,10 +61,7 @@ PostDetailsOwn.propTypes = {
       ),
       reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string))
     })
-  }),
-  deletePost: PropTypes.func.isRequired,
-  bookmarkPost: PropTypes.func.isRequired,
-  isPostBookmarked: PropTypes.bool.isRequired
+  })
 };
 
 PostDetailsOwn.defaultProps = {

@@ -10,10 +10,10 @@ import FetchingIcon from '../../FetchingIcon/FetchingIcon';
 
 function Trends({ searchQuery, changeActiveTab, handleSetModalActive, showWarning }) {
   const { userData } = GetUserContext();
-  const navigate = useNavigate();
   const [postResults, setPostResults] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const getSearchResults = async (string) => {
     try {
@@ -38,7 +38,6 @@ function Trends({ searchQuery, changeActiveTab, handleSetModalActive, showWarnin
     } catch (err) {
       showWarning(err.message);
     }
-    /*  setLoading(false); */
   };
 
   useEffect(() => {

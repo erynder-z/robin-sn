@@ -234,6 +234,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
     const userRef = doc(database, 'users', uid);
     const userSnap = await getDoc(userRef);
 
+    // delete likes that do not exist in the database
     const purgeDeadLikes = async () => {
       const checkIfLikeExists = async (postID) => {
         const docRef = doc(database, 'posts', postID);
@@ -257,6 +258,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
       });
     };
 
+    // delete replies that do not exists in the database
     const purgeDeadReplies = async () => {
       const checkIfReplyExists = async (postID) => {
         const docRef = doc(database, 'posts', postID);
@@ -284,6 +286,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
     purgeDeadReplies();
   };
 
+  // check if user has finished setup
   useEffect(() => {
     if (usr) {
       checkUserSetup();
@@ -511,7 +514,6 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
         <ContextBar
           activeTab={activeTab}
           postInfo={postInfo}
-          /*  deleteAccount={deleteAccount} */
           deletePost={deletePost}
           isPostBookmarked={isPostBookmarked}
           showContextbar={showContextbar}
@@ -589,8 +591,8 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
 export default Main;
 
 Main.propTypes = {
+  setShowGoodbyleOverlay: PropTypes.func.isRequired,
   userCredentials: PropTypes.shape({
     uid: PropTypes.string.isRequired
-  }).isRequired,
-  setShowGoodbyleOverlay: PropTypes.func.isRequired
+  }).isRequired
 };

@@ -87,6 +87,7 @@ export default UserlistFollowersOther;
 UserlistFollowersOther.propTypes = {
   changeActiveTab: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired,
+
   userInView: PropTypes.shape({
     userPic: PropTypes.string,
     username: PropTypes.string,
@@ -118,6 +119,7 @@ UserlistFollowersOther.propTypes = {
     )
   })
 };
+
 UserlistFollowersOther.defaultProps = {
   userInView: PropTypes.shape({
     userPic: '',
