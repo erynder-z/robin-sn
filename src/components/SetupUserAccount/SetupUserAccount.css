@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
   z-index: 999;
-  background-image: url('../../assets/logo.png');
+  background-image: url('../../assets/logo_outline.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -36,11 +36,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 60%;
+  height: 100%;
   width: 25%;
-  border: solid 2px var(--border);
   padding: 2rem;
-  border-radius: 10px;
+  background-color: rgba(245, 245, 245, 0.1);
 }
 
 .setup-header {
@@ -52,6 +51,7 @@
   width: 150px;
   height: 150px;
   border-radius: 50%;
+  margin-bottom: 1rem;
 }
 
 .setup-user-container form {
@@ -63,17 +63,15 @@
 
 .custom-file-upload-label {
   color: var(--text-bright);
-  width: 3rem;
-  height: 3rem;
+  height: 0;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-
   position: relative;
-  top: -30px;
-  right: -60px;
+  top: -15px;
+  right: -55px;
 }
 
 .custom-file-upload {
@@ -122,6 +120,7 @@ input[type='file'] {
   padding: 1rem;
   font-size: 0.9rem;
   font: inherit;
+  /*   border: solid 1px var(--text-grey); */
 }
 
 .description-input:focus {
@@ -210,6 +209,8 @@ input[type='file'] {
     padding: 0;
     height: 100%;
     border: none;
+    background-color: unset;
+    justify-content: space-evenly;
   }
 
   .setup-header {
@@ -218,9 +219,14 @@ input[type='file'] {
   }
 
   .setup-userpic {
-    width: 100px;
-    height: 100px;
-    margin-top: 1rem;
+    width: 125px;
+    height: 125px;
+    margin: 2rem 0;
+  }
+
+  .custom-file-upload-label {
+    top: -40px;
+    right: -40px;
   }
 
   .setup-user-container form {
@@ -243,10 +249,12 @@ input[type='file'] {
 
   .username-input {
     width: 85%;
+    background-color: rgba(245, 245, 245, 0.1);
   }
 
   .description-input {
     width: 85%;
+    background-color: rgba(245, 245, 245, 0.1);
   }
 
   .logo-mini {

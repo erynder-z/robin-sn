@@ -16,7 +16,7 @@ function CreateNewAccount({
 }) {
   return (
     <>
-      <div className="backPost">
+      <div className="backPost fadein">
         <BiArrowBack
           className="login-back"
           size="3rem"
@@ -32,7 +32,7 @@ function CreateNewAccount({
           }}
         />
       </div>
-      <div className="signup-email">
+      <div className="signup-email fadein">
         <header>
           <div className="app-header-container">
             <h2 className="app-header">Create your account</h2>

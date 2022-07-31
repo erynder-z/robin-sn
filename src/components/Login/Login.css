@@ -2,11 +2,20 @@
 .signup-container {
   background-color: var(--content-background);
   color: var(--text-bright);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 5fr 0.5fr;
+  grid-template-areas:
+    'header signup'
+    'logo signup'
+    'about signup';
+}
+
+.login-header {
+  width: 100%;
+  text-align: center;
 }
 
 .signin-email {
@@ -14,22 +23,41 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+}
+
+.signin-container > header {
+  grid-area: header;
 }
 
 .app-header-container {
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
 }
 
 .app-header {
   text-align: center;
 }
 
+.login-container {
+  grid-area: signup;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(245, 245, 245, 0.1);
+}
+
+.logo-container {
+  grid-area: logo;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
+
 .logo-big {
-  height: 150px;
-  width: auto;
-  align-self: center;
+  max-width: 66%;
 }
 
 input[type='email'],
@@ -60,11 +88,34 @@ input:focus[type='password'] {
   display: flex;
 }
 
+.about {
+  grid-area: about;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-bright);
+}
+
+.about > a:hover {
+  color: var(--button);
+}
+
+.about-icon {
+  padding-left: 0.5rem;
+}
+
 .loginError {
   color: var(--hashtag);
   height: 1rem;
-  padding-top: 1rem;
   text-align: center;
+  padding-top: 1rem;
 }
 
 .input-container {
@@ -82,6 +133,7 @@ input:focus[type='password'] {
 
 .input-container label input {
   margin-left: 1rem;
+  min-width: 50%;
 }
 
 .loginBtn {
@@ -100,6 +152,7 @@ input:focus[type='password'] {
 
 .createNewAccount-header {
   margin-top: 5rem;
+  text-align: center;
 }
 
 .createNewAccountBtn {
@@ -127,6 +180,19 @@ input:focus[type='password'] {
   background-color: var(--card-background);
 }
 
+.signup-email {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.signup-email > header > .app-header-container > .logo-big {
+  align-self: center;
+  max-width: 20%;
+}
+
 .signupBtn {
   height: 5vh;
   width: 95%;
@@ -135,6 +201,7 @@ input:focus[type='password'] {
   font-size: 1.2rem;
   border: none;
   cursor: pointer;
+  margin-top: 1rem;
 }
 
 .signupBtn:hover {
@@ -142,13 +209,52 @@ input:focus[type='password'] {
 }
 
 .login-back {
-  position: absolute;
+  position: relative;
   top: 50%;
-  left: 10%;
   cursor: pointer;
 }
 
+.loginError-createAcct {
+  color: var(--hashtag);
+  height: 1rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
 @media only screen and (max-width: 768px) {
+  .app-header {
+    padding: 0 1rem;
+  }
+
+  .signin-container,
+  .signup-container {
+    background-color: var(--content-background);
+    color: var(--text-bright);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+  }
+
+  .logo-container {
+    min-height: 0;
+  }
+
+  .logo-big {
+    max-width: 20%;
+  }
+
+  .signup-email > header > .app-header-container > .logo-big {
+    align-self: center;
+    max-width: 50%;
+  }
+
+  .login-container {
+    padding: 1rem 0;
+    width: 95%;
+  }
+
   .login-back {
     top: 5%;
     left: 50%;
@@ -157,5 +263,9 @@ input:focus[type='password'] {
 
   .signin-email > form {
     width: 95vw;
+  }
+
+  .input-container label input {
+    min-width: unset;
   }
 }

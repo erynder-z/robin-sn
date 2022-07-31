@@ -13,8 +13,8 @@ function LoginAccount({
 }) {
   return (
     <>
-      <h2 className="login-header">Login to existing account</h2>
-      <div className="signin-email">
+      <h2 className="login-header fadein">Login to existing account</h2>
+      <div className="signin-email fadein">
         <form>
           <div className="input-container">
             <label htmlFor="uname">

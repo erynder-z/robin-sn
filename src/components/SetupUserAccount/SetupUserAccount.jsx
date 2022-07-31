@@ -143,11 +143,12 @@ function SetupUserAccount({ userCredentials }) {
   ) : (
     <div className="setup-background-overlay">
       <div className="setup-user-account fadein">
-        <h3 className="setup-header">Set up your user account</h3>
         <div className="setup-user-container">
+          {' '}
+          <h3 className="setup-header">Set up your user account</h3>
           <img className="setup-userpic" src={userObject.userPic} alt="avatar" />
           <label htmlFor="picture" className="custom-file-upload-label">
-            <BiImageAdd size="2rem" />
+            <BiImageAdd size="2.5rem" />
             <input
               className="custom-file-upload"
               type="file"
@@ -159,7 +160,6 @@ function SetupUserAccount({ userCredentials }) {
               }}
             />
           </label>
-
           <form>
             <div className="user-input-container">
               <label htmlFor="uname" className="unameinput-label">

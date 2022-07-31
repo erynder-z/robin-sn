@@ -9,7 +9,7 @@
   justify-content: center;
   align-items: center;
   color: var(--text-bright);
-  background-image: url('../../../assets/logo.png');
+  background-image: url('../../../assets/logo_outline.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -20,10 +20,10 @@
 
 .loading-icon {
   animation: spin 1s infinite;
-  color: var(--content-background);
+  color: var(--button);
 }
 
 .loading > span {
   margin-top: 1rem;
-  color: var(--content-background);
+  color: var(--button);
 }
