@@ -16,7 +16,6 @@ import {
 } from 'firebase/firestore';
 import { database, storage } from '../../../data/firebase';
 import { GetUserContext } from '../../../contexts/UserContext';
-import resizeFile from '../../../helpers/ImageResizer/ImageResizer';
 import parseHashtag from '../../../helpers/HashtagCreator/HashtagCreator';
 import parseMention from '../../../helpers/MentionCreator/MentionCreator';
 import EmojiPicker from '../EmojiPicker/EmojiPicker';
@@ -123,12 +122,10 @@ function NewPostModal({ toggleNewPostModal, showOverlayEffect, showWarning }) {
   const handleImageUpload = async (e) => {
     try {
       const file = e.target.files[0];
-      const image = await resizeFile(file);
-      setImageUpload(image);
-
+      setImageUpload(file);
       // image needs to be base64 to be rendered, so it must be converted first
       const reader = new FileReader();
-      reader.readAsDataURL(image);
+      reader.readAsDataURL(file);
       reader.onloadend = () => {
         const base64data = reader.result;
         setImagePreview(base64data);

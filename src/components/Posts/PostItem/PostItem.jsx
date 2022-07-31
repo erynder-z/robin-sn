@@ -20,6 +20,7 @@ import OverlayEffect from '../../Overlays/OverlayEffect/OverlayEffect';
 import parsePostText from '../../../helpers/ParsePostText/ParsePostText';
 import convertDate from '../../../helpers/ConvertDate/ConvertDate';
 import './PostItem.css';
+import FullscreenImageOverlay from '../../Overlays/FullscreenImageOverlay/FullscreenImageOverlay';
 
 function PostItem({ postID, handleSetModalActive }) {
   const { userData } = GetUserContext();
@@ -31,6 +32,7 @@ function PostItem({ postID, handleSetModalActive }) {
   const [errorMessage, setErrorMessage] = useState(null);
   // handle overlayEffect when replying here, because Reply-component gests unmounted before effect can be shown
   const [replyEffect, setReplyEffect] = useState(null);
+  const [showFullscreenImage, setShowFullscreenImage] = useState(false);
   const postDocRef = doc(database, 'posts', postID);
   const userDocRef = doc(database, 'users', userData.userID);
 
@@ -225,7 +227,20 @@ function PostItem({ postID, handleSetModalActive }) {
           </div>
           <div className="post-content"> {parsePostText(post.content)}</div>
           {post.image.imageURL !== null && (
-            <img className="post-image" src={post.image.imageURL} alt="uploaded content" />
+            <div
+              className="image-container"
+              role="link"
+              tabIndex={0}
+              onClick={() => {
+                handleSetModalActive(true);
+                setShowFullscreenImage(true);
+              }}
+              onKeyDown={() => {
+                handleSetModalActive(true);
+                setShowFullscreenImage(true);
+              }}>
+              <img className="post-image" src={post.image.imageURL} alt="uploaded content" />
+            </div>
           )}
           <div className="post-options">
             <div
@@ -295,6 +310,13 @@ function PostItem({ postID, handleSetModalActive }) {
           />
         )}
         {replyEffect && <OverlayEffect message={replyEffect} />}
+        {showFullscreenImage && (
+          <FullscreenImageOverlay
+            image={post.image.imageURL}
+            setShowFullscreenImage={setShowFullscreenImage}
+            handleSetModalActive={handleSetModalActive}
+          />
+        )}
       </div>
     )
   );

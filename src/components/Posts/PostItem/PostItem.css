@@ -84,8 +84,15 @@
   width: 50px;
 }
 
-.post-image {
+.image-container {
   padding-right: 1rem;
+  max-width: 100%;
+  display: flex;
+  cursor: pointer;
+}
+
+.post-image {
+  width: 100%;
 }
 
 .hashtag {
