@@ -178,6 +178,13 @@ function PostItem({ postID, handleSetModalActive }) {
     }
   }, [replyEffect]);
 
+  // hide fab when fullscreen image is showing
+  useEffect(() => {
+    if (showFullscreenImage) {
+      handleSetModalActive(true);
+    }
+  }, [showFullscreenImage]);
+
   return (
     post && (
       <div
@@ -232,11 +239,9 @@ function PostItem({ postID, handleSetModalActive }) {
               role="link"
               tabIndex={0}
               onClick={() => {
-                handleSetModalActive(true);
                 setShowFullscreenImage(true);
               }}
               onKeyDown={() => {
-                handleSetModalActive(true);
                 setShowFullscreenImage(true);
               }}>
               <img className="post-image" src={post.image.imageURL} alt="uploaded content" />
