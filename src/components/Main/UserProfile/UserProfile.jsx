@@ -76,7 +76,7 @@ function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUs
   const getMediaPosts = async () => {
     try {
       const list = [];
-      const q = query(
+      const q1 = query(
         collection(database, 'posts'),
         where('ownerID', '==', user.userID),
         where('image.imageRef', '!=', 'null'),
@@ -84,9 +84,24 @@ function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUs
         orderBy('created', 'desc'),
         limit(25)
       );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((d) => {
+
+      const q2 = query(
+        collection(database, 'posts'),
+        where('ownerID', '==', user.userID),
+        where('videoIDs', '!=', []),
+        orderBy('videoIDs', 'desc'),
+        orderBy('created', 'desc'),
+        limit(25)
+      );
+
+      const querySnapshot1 = await getDocs(q1);
+      querySnapshot1.forEach((d) => {
         list.push({ postID: d.data().postID, created: d.data().created });
+      });
+
+      const querySnapshot2 = await getDocs(q2);
+      querySnapshot2.forEach((dd) => {
+        list.push({ postID: dd.data().postID, created: dd.data().created });
       });
 
       setMedia(sortPosts(list));

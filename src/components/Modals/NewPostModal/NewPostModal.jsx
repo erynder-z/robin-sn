@@ -20,6 +20,7 @@ import parseHashtag from '../../../helpers/HashtagCreator/HashtagCreator';
 import parseMention from '../../../helpers/MentionCreator/MentionCreator';
 import EmojiPicker from '../EmojiPicker/EmojiPicker';
 import './NewPostModal.css';
+import getYoutubeID from '../../../helpers/GetYoutubeID/GetYoutubeID';
 
 function NewPostModal({ toggleNewPostModal, showOverlayEffect, showWarning }) {
   const { userData } = GetUserContext();
@@ -31,6 +32,25 @@ function NewPostModal({ toggleNewPostModal, showOverlayEffect, showWarning }) {
   const [fadeModal, setFadeModal] = useState(false);
 
   const normaliseProgressbar = (value) => ((value - 0) * 100) / (120 - 0);
+
+  // check if post contains an URL
+  const checkForYoutubeVideo = async () => {
+    const httpString =
+      /(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()[\]{};:'".,<>?«»“”‘’]))?/gim;
+
+    const urlArray = [...text.matchAll(httpString)];
+    const idList = [];
+    if (urlArray) {
+      // and returns the videoID if that URL is a youtube-video or null if not a youtube video
+      urlArray.map((url) => {
+        if (getYoutubeID(url[0])) {
+          idList.push(getYoutubeID(url[0]));
+        }
+        return null;
+      });
+    }
+    return idList;
+  };
 
   // add hashtags from a post to hashtags-collection
   const addHashtag = async (hashtagArray) => {
@@ -102,7 +122,8 @@ function NewPostModal({ toggleNewPostModal, showOverlayEffect, showWarning }) {
           likes: [],
           replies: [],
           image: { imageURL: null, imageRef: null },
-          isRepost: false
+          isRepost: false,
+          videoIDs: await checkForYoutubeVideo()
         });
 
         uploadPicture(postID);

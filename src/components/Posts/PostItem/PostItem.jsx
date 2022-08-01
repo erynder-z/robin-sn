@@ -19,8 +19,9 @@ import Reply from '../Reply/Reply';
 import OverlayEffect from '../../Overlays/OverlayEffect/OverlayEffect';
 import parsePostText from '../../../helpers/ParsePostText/ParsePostText';
 import convertDate from '../../../helpers/ConvertDate/ConvertDate';
-import './PostItem.css';
 import FullscreenImageOverlay from '../../Overlays/FullscreenImageOverlay/FullscreenImageOverlay';
+import YoutubeEmbed from './YoutubeEmbed/YoutubeEmbed';
+import './PostItem.css';
 
 function PostItem({ postID, handleSetModalActive }) {
   const { userData } = GetUserContext();
@@ -233,6 +234,7 @@ function PostItem({ postID, handleSetModalActive }) {
             <div className="post-date">{convertDate(post.created.seconds)}</div>
           </div>
           <div className="post-content"> {parsePostText(post.content)}</div>
+          {post.videoIDs && post.videoIDs.map((id) => <YoutubeEmbed key={id} embedId={id} />)}
           {post.image.imageURL !== null && (
             <div
               className="image-container"
