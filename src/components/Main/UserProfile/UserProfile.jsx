@@ -74,37 +74,45 @@ function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUs
 
   // get all of the users posts with an image
   const getMediaPosts = async () => {
+    const list = [];
     try {
-      const list = [];
-      const q1 = query(
-        collection(database, 'posts'),
-        where('ownerID', '==', user.userID),
-        where('image.imageRef', '!=', 'null'),
-        orderBy('image.imageRef', 'desc'),
-        orderBy('created', 'desc'),
-        limit(25)
-      );
+      const getImages = async () => {
+        const q1 = query(
+          collection(database, 'posts'),
+          where('ownerID', '==', user.userID),
+          where('image.imageRef', '!=', null),
+          orderBy('image.imageRef', 'desc'),
+          orderBy('created', 'desc'),
+          limit(25)
+        );
+        const querySnapshot = await getDocs(q1);
 
-      const q2 = query(
-        collection(database, 'posts'),
-        where('ownerID', '==', user.userID),
-        where('videoIDs', '!=', []),
-        orderBy('videoIDs', 'desc'),
-        orderBy('created', 'desc'),
-        limit(25)
-      );
+        querySnapshot.forEach((d) => {
+          list.push({ postID: d.data().postID, created: d.data().created });
+        });
+      };
 
-      const querySnapshot1 = await getDocs(q1);
-      querySnapshot1.forEach((d) => {
-        list.push({ postID: d.data().postID, created: d.data().created });
+      const getVideos = async () => {
+        const q2 = query(
+          collection(database, 'posts'),
+          where('ownerID', '==', user.userID),
+          where('videoIDs', '!=', []),
+          orderBy('videoIDs', 'desc'),
+          orderBy('created', 'desc'),
+          limit(25)
+        );
+
+        const querySnapshot = await getDocs(q2);
+        querySnapshot.forEach((d) => {
+          list.push({ postID: d.data().postID, created: d.data().created });
+        });
+      };
+
+      getImages().then(() => {
+        getVideos().then(() => {
+          setMedia(list);
+        });
       });
-
-      const querySnapshot2 = await getDocs(q2);
-      querySnapshot2.forEach((dd) => {
-        list.push({ postID: dd.data().postID, created: dd.data().created });
-      });
-
-      setMedia(sortPosts(list));
     } catch (err) {
       showWarning(err.message);
     }
@@ -169,7 +177,7 @@ function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUs
         <div className="empty">
           <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
-          <h5> all of {user?.username}&apos;s recent posts with images will show up here</h5>
+          <h5> all of {user?.username}&apos;s recent posts containing media will show up here</h5>
         </div>
       )}
       {media.map((post) => (

@@ -74,35 +74,45 @@ function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
 
   // get all of the users posts with an image
   const getMediaPosts = async () => {
+    const list = [];
     try {
-      const list = [];
-      const q1 = query(
-        collection(database, 'posts'),
-        where('ownerID', '==', userID),
-        where('image.imageRef', '!=', 'null'),
-        orderBy('image.imageRef', 'desc'),
-        orderBy('created', 'desc'),
-        limit(25)
-      );
-      const q2 = query(
-        collection(database, 'posts'),
-        where('ownerID', '==', userID),
-        where('videoIDs', '!=', []),
-        orderBy('videoIDs', 'desc'),
-        orderBy('created', 'desc'),
-        limit(25)
-      );
-      const querySnapshot1 = await getDocs(q1);
-      querySnapshot1.forEach((doc) => {
-        list.push({ postID: doc.data().postID, created: doc.data().created });
-      });
+      const getImages = async () => {
+        const q1 = query(
+          collection(database, 'posts'),
+          where('ownerID', '==', userID),
+          where('image.imageRef', '!=', null),
+          orderBy('image.imageRef', 'desc'),
+          orderBy('created', 'desc'),
+          limit(25)
+        );
+        const querySnapshot = await getDocs(q1);
 
-      const querySnapshot2 = await getDocs(q2);
-      querySnapshot2.forEach((doc) => {
-        list.push({ postID: doc.data().postID, created: doc.data().created });
-      });
+        querySnapshot.forEach((doc) => {
+          list.push({ postID: doc.data().postID, created: doc.data().created });
+        });
+      };
 
-      setMedia(sortPosts(list));
+      const getVideos = async () => {
+        const q2 = query(
+          collection(database, 'posts'),
+          where('ownerID', '==', userID),
+          where('videoIDs', '!=', []),
+          orderBy('videoIDs', 'desc'),
+          orderBy('created', 'desc'),
+          limit(25)
+        );
+
+        const querySnapshot = await getDocs(q2);
+        querySnapshot.forEach((doc) => {
+          list.push({ postID: doc.data().postID, created: doc.data().created });
+        });
+      };
+
+      getImages().then(() => {
+        getVideos().then(() => {
+          setMedia(list);
+        });
+      });
     } catch (err) {
       showWarning(err.message);
     }
@@ -200,7 +210,7 @@ function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
         <div className="empty">
           <BiSpaceBar size="3rem" />
           <h4> empty...</h4>
-          <h5> all your recent posts with uploaded pictures will how up here</h5>
+          <h5> all your recent posts containing media will how up here</h5>
         </div>
       )}
       {media.map((post) => (
