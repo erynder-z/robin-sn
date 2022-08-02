@@ -161,7 +161,11 @@ function ContextBar({
         />
       )}
       {activeTab === 'postdetailsother' && (
-        <PostDetailsOther bookmarkPost={bookmarkPost} isPostBookmarked={isPostBookmarked} />
+        <PostDetailsOther
+          bookmarkPost={bookmarkPost}
+          isPostBookmarked={isPostBookmarked}
+          postInfo={postInfo}
+        />
       )}
     </div>
   );
