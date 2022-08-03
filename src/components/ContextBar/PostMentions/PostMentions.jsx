@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { GetUserContext } from '../../../contexts/UserContext';
+import './PostMentions.css';
 
 function PostMentions({ name, id }) {
   const { userData } = GetUserContext();
@@ -28,7 +29,7 @@ function PostMentions({ name, id }) {
       onKeyDown={(e) => {
         linkToUserProfile(e, id);
       }}>
-      @{name}
+      <span>@{name}</span>
     </div>
   );
 }

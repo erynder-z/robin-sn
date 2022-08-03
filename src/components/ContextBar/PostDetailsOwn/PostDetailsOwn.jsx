@@ -97,6 +97,7 @@ PostDetailsOwn.propTypes = {
       created: PropTypes.objectOf(PropTypes.number),
       hashtags: PropTypes.arrayOf(PropTypes.string),
       image: PropTypes.objectOf(PropTypes.string),
+      isRepostOf: PropTypes.string,
       likes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
       mentions: PropTypes.arrayOf(PropTypes.string),
       ownerID: PropTypes.string,
@@ -109,7 +110,12 @@ PostDetailsOwn.propTypes = {
           replyUserID: PropTypes.string
         })
       ),
-      reposts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string))
+      reposts: PropTypes.arrayOf(
+        PropTypes.shape({
+          userID: PropTypes.string
+        })
+      ),
+      videoIDs: PropTypes.arrayOf(PropTypes.string)
     })
   })
 };
@@ -120,11 +126,13 @@ PostDetailsOwn.defaultProps = {
     created: {},
     hashtags: [],
     image: {},
+    isRepostOf: null,
     likes: [],
     mentions: [],
     ownerID: '',
     postID: '',
     replies: {},
-    reposts: []
+    reposts: [],
+    videoIDs: []
   })
 };
