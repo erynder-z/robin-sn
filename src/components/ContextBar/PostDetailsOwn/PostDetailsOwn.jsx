@@ -7,8 +7,15 @@ import DeletePostOption from './DeletePostOption/DeletePostOption';
 import './PostDetailsOwn.css';
 import PostMentions from '../PostMentions/PostMentions';
 import { database } from '../../../data/firebase';
+import PostTrends from '../PostTrends/PostTrends';
 
-function PostDetailsOwn({ deletePost, postInfo, bookmarkPost, isPostBookmarked }) {
+function PostDetailsOwn({
+  deletePost,
+  postInfo,
+  bookmarkPost,
+  isPostBookmarked,
+  handleSearchQuery
+}) {
   const [bookmarkCheck, setBookmarkCheck] = useState(null);
   const [mentionedUsersDetails, setMentionedUsersDetails] = useState([]);
 
@@ -52,12 +59,25 @@ function PostDetailsOwn({ deletePost, postInfo, bookmarkPost, isPostBookmarked }
         {bookmarkCheck && <BookmarkOption handleBookmark={handleBookmark} />}
         {!bookmarkCheck && <RemoveBookmarkOption handleBookmark={handleBookmark} />}
       </div>
-      {mentionedUsersDetails.length > 1 && (
-        <div className="mentionUser-header">mentioned users</div>
+      {mentionedUsersDetails.length > 0 && (
+        <>
+          <div className="mentionUser-header">Mentioned users</div>
+          <div className="mentionUser-container">
+            {mentionedUsersDetails?.map((u) => (
+              <PostMentions key={u.userID} name={u.username} id={u.userID} />
+            ))}
+          </div>
+        </>
       )}
-      {mentionedUsersDetails?.map((u) => (
-        <PostMentions key={u.userID} name={u.username} id={u.userID} />
-      ))}
+
+      {postInfo?.post?.hashtags?.length > 0 && (
+        <div className="postHashtag-header">Hashtags in post</div>
+      )}
+      <div className="postHashtag-container">
+        {postInfo?.post?.hashtags?.map((h) => (
+          <PostTrends key={h} hashtag={h} handleSearchQuery={handleSearchQuery} />
+        ))}
+      </div>
     </div>
   );
 }
@@ -68,6 +88,7 @@ PostDetailsOwn.propTypes = {
   deletePost: PropTypes.func.isRequired,
   bookmarkPost: PropTypes.func.isRequired,
   isPostBookmarked: PropTypes.bool.isRequired,
+  handleSearchQuery: PropTypes.func.isRequired,
 
   postInfo: PropTypes.shape({
     post: PropTypes.shape({

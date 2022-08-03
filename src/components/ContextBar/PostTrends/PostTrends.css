@@ -1,0 +1,11 @@
+.postTrend-item {
+  cursor: pointer;
+  color: var(--hashtag);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.postTrend-item:hover {
+  color: var(--button);
+}

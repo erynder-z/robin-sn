@@ -5,9 +5,10 @@ import { database } from '../../../data/firebase';
 import BookmarkOption from '../BookmarkOption/BookmarkOption';
 import RemoveBookmarkOption from '../RemoveBookmarkOption/RemoveBookmarkOption';
 import PostMentions from '../PostMentions/PostMentions';
+import PostTrends from '../PostTrends/PostTrends';
 import './PostDetailsOther.css';
 
-function PostDetailsOther({ bookmarkPost, isPostBookmarked, postInfo }) {
+function PostDetailsOther({ bookmarkPost, isPostBookmarked, postInfo, handleSearchQuery }) {
   const [bookmarkCheck, setBookmarkCheck] = useState(null);
   const [mentionedUsersDetails, setMentionedUsersDetails] = useState([]);
 
@@ -47,11 +48,24 @@ function PostDetailsOther({ bookmarkPost, isPostBookmarked, postInfo }) {
         {!bookmarkCheck && <RemoveBookmarkOption handleBookmark={handleBookmark} />}
       </div>
       {mentionedUsersDetails.length > 0 && (
-        <div className="mentionUser-header">mentioned users</div>
+        <>
+          <div className="mentionUser-header">Mentioned users</div>
+          <div className="mentionUser-container">
+            {mentionedUsersDetails?.map((u) => (
+              <PostMentions key={u.userID} name={u.username} id={u.userID} />
+            ))}
+          </div>
+        </>
       )}
-      {mentionedUsersDetails?.map((u) => (
-        <PostMentions key={u.userID} name={u.username} id={u.userID} />
-      ))}
+
+      {postInfo?.post?.hashtags?.length > 0 && (
+        <div className="postHashtag-header">Hashtags in post</div>
+      )}
+      <div className="postHashtag-container">
+        {postInfo?.post?.hashtags?.map((h) => (
+          <PostTrends key={h} hashtag={h} handleSearchQuery={handleSearchQuery} />
+        ))}
+      </div>
     </div>
   );
 }
@@ -61,6 +75,7 @@ export default PostDetailsOther;
 PostDetailsOther.propTypes = {
   bookmarkPost: PropTypes.func.isRequired,
   isPostBookmarked: PropTypes.bool.isRequired,
+  handleSearchQuery: PropTypes.func.isRequired,
   postInfo: PropTypes.shape({
     post: PropTypes.shape({
       content: PropTypes.string,

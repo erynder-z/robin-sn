@@ -528,6 +528,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
           setShowDeleteUserModal={setShowDeleteUserModal}
           setShowUpdateUserDescModal={setShowUpdateUserDescModal}
           setShowChangePasswordModal={setShowChangePasswordModal}
+          handleSearchQuery={handleSearchQuery}
         />
       )}
       {isUserSetup && !showSearchModal && !showNewPostModal && !isModalActive && (

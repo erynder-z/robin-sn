@@ -28,7 +28,8 @@ function ContextBar({
   setShowStatsModal,
   setShowDeleteUserModal,
   setShowUpdateUserDescModal,
-  setShowChangePasswordModal
+  setShowChangePasswordModal,
+  handleSearchQuery
 }) {
   const { userData } = GetUserContext();
   const { post } = postInfo;
@@ -158,6 +159,7 @@ function ContextBar({
           postInfo={postInfo}
           bookmarkPost={bookmarkPost}
           isPostBookmarked={isPostBookmarked}
+          handleSearchQuery={handleSearchQuery}
         />
       )}
       {activeTab === 'postdetailsother' && (
@@ -165,6 +167,7 @@ function ContextBar({
           bookmarkPost={bookmarkPost}
           isPostBookmarked={isPostBookmarked}
           postInfo={postInfo}
+          handleSearchQuery={handleSearchQuery}
         />
       )}
     </div>
@@ -188,6 +191,7 @@ ContextBar.propTypes = {
   logout: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired,
   showOverlayEffect: PropTypes.func.isRequired,
+  handleSearchQuery: PropTypes.func.isRequired,
 
   postInfo: PropTypes.shape({
     post: PropTypes.shape({
