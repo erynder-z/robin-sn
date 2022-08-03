@@ -21,6 +21,7 @@ function PostDetailsOwn({
 
   // get userID's of metioned users to pass into PostMentions component
   const getUserDetails = () => {
+    setMentionedUsersDetails([]);
     postInfo?.post?.mentions?.forEach(async (usr) => {
       const q = query(collection(database, 'users'), where('username', '==', usr));
       const querySnapshot = await getDocs(q);
