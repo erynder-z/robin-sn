@@ -11,7 +11,8 @@ import {
   setDoc,
   updateDoc,
   serverTimestamp,
-  arrayRemove
+  arrayRemove,
+  increment
 } from 'firebase/firestore';
 import { database } from '../../../data/firebase';
 import { GetUserContext } from '../../../contexts/UserContext';
@@ -53,7 +54,24 @@ function PostItem({ postID, handleSetModalActive }) {
     }
   };
 
-  const repost = async (ownerName, postContent, postImage) => {
+  const addHashtag = async (hashtagArray) => {
+    hashtagArray.map(async (hashtag) => {
+      try {
+        await setDoc(
+          doc(database, 'hashtags', hashtag.toLowerCase()),
+          {
+            hashtag: hashtag.toLowerCase(),
+            count: increment(1)
+          },
+          { merge: true }
+        );
+      } catch (err) {
+        setErrorMessage(err.message);
+      }
+    });
+  };
+
+  const repost = async (ownerName) => {
     const found = postID;
     // repost only if not already reposted
     if (userData.reposts.some((item) => item.postID === found) === false) {
@@ -68,18 +86,20 @@ function PostItem({ postID, handleSetModalActive }) {
         });
         // create a new post in the user document with the repost as content
         const newPostID = uniqid();
-        const repostContent = `reposting @${ownerName}:\n\n &laquo; ${postContent} &raquo;`;
+        const repostContent = `reposting @${ownerName}:\n\n &laquo; ${post.content} &raquo;`;
         await setDoc(doc(database, 'posts', newPostID), {
           created: serverTimestamp(),
           postID: newPostID,
           ownerID: userData.userID,
           content: repostContent,
-          hashtags: [],
+          hashtags: post.hashtags,
+          image: { imageURL: post.image.imageURL, imageRef: post.image.imageRef },
+          isRepost: post.postID,
+          mentions: post.mentions,
           reposts: [],
           likes: [],
           replies: [],
-          image: { imageURL: postImage.imageURL, imageRef: postImage.imageRef },
-          isRepost: true
+          videoIDs: post.videoIDs
         });
 
         const addPostToUserObject = async (pID) => {
@@ -93,6 +113,7 @@ function PostItem({ postID, handleSetModalActive }) {
         };
 
         addPostToUserObject(newPostID);
+        addHashtag(post.hashtags);
       } catch (err) {
         setErrorMessage(err.message);
       }
@@ -274,13 +295,13 @@ function PostItem({ postID, handleSetModalActive }) {
               role="button"
               tabIndex={0}
               onClick={(e) => {
-                repost(postOwner.username, post.content, post.image);
+                repost(postOwner.username);
                 setClickEffect({ repost: true });
 
                 e.stopPropagation();
               }}
               onKeyDown={(e) => {
-                repost(postOwner.username, post.content, post.image);
+                repost(postOwner.username);
                 setClickEffect({ repost: true });
                 e.stopPropagation();
               }}>
