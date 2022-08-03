@@ -158,6 +158,15 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
           await updateDoc(userRef, {
             posts: arrayRemove(postToDelete)
           });
+          // if post is a repost, also delete it from the reposts-array
+          if (post.isRepostOf) {
+            const repostToDelete = userSnap
+              .data()
+              .reposts.find((r) => r.postID === post.isRepostOf);
+            await updateDoc(userRef, {
+              reposts: arrayRemove(repostToDelete)
+            });
+          }
         }
       };
 
@@ -180,6 +189,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
           }
         });
       };
+
       handleDeleteDoc();
       handleDeleteFromUserObject();
       if (post.hashtags.length > 0) {
