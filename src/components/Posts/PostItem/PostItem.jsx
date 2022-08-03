@@ -86,7 +86,7 @@ function PostItem({ postID, handleSetModalActive }) {
         });
         // create a new post in the user document with the repost as content
         const newPostID = uniqid();
-        const repostContent = `reposting @${ownerName}:\n\n &laquo; ${post.content} &raquo;`;
+        const repostContent = `reposting @${ownerName}: &laquo; ${post.content} &raquo;`;
         await setDoc(doc(database, 'posts', newPostID), {
           created: serverTimestamp(),
           postID: newPostID,
