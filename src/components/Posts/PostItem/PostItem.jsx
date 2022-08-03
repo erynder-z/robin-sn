@@ -94,7 +94,7 @@ function PostItem({ postID, handleSetModalActive }) {
           content: repostContent,
           hashtags: post.hashtags,
           image: { imageURL: post.image.imageURL, imageRef: post.image.imageRef },
-          isRepost: post.postID,
+          isRepostOf: post.postID,
           mentions: post.mentions,
           reposts: [],
           likes: [],

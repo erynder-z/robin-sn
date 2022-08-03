@@ -122,7 +122,7 @@ function NewPostModal({ toggleNewPostModal, showOverlayEffect, showWarning }) {
           likes: [],
           replies: [],
           image: { imageURL: null, imageRef: null },
-          isRepost: false,
+          isRepostOf: null,
           videoIDs: await checkForYoutubeVideo()
         });
 
