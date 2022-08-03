@@ -2,6 +2,13 @@
   width: 100%;
 }
 
+.trends-header > span {
+  max-width: 66%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .topTrends-container {
   display: flex;
   flex-direction: column;

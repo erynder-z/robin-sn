@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+# Robin - A social network app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Robin logo](/src/assets/images/logo_outline_small.png)
 
-## Available Scripts
+Welcome to Robin, a social network where you can post messages, links and photos to share them with other people.
 
-In the project directory, you can run:
+[LIVE]
 
-### `npm start`
+## Getting started:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Create and set up your robin-account
+2. Start posting and following other users
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## App features
 
-### `npm test`
+### Follow/Unfollow users
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Follow/unfollow users by clicking on the icon next to their avatar.
 
-### `npm run build`
+### Post
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Make new posts using the floating action button in the down right corner.
+Posts are limited to 120 characters, so choose your words wisely!
+Supports emoji input. 😀
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Share
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Attach images, and share links.
+Links will render as clickable links and shared youtube-videos can be views from inisde the app.
 
-### `npm run eject`
+### Reply
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Clicking on the speech bubble icon of a post will open a popup to reply to that post.
+Or reply directly when viewing the post details.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Repost
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Repost a post on your own page by clicking on the arrow-icon of a post.
+You can only repost a certain post one.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Like
 
-## Learn More
+You can like a post by clicking the posts like-button.
+Clicking again will unlike the post.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Create hashtags
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Append words by a "#" to make them trend!
+#trend
 
-### Code Splitting
+### Exlpore trending hashtags
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The 25 most trending words will appear on the "Explore" page.
+Clicking on a trend will show the most recent posts containing that hashtag.
 
-### Analyzing the Bundle Size
+### Mention other users
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Mention other users in your post by appending their username with a "@".
+Posts you were mentioned in will show up on the "Mentions" page.
+@user
 
-### Making a Progressive Web App
+### Bookmark posts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Add/remove bookmarks by clicking the bookmark-icon in the context-bar on the right.
 
-### Advanced Configuration
+### Search for users and hashtags
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Open the searchbox by clicking on the search icon from the floating action button.
+You do not need to add a "#" or "@" when searching for hashtags or users.
 
-### Deployment
+### Customize your profile page
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Customize your profile page to your likings. Change your avatar, description or add a background picture.
+Customization options are available in the context-bar on your profile page.
 
-### `npm run build` fails to minify
+### Change account settings
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Change your account password or delete your account in the context-bar on your profile page.
+
+### Delete your own posts
+
+You can delete posts created by yourself from the context-bar when viewing the post.
+Please note that this does not relete reposts of that post!
+
+### Send direct messages to other users
+
+Send direct messages to other users from the context-bar on another user's profile page.
+Recieved direct messages will show up on the "DMs" page.
+
+### Mobile-opzimized UI
+
+The app layout is different on mobile screens and monitors.
+When on mobile, the app will feature a bottom navigation-bar instead of a sidebar.
+The context-bar can be toggled from the floating action button when on mobile.

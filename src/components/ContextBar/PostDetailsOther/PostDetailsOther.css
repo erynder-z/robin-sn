@@ -9,11 +9,18 @@
   height: auto;
 }
 
-.otherPost-header {
+.otherPost-header,
+.mentionUser-header,
+.postHashtag-header {
   height: auto;
   padding-bottom: 0.5rem;
   align-self: center;
   color: var(--button);
+}
+
+.mentionUser-header,
+.postHashtag-header {
+  margin-top: 2rem;
 }
 
 .post-bookmark {
@@ -31,6 +38,17 @@
 
 .post-bookmark-icon {
   padding-right: 0.5rem;
+}
+
+.mentionUser-container,
+.postHashtag-container {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  height: auto;
+  max-width: 100%;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 @media only screen and (max-width: 768px) {

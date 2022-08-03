@@ -1,11 +1,11 @@
 .postTrend-item {
   cursor: pointer;
-  color: var(--hashtag);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: var(--link);
+  font-size: 1.2rem;
+  word-wrap: break-word;
+  max-width: 100%;
 }
 
 .postTrend-item:hover {
-  color: var(--button);
+  color: var(--hashtag);
 }

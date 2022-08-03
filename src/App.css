@@ -20,6 +20,7 @@
   --hashtag: #ff5555;
   --mention: #bd93f9;
   --header-background: rgba(40, 42, 54, 0.7);
+  --link: #50fa7b;
 }
 
 .App {
@@ -31,5 +32,5 @@
 }
 
 a {
-  color: #50fa7b;
+  color: var(--link);
 }

@@ -1,0 +1,12 @@
+.mention-user {
+  cursor: pointer;
+  color: var(--link);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.mention-user:hover {
+  color: var(--mention);
+}
