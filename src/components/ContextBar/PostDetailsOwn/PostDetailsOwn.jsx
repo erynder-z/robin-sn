@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { collection, getDocs, query, where } from 'firebase/firestore';
+import { database } from '../../../data/firebase';
 import BookmarkOption from '../BookmarkOption/BookmarkOption';
 import RemoveBookmarkOption from '../RemoveBookmarkOption/RemoveBookmarkOption';
 import DeletePostOption from './DeletePostOption/DeletePostOption';
-import './PostDetailsOwn.css';
 import PostMentions from '../PostMentions/PostMentions';
-import { database } from '../../../data/firebase';
 import PostTrends from '../PostTrends/PostTrends';
+import './PostDetailsOwn.css';
 
 function PostDetailsOwn({
   deletePost,
@@ -21,7 +21,7 @@ function PostDetailsOwn({
 
   // get userID's of metioned users to pass into PostMentions component
   const getUserDetails = () => {
-    postInfo?.post?.mentions.forEach(async (usr) => {
+    postInfo?.post?.mentions?.forEach(async (usr) => {
       const q = query(collection(database, 'users'), where('username', '==', usr));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
