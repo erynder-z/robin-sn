@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { format, fromUnixTime } from 'date-fns';
 import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
-import { BiSpaceBar } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { database } from '../../../data/firebase';
 import { GetUserContext } from '../../../contexts/UserContext';
-import PostItem from '../../Posts/PostItem/PostItem';
+import PostsTab from './PostsTab/PostsTab';
+import PostsAndRepliesTab from './PostsAndRepliesTab/PostsAndRepliesTab';
+import MediaTab from './MediaTab/MediaTab';
+import LikesTab from './LikesTab/LikesTab';
 import './MyProfile.css';
 
 function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
@@ -161,91 +163,6 @@ function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
     getUserPosts();
   }, [userData.posts]);
 
-  // lists all the posts made by the user
-  const Posts = (
-    <div className="posts fadein">
-      {usrPosts?.length <= 0 && (
-        <div className="empty">
-          <BiSpaceBar size="3rem" />
-          <h4> empty...</h4>
-          <h5> your recent posts will show up here</h5>
-        </div>
-      )}
-      {sortPosts(usrPosts).map((post) => (
-        <PostItem
-          key={post.postID}
-          postID={post.postID}
-          userID={userData.userID}
-          userPic={userData.userPic}
-          handleSetModalActive={handleSetModalActive}
-        />
-      ))}
-    </div>
-  );
-
-  const PostsAndReplies = (
-    <div className="postsAndReplies fadein">
-      {postsAndReplies?.length <= 0 && (
-        <div className="empty">
-          <BiSpaceBar size="3rem" />
-          <h4> empty...</h4>
-          <h5> all recent posts you replied to will show up here</h5>
-        </div>
-      )}
-      {postsAndReplies.map((post) => (
-        <PostItem
-          key={postsAndReplies.indexOf(post)}
-          postID={post.postID}
-          userID={userData.userID}
-          userPic={userData.userPic}
-          handleSetModalActive={handleSetModalActive}
-        />
-      ))}
-    </div>
-  );
-
-  const Media = (
-    <div className="media fadein">
-      {media?.length <= 0 && (
-        <div className="empty">
-          <BiSpaceBar size="3rem" />
-          <h4> empty...</h4>
-          <h5> all your recent posts containing media will how up here</h5>
-        </div>
-      )}
-      {media.map((post) => (
-        <PostItem
-          key={post.postID}
-          postID={post.postID}
-          userID={userData.userID}
-          userPic={userData.userPic}
-          handleSetModalActive={handleSetModalActive}
-        />
-      ))}
-    </div>
-  );
-
-  const Likes = (
-    <div className="likes fadein">
-      {usrLikes?.length <= 0 && (
-        <div className="empty">
-          <BiSpaceBar size="3rem" />
-          <h4> empty...</h4>
-          <h5> all recent posts you liked will show up here</h5>
-        </div>
-      )}
-      {usrLikes.map((post) => (
-        <PostItem
-          key={post.postID}
-          postID={post.postID}
-          userID={userData.userID}
-          userPic={userData.userPic}
-          handleSetModalActive={handleSetModalActive}
-        />
-      ))}
-    </div>
-  );
-
   return (
     <div className="profile-container fadein">
       <div
@@ -347,10 +264,25 @@ function MyProfile({ changeActiveTab, handleSetModalActive, showWarning }) {
             Likes{' '}
           </div>
         </div>
-        {activeView === 'posts' && Posts}
-        {activeView === 'postsAndReplies' && PostsAndReplies}
-        {activeView === 'media' && Media}
-        {activeView === 'likes' && Likes}
+        {activeView === 'posts' && (
+          <PostsTab
+            usrPosts={usrPosts}
+            sortPosts={sortPosts}
+            handleSetModalActive={handleSetModalActive}
+          />
+        )}
+        {activeView === 'postsAndReplies' && (
+          <PostsAndRepliesTab
+            postsAndReplies={postsAndReplies}
+            handleSetModalActive={handleSetModalActive}
+          />
+        )}
+        {activeView === 'media' && (
+          <MediaTab media={media} handleSetModalActive={handleSetModalActive} />
+        )}
+        {activeView === 'likes' && (
+          <LikesTab usrLikes={usrLikes} handleSetModalActive={handleSetModalActive} />
+        )}
       </div>
     </div>
   );
