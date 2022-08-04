@@ -35,8 +35,8 @@ function SetupUserAccount({ userCredentials }) {
     reposts: [],
     likes: [],
     bookmarks: [],
-    messages: [
-      {
+    /*     messages: [
+       {
         messageID: 'robin1',
         messageContent:
           "Hello, I'm Stefan, the creator of Robin. Thank you so much for trying this app! I hope you like it!",
@@ -45,7 +45,7 @@ function SetupUserAccount({ userCredentials }) {
         sendDate: Timestamp.now(),
         senderUsername: 'erynder-z'
       }
-    ],
+    ], */
     active: false
   });
 
@@ -102,8 +102,27 @@ function SetupUserAccount({ userCredentials }) {
         reposts: userObject.reposts,
         likes: userObject.likes,
         bookmarks: userObject.bookmarks,
-        messages: userObject.messages,
         active: true
+      });
+    } catch (err) {
+      setErrorMessage(err.message);
+    }
+  };
+
+  const createMessageInbox = async () => {
+    try {
+      await setDoc(doc(database, 'messages', uid), {
+        inbox: [
+          {
+            messageID: 'robin1',
+            messageContent:
+              "Hello, I'm Stefan, the creator of Robin. Thank you so much for trying this app! I hope you like it!",
+            senderID: 'LXpgyqXRl6SVzxlXpPQCcDArkdE2',
+            isRead: false,
+            sendDate: Timestamp.now(),
+            senderUsername: 'erynder-z'
+          }
+        ]
       });
     } catch (err) {
       setErrorMessage(err.message);
@@ -123,6 +142,7 @@ function SetupUserAccount({ userCredentials }) {
     if (isFinished) {
       updateUserRobin();
       uploadUser();
+      createMessageInbox();
       navigate('/main');
     }
   }, [isFinished]);

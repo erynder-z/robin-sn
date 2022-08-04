@@ -9,23 +9,29 @@ import {
   TbUser
 } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
+import { useDocumentData } from 'react-firebase-hooks/firestore';
+import { doc } from 'firebase/firestore';
 import { GetUserContext } from '../../contexts/UserContext';
+import { database } from '../../data/firebase';
 import UserInfo from './UserInfo/UserInfo';
 import logoWhite from '../../assets/logo_white.png';
 import './Sidebar.css';
 
 function Sidebar({ activeTab, logout }) {
   const { userData } = GetUserContext();
+  const [inbox] = useDocumentData(doc(database, 'messages', userData.userID));
   const [unreadMessagesExist, setUnreadMessagesExist] = useState(false);
 
   const checkForUnreadMessages = () => {
-    const list = [...userData.messages];
+    const list = [...inbox.inbox];
     return list.some((msg) => msg.isRead === false);
   };
 
   useEffect(() => {
-    setUnreadMessagesExist(checkForUnreadMessages());
-  }, [userData.messages]);
+    if (inbox) {
+      setUnreadMessagesExist(checkForUnreadMessages());
+    }
+  }, [inbox]);
 
   return (
     <div className="sidebar">

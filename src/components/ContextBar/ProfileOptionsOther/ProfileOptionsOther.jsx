@@ -82,15 +82,6 @@ ProfileOptionsOther.propTypes = {
     ),
     description: PropTypes.string,
     userID: PropTypes.string,
-    messages: PropTypes.arrayOf(
-      PropTypes.shape({
-        messageID: PropTypes.string,
-        messageContent: PropTypes.string,
-        sender: PropTypes.string,
-        isRead: PropTypes.bool,
-        sendDate: PropTypes.objectOf(PropTypes.number)
-      })
-    ),
     active: PropTypes.bool.isRequired
   })
 };
@@ -107,7 +98,6 @@ ProfileOptionsOther.defaultProps = {
     posts: [],
     replies: [],
     description: '',
-    userID: '',
-    messages: []
+    userID: ''
   })
 };

@@ -30,9 +30,9 @@ function MessageModal({
   const sendMessage = async () => {
     if (text !== '') {
       try {
-        const userRef = doc(database, 'users', userInView.userID);
+        const userRef = doc(database, 'messages', userInView.userID);
         await updateDoc(userRef, {
-          messages: arrayUnion({
+          inbox: arrayUnion({
             messageID: uniqid(),
             messageContent: text,
             senderID: userData.userID,

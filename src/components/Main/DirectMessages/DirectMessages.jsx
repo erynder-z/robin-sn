@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { BiSpaceBar } from 'react-icons/bi';
 import { doc, updateDoc } from 'firebase/firestore';
+import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { GetUserContext } from '../../../contexts/UserContext';
 import DirectMessageItem from './DirectMessageItem/DirectMessageItem';
 import { database } from '../../../data/firebase';
@@ -16,7 +17,8 @@ function DirectMessages({
   setUserInView
 }) {
   const { userData } = GetUserContext();
-  const [userMessages, setUserMessages] = useState([...userData.messages]);
+  const [inbox] = useDocumentData(doc(database, 'messages', userData.userID));
+  const [userMessages, setUserMessages] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const handleMarkMessageAsRead = async (message) => {
@@ -30,14 +32,14 @@ function DirectMessages({
           newList.push(msg);
         }
       });
-      return newList.reverse();
+      return newList;
     };
 
     const updatedMessageList = await getMessageList();
-    const userRef = doc(database, 'users', userData.userID);
+    const inboxRef = doc(database, 'messages', userData.userID);
     try {
-      await updateDoc(userRef, {
-        messages: updatedMessageList
+      await updateDoc(inboxRef, {
+        inbox: updatedMessageList
       });
     } catch (err) {
       showWarning(err.message);
@@ -45,9 +47,9 @@ function DirectMessages({
   };
 
   useEffect(() => {
-    setUserMessages([...userData.messages].reverse());
+    setUserMessages(inbox?.inbox);
     setLoading(false);
-  }, [userData.messages]);
+  }, [inbox]);
 
   useEffect(() => {
     changeActiveTab('directmessages');
