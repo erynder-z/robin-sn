@@ -4,7 +4,7 @@ const parseMention = async (text) => {
     const mentionsArray = [];
     // match string after "@" until next whitespace. positive lookbehind to exclude the "@". word boundary to ignore special characters after the string..
     txt.replace(/(?<=@)\S+\b/g, (m) => {
-      mentionsArray.push(m);
+      mentionsArray.push(m.toLowerCase());
     });
     return mentionsArray;
   };

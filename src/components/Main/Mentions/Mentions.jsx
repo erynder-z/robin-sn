@@ -27,7 +27,7 @@ function Mentions({ changeActiveTab, handleSetModalActive, showWarning }) {
       const mentionsRef = collection(database, 'posts');
       const q = query(
         mentionsRef,
-        where('mentions', 'array-contains', userData.username),
+        where('mentions', 'array-contains', userData.username.toLowerCase()),
         orderBy('created', 'desc'),
         limit(25)
       );
