@@ -21,6 +21,22 @@ function DirectMessages({
   const [userMessages, setUserMessages] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const sortMessages = (lst) => {
+    const unsorted = [];
+    lst.map((o) =>
+      unsorted.push({
+        isRead: o.isRead,
+        messageContent: o.messageContent,
+        messageID: o.messageID,
+        sendDate: o.sendDate,
+        senderID: o.senderID,
+        senderUsername: o.senderUsername
+      })
+    );
+    const sorted = unsorted.sort((a, b) => (a.sendDate.seconds < b.sendDate.seconds ? 1 : -1));
+    return sorted;
+  };
+
   const handleMarkMessageAsRead = async (message) => {
     const getMessageList = async () => {
       const list = [...userMessages];
@@ -71,17 +87,18 @@ function DirectMessages({
               </div>
             )}
 
-            {userMessages?.map((message) => (
-              <DirectMessageItem
-                key={message.messageID}
-                message={message}
-                handleMarkMessageAsRead={handleMarkMessageAsRead}
-                toggleMessageModal={toggleMessageModal}
-                handleSetModalActive={handleSetModalActive}
-                showWarning={showWarning}
-                setUserInView={setUserInView}
-              />
-            ))}
+            {userMessages &&
+              sortMessages(userMessages)?.map((message) => (
+                <DirectMessageItem
+                  key={message.messageID}
+                  message={message}
+                  handleMarkMessageAsRead={handleMarkMessageAsRead}
+                  toggleMessageModal={toggleMessageModal}
+                  handleSetModalActive={handleSetModalActive}
+                  showWarning={showWarning}
+                  setUserInView={setUserInView}
+                />
+              ))}
           </div>
         </div>
       )}
