@@ -13,7 +13,7 @@ import ContextBar from '../ContextBar/ContextBar';
 import FloatingMenu from '../FloatingMenu/FloatingMenu';
 import NewPostModal from '../Modals/NewPostModal/NewPostModal';
 import PostDetails from '../Posts/PostDetails/PostDetails';
-import MyProfile from './MyProfile/MyProfile.jsx';
+import MyProfile from './MyProfile/MyProfile';
 import UserProfile from './UserProfile/UserProfile';
 import Bookmarks from './Bookmarks/Bookmarks';
 import Explore from './Explore/Explore';
@@ -205,7 +205,7 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
   // delete user account
   const deleteAccount = async () => {
     // create residue profile
-    const parseUserProfile = () => {
+    const parseUserProfile = async () => {
       const userRef = doc(database, 'users', uid);
 
       try {
@@ -235,8 +235,9 @@ function Main({ userCredentials, setShowGoodbyleOverlay }) {
 
     setShowGoodbyleOverlay(true);
     navigate('/login');
-    parseUserProfile();
-    deleteUserAuthentication();
+    parseUserProfile().then(() => {
+      deleteUserAuthentication();
+    });
   };
 
   // check for any references to deleted posts in user object and purge them
