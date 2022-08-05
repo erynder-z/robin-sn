@@ -1,10 +1,11 @@
-# Robin - A social network app
+<h1 align="center"> Robin - A social network app</h1>
 
-![Robin logo](src/assets/logo_small.png?raw=true)
-
+<p align="center">
+   <img src="src/assets/logo_small.png" alt="Robin logo"/>
+</p>
 Welcome to Robin, a social network where you can post messages, links and photos to share them with other people.
 
-[LIVE]
+# [LIVE]
 
 ## Getting started:
 
