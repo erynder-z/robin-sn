@@ -1,6 +1,6 @@
 # Robin - A social network app
 
-![Robin logo](https://github.com/erynder-z/robin-sn/blob/main/logo_small.png?raw=true)
+![Robin logo](src/assets/logo_small.png?raw=true)
 
 Welcome to Robin, a social network where you can post messages, links and photos to share them with other people.
 
