@@ -54,9 +54,9 @@ function DirectMessageItem({
   };
 
   const deleteMessage = async () => {
-    const userRef = doc(database, 'users', userData.userID);
-    await updateDoc(userRef, {
-      messages: arrayRemove(message)
+    const inboxRef = doc(database, 'messages', userData.userID);
+    await updateDoc(inboxRef, {
+      inbox: arrayRemove(message)
     });
   };
 
