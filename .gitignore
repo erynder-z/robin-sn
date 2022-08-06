@@ -31,3 +31,4 @@ firestore.indexes.json
 storage.rules
 firestore.rules
 .prettierignore
+/src/data/firebaseConfig.js
