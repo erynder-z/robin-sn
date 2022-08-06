@@ -124,6 +124,7 @@
 
 .reply-append-textarea {
   padding: 0.5rem;
+  margin-left: 1rem;
   font-size: 1rem;
   resize: none;
   outline: none;
