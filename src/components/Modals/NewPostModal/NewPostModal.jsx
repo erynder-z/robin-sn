@@ -19,8 +19,8 @@ import { GetUserContext } from '../../../contexts/UserContext';
 import parseHashtag from '../../../helpers/HashtagCreator/HashtagCreator';
 import parseMention from '../../../helpers/MentionCreator/MentionCreator';
 import EmojiPicker from '../EmojiPicker/EmojiPicker';
-import './NewPostModal.css';
 import getYoutubeID from '../../../helpers/GetYoutubeID/GetYoutubeID';
+import './NewPostModal.css';
 
 function NewPostModal({ toggleNewPostModal, showOverlayEffect, showWarning }) {
   const { userData } = GetUserContext();

@@ -1,5 +1,3 @@
-import './App.css';
-import './components/shared-styles.css';
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -9,6 +7,8 @@ import Main from './components/Main/Main';
 import LoadingScreen from './components/Overlays/LoadingScreen/LoadingScreen';
 import { UserProvider } from './contexts/UserContext';
 import GoodbyeOverlay from './components/Overlays/GoodbyeOverlay/GoodbyeOverlay';
+import './App.css';
+import './components/shared-styles.css';
 
 function App() {
   const [userCredentials, loading] = useAuthState(auth);
