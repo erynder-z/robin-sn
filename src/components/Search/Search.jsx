@@ -28,7 +28,6 @@ function Search({ searchQuery, changeActiveTab, handleSetModalActive, showWarnin
           usersRef,
           where('username', '==', s.toLowerCase()),
           where('active', '==', true),
-          orderBy('username', 'desc'),
           limit(25)
         );
 
