@@ -35,6 +35,9 @@ function PostItem({ postID, handleSetModalActive }) {
   // handle overlayEffect when replying here, because Reply-component gests unmounted before effect can be shown
   const [replyEffect, setReplyEffect] = useState(null);
   const [showFullscreenImage, setShowFullscreenImage] = useState(false);
+  const [alreadyReplied, setAlreadyReplied] = useState(null);
+  const [alreadyReposted, setAlreadyReposted] = useState(null);
+  const [alreadyLiked, setAlreadyLiked] = useState(null);
   const postDocRef = doc(database, 'posts', postID);
   const userDocRef = doc(database, 'users', userData.userID);
 
@@ -69,6 +72,38 @@ function PostItem({ postID, handleSetModalActive }) {
         setErrorMessage(err.message);
       }
     });
+  };
+
+  const checkPostInteractions = (pID) => {
+    const found = pID;
+
+    const checkReply = () => {
+      if (userData.replies.some((item) => item.postID === found)) {
+        setAlreadyReplied(true);
+      } else {
+        setAlreadyReplied(false);
+      }
+    };
+
+    const checkRepost = () => {
+      if (userData.reposts.some((item) => item.postID === found)) {
+        setAlreadyReposted(true);
+      } else {
+        setAlreadyReposted(false);
+      }
+    };
+
+    const checkLike = () => {
+      if (userData.likes.some((item) => item.postID === found)) {
+        setAlreadyLiked(true);
+      } else {
+        setAlreadyLiked(false);
+      }
+    };
+
+    checkReply();
+    checkRepost();
+    checkLike();
   };
 
   const repost = async (ownerName) => {
@@ -207,6 +242,11 @@ function PostItem({ postID, handleSetModalActive }) {
     }
   }, [showFullscreenImage]);
 
+  // check if already replied, reposted or liked post
+  useEffect(() => {
+    checkPostInteractions(postID);
+  }, [userData]);
+
   return (
     post && (
       <div
@@ -273,7 +313,9 @@ function PostItem({ postID, handleSetModalActive }) {
           <div className="post-options">
             <div
               title="Reply"
-              className={`optionItem ${clickEffect.reply ? 'clicked' : ''}`}
+              className={`optionItem ${clickEffect.reply ? 'clicked' : ''} ${
+                alreadyReplied ? 'alreadyInteracted' : ''
+              }`}
               role="button"
               tabIndex={0}
               onClick={(e) => {
@@ -291,7 +333,9 @@ function PostItem({ postID, handleSetModalActive }) {
             </div>
             <div
               title="Repost"
-              className={`optionItem ${clickEffect.repost ? 'clicked' : ''}`}
+              className={`optionItem ${clickEffect.repost ? 'clicked' : ''} ${
+                alreadyReposted ? 'alreadyInteracted' : ''
+              }`}
               role="button"
               tabIndex={0}
               onClick={(e) => {
@@ -310,7 +354,9 @@ function PostItem({ postID, handleSetModalActive }) {
             </div>
             <div
               title="Like / Unlike"
-              className={`optionItem ${clickEffect.like ? 'clicked' : ''}`}
+              className={`optionItem ${clickEffect.like ? 'clicked' : ''} ${
+                alreadyLiked ? 'alreadyInteracted' : ''
+              }`}
               role="button"
               tabIndex={0}
               onClick={(e) => {
