@@ -32,7 +32,7 @@ function UpdateUserDescModal({ setShowUpdateUserDescModal, showWarning, showOver
             className="descriptionUpdate-input"
             type="text"
             maxLength="120"
-            placeholder="max. 120 characters"
+            placeholder={userData.description}
             value={descriptionText}
             onChange={(e) => {
               setDescriptionText(e.target.value);
