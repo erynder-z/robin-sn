@@ -5,7 +5,7 @@
 </p>
 Welcome to Robin, a social network where you can post messages, links and photos to share them with other people.
 
-# [LIVE]
+# [LIVE] https://erynder-z.github.io/robin-sn
 
 ## Getting started:
 
@@ -95,16 +95,16 @@ Welcome to Robin, a social network where you can post messages, links and photos
   The context-bar can be toggled from the floating action button when on mobile.
 
 - ## Build with
-  - React
-  - Firebase
-  - Material-UI LinearProgress API
-  - Date-fns
-  - Emoji-picker-react
-  - Html-react-parser
-  - React-avatar-editor
-  - React-firebase-hooks
-  - React-icons
-  - React-image-file-resizer
-  - React-loader-spinner
-  - React-tiny-fab
-  - Uniqid
+  - [React](https://reactjs.org/)
+  - [Firebase](https://firebase.google.com/)
+  - [Material-UI_LinearProgress_API](https://mui.com/material-ui/api/linear-progress/)
+  - [Date-fns](https://date-fns.org/)
+  - [Emoji-picker-react](https://github.com/ealush/emoji-picker-react)
+  - [Html-react-parser](https://github.com/remarkablemark/html-react-parser)
+  - [React-avatar-editor](https://github.com/mosch/react-avatar-editor)
+  - [React-firebase-hooks](https://github.com/CSFrequency/react-firebase-hooks)
+  - [React-icons](https://react-icons.github.io/react-icons/)
+  - [React-image-file-resizer](https://github.com/onurzorluer/react-image-file-resizer)
+  - [React-loader-spinner](https://github.com/mhnpd/react-loader-spinner)
+  - [React-tiny-fab](https://dericcain.github.io/react-tiny-fab/)
+  - [Uniqid](https://github.com/adamhalasz/uniqid/)
