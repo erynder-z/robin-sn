@@ -117,8 +117,8 @@
 
   .sidebar-item svg {
     margin-right: 0;
-    height: 2rem;
-    width: 2rem;
+    height: 85%;
+    width: 85%;
     padding: 0;
   }
 
@@ -133,4 +133,7 @@
     margin-top: 0.5rem;
     margin-right: 0.2rem;
   }
+}
+
+@media only screen and (max-width: 768px) {
 }

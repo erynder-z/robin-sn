@@ -42,6 +42,7 @@
   font-size: 1.2rem;
   font-weight: bolder;
   background-color: var(--header-background);
+  padding: 0.25rem 0;
 }
 
 .home-content,

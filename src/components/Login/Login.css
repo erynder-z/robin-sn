@@ -268,4 +268,8 @@ input:focus[type='password'] {
   .input-container label input {
     min-width: unset;
   }
+
+  .createNewAccount-header {
+    margin-top: 3rem;
+  }
 }
