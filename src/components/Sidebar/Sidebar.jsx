@@ -36,7 +36,9 @@ function Sidebar({ activeTab, logout }) {
   return (
     <div className="sidebar">
       <ul>
-        <img className="logo" src={logoWhite} alt="app logo" />
+        <Link to="/main/home">
+          <img className="logo" src={logoWhite} alt="app logo" />
+        </Link>
         <Link to="/main/home">
           <li className={`sidebar-item ${activeTab === 'home' ? 'active' : 'inactive'}`}>
             <div className="sidebar-item-wrapper">
