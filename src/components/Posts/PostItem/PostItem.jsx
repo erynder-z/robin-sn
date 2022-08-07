@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import uniqid from 'uniqid';
 import { useNavigate } from 'react-router-dom';
-import { BiMessageRounded, BiRepost, BiLike } from 'react-icons/bi';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import {
   arrayUnion,
@@ -22,6 +21,9 @@ import parsePostText from '../../../helpers/ParsePostText/ParsePostText';
 import convertDate from '../../../helpers/ConvertDate/ConvertDate';
 import FullscreenImageOverlay from '../../Overlays/FullscreenImageOverlay/FullscreenImageOverlay';
 import YoutubeEmbed from './YoutubeEmbed/YoutubeEmbed';
+import PostOptionLike from './PostOptionLike/PostOptionLike';
+import PostOptionReply from './PostOptionReply/PostOptionReply';
+import PostOptionRepost from './PostOptionRepost/PostOptionRepost';
 import './PostItem.css';
 
 function PostItem({ postID, handleSetModalActive }) {
@@ -311,67 +313,29 @@ function PostItem({ postID, handleSetModalActive }) {
             </div>
           )}
           <div className="post-options">
-            <div
-              title="Reply"
-              className={`optionItem ${clickEffect.reply ? 'clicked' : ''} ${
-                alreadyReplied ? 'alreadyInteracted' : ''
-              }`}
-              role="button"
-              tabIndex={0}
-              onClick={(e) => {
-                toggleReplyModal();
-                setClickEffect({ reply: true });
-                e.stopPropagation();
-              }}
-              onKeyDown={(e) => {
-                toggleReplyModal();
-                setClickEffect({ reply: true });
-                e.stopPropagation();
-              }}>
-              <BiMessageRounded size="1.5rem" />
-              {post.replies.length}
-            </div>
-            <div
-              title="Repost"
-              className={`optionItem ${clickEffect.repost ? 'clicked' : ''} ${
-                alreadyReposted ? 'alreadyInteracted' : ''
-              }`}
-              role="button"
-              tabIndex={0}
-              onClick={(e) => {
-                repost(postOwner.username);
-                setClickEffect({ repost: true });
-
-                e.stopPropagation();
-              }}
-              onKeyDown={(e) => {
-                repost(postOwner.username);
-                setClickEffect({ repost: true });
-                e.stopPropagation();
-              }}>
-              <BiRepost size="1.5rem" />
-              {post.reposts.length}
-            </div>
-            <div
-              title="Like / Unlike"
-              className={`optionItem ${clickEffect.like ? 'clicked' : ''} ${
-                alreadyLiked ? 'alreadyInteracted' : ''
-              }`}
-              role="button"
-              tabIndex={0}
-              onClick={(e) => {
-                like(postID);
-                setClickEffect({ like: true });
-                e.stopPropagation();
-              }}
-              onKeyDown={(e) => {
-                like(postID);
-                setClickEffect({ like: true });
-                e.stopPropagation();
-              }}>
-              <BiLike size="1.5rem" />
-              {post.likes.length}
-            </div>
+            <PostOptionReply
+              clickEffect={clickEffect}
+              alreadyReplied={alreadyReplied}
+              toggleReplyModal={toggleReplyModal}
+              setClickEffect={setClickEffect}
+              numOfReplies={post.replies.length}
+            />
+            <PostOptionRepost
+              clickEffect={clickEffect}
+              alreadyReposted={alreadyReposted}
+              repost={repost}
+              setClickEffect={setClickEffect}
+              postOwnerUsername={postOwner.username}
+              numOfReposts={post.reposts.length}
+            />
+            <PostOptionLike
+              clickEffect={clickEffect}
+              alreadyLiked={alreadyLiked}
+              like={like}
+              setClickEffect={setClickEffect}
+              postID={postID}
+              numOfLikes={post.likes.length}
+            />
           </div>
         </div>
         {showReplyModal && (
