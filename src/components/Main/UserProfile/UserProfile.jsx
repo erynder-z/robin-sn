@@ -34,7 +34,7 @@ function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUs
         joined: docSnap.data().joined,
         following: docSnap.data().following,
         followers: docSnap.data().followers,
-        likes: limitNumberOfPosts(docSnap.data().likes),
+        likes: limitNumberOfPosts(docSnap.data().likes.reverse()),
         posts: limitNumberOfPosts(docSnap.data().posts),
         replies: limitNumberOfPosts(docSnap.data().replies),
         description: docSnap.data().description,
