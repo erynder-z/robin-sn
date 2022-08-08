@@ -36,7 +36,7 @@ function Sidebar({ activeTab, logout }) {
   return (
     <div className="sidebar">
       <ul>
-        <Link to="/main/home">
+        <Link to="/main/home" className="sidebar-logo">
           <img className="logo" src={logoWhite} alt="app logo" />
         </Link>
         <Link to="/main/home">

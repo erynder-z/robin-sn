@@ -39,6 +39,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  height: 1.2rem;
 }
 
 .post-userDetails-separator {

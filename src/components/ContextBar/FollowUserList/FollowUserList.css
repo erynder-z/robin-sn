@@ -2,7 +2,7 @@
 .userlist-header {
   background-color: rgba(245, 245, 245, 0.1);
   color: var(--text-bright);
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28,13 +28,14 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   cursor: pointer;
+  height: 1.2rem;
 }
 
 .userlist-follow {
   background-color: var(--follow-button);
   color: var(--text-bright);
   height: 2rem;
-  width: 10vw;
+  width: 8vw;
   border-radius: 20px;
   display: flex;
   justify-content: center;
@@ -50,7 +51,7 @@
   background-color: var(--unfollow-button);
   color: var(--text-bright);
   height: 2rem;
-  width: 10vw;
+  width: 8vw;
   border-radius: 20px;
   display: flex;
   justify-content: center;
