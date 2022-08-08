@@ -7,6 +7,16 @@ Welcome to Robin, a social network where you can post messages, links and photos
 
 # [LIVE] https://erynder-z.github.io/robin-sn
 
+## Screenshots
+
+### Mobile
+
+<img src="src/assets/screenshot2.png" alt="screenshot"/>
+
+### Desktop
+
+<img src="src/assets/screenshot1.png" alt="screenshot"/>
+
 ## Getting started:
 
 1. Create and set up your robin-account
