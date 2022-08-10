@@ -1,3 +1,20 @@
+.userlist {
+  max-height: 100vh;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--button) var(--card-background);
+  color: var(--text-bright);
+}
+
+.userlist::-webkit-scrollbar {
+  width: 10px;
+  background-color: var(--card-background);
+}
+
+.userlist::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 10px var(--button);
+}
+
 .userlist-item,
 .userlist-header {
   background-color: rgba(245, 245, 245, 0.1);
