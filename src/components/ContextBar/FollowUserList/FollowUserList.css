@@ -29,6 +29,8 @@
 .userlist-header {
   justify-content: center;
   color: var(--button);
+  position: sticky;
+  top: 0;
 }
 
 .userlist-usrpic {
@@ -81,6 +83,10 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .userlist {
+    max-height: 93vh;
+  }
+
   .userlist-item,
   .userlist-header {
     padding: 1rem 1.5rem;
