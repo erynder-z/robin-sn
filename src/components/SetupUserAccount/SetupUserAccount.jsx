@@ -221,12 +221,8 @@ function SetupUserAccount({ userCredentials }) {
           <button
             type="submit"
             className="createBtn"
-            onClick={(e) => {
-              handleSubmit(e);
-            }}
-            onKeyDown={(e) => {
-              handleSubmit(e);
-            }}
+            onClick={handleSubmit}
+            onKeyDown={handleSubmit}
             tabIndex={0}>
             Let&apos;s go! <img className="logo-mini" src={logoOutline} alt="app logo" />
           </button>

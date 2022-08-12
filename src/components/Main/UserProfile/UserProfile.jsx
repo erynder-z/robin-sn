@@ -200,24 +200,16 @@ function UserProfile({ handleSetModalActive, changeActiveTab, showWarning, setUs
                       className="profile-following"
                       role="link"
                       tabIndex={0}
-                      onClick={(e) => {
-                        linkToUserlistFollowingOther(e);
-                      }}
-                      onKeyDown={(e) => {
-                        linkToUserlistFollowingOther(e);
-                      }}>
+                      onClick={linkToUserlistFollowingOther}
+                      onKeyDown={linkToUserlistFollowingOther}>
                       <span>{user.following.length - 1}</span> Following
                     </div>
                     <div
                       className="profile-followers"
                       role="link"
                       tabIndex={0}
-                      onClick={(e) => {
-                        linkToUserlistFollowersOther(e);
-                      }}
-                      onKeyDown={(e) => {
-                        linkToUserlistFollowersOther(e);
-                      }}>
+                      onClick={linkToUserlistFollowersOther}
+                      onKeyDown={linkToUserlistFollowersOther}>
                       <span>{user.followers.length}</span> Followers
                     </div>
                   </div>{' '}

@@ -269,12 +269,8 @@ function PostItem({ postID, handleSetModalActive }) {
             src={postOwner.userpic}
             alt="user avatar"
             tabIndex={0}
-            onClick={(e) => {
-              linkToUserProfile(e);
-            }}
-            onKeyDown={(e) => {
-              linkToUserProfile(e);
-            }}
+            onClick={linkToUserProfile}
+            onKeyDown={linkToUserProfile}
           />
         </div>
         <div className="post-right-wrapper">
@@ -284,12 +280,8 @@ function PostItem({ postID, handleSetModalActive }) {
               className="post-author"
               role="link"
               tabIndex={0}
-              onClick={(e) => {
-                linkToUserProfile(e);
-              }}
-              onKeyDown={(e) => {
-                linkToUserProfile(e);
-              }}>
+              onClick={linkToUserProfile}
+              onKeyDown={linkToUserProfile}>
               @{postOwner.username}
             </div>
 

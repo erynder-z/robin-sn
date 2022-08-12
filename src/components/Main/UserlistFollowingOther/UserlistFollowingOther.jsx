@@ -63,19 +63,15 @@ function UserlistFollowingOther({ changeActiveTab, showWarning, userInView }) {
       </div>
       <div className="userlistFollow-content">
         <div className="userlistFollow">
-          <div className="users">
-            {userList?.length <= 0 && (
-              <div className="empty">
-                <BiSpaceBar size="3rem" />
-                <h4> empty...</h4>
-                <h5> @{userInView.username} is not following anybody...</h5>
-              </div>
-            )}
-            {userList &&
-              userList.map((user) => (
-                <SearchResultUser key={user.username.toString()} user={user} />
-              ))}
-          </div>
+          {userList?.length <= 0 && (
+            <div className="empty">
+              <BiSpaceBar size="3rem" />
+              <h4> empty...</h4>
+              <h5> @{userInView.username} is not following anybody...</h5>
+            </div>
+          )}
+          {userList &&
+            userList.map((user) => <SearchResultUser key={user.username.toString()} user={user} />)}
         </div>
       </div>
     </div>
