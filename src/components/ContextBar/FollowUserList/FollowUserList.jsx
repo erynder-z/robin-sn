@@ -37,10 +37,10 @@ function FollowUserList({ showWarning, follow, unFollow }) {
           });
         }
 
-        // return only 25 random users
+        // return only 15 random users
         const createLimitedUserlist = (userlist) => {
-          if (userlist.length > 25) {
-            while (userlist.length > 25) {
+          if (userlist.length > 15) {
+            while (userlist.length > 15) {
               const random = Math.floor(Math.random() * userlist.length);
               // eslint-disable-next-line no-unused-expressions
               userlist.splice(random, 1)[0];
