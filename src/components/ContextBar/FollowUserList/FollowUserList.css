@@ -28,6 +28,7 @@
 
 .userlist-header {
   justify-content: center;
+  background-color: #3d3f4a;
   color: var(--button);
   position: sticky;
   top: 0;
