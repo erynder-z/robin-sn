@@ -5,7 +5,7 @@ const parseHashtag = async (text) => {
   const hashify = (txt) => {
     const hashtagArray = [];
     /*  txt.replace(/(?<=#)\S+\b/g, (ht) => { */
-    txt.replace(/#[A-Za-z0-9_]+/, (ht) => {
+    txt.replace(/\B#\w\w+\b/g, (ht) => {
       hashtagArray.push(ht.substring(1).toLowerCase());
     });
     return hashtagArray;
