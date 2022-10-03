@@ -38,7 +38,7 @@ function Reply({ postID, replyMode, toggleReplyModal, postOwner, setReplyEffect 
 
   // adds reply to the post object
   const reply = async (pID) => {
-    if (text !== '') {
+    if (text !== '' && text.length <= 120) {
       try {
         const replyID = uniqid();
         const docRef = doc(database, 'posts', pID);

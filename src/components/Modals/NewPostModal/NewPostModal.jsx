@@ -105,7 +105,7 @@ function NewPostModal({ toggleNewPostModal, showOverlayEffect, showWarning }) {
 
   // creates the post in the database
   const submitPost = async () => {
-    if (text !== '') {
+    if (text !== '' && text.length <= 120) {
       const hashtagArray = await parseHashtag(text);
       const mentionArray = await parseMention(text);
 
@@ -135,7 +135,7 @@ function NewPostModal({ toggleNewPostModal, showOverlayEffect, showWarning }) {
       }
       showOverlayEffect('Posting');
     } else {
-      showWarning('Enter a message!');
+      showWarning('Enter a message up to 122 characters!');
     }
   };
 
